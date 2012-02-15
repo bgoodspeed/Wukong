@@ -1,0 +1,1 @@
+gcc -o pyr PyramidStack.c ChipmunkDemo.c ChipmunkDebugDraw.c -I /usr/local/include/chipmunk -std=c99 -lchipmunk -lm -lGL -lGLU -lglut

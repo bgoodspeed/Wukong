@@ -1,0 +1,36 @@
+# -*- ruby -*-
+
+require 'rubygems'
+require 'hoe'
+require 'rake/testtask'
+HOE = Hoe.spec 'ripmunk' do
+  developer('Ben Goodspeed', 'b.goodspeed@gmail.com')
+  self.readme_file   = 'README.rdoc'
+  self.history_file  = 'CHANGELOG.rdoc'
+  self.extra_rdoc_files  = FileList['*.rdoc']
+  self.extra_dev_deps << ['rake-compiler', '>= 0']
+  self.spec_extras = { :extensions => ["ext/ripmunk/extconf.rb"] }
+end
+
+require "rake/extensiontask"
+
+Rake::ExtensionTask.new(HOE.name, HOE.spec) do |ext|
+  ext.lib_dir = File.join('lib', 'ripmunk')
+end
+
+
+Rake::TestTask.new do |t|
+  t.pattern = "test/*_test.rb"
+end
+
+Rake::Task[:test].prerequisites << :compile
+require 'cucumber/rake/task'
+
+Cucumber::Rake::Task.new do |t|
+  t.libs << ['lib']
+  t.cucumber_opts = %w{--format pretty}
+end
+
+Rake::Task[:default].prerequisites << :test
+Rake::Task[:default].prerequisites << :cucumber
+# vim: syntax=ruby

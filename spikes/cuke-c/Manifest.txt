@@ -1,0 +1,8 @@
+CHANGELOG.rdoc
+Manifest.txt
+README.rdoc
+Rakefile
+ext/ripmunk/extconf.rb
+ext/ripmunk/ripmunk.c
+lib/ripmunk.rb
+test/ripmunk_test.rb
