@@ -1,0 +1,22 @@
+name: trivial
+measurements:
+  width: 640
+  height: 480
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+

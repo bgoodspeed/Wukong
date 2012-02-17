@@ -1,0 +1,15 @@
+source :rubygems
+source "http://rubygems.org"
+
+gem "hoe"
+gem "opengl"
+gem "gosu"
+gem "texplay"
+gem "rake-compiler"
+gem "rdoc"
+gem "devil"
+gem "chunky_png"
+
+
+gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
+gem "cucumber", :git => "git://github.com/cucumber/cucumber.git"

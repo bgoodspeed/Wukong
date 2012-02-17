@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.ruby.rubyproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/ruby-project/1">
+            <name>SunWukong</name>
+            <source-roots>
+                <root id="src.game-data.dir"/>
+                <root id="src.ext.dir"/>
+                <root id="src.lib.dir"/>
+            </source-roots>
+            <test-roots>
+                <root id="test.test-data.dir"/>
+                <root id="test.features.dir"/>
+                <root id="test.test.dir"/>
+            </test-roots>
+        </data>
+    </configuration>
+</project>
