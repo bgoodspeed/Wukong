@@ -4,13 +4,4 @@
         <code-model-enabled>true</code-model-enabled>
     </code-assistance-data>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/home/bg/src/chipmunk/mine/pyr/Player.c</file>
-        <file>file:/home/bg/src/chipmunk/mine/pyr/ChipmunkDebugDraw.h</file>
-        <file>file:/home/bg/src/chipmunk/mine/pyr/ChipmunkDebugDraw.c</file>
-        <file>file:/home/bg/src/chipmunk/mine/pyr/game.h</file>
-        <file>file:/home/bg/src/chipmunk/mine/pyr/ChipmunkDemo.c</file>
-        <file>file:/home/bg/src/chipmunk/mine/pyr/ChipmunkDemo.h</file>
-        <file>file:/home/bg/src/chipmunk/mine/pyr/Makefile</file>
-    </open-files>
 </project-private>

@@ -71,6 +71,9 @@ class Player
         @score += 10
         @beep.play
         true
+        if @score >= 500 then
+          close
+        end
       else
         false
       end

@@ -7,7 +7,7 @@ gem "gosu"
 gem "texplay"
 gem "rake-compiler"
 gem "rdoc"
-gem "devil"
+gem "devil", :platforms => [:ruby, :mingw]
 gem "chunky_png"
 
 
