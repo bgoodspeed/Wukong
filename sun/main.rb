@@ -1,8 +1,9 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
-require 'ripmunk/ripmunk'
+$: << "lib"
 
-module Ripmunk
-  VERSION = '1.0.0'
-end
+require "screen"
+s = Screen.new(640, 480)
+s.show
+

@@ -11,8 +11,12 @@ class GameWindow < Gosu::Window
     puts ("update screen/window")
   end
 
+  def custom_green
+    Gosu::Color.argb(0xff55b053)
+  end
+  
   def draw
-    puts "draw screen"
+    draw_quad(0, 0, custom_green, 0, 480, custom_green, 640, 480, custom_green, 640, 0, custom_green)
   end
 
 end
@@ -30,5 +34,9 @@ class Screen
     @window.draw
     
     @window.screenshot.save(name)
+  end
+
+  def show
+    @window.show
   end
 end

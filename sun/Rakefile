@@ -14,16 +14,8 @@ end
 
 require "rake/extensiontask"
 
-Rake::ExtensionTask.new(HOE.name, HOE.spec) do |ext|
-  ext.lib_dir = File.join('lib', 'ripmunk')
-end
 
 
-Rake::TestTask.new do |t|
-  t.pattern = "test/*_test.rb"
-end
-
-Rake::Task[:test].prerequisites << :compile
 require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new do |t|
@@ -31,6 +23,5 @@ Cucumber::Rake::Task.new do |t|
   t.cucumber_opts = %w{--format progress}
 end
 
-Rake::Task[:default].prerequisites << :test
 Rake::Task[:default].prerequisites << :cucumber
 # vim: syntax=ruby
