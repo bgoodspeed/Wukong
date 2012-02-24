@@ -37,13 +37,16 @@ include PNGComparer
 PERFECT_MATCH = 0
 
 def compare_goldmaster(screenshot, goldmaster)
-  #diff_images(screenshot, goldmaster)
-  diff_images("test-data/tapir.png", "test-data/tapir_hat.png")
+  diff_images(screenshot, goldmaster)
+  
 end
 
 Then /^I it should match the goldmaster "([^"]*)"$/ do |name|
-
-  rv = compare_goldmaster(@screenshot_path, "test-data/goldmasters/#{name}")
-  (rv <= PERFECT_MATCH).should == true
+  ss = @screenshot_path
+  gm = "test-data/goldmasters/#{name}"
+  rv = compare_goldmaster(ss, gm)
+  expected = "Comparing screenshot: #{ss} with #{gm} got 0% different"
+  actual = "Comparing screenshot: #{ss} with #{gm} got #{rv}% different"
+  actual.should == expected
 end
 
