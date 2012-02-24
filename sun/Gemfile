@@ -9,6 +9,7 @@ gem "rake-compiler"
 gem "rdoc"
 gem "devil"
 gem "chunky_png"
+gem "chipmunk"
 
 
 gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"

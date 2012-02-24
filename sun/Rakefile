@@ -28,7 +28,7 @@ require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new do |t|
   t.libs << ['lib']
-  t.cucumber_opts = %w{--format pretty}
+  t.cucumber_opts = %w{--format progress}
 end
 
 Rake::Task[:default].prerequisites << :test

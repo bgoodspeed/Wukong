@@ -34,6 +34,7 @@ class Game
   end
 
   def render_one_frame
+    @level.draw(@screen)
     
   end
 

@@ -33,15 +33,17 @@ When /^I take a screenshot named "([^"]*)"$/ do |name|
 end
 
 include PNGComparer
-@@PERFECT_MATCH = 0
+
+PERFECT_MATCH = 0
 
 def compare_goldmaster(screenshot, goldmaster)
-  diff_images(screenshot, goldmaster)
+  #diff_images(screenshot, goldmaster)
+  diff_images("test-data/tapir.png", "test-data/tapir_hat.png")
 end
 
 Then /^I it should match the goldmaster "([^"]*)"$/ do |name|
 
   rv = compare_goldmaster(@screenshot_path, "test-data/goldmasters/#{name}")
-  (rv <= @@PERFECT_MATCH).should == true
+  (rv <= PERFECT_MATCH).should == true
 end
 

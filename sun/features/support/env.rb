@@ -10,6 +10,7 @@ require 'rspec-expectations'
 #end
 
 require 'game'
+require 'spatial_hash'
 #module CustomGameMatchers
 #class ScreenshotMatcher
 #  def initialize(expected)
