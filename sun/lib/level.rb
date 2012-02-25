@@ -6,6 +6,11 @@ class LineSegment
   def initialize(sx,sy,ex,ey)
     @sx,@sy,@ex,@ey = sx,sy,ex,ey
   end
+
+  def draw(screen)
+    screen.draw_line(@sx, @sy, Gosu::Color::BLACK, @ex, @ey, Gosu::Color::BLACK)
+  end
+
 end
 
 class CollisionHandlerChipmunk
@@ -27,10 +32,11 @@ class SpaceWrapper
     @space.add_shape(shape)
     #shape = CP::SegmentShape.new(body, v1, v2, 1.0)
   end
+
 end
 
 class Level
-  attr_accessor :measurements, :line_segments, :triangles, :circles, :rectangles
+  attr_accessor :measurements, :line_segments, :triangles, :circles, :rectangles, :dynamic_elements
   def initialize
     @space = SpaceWrapper.new
     @measurements = []
@@ -38,6 +44,7 @@ class Level
     @triangles = []
     @circles = []
     @rectangles = []
+    @dynamic_elements = []
   end
 
   def add_line_segment(sx,sy, ex, ey)
@@ -49,7 +56,11 @@ class Level
     [@line_segments, @triangles, @circles, @rectangles].flatten
   end
 
+  def add_player(player)
+    @dynamic_elements << player
+  end
   def draw(screen)
-    puts "draw level"
+    static_bodies.each {|body| body.draw(screen)}
+    dynamic_elements.each {|body| body.draw(screen)}
   end
 end
