@@ -25,6 +25,12 @@ class Game
     @level
   end
 
+  def set_player(player)
+    @player = player
+    @level.set_player(player)
+
+  end
+
   def set_screen_size(width, height)
     @screen.set_size(width, height)
   end

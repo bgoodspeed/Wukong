@@ -56,7 +56,13 @@ class Level
     [@line_segments, @triangles, @circles, @rectangles].flatten
   end
 
+  def set_player(player)
+    @dynamic_elements.reject!{|elem| elem == @player}
+    add_player(player)
+  end
+
   def add_player(player)
+    @player = player
     @dynamic_elements << player
   end
   def draw(screen)
