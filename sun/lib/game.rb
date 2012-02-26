@@ -15,7 +15,7 @@ class Game
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
     @player_loader = PlayerLoader.new(self)
     @level_loader = LevelLoader.new
-    
+    @keys = {}
   end
 
   def load_level(level_name)
@@ -38,10 +38,28 @@ class Game
   def draw
     render_one_frame
   end
+
+  @@UP = "Up"
+  @@RIGHT = "Right"
+  @@TURN_SPEED = 90 #TODO this is probably too fast, need to set a framerate and have a clock
+  @@MOVEMENT_DISTANCE = 1 #TODO this is probably too fast, need to set a framerate and have a clock
+  def update
+    if @keys[@@RIGHT]
+      @player.turn(@@TURN_SPEED)
+    end
+    if @keys[@@UP]
+      @player.move_forward(@@MOVEMENT_DISTANCE)
+    end
+  end
   def render_one_frame
-    
     @level.draw(@screen)
-    
+  end
+
+  def set_key_to_active(key)
+    @keys[key] = true
+  end
+  def active_keys
+    @keys
   end
 
   def player_position
