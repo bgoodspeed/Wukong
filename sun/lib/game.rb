@@ -41,9 +41,11 @@ class Game
 
   @@UP = "Up"
   @@RIGHT = "Right"
+  @@LEFT = "Left"
+  @@DOWN = "Down"
   @@TURN_SPEED = 90 #TODO this is probably too fast, need to set a framerate and have a clock
   @@MOVEMENT_DISTANCE = 1 #TODO this is probably too fast, need to set a framerate and have a clock
-  def update
+  def update_game_state
     if @keys[@@RIGHT]
       @player.turn(@@TURN_SPEED)
     end
@@ -51,6 +53,23 @@ class Game
       @player.move_forward(@@MOVEMENT_DISTANCE)
     end
   end
+
+  #TODO hackish :(
+  def update_key_state
+    if button_down? Gosu::KbLeft or button_down? Gosu::GpLeft then
+      set_key_to_active(@@LEFT)
+    end
+    if button_down? Gosu::KbRight or button_down? Gosu::GpRight then
+      set_key_to_active(@@RIGHT)
+    end
+    if button_down? Gosu::KbUp or button_down? Gosu::GpButton0 then
+      set_key_to_active(@@UP)
+    end
+    if button_down? Gosu::KbDown or button_down? Gosu::GpButton1 then
+      set_key_to_active(@@DOWN)
+    end
+  end
+
   def render_one_frame
     @level.draw(@screen)
   end
