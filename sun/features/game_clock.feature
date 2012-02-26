@@ -1,3 +1,4 @@
+@slow
 Feature: Game Clock
   In order to play the game
   As a player

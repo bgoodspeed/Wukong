@@ -4,13 +4,14 @@ require 'level'
 require 'screen'
 require 'player'
 require 'clock'
+require 'heads_up_display'
 
 require 'loaders/player_loader'
 require 'loaders/level_loader'
 
 class Game
 
-  attr_accessor :player, :clock
+  attr_accessor :player, :clock, :hud
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
@@ -18,6 +19,7 @@ class Game
     @level_loader = LevelLoader.new
     @keys = {}
     @clock = Clock.new(dependencies[:framerate])
+    @hud = HeadsUpDisplay.new(self)
   end
 
   def load_level(level_name)
@@ -79,6 +81,7 @@ class Game
 
   def render_one_frame
     @level.draw(@screen)
+    @hud.draw(@screen)
   end
 
   def set_key_to_active(key)

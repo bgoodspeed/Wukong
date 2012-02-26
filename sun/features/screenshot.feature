@@ -20,3 +20,16 @@ Feature: Game Description
     And I take a screenshot named "movement-capture.png"
     Then the player should be at position 50,0
     And I it should match the goldmaster "movement.png"
+
+  Scenario: Trivial Level HUD
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I set the HUD text to:
+    """
+    line one
+    line two
+    etc
+    last line
+    """
+    When I see the first frame
+    And I take a screenshot named "hud-capture.png"
+    Then I it should match the goldmaster "hud.png"
