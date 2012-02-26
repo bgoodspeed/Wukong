@@ -53,4 +53,7 @@ class Screen
   def draw_line(*args)
     @window.draw_line(*args)
   end
+  def button_down?(button)
+    @window.button_down?(button)
+  end
 end

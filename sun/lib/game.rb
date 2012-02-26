@@ -3,19 +3,21 @@
 require 'level'
 require 'screen'
 require 'player'
+require 'clock'
 
 require 'loaders/player_loader'
 require 'loaders/level_loader'
 
 class Game
 
-  attr_accessor :player
+  attr_accessor :player, :clock
   def initialize(deps = {})
-    dependencies = deps
+    dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
     @player_loader = PlayerLoader.new(self)
     @level_loader = LevelLoader.new
     @keys = {}
+    @clock = Clock.new(dependencies[:framerate])
   end
 
   def load_level(level_name)
@@ -54,8 +56,13 @@ class Game
     end
   end
 
+  def button_down?(button)
+    @screen.button_down?(button)
+  end
+
   #TODO hackish :(
   def update_key_state
+
     if button_down? Gosu::KbLeft or button_down? Gosu::GpLeft then
       set_key_to_active(@@LEFT)
     end
@@ -99,5 +106,15 @@ class Game
   end
   def show
     @screen.show
+  end
+
+  def simulate
+    @clock.tick
+    update_key_state
+    update_game_state
+    draw
+    while @clock.current_frame_too_fast? do
+      # TODO NOOP, could sleep to free up CPU time
+    end
   end
 end
