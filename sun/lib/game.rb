@@ -3,6 +3,7 @@
 require 'level'
 require 'screen'
 require 'player'
+require 'enemy'
 
 require 'loaders/player_loader'
 require 'loaders/level_loader'
