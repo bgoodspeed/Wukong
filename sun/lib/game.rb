@@ -3,40 +3,96 @@
 require 'level'
 require 'screen'
 require 'player'
+<<<<<<< HEAD
 require 'enemy'
+=======
+require 'clock'
+require 'heads_up_display'
+>>>>>>> b259c3fcb718a1eddf8f8adff08e8151722576e9
 
 require 'loaders/player_loader'
 require 'loaders/level_loader'
 
 class Game
-  def self.default_dependencies
-    {
-      :level_loader => LevelLoader.new,
-      :player_loader => PlayerLoader.new,
-    }
-  end
 
+  attr_accessor :player, :clock, :hud
   def initialize(deps = {})
-    dependencies = Game.default_dependencies.merge(deps)
-    @player_loader = dependencies[:player_loader]
-    @level_loader = dependencies[:level_loader]
-    @screen = Screen.new(dependencies[:width], dependencies[:height])
+    dependencies = {:framerate => 60}.merge(deps)
+    @screen = Screen.new(self, dependencies[:width], dependencies[:height])
+    @player_loader = PlayerLoader.new(self)
+    @level_loader = LevelLoader.new
+    @keys = {}
+    @clock = Clock.new(dependencies[:framerate])
+    @hud = HeadsUpDisplay.new(self)
   end
 
   def load_level(level_name)
     @level = @level_loader.load_level(level_name)
     @player = @player_loader.load_player
-    # @level.add_player(@player)
+    @level.add_player(@player)
     @level
+  end
+
+  def set_player(player)
+    @player = player
+    @level.set_player(player)
+
   end
 
   def set_screen_size(width, height)
     @screen.set_size(width, height)
   end
 
+  def draw
+    render_one_frame
+  end
+
+  @@UP = "Up"
+  @@RIGHT = "Right"
+  @@LEFT = "Left"
+  @@DOWN = "Down"
+  @@TURN_SPEED = 90 #TODO this is probably too fast, need to set a framerate and have a clock
+  @@MOVEMENT_DISTANCE = 1 #TODO this is probably too fast, need to set a framerate and have a clock
+  def update_game_state
+    if @keys[@@RIGHT]
+      @player.turn(@@TURN_SPEED)
+    end
+    if @keys[@@UP]
+      @player.move_forward(@@MOVEMENT_DISTANCE)
+    end
+  end
+
+  def button_down?(button)
+    @screen.button_down?(button)
+  end
+
+  #TODO hackish :(
+  def update_key_state
+
+    if button_down? Gosu::KbLeft or button_down? Gosu::GpLeft then
+      set_key_to_active(@@LEFT)
+    end
+    if button_down? Gosu::KbRight or button_down? Gosu::GpRight then
+      set_key_to_active(@@RIGHT)
+    end
+    if button_down? Gosu::KbUp or button_down? Gosu::GpButton0 then
+      set_key_to_active(@@UP)
+    end
+    if button_down? Gosu::KbDown or button_down? Gosu::GpButton1 then
+      set_key_to_active(@@DOWN)
+    end
+  end
+
   def render_one_frame
     @level.draw(@screen)
-    
+    @hud.draw(@screen)
+  end
+
+  def set_key_to_active(key)
+    @keys[key] = true
+  end
+  def active_keys
+    @keys
   end
 
   def player_position
@@ -44,6 +100,28 @@ class Game
   end
 
   def capture_screenshot(name)
+    @screen.draw
+    @screen.flush
     @screen.capture_screenshot(name)
+  end
+
+  def dynamic_elements
+    @level.dynamic_elements
+  end
+  def window
+    @screen.window
+  end
+  def show
+    @screen.show
+  end
+
+  def simulate
+    @clock.tick
+    update_key_state
+    update_game_state
+    draw
+    while @clock.current_frame_too_fast? do
+      # TODO NOOP, could sleep to free up CPU time
+    end
   end
 end

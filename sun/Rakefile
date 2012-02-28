@@ -5,6 +5,7 @@ require 'hoe'
 require 'rake/testtask'
 HOE = Hoe.spec 'ripmunk' do
   developer('Ben Goodspeed', 'b.goodspeed@gmail.com')
+  self.version   = '0.1.0'
   self.readme_file   = 'README.rdoc'
   self.history_file  = 'CHANGELOG.rdoc'
   self.extra_rdoc_files  = FileList['*.rdoc']
@@ -22,6 +23,16 @@ Cucumber::Rake::Task.new do |t|
   t.libs << ['lib']
   t.cucumber_opts = %w{--format progress}
 end
+
+Cucumber::Rake::Task.new("fast_specs") do |t|
+  t.libs << ['lib']
+  t.cucumber_opts = %w{--format progress --tags ~@slow}
+end
+Cucumber::Rake::Task.new("slow_specs") do |t|
+  t.libs << ['lib']
+  t.cucumber_opts = %w{--format progress --tags @slow}
+end
+
 
 Rake::Task[:default].prerequisites << :cucumber
 # vim: syntax=ruby

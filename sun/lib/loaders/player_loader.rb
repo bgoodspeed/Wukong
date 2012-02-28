@@ -2,11 +2,17 @@
 # and open the template in the editor.
 
 class PlayerLoader
-  def initialize
-    
+  def initialize(game)
+    @game = game
+  end
+
+  def config
+    {
+      'avatar' => "game-data/sprites/avatar.png"
+    }
   end
 
   def load_player
-    Player.new
+    Player.new(config['avatar'], @game.window)
   end
 end
