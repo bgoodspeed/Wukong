@@ -14,8 +14,8 @@ When /^I turn to the right (\d+) degrees$/ do |turn_sweep|
   @player.turn(turn_sweep.to_i)
 end
 
-When /^I move forward one step$/ do
-  @player.move_forward(1)
+When /^I move forward (\d+) step$/ do |steps|
+  @player.move_forward(steps.to_i)
 end
 
 
@@ -43,7 +43,10 @@ end
 class Array
   def within_epsilon_of?(other, epsilon = 0.0005)
     self.each_with_index do |this_value, index|
-      return false if (this_value.to_f - other[index].to_f).abs > epsilon
+      if (this_value.to_f - other[index].to_f).abs > epsilon
+        puts "Expected #{self} to be within #{epsilon} of #{other}"
+        return false
+      end
     end
   end
 end
@@ -54,3 +57,6 @@ Then /^the player should be at position (\d+),(\d+)$/ do |x, y|
 end
 
 
+Then /^the player radius should be (\d+)$/ do |radius|
+  @player.radius.should == radius.to_i
+end

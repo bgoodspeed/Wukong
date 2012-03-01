@@ -14,7 +14,8 @@ When /^I override the y prime to (\d+)$/ do |arg1|
   @spatial_hash.y_prime = arg1.to_i
 end
 When /^I add data "([^"]*)" at \((\d+), (\d+)\)$/ do |data, x, y|
-  @spatial_hash.insert_data_at(data, [x.to_i, y.to_i])
+  
+  @spatial_hash.insert_data_at(SimpleCircle.new(data, [x.to_i, y.to_i]), [x.to_i, y.to_i])
 end
 
 Then /^the cell coordinate for vertex (\d+),(\d+) is (\d+),(\d+)$/ do |vx, vy, i, j|
@@ -51,3 +52,13 @@ Then /^asking for collision candidates yields:$/ do |table|
   end
 end
 
+Then /^asking for collision pairs yields:$/ do |table|
+  table.map_column!('center_x') {|a| a.to_i}
+  table.map_column!('center_y') {|a| a.to_i}
+  table.map_column!('radius') {|a| a.to_i}
+  table.hashes.each do |h|
+    data = @spatial_hash.collisions(h['radius'], [h['center_x'], h['center_y']])
+
+    data.join(",").should == h['candidate_data']
+  end
+end

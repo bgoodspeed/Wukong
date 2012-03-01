@@ -3,14 +3,15 @@
 
 class Player
   MAX_TURN_DEGREES = 360
-  attr_reader :position, :direction
+  attr_reader :position, :direction, :radius
   attr_accessor :step_size
   def initialize(avatar, window)
     @avatar = Gosu::Image.new(window, avatar, false)
     @avatar.clear :dest_select => transparency_color
-    @position = [0,0]
+    @position = [@avatar.width/2.0, @avatar.height/2.0]
     @direction = 0
     @step_size = 1
+    @radius = [@avatar.width/2.0, @avatar.height/2.0].max
   end
 
   def transparency_color
@@ -31,6 +32,6 @@ class Player
     
   end
   def draw(screen)
-    @avatar.draw(@position[0], @position[1], 1)
+    @avatar.draw(@position[0] - @avatar.width/2.0, @position[1] - @avatar.height/2.0, 1)
   end
 end

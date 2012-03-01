@@ -10,7 +10,7 @@ Feature: Player Controls
     When I press "Right"
     And I press "Up"
     And I update the game state
-    Then the player should be at position 25,0
+    Then the player should be at position 61,36
     And the following keys should be active: "Right,Up"
 
   Scenario: Mocking Gosu Input

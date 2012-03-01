@@ -1,13 +1,23 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
+
+require 'utility_vector_math'
+class Array
+  include ArrayVectorOperations
+end
+
 require 'level'
 require 'screen'
 require 'player'
 require 'clock'
 require 'heads_up_display'
 
+
+
 require 'loaders/player_loader'
 require 'loaders/level_loader'
+
+
 
 class Game
 
@@ -56,6 +66,9 @@ class Game
     if @keys[@@UP]
       @player.move_forward(@@MOVEMENT_DISTANCE)
     end
+
+    @level.check_for_collisions
+
   end
 
   def button_down?(button)
@@ -117,7 +130,7 @@ class Game
     update_game_state
     draw
     while @clock.current_frame_too_fast? do
-      # TODO NOOP, could sleep to free up CPU time
+      # TODO NOOP, could sleep to free up CPU cycles
     end
   end
 end

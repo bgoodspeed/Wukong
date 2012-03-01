@@ -24,6 +24,11 @@ Cucumber::Rake::Task.new do |t|
   t.cucumber_opts = %w{--format progress}
 end
 
+Cucumber::Rake::Task.new("named_specs") do |t|
+  t.libs << ['lib']
+  t.cucumber_opts = "--format progress --name \"#{ARGV[1]}\""
+end
+
 Cucumber::Rake::Task.new("fast_specs") do |t|
   t.libs << ['lib']
   t.cucumber_opts = %w{--format progress --tags ~@slow}

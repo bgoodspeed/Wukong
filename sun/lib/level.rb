@@ -11,6 +11,26 @@ class LineSegment
     screen.draw_line(@sx, @sy, Gosu::Color::BLACK, @ex, @ey, Gosu::Color::BLACK)
   end
 
+  def collides_with_circle?(radius, vertex)
+    return false
+    #TODO fix this
+#    seg_v = [@sx - @ex, @sy - @ey]
+#    seg_v_len = seg_v.dot_product(seg_v)
+#    pt_v = vertex.add_to([-@sx,-@sy])
+#
+#    proj_v_len = pt_v.dot_product(seg_v.unit)
+#    proj_v = seg_v.unit.multiply_by(proj_v_len)
+#    if proj_v_len < 0
+#      closest = [@sx, @sy]
+#    elsif proj_v_len > seg_v_len
+#      closest = [@ex, @ey]
+#    else
+#      closest = [@sx, @sy].add_to(proj_v)
+#    end
+#
+#    dist_v = vertex.add_to(closest.multiply_by(-1))
+#    dist_v.dot_product(dist_v) < radius
+  end
 end
 
 class CollisionHandlerChipmunk
@@ -37,6 +57,7 @@ end
 
 class Level
   attr_accessor :measurements, :line_segments, :triangles, :circles, :rectangles, :dynamic_elements
+  @@CELL_SIZE = 10
   def initialize
     @space = SpaceWrapper.new
     @measurements = []
@@ -45,11 +66,16 @@ class Level
     @circles = []
     @rectangles = []
     @dynamic_elements = []
+    @spatial_hash = SpatialHash.new(@@CELL_SIZE)
+    
   end
 
   def add_line_segment(sx,sy, ex, ey)
-    @line_segments << LineSegment.new(sx,sy,ex,ey)
-    @space.add_segment(LineSegment.new(sx,sy,ex,ey))
+    segment = LineSegment.new(sx,sy,ex,ey)
+    @line_segments << segment
+    @spatial_hash.insert_data_at(segment, [segment.sx, segment.sy])
+    @spatial_hash.insert_data_at(segment, [segment.ex, segment.ey])
+    @space.add_segment(segment)
   end
 
   def static_bodies
@@ -68,5 +94,11 @@ class Level
   def draw(screen)
     static_bodies.each {|body| body.draw(screen)}
     dynamic_elements.each {|body| body.draw(screen)}
+  end
+
+  def check_for_collisions
+    collisions = @spatial_hash.collisions(@player.radius, @player.position)
+    puts "got #{collisions.size} collisions" if collisions.size > 0
+    collisions 
   end
 end

@@ -1,17 +1,40 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
+## To change this template, choose Tools | Templates
+## and open the template in the editor.
+#
 
-class Array
-  def vx
-    self[0]
+class SimpleCircle
+  def initialize(data, position, radius = 1)
+    @data = data
+    @position = position
+    @radius = radius
   end
-  def vy
-    self[1]
+
+  def to_s
+    @data
   end
-  def add_to(other)
-    rv = []
-    self.each_with_index {|value, idx| rv[idx] = value + other[idx] }
-    rv
+
+  def collides_with_circle?(radius, vertex)
+    pv = @position.plus(vertex.scale(-1))
+    pv.norm <= (@radius + radius)
+  end
+end
+
+class Collider
+  @@CHECKS = {
+    SimpleCircle => lambda {|candidate, radius, vertex| candidate.collides_with_circle?(radius, vertex)},
+    LineSegment => lambda {|candidate, radius, vertex| candidate.collides_with_circle?(radius, vertex)}
+  }
+  def checks
+    @@CHECKS
+  end
+  def check_for(type)
+    c = checks[type]
+    raise "No such type checker: #{type}" unless c
+    c
+  end
+  def check_for_collision(radius, vertex, candidate)
+    circle_check = check_for(candidate.class)
+    circle_check.call(candidate, radius, vertex)
   end
 end
 
@@ -25,6 +48,7 @@ class SpatialHash
     @x_prime = 73856093
     @y_prime = 19349663
     @base_table_size = 100
+    @collider = Collider.new
     @data = []
   end
 
@@ -46,23 +70,33 @@ class SpatialHash
     end
     @data[idx]
   end
-  
-  def candidates(radius, vertex)
+
+  def candidate_hashes(radius, vertex)
     hashes = []
-    
-    hashes << spatial_hash(cell_index_for(vertex.add_to([ radius, radius])))
-    hashes << spatial_hash(cell_index_for(vertex.add_to([ 0     , radius])))
-    hashes << spatial_hash(cell_index_for(vertex.add_to([-radius, radius])))
-    hashes << spatial_hash(cell_index_for(vertex.add_to([radius, 0])))
+
+    hashes << spatial_hash(cell_index_for(vertex.plus([ radius, radius])))
+    hashes << spatial_hash(cell_index_for(vertex.plus([ 0     , radius])))
+    hashes << spatial_hash(cell_index_for(vertex.plus([-radius, radius])))
+    hashes << spatial_hash(cell_index_for(vertex.plus([radius, 0])))
     hashes << spatial_hash(cell_index_for(vertex))
-    hashes << spatial_hash(cell_index_for(vertex.add_to([-radius, 0])))
-    hashes << spatial_hash(cell_index_for(vertex.add_to([ radius, -radius])))
-    hashes << spatial_hash(cell_index_for(vertex.add_to([ 0     , -radius])))
-    hashes << spatial_hash(cell_index_for(vertex.add_to([-radius, -radius])))
-    hashes.uniq!
+    hashes << spatial_hash(cell_index_for(vertex.plus([-radius, 0])))
+    hashes << spatial_hash(cell_index_for(vertex.plus([ radius, -radius])))
+    hashes << spatial_hash(cell_index_for(vertex.plus([ 0     , -radius])))
+    hashes << spatial_hash(cell_index_for(vertex.plus([-radius, -radius])))
+    hashes.uniq
+
+  end
+  def candidates(radius, vertex)
+    hashes = candidate_hashes(radius, vertex)
     data = hashes.collect do |idx|
       data_at(idx)
     end
     data.select {|d| !(d.nil? or d.empty?)}
+  end
+
+  def collisions(radius, vertex)
+    candidates(radius, vertex).flatten.select do |candidate|
+      @collider.check_for_collision(radius, vertex, candidate)
+    end
   end
 end
