@@ -62,10 +62,11 @@ end
 
 module Primitives
   class Circle
-    attr_accessor :position, :radius
+    attr_accessor :position, :radius, :user_data
     def initialize(position, radius)
       @position = position
       @radius = radius
+      @user_data = nil #TODO reconsider this design? should the circle belong to a data holder?
     end
     def to_s; "Circle #{@position}:#{@radius}"; end
   end
@@ -75,6 +76,10 @@ module Primitives
       @p1 = p1
       @p2 = p2
     end
+    def sx; @p1.vx; end
+    def sy; @p1.vy; end
+    def ex; @p2.vx; end
+    def ey; @p2.vy; end
     def to_s; "Lineseg #{@p1}:#{@p2}"; end
   end
 
@@ -182,30 +187,3 @@ module PrimitiveIntersectionTests
   end
 end
 
-#class Array
-#  def add_to(other)
-#    rv = []
-#    self.each_with_index {|value, idx| rv[idx] = value + other[idx] }
-#    rv
-#  end
-#  def multiply_by(scalar)
-#    self.collect {|i| i*scalar}
-#  end
-#  def dot_product_squared
-#    dpv = self.collect {|a| a*a}
-#    dpv.foldl(:+, 0)
-#  end
-#  def foldl(op, m=nil)
-#    inject(m) {|m, i| m ? m.send(op, i) : i}
-#  end
-#
-#  def unit
-#    multiply_by(dot_product(self))
-#  end
-#
-#  def dot_product(other)
-#    rv = []
-#    self.each_with_index {|value, idx| rv[idx] = value * other[idx] }
-#    Math.sqrt(rv.foldl(:+, 0).abs)
-#  end
-#end

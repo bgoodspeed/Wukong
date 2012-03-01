@@ -6,6 +6,7 @@ class Array
   include ArrayVectorOperations
 end
 
+require 'utility_drawing'
 require 'level'
 require 'screen'
 require 'player'

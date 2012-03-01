@@ -2,27 +2,12 @@
 ## and open the template in the editor.
 #
 
-class SimpleCircle
-  def initialize(data, position, radius = 1)
-    @data = data
-    @position = position
-    @radius = radius
-  end
 
-  def to_s
-    @data
-  end
-
-  def collides_with_circle?(radius, vertex)
-    pv = @position.plus(vertex.scale(-1))
-    pv.norm <= (@radius + radius)
-  end
-end
-
+include PrimitiveIntersectionTests
 class Collider
   @@CHECKS = {
-    SimpleCircle => lambda {|candidate, radius, vertex| candidate.collides_with_circle?(radius, vertex)},
-    LineSegment => lambda {|candidate, radius, vertex| candidate.collides_with_circle?(radius, vertex)}
+    Primitives::Circle => lambda {|circle, circle2| circle_circle_intersection?(circle, circle2) },
+    Primitives::LineSegment => lambda {|circle, lineseg| circle_line_segment_intersection?(circle, lineseg) }
   }
   def checks
     @@CHECKS
@@ -32,9 +17,9 @@ class Collider
     raise "No such type checker: #{type}" unless c
     c
   end
-  def check_for_collision(radius, vertex, candidate)
+  def check_for_collision(circle, candidate)
     circle_check = check_for(candidate.class)
-    circle_check.call(candidate, radius, vertex)
+    circle_check.call(circle, candidate)
   end
 end
 
@@ -96,7 +81,8 @@ class SpatialHash
 
   def collisions(radius, vertex)
     candidates(radius, vertex).flatten.select do |candidate|
-      @collider.check_for_collision(radius, vertex, candidate)
+      circle = Primitives::Circle.new(vertex, radius)
+      @collider.check_for_collision(circle, candidate)
     end
   end
 end
