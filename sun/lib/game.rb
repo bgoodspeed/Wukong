@@ -13,6 +13,7 @@ require 'utility_drawing'
 require 'spatial_hash'
 require 'level'
 require 'screen'
+require 'weapon'
 require 'player'
 require 'clock'
 require 'heads_up_display'
@@ -20,6 +21,7 @@ require 'collision_responder'
 require 'way_finding'
 require 'artificial_intelligence'
 require 'animation_manager'
+
 
 
 
@@ -64,10 +66,12 @@ class Game
     render_one_frame
   end
 
+  #TODO abstract these somewhere
   @@UP = "Up"
   @@RIGHT = "Right"
   @@LEFT = "Left"
   @@DOWN = "Down"
+  @@FIRE = "Fire"
   @@TURN_SPEED = 90
   @@MOVEMENT_DISTANCE = 1
   
@@ -92,6 +96,13 @@ class Game
     end
     if @keys[@@DOWN]
       @player.move_forward(-movement_distance)
+    end
+    if @keys[@@FIRE]
+      @player.use_weapon
+    end
+
+    if weapon_in_use?
+      @player.tick_weapon
     end
 
     @animation_manager.tick
@@ -119,6 +130,9 @@ class Game
     end
     if button_down? Gosu::KbDown or button_down? Gosu::GpButton1 then
       set_key_to_active(@@DOWN)
+    end
+    if button_down? Gosu::KbSpace then
+      set_key_to_active(@@FIRE)
     end
   end
 
@@ -157,6 +171,9 @@ class Game
     @screen.show
   end
 
+  def weapon_in_use?
+    @player.weapon_in_use?
+  end
   def update_all
     @clock.tick
     clear_keys
@@ -167,6 +184,10 @@ class Game
   def simulate
     update_all
     draw
+    #TODO bad fit this should be managed by the animation mgr?
+    if weapon_in_use?
+      @player.draw_weapon
+    end
     while @clock.current_frame_too_fast? do
       # TODO NOOP, could sleep to free up CPU cycles
     end

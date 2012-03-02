@@ -5,7 +5,7 @@ class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
   attr_reader :direction, :radius
-  attr_accessor :step_size, :position
+  attr_accessor :step_size, :position, :weapon
   def initialize(avatar, window)
     @avatar = Gosu::Image.new(window, avatar, false)
     @avatar.clear :dest_select => transparency_color
@@ -14,8 +14,23 @@ class Player
     @step_size = 1
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil
+    @weapon = nil
   end
 
+  def use_weapon
+    @weapon.use
+  end
+
+  def draw_weapon
+    @weapon.draw
+  end
+  def tick_weapon
+    @weapon.tick
+  end
+  def weapon_in_use?
+    
+    !@weapon.nil? and @weapon.in_use?
+  end
 
   def turn(direction)
     @direction = ((@direction + direction) % MAX_TURN_DEGREES)

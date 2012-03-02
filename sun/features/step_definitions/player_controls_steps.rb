@@ -32,3 +32,7 @@ end
 When /^I update the key state$/ do
   @game.update_key_state
 end
+
+Then /^the player weapon should be in use$/ do
+  @game.should be_weapon_in_use
+end
