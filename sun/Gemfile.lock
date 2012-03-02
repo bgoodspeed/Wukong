@@ -46,6 +46,7 @@ GEM
       rake
     rdoc (3.12)
       json (~> 1.4)
+    statemachine (2.0.1)
     term-ansicolor (1.0.7)
     texplay (0.4.2)
       gosu (>= 0.7.25)
@@ -66,4 +67,5 @@ DEPENDENCIES
   rake-compiler
   rdoc
   rspec-expectations!
+  statemachine
   texplay

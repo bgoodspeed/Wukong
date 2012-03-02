@@ -1,11 +1,14 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
+require 'statemachine'
+
 require 'utility_vector_math'
 class Array
   include ArrayVectorOperations
 end
 
+require 'zorder'
 require 'utility_drawing'
 require 'level'
 require 'screen'
@@ -13,6 +16,7 @@ require 'player'
 require 'clock'
 require 'heads_up_display'
 require 'collision_responder'
+require 'artificial_intelligence'
 
 
 
@@ -60,8 +64,8 @@ class Game
   @@RIGHT = "Right"
   @@LEFT = "Left"
   @@DOWN = "Down"
-  @@TURN_SPEED = 90 #TODO this is probably too fast, need to set a framerate and have a clock
-  @@MOVEMENT_DISTANCE = 1 #TODO this is probably too fast, need to set a framerate and have a clock
+  @@TURN_SPEED = 90 #TODO this is probably too fast
+  @@MOVEMENT_DISTANCE = 1 #TODO this is probably too fast
   def update_game_state
     if @keys[@@RIGHT]
       @player.turn(@@TURN_SPEED)

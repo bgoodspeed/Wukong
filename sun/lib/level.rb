@@ -70,7 +70,7 @@ class Level
 
   include UtilityDrawing
   def draw_function_for(elem)
-    mapping = {Primitives::LineSegment => lambda {|screen, linesegment| draw_line_segment(screen, linesegment) }}
+    mapping = {Primitives::LineSegment => lambda {|screen, linesegment| draw_line_segment(screen, linesegment, ZOrder.static.value) }}
     raise "Unknown draw function for #{elem.class}" unless mapping.has_key?(elem.class)
     mapping[elem.class]
   end

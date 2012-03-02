@@ -16,7 +16,7 @@ class HeadsUpDisplay
   @@Y_SPACING = 10
   def draw(screen)
     @lines.each_with_index do |line, index|
-      @font.draw(line, @@X_SPACING, @@Y_SPACING * (index + 1), 3 ) #TODO ZOrder
+      @font.draw(line, @@X_SPACING, @@Y_SPACING * (index + 1), ZOrder.hud.value ) 
     end
   end
 end
