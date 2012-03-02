@@ -99,6 +99,19 @@ Then /^I should be able to take the dot product of the following vectors$/ do |t
 
 end
 
+Then /^I should be able to get distance between two vectors$/ do |table|
+  table.map_column!('vector1') { |vs| to_vector(vs) }
+  table.map_column!('vector2') { |vs| to_vector(vs) }
+  table.map_column!('expected_distance') { |vs| vs.to_f }
+  table.hashes.each {|hash|
+    v1 = hash['vector1']
+    v2 = hash['vector2']
+    expected = hash['expected_distance']
+    diff = v1.distance_from(v2)
+    diff.should be_near(expected)
+  }
+end
+
 Then /^I should be able to get the length of the following vectors$/ do |table|
   table.map_column!('vector') { |vs| to_vector(vs) }
   table.map_column!('expected_length') { |vs| vs.to_f }

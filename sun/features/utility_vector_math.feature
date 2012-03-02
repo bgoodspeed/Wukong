@@ -30,6 +30,16 @@ Feature: Vector Math
       | 2.3,4.2 | -2.2,1  | -0.86                |
       | 10,20   | 2,7     | 160                  |
 
+  Scenario: Vector Distance Apart
+    Given we import vector math on arrays
+    Then I should be able to get distance between two vectors
+      | vector1 | vector2 | expected_distance |
+      | 0,0     | 0,0     | 0                 |
+      | 0,0     | 1,0     | 1                 |
+      | 0,0     | 2,0     | 2                 |
+      | 0,0     | 0,2     | 2                 |
+      | 0,0     | 4,3     | 5                 |
+
   Scenario: Vector Length
     Given we import vector math on arrays
     Then I should be able to get the length of the following vectors

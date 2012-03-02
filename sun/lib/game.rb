@@ -16,6 +16,7 @@ require 'player'
 require 'clock'
 require 'heads_up_display'
 require 'collision_responder'
+require 'way_finding'
 require 'artificial_intelligence'
 
 

@@ -13,9 +13,6 @@ class ArtificialIntelligence
     @state_machine.state
   end
 
-  def available_events
-    
-  end
   def trigger_event(event)
     @state_machine.send(event)
   end

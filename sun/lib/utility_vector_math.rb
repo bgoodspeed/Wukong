@@ -39,6 +39,10 @@ module ArrayVectorOperations
 
     scale(scale_factor)
   end
+  def distance_from(other)
+    v = self.minus(other)
+    v.norm
+  end
 
   def scale(factor)
     collect {|val| val * factor }
