@@ -79,12 +79,19 @@ class Game
     @movement_distance.nil? ? @@MOVEMENT_DISTANCE : @movement_distance
   end
 
+
   def update_game_state
     if @keys[@@RIGHT]
       @player.turn(turn_speed)
     end
+    if @keys[@@LEFT]
+      @player.turn(-turn_speed)
+    end
     if @keys[@@UP]
       @player.move_forward(movement_distance)
+    end
+    if @keys[@@DOWN]
+      @player.move_forward(-movement_distance)
     end
 
     @animation_manager.tick

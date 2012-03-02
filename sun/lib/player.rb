@@ -42,6 +42,6 @@ class Player
   end
 
   def draw(screen)
-    @avatar.draw(@position[0] - @avatar.width/2.0, @position[1] - @avatar.height/2.0, 1)
+    @avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction)
   end
 end
