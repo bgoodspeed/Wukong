@@ -18,6 +18,7 @@ require 'heads_up_display'
 require 'collision_responder'
 require 'way_finding'
 require 'artificial_intelligence'
+require 'animation_manager'
 
 
 
@@ -28,13 +29,14 @@ require 'loaders/level_loader'
 
 class Game
 
-  attr_accessor :player, :clock, :hud
+  attr_accessor :player, :clock, :hud, :animation_manager
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
     @player_loader = PlayerLoader.new(self)
     @level_loader = LevelLoader.new
     @collision_responder = CollisionResponder.new(self)
+    @animation_manager = AnimationManager.new(self)
     @keys = {}
     @clock = Clock.new(dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
@@ -75,6 +77,7 @@ class Game
       @player.move_forward(@@MOVEMENT_DISTANCE)
     end
 
+    @animation_manager.tick
     collisions = @level.check_for_collisions
 
     @collision_responder.handle_collisions(collisions)
@@ -105,6 +108,7 @@ class Game
   def render_one_frame
     @level.draw(@screen)
     @hud.draw(@screen)
+    @animation_manager.draw(@screen)
   end
 
   def set_key_to_active(key)

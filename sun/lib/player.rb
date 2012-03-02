@@ -2,6 +2,7 @@
 # and open the template in the editor.
 
 class Player
+  include TransparencyUtils
   MAX_TURN_DEGREES = 360
   attr_reader :position, :direction, :radius
   attr_accessor :step_size
@@ -15,9 +16,6 @@ class Player
     @last_distance = nil
   end
 
-  def transparency_color
-    Gosu::Color.argb(0xffff00ff)
-  end
 
   def turn(direction)
     @direction = ((@direction + direction) % MAX_TURN_DEGREES)
@@ -31,6 +29,10 @@ class Player
     @last_distance = distance
   end
 
+  def animation_position_by_name(name)
+    raise "unknown animation #{name}" unless name =~ /attack/
+    @position.dup
+  end
   def undo_last_move
     unless @last_distance.nil?
       move_forward(-1 * @last_distance)
