@@ -8,7 +8,7 @@ Feature: Collision Detection
     And I set the player avatar to "avatar.png"
     And I set the player step size to 10
     And I set the game clock to 60 fps
-    When I simulate "Gosu::KbUp"
+    When I simulate "Gosu::KbUp,Gosu::KbLeft"
     And I run the game loop 2 times
     Then the player should be at position 36,36
 

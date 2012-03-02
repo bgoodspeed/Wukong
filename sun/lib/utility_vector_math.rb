@@ -71,10 +71,11 @@ module Primitives
     def to_s; "Circle #{@position}:#{@radius}"; end
   end
   class LineSegment
-    attr_accessor :p1, :p2
+    attr_accessor :p1, :p2, :user_data
     def initialize(p1, p2)
       @p1 = p1
       @p2 = p2
+      @user_data = nil #TODO reconsider this design
     end
     def sx; @p1.vx; end
     def sy; @p1.vy; end

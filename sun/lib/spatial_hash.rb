@@ -44,7 +44,14 @@ class SpatialHash
   def spatial_hash(discretized_vertex)
     (@x_prime * discretized_vertex.vx ^ @y_prime * discretized_vertex.vy) % @base_table_size
   end
-
+  def add_line_segment(data, ls)
+    lsv = ls.p1.minus(ls.p2)
+    lsu = lsv.unit
+    steps = (lsv.norm/@cell_size).ceil
+    steps.times do |step|
+      insert_data_at(data, lsu.scale(step * @cell_size))
+    end
+  end
   def insert_data_at(data, vertex)
     idx = spatial_hash(cell_index_for(vertex))
     data_at(idx) << data
@@ -76,13 +83,32 @@ class SpatialHash
     data = hashes.collect do |idx|
       data_at(idx)
     end
-    data.select {|d| !(d.nil? or d.empty?)}
+    cands = data.select {|d| !(d.nil? or d.empty?)}
+    cands.flatten!
+    filter_ghosts(cands)
   end
 
+  def filter_ghosts(cands)
+    rv = []
+    cands.each {|cand|
+      matches = rv.select {|r| game_equal?(r, cand)}
+      if matches.empty?
+        rv << cand
+      end
+    }
+    rv
+  end
+  
+  def game_equal?(a, b)
+    a == b
+  end
+
+  # TODO should this be all collisions? likely faster
   def collisions(radius, vertex)
     candidates(radius, vertex).flatten.select do |candidate|
       circle = Primitives::Circle.new(vertex, radius)
-      @collider.check_for_collision(circle, candidate)
+      rv = @collider.check_for_collision(circle, candidate)
+      rv
     end
   end
 end

@@ -44,10 +44,11 @@ class Array
   def within_epsilon_of?(other, epsilon = 0.0005)
     self.each_with_index do |this_value, index|
       if (this_value.to_f - other[index].to_f).abs > epsilon
-        puts "Expected #{self} to be within #{epsilon} of #{other}"
+        raise "Expected #{self} to be within #{epsilon} of #{other}"
         return false
       end
     end
+    true
   end
 end
 

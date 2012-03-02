@@ -12,6 +12,7 @@ require 'screen'
 require 'player'
 require 'clock'
 require 'heads_up_display'
+require 'collision_responder'
 
 
 
@@ -28,6 +29,7 @@ class Game
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
     @player_loader = PlayerLoader.new(self)
     @level_loader = LevelLoader.new
+    @collision_responder = CollisionResponder.new(self)
     @keys = {}
     @clock = Clock.new(dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
@@ -68,7 +70,9 @@ class Game
       @player.move_forward(@@MOVEMENT_DISTANCE)
     end
 
-    @level.check_for_collisions
+    collisions = @level.check_for_collisions
+
+    @collision_responder.handle_collisions(collisions)
 
   end
 

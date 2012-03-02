@@ -12,6 +12,7 @@ class Player
     @direction = 0
     @step_size = 1
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
+    @last_distance = nil
   end
 
   def transparency_color
@@ -26,11 +27,17 @@ class Player
     mv = []
     mv[0] = Gosu::offset_x(@direction, distance * @step_size)
     mv[1] = Gosu::offset_y(@direction, distance * @step_size)
-    #move = mv.collect {|m| m * distance}
-    @position[0] = @position[0] + mv[0]
-    @position[1] = @position[1] + mv[1]
-    
+    @position = @position.plus(mv)
+    @last_distance = distance
   end
+
+  def undo_last_move
+    unless @last_distance.nil?
+      move_forward(-1 * @last_distance)
+      @last_distance = nil
+    end
+  end
+
   def draw(screen)
     @avatar.draw(@position[0] - @avatar.width/2.0, @position[1] - @avatar.height/2.0, 1)
   end

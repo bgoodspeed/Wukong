@@ -55,7 +55,7 @@ Then /^asking for collision candidates yields:$/ do |table|
   table.hashes.each do |h|
     datas = @spatial_hash.candidates(h['radius'], [h['center_x'], h['center_y']])
     datas.flatten!
-    data = datas.collect {|d| d.user_data}
+    data = datas.collect {|d| (d.kind_of?(String) or d.kind_of?(Symbol)) ? d.to_s : d.user_data }
 
     
     data.join(",").should == h['candidate_data']
@@ -71,4 +71,10 @@ Then /^asking for collision pairs yields:$/ do |table|
     data = data_objs.collect {|data_obj| data_obj.user_data}
     data.join(",").should == h['candidate_data']
   end
+end
+
+When /^I add line segment (\d+),(\d+):(\d+),(\d+) with data "([^"]*)"$/ do |lssx, lssy, lsex, lsey, data|
+  ls = Primitives::LineSegment.new([lssx.to_f, lssy.to_f], [lsex.to_f, lsey.to_f])
+  ls.user_data = data
+  @spatial_hash.add_line_segment(ls, ls)
 end

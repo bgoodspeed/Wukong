@@ -2,6 +2,14 @@
 # and open the template in the editor.
 
 
+class StaticCollision
+  attr_reader :static, :dynamic
+  def initialize(dynamic, static)
+    @dynamic = dynamic
+    @static = static
+  end
+end
+
 class CollisionHandlerChipmunk
 
 end
@@ -42,8 +50,7 @@ class Level
   def add_line_segment(sx,sy, ex, ey)
     segment = Primitives::LineSegment.new([sx,sy],[ex,ey])
     @line_segments << segment
-    @spatial_hash.insert_data_at(segment, [segment.sx, segment.sy])
-    @spatial_hash.insert_data_at(segment, [segment.ex, segment.ey])
+    @spatial_hash.add_line_segment(segment, segment)
     @space.add_segment(segment)
   end
 
@@ -72,9 +79,9 @@ class Level
     dynamic_elements.each {|body| body.draw(screen)}
   end
 
+  #TODO this is really check for player collisions...
   def check_for_collisions
-    collisions = @spatial_hash.collisions(@player.radius, @player.position)
-    puts "got #{collisions.size} collisions" if collisions.size > 0
-    collisions 
+    cols = @spatial_hash.collisions(@player.radius, @player.position)
+    cols.collect {|col| StaticCollision.new(@player, col)}
   end
 end
