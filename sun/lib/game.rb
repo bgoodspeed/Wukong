@@ -10,6 +10,7 @@ end
 
 require 'zorder'
 require 'utility_drawing'
+require 'spatial_hash'
 require 'level'
 require 'screen'
 require 'player'
@@ -29,7 +30,7 @@ require 'loaders/level_loader'
 
 class Game
 
-  attr_accessor :player, :clock, :hud, :animation_manager
+  attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed, :movement_distance
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
@@ -67,14 +68,23 @@ class Game
   @@RIGHT = "Right"
   @@LEFT = "Left"
   @@DOWN = "Down"
-  @@TURN_SPEED = 90 #TODO this is probably too fast
-  @@MOVEMENT_DISTANCE = 1 #TODO this is probably too fast
+  @@TURN_SPEED = 90
+  @@MOVEMENT_DISTANCE = 1
+  
+  def turn_speed
+    @turn_speed.nil? ? @@TURN_SPEED : @turn_speed
+  end
+
+  def movement_distance
+    @movement_distance.nil? ? @@MOVEMENT_DISTANCE : @movement_distance
+  end
+
   def update_game_state
     if @keys[@@RIGHT]
-      @player.turn(@@TURN_SPEED)
+      @player.turn(turn_speed)
     end
     if @keys[@@UP]
-      @player.move_forward(@@MOVEMENT_DISTANCE)
+      @player.move_forward(movement_distance)
     end
 
     @animation_manager.tick
@@ -117,7 +127,9 @@ class Game
   def active_keys
     @keys
   end
-
+  def clear_keys
+    @keys = {}
+  end
   def player_position
     @player.position
   end
@@ -138,10 +150,15 @@ class Game
     @screen.show
   end
 
-  def simulate
+  def update_all
     @clock.tick
+    clear_keys
     update_key_state
     update_game_state
+
+  end
+  def simulate
+    update_all
     draw
     while @clock.current_frame_too_fast? do
       # TODO NOOP, could sleep to free up CPU cycles

@@ -9,7 +9,7 @@ class GameWindow < Gosu::Window
   end
 
   def update
-    puts ("update screen/window")
+    @game.update_all
   end
 
   def custom_green

@@ -4,12 +4,12 @@
 class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
-  attr_reader :position, :direction, :radius
-  attr_accessor :step_size
+  attr_reader :direction, :radius
+  attr_accessor :step_size, :position
   def initialize(avatar, window)
     @avatar = Gosu::Image.new(window, avatar, false)
     @avatar.clear :dest_select => transparency_color
-    @position = [@avatar.width/2.0, @avatar.height/2.0]
+    @position = [@avatar.width/2.0, @avatar.height/2.0 ]
     @direction = 0
     @step_size = 1
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
@@ -22,6 +22,7 @@ class Player
   end
 
   def move_forward(distance)
+
     mv = []
     mv[0] = Gosu::offset_x(@direction, distance * @step_size)
     mv[1] = Gosu::offset_y(@direction, distance * @step_size)
