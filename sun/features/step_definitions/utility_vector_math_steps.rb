@@ -27,8 +27,12 @@ class BeNear
   def matches?(target)
     @target = target
     raise "size mismatch" unless @target.size == @expected.size
-    @target.each_with_index do |v, idx| 
-      raise failure_message_for_should if (v - @expected[idx]).abs > @max_delta
+    @target.each_with_index do |v, idx|
+      if (v - @expected[idx]).abs > @max_delta
+        #puts failure_message_for_should
+        return false
+      end
+      
     end
     true
   end
@@ -42,8 +46,10 @@ end
 
 class Float
   def near?(other, max_delta=0.005)
-    raise "expected s=#{self} to be within #{max_delta} of o=#{other}" if (self - other).abs > max_delta
-    true
+    cond = (self - other).abs > max_delta
+    puts "expected s=#{self} to be within #{max_delta} of o=#{other}" if cond
+
+    !cond
   end
 end
 

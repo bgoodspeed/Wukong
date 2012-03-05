@@ -21,6 +21,7 @@ require 'collision_responder'
 require 'way_finding'
 require 'artificial_intelligence'
 require 'animation_manager'
+require 'path_following_manager'
 
 
 

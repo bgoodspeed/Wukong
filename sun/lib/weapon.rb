@@ -17,7 +17,8 @@ class Weapon
   
   #TODO bad fit, this shouldn't have to care about drawing, things are not being composed correctly
   def draw
-    puts "draw weapon based on frame, swing start, player offset etc"
+
+    # puts "draw weapon based on frame, swing start, player offset etc"
   end
 
   def in_use?
