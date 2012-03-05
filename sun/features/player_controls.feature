@@ -36,7 +36,6 @@ Feature: Player Controls
     And I set the player weapon with image "weapon.png"
     And I set the player weapon start to -45
     And I set the player weapon sweep to 90
-    And I set the player weapon frames to 60
     When I press "Fire"
     And I update the game state
     Then the player weapon should be in use

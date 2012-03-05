@@ -2,19 +2,13 @@
 # and open the template in the editor.
 
 class Weapon
-  attr_accessor :swing_start , :swing_sweep ,  :swing_frames 
+  attr_accessor :swing_start , :swing_sweep ,  :swing_frames, :image_path
 
   def initialize(game, image)
-    
-    @image = Gosu::Image.new(game.window, image)
+    @image_path = image
     @swing_start = 0
     @swing_sweep = 0
     @swing_frames = 0
-    @frame = 0
-  end
-
-  def tick
-    @frame += 1
   end
 
   def use
@@ -28,8 +22,5 @@ class Weapon
 
   def in_use?
     @in_use
-  end
-  def frame
-    @frame
   end
 end

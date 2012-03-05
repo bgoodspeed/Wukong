@@ -6,8 +6,9 @@ class Player
   MAX_TURN_DEGREES = 360
   attr_reader :direction, :radius
   attr_accessor :step_size, :position, :weapon
-  def initialize(avatar, window)
-    @avatar = Gosu::Image.new(window, avatar, false)
+  def initialize(avatar, game)
+    @game = game
+    @avatar = Gosu::Image.new(@game.window, avatar, false)
     @avatar.clear :dest_select => transparency_color
     @position = [@avatar.width/2.0, @avatar.height/2.0 ]
     @direction = 0
@@ -31,6 +32,11 @@ class Player
     
     !@weapon.nil? and @weapon.in_use?
   end
+  def equip_weapon(w)
+    @weapon = w
+    @game.load_animation(self, "weapon", @weapon.image_path, 24, 24, false) #TODO hardcoded values
+  end
+
 
   def turn(direction)
     @direction = ((@direction + direction) % MAX_TURN_DEGREES)
@@ -46,7 +52,7 @@ class Player
   end
 
   def animation_position_by_name(name)
-    raise "unknown animation #{name}" unless name =~ /attack/
+    raise "programmer error: unknown animation #{name}" unless name =~ /attack/ or name =~ /weapon/
     @position.dup
   end
   def undo_last_move

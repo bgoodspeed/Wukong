@@ -13,6 +13,6 @@ class PlayerLoader
   end
 
   def load_player
-    Player.new(config['avatar'], @game.window)
+    Player.new(config['avatar'], @game)
   end
 end

@@ -58,6 +58,10 @@ class Game
 
   end
 
+  def load_animation(entity, name, animation, w, h, tiles)
+    @animation_manager.load_animation(entity, name, animation, w, h, tiles)
+  end
+
   def set_screen_size(width, height)
     @screen.set_size(width, height)
   end
@@ -99,10 +103,6 @@ class Game
     end
     if @keys[@@FIRE]
       @player.use_weapon
-    end
-
-    if weapon_in_use?
-      @player.tick_weapon
     end
 
     @animation_manager.tick
