@@ -29,7 +29,7 @@ class BeNear
     raise "size mismatch" unless @target.size == @expected.size
     @target.each_with_index do |v, idx|
       if (v - @expected[idx]).abs > @max_delta
-        #puts failure_message_for_should
+        #puts failure_message_for_should #TODO sort this error reporting vs utility issue out
         return false
       end
       

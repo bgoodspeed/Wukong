@@ -9,11 +9,14 @@ class Animation
 
   end
 
+  def frames
+    @gosu_anim.size
+  end
   def image
-    @gosu_anim[@animation_index % @gosu_anim.size]
+    @gosu_anim[@animation_index % frames]
   end
   def tick
-    @animation_index += 1
+    @animation_index =  (@animation_index + 1 ) % frames
   end
 end
 
