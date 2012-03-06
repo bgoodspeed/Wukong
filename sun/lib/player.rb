@@ -17,7 +17,9 @@ class Player
     @last_distance = nil
     @weapon = nil
   end
-
+  def inactivate_weapon
+    @weapon.inactivate
+  end
   def use_weapon
     @weapon.use
   end

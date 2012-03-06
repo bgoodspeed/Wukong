@@ -2,23 +2,28 @@
 # and open the template in the editor.
 
 class Weapon
-  attr_accessor :swing_start , :swing_sweep ,  :swing_frames, :image_path
+  attr_accessor :swing_start , :swing_sweep ,  :swing_frames, :image_path, :type
 
   def initialize(game, image)
     @image_path = image
     @swing_start = 0
     @swing_sweep = 0
     @swing_frames = 0
+    @type = "swung"
     @game = game
   end
 
   def use
     unless @in_use
-      @game.add_projectile(@game.player.position, 180, 10)
+
+      #TODO use real orientation
+      @game.add_projectile(@game.player.position, 180, 10) unless @type == "swung"
     end
     @in_use = true
   end
-  
+  def inactivate
+    @in_use = false
+  end
   #TODO bad fit, this shouldn't have to care about drawing, things are not being composed correctly
   def draw
 

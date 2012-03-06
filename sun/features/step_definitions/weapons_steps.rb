@@ -12,6 +12,9 @@ end
 Given /^I set the player weapon sweep to (\d+)$/ do |sw|
   @weapon.swing_start = sw.to_i
 end
+Given /^I set the player weapon type to "([^"]*)"$/ do |weapon_type|
+  @weapon.type = weapon_type
+end
 
 
 When /^I use the weapon$/ do

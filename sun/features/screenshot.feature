@@ -59,8 +59,7 @@ Feature: Game Description
     And I set the player avatar to "avatar.png"
     And I create an animation manager with a ratio of one animation tick to 1 game ticks
     And I set the player weapon with image "weapon.png"
-    And I set the player weapon start to -45
-    And I set the player weapon sweep to 90
+    And I set the player weapon type to "projectile"
     And I set the game clock to 60 fps
     When I simulate "Gosu::KbSpace"
     And I run the game loop 3 times
