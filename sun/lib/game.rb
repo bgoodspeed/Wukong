@@ -33,7 +33,8 @@ require 'loaders/level_loader'
 
 class Game
 
-  attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed, :movement_distance
+  attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed, 
+    :movement_distance, :path_following_manager
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
@@ -41,6 +42,7 @@ class Game
     @level_loader = LevelLoader.new
     @collision_responder = CollisionResponder.new(self)
     @animation_manager = AnimationManager.new(self)
+    @path_following_manager = PathFollowingManager.new(self)
     @keys = {}
     @clock = Clock.new(dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
@@ -65,6 +67,18 @@ class Game
 
   def set_screen_size(width, height)
     @screen.set_size(width, height)
+  end
+
+
+  def add_projectile(start, theta, vel)
+    vf = @path_following_manager.add_projectile(start, theta, vel)
+    @level.add_projectile(vf)
+    vf
+  end
+
+  def remove_projectile(projectile)
+    @path_following_manager.remove_projectile(projectile)
+    @level.remove_projectile(projectile)
   end
 
   def draw
@@ -107,6 +121,7 @@ class Game
     end
 
     @animation_manager.tick
+    @path_following_manager.tick
     collisions = @level.check_for_collisions
 
     @collision_responder.handle_collisions(collisions)

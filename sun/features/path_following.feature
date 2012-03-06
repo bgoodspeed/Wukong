@@ -10,6 +10,8 @@ Feature: Path Following Details
     And I add a projectile starting at 0,0 from angle 180 at speed 1
     When I step the path following manager
     Then the projectile should be at 0,1
+    And the projectile collision radius should be 1
+    And the projectile collision center should be 0,1
 
   Scenario: Path Following - Projectiles
     Given I load the game on level "trivial" with screen size 640, 480

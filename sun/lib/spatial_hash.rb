@@ -5,21 +5,37 @@
 
 include PrimitiveIntersectionTests
 class Collider
-  @@CHECKS = {
+  @@CIRCLE_CHECKS = {
     Primitives::Circle => lambda {|circle, circle2| circle_circle_intersection?(circle, circle2) },
     Primitives::LineSegment => lambda {|circle, lineseg| circle_line_segment_intersection?(circle, lineseg) }
   }
-  def checks
-    @@CHECKS
+  @@LINE_SEGMENT_CHECKS = {
+    Primitives::LineSegment => lambda {|ls, ls2| line_segment_line_segment_intersection?(ls, ls2)}
+  }
+  def circle_checks
+    @@CIRCLE_CHECKS
+  end
+  def line_segment_checks
+    @@LINE_SEGMENT_CHECKS
   end
   def check_for(type)
-    c = checks[type]
+    c = circle_checks[type]
     raise "No such type checker: #{type}" unless c
     c
   end
   def check_for_collision(circle, candidate)
     circle_check = check_for(candidate.class)
     circle_check.call(circle, candidate)
+  end
+  def run_check_for(elem, candidate)
+    raise "unknown type #{elem}" unless elem.class == VectorFollower
+    cp = elem.current_position
+    #ls = Primitives::LineSegment.new(cp, cp.plus(elem.vector)  ) #TODO migth have to be p-v, p rather than p, p+v
+    ls = Primitives::LineSegment.new(cp.minus(elem.scaled_vector.scale(-1)), cp  ) #TODO migth have to be p-v, p rather than p, p+v
+    line_segment_checks[candidate.class].call(ls, candidate)
+  end
+  def check_for_collision_by_type(elem, candidate)
+    run_check_for(elem, candidate)
   end
 end
 
@@ -104,11 +120,36 @@ class SpatialHash
   end
 
   # TODO should this be all collisions? likely faster
-  def collisions(radius, vertex)
+  def player_collisions(radius, vertex)
     candidates(radius, vertex).flatten.select do |candidate|
       circle = Primitives::Circle.new(vertex, radius)
       rv = @collider.check_for_collision(circle, candidate)
       rv
     end
+  end
+
+  def collision_radius_for(elem)
+    m = { VectorFollower => lambda {|elem| elem.collision_radius}}
+    raise "collision radius needed for #{elem}" unless m.has_key?(elem.class)
+    m[elem.class].call(elem)
+  end
+  def collision_center_for(elem)
+    m = { VectorFollower => lambda {|elem| elem.collision_center}}
+    raise "collision center needed for #{elem}" unless m.has_key?(elem.class)
+    m[elem.class].call(elem)
+  end
+
+  #TODO this can be done all at once rather than N passes (just iterate over the space buckets)
+  def dynamic_collisions(elems)
+    
+    rv = []
+    elems.each do |elem|
+      cs = candidates(collision_radius_for(elem), collision_center_for(elem)).flatten.select do|candidate|
+        
+        @collider.check_for_collision_by_type(elem, candidate)
+      end
+      rv += cs.collect {|cand| [elem, cand]}
+    end
+    rv
   end
 end

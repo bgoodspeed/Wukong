@@ -31,6 +31,8 @@ Feature: Player Controls
 
   Scenario: Mapping input to movements and actions firing weapons
     Given I load the game on level "trivial" with screen size 640, 480
+    And I create an animation manager with a ratio of one animation tick to 1 game ticks
+    And I create the path following manager
     And I set the player avatar to "avatar.png"
     And I set the player step size to 25
     And I set the player weapon with image "weapon.png"
@@ -39,3 +41,7 @@ Feature: Player Controls
     When I press "Fire"
     And I update the game state
     Then the player weapon should be in use
+    Then there should be projectiles at:
+      | expected_position |
+      | 36,46             |
+

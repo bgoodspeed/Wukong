@@ -12,3 +12,16 @@ Feature: Collision Detection
     And I run the game loop 2 times
     Then the player should be at position 36,36
 
+  Scenario: Projectile Collisions Destroyed By South Wall
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create the path following manager
+    And I set the player avatar to "avatar.png"
+    And I set the player step size to 10
+    And I set the player weapon with image "weapon.png"
+    And I set the game clock to 60 fps
+    When I simulate "Gosu::KbSpace"
+    And I run the game loop 50 times
+    Then there should be no projectiles
+
+
+

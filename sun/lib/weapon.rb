@@ -9,9 +9,13 @@ class Weapon
     @swing_start = 0
     @swing_sweep = 0
     @swing_frames = 0
+    @game = game
   end
 
   def use
+    unless @in_use
+      @game.add_projectile(@game.player.position, 180, 10)
+    end
     @in_use = true
   end
   

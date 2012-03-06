@@ -67,7 +67,7 @@ Then /^asking for collision pairs yields:$/ do |table|
   table.map_column!('center_y') {|a| a.to_i}
   table.map_column!('radius') {|a| a.to_i}
   table.hashes.each do |h|
-    data_objs = @spatial_hash.collisions(h['radius'], [h['center_x'], h['center_y']]) #TODO reconsider this design
+    data_objs = @spatial_hash.player_collisions(h['radius'], [h['center_x'], h['center_y']]) #TODO reconsider this design
     data = data_objs.collect {|data_obj| data_obj.user_data}
     data.join(",").should == h['candidate_data']
   end

@@ -309,3 +309,16 @@ Then /^I should be able to test intersection of the following rectangles and lin
   }
 
 end
+
+Then /^I should be able to test intersection of the following line segments$/ do |table|
+  table.map_column!('line_segment1') { |vs| to_line_segment(vs) }
+  table.map_column!('line_segment2') { |vs| to_line_segment(vs) }
+  table.map_column!('intersects?') { |vs| to_bool(vs) }
+  table.hashes.each {|hash|
+    ls1 = hash['line_segment1']
+    ls2 = hash['line_segment2']
+    expected = hash['intersects?']
+    rv = line_segment_line_segment_intersection?(ls1, ls2)
+    rv.should(be(expected), "Expected #{ls1} and #{ls2} intersect test to be #{expected}")
+  }
+end

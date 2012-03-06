@@ -147,6 +147,13 @@ Feature: Vector Math
       | -1,-1:-1,1:1,1:1,-1        | 0,1.1:2.2,2.2        | false       |
       | -1,-1:-1,1:1,1:1,-1        | 1.1,1.1:2.2,2.2      | false       |
 
+  Scenario: Line Segment Line Segment Intersection
+    Given we import vector math on arrays
+    Then I should be able to test intersection of the following line segments
+      | line_segment1              | line_segment2         | intersects? |
+      | 0,0:1,1                    | 2,2:3,3               | false       |
+      | 1,0:-1,0                   | 0,1:0,-1              | true        |
+
 
 
 

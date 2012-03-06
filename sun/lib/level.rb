@@ -53,6 +53,9 @@ class Level
     @spatial_hash.add_line_segment(segment, segment)
     @space.add_segment(segment)
   end
+  def add_projectile(p)
+    @dynamic_elements << p
+  end
 
   def static_bodies
     [@line_segments, @triangles, @circles, @rectangles].flatten
@@ -70,18 +73,28 @@ class Level
 
   include UtilityDrawing
   def draw_function_for(elem)
-    mapping = {Primitives::LineSegment => lambda {|screen, linesegment| draw_line_segment(screen, linesegment, ZOrder.static.value) }}
+    mapping = {Primitives::LineSegment => lambda {|screen, linesegment| draw_line_segment(screen, linesegment, ZOrder.static.value) },
+               Player => lambda {|screen, player| player.draw(screen) },
+               VectorFollower => lambda {|screen, player| nil }
+    }
     raise "Unknown draw function for #{elem.class}" unless mapping.has_key?(elem.class)
     mapping[elem.class]
   end
   def draw(screen)
     static_bodies.each {|body| draw_function_for(body).call(screen, body)}
-    dynamic_elements.each {|body| body.draw(screen)}
+    dynamic_elements.each {|body| draw_function_for(body).call(screen, body)}
+  end
+
+  def remove_projectile(p)
+    @dynamic_elements -= [p]
   end
 
   #TODO this is really check for player collisions...
   def check_for_collisions
-    cols = @spatial_hash.collisions(@player.radius, @player.position)
-    cols.collect {|col| StaticCollision.new(@player, col)}
+    cols = @spatial_hash.player_collisions(@player.radius, @player.position)
+    cols2 = @spatial_hash.dynamic_collisions(@dynamic_elements - [@player])
+    c1 = cols.collect {|col| StaticCollision.new(@player, col)}
+    c2 = cols2.collect {|col| StaticCollision.new(col.first, col.last)}
+    c1 + c2
   end
 end

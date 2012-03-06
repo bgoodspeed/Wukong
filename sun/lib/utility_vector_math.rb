@@ -190,5 +190,22 @@ module PrimitiveIntersectionTests
 
     true
   end
+
+  def line_segment_line_segment_intersection?(l1, l2)
+    d = (l2.ey - l2.sy) *  (l1.ex - l1.sx) - (l2.ex - l2.sx) * (l1.ey - l1.sy)
+    n_a = (l2.ex - l2.sx) * (l1.sy - l2.sy) - (l2.ey - l2.sy) * (l1.sx - l2.sx)
+    n_b = (l1.ex - l1.sx) * (l1.sy - l2.sy) - (l1.ey - l1.sy) * (l1.sx - l2.sx)
+
+    return false if (d == 0)
+    ua = n_a.to_f/d.to_f
+    ub = n_b.to_f/d.to_f
+    if (ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1)
+    #if (ua > 0 && ua < 1 && ub > 0 && ub < 1)
+      #       ptIntersection.X = L1.X1 + (ua * (L1.X2 - L1.X1));
+            #ptIntersection.Y = L1.Y1 + (ua * (L1.Y2 - L1.Y1));
+       return true
+    end
+    false
+  end
 end
 
