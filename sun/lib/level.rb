@@ -75,7 +75,10 @@ class Level
   def draw_function_for(elem)
     mapping = {Primitives::LineSegment => lambda {|screen, linesegment| draw_line_segment(screen, linesegment, ZOrder.static.value) },
                Player => lambda {|screen, player| player.draw(screen) },
-               VectorFollower => lambda {|screen, player| nil }
+               #TODO ugly, should this be here? not sure about design
+               VectorFollower => lambda {|screen, vf|
+                 d = 10
+                 draw_rectangle(screen, Primitives::Rectangle.new(vf.current_position, vf.current_position.plus([d,0]), vf.current_position.plus([d,d]), vf.current_position.plus([0,d])))}
     }
     raise "Unknown draw function for #{elem.class}" unless mapping.has_key?(elem.class)
     mapping[elem.class]

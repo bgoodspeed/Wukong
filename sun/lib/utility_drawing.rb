@@ -18,4 +18,13 @@ module UtilityDrawing
     img.draw(position.vx - img.width/2.0, position.vy - img.height/2.0, ZOrder.dynamic.value, 1, 1, transparency_color, :add )
     
   end
+
+  def draw_rectangle(screen, r)
+    screen.draw_quad(
+      r.p1.x, r.p1.y, Gosu::Color::BLACK,
+      r.p2.x, r.p2.y, Gosu::Color::BLACK,
+      r.p3.x, r.p3.y, Gosu::Color::BLACK,
+      r.p4.x, r.p4.y, Gosu::Color::BLACK
+    )
+  end
 end

@@ -50,6 +50,9 @@ class Screen
   def flush
     @window.flush
   end
+  def draw_quad(*args)
+    @window.draw_quad(*args)
+  end
   def draw_line(*args)
     @window.draw_line(*args)
   end
