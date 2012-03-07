@@ -14,7 +14,9 @@ When /^I override the y prime to (\d+)$/ do |arg1|
   @spatial_hash.y_prime = arg1.to_i
 end
 When /^I add data "([^"]*)" at \((\d+), (\d+)\)$/ do |data, x, y|
-  @spatial_hash.insert_data_at(data, [x.to_i, y.to_i])
+  circle = Primitives::Circle.new([x.to_i, y.to_i], 1)
+  circle.user_data = data
+  @spatial_hash.insert_data_at(circle, [x.to_i, y.to_i])
 end
 
 Then /^the cell coordinate for vertex (\d+),(\d+) is (\d+),(\d+)$/ do |vx, vy, i, j|
@@ -33,8 +35,14 @@ Then /^the data array looks like:$/ do |table|
   data = table.rows_hash
   data.each {|k,v|
     next unless k =~ /\d+/
-    vs = @spatial_hash.data[k.to_i]
-    rv = vs.nil? ? "" : vs.join(",")
+    vs = @spatial_hash.data[k.to_i] #TODO reconsider this design
+    if vs.nil?
+      rv = ""
+    else
+      rvs = vs.collect{|v| v.user_data}
+      rv = rvs.join(",")
+    end
+    
     rv.should == v
   }
   
@@ -45,9 +53,28 @@ Then /^asking for collision candidates yields:$/ do |table|
   table.map_column!('center_y') {|a| a.to_i}
   table.map_column!('radius') {|a| a.to_i}
   table.hashes.each do |h|
-    data = @spatial_hash.candidates(h['radius'], [h['center_x'], h['center_y']])
+    datas = @spatial_hash.candidates(h['radius'], [h['center_x'], h['center_y']])
+    datas.flatten!
+    data = datas.collect {|d| (d.kind_of?(String) or d.kind_of?(Symbol)) ? d.to_s : d.user_data }
+
     
     data.join(",").should == h['candidate_data']
   end
 end
 
+Then /^asking for collision pairs yields:$/ do |table|
+  table.map_column!('center_x') {|a| a.to_i}
+  table.map_column!('center_y') {|a| a.to_i}
+  table.map_column!('radius') {|a| a.to_i}
+  table.hashes.each do |h|
+    data_objs = @spatial_hash.player_collisions(h['radius'], [h['center_x'], h['center_y']]) #TODO reconsider this design
+    data = data_objs.collect {|data_obj| data_obj.user_data}
+    data.join(",").should == h['candidate_data']
+  end
+end
+
+When /^I add line segment (\d+),(\d+):(\d+),(\d+) with data "([^"]*)"$/ do |lssx, lssy, lsex, lsey, data|
+  ls = Primitives::LineSegment.new([lssx.to_f, lssy.to_f], [lsex.to_f, lsey.to_f])
+  ls.user_data = data
+  @spatial_hash.add_line_segment(ls, ls)
+end

@@ -8,7 +8,7 @@ Feature: Player Details
     And I set the player avatar to "avatar.png"
     When I see the first frame
     Then the player should be in the scene
-    And the player should be at position 0,0
+    And the player should be at position 36,36
     And the player should be facing "north"
 
   Scenario: Player Movement
@@ -17,6 +17,7 @@ Feature: Player Details
     And I set the player step size to 5
     When I see the first frame
     And I turn to the right 90 degrees
-    And I move forward one step
-    Then the player should be at position 5,0
+    And I move forward 1 step
+    Then the player should be at position 41,36
+    And the player radius should be 36
     And the player should be facing "east"

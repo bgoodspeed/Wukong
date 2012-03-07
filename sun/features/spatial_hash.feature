@@ -64,5 +64,34 @@ Feature: Data Structure for Storing Visual Data
         | 51       |51        | 1      | mid                    |
         | 55       |55        | 10     | mid,right,up,left,down |
 
+  Scenario: Collision Detection
+    Given I create a spatial hash with cell size 10
+    When I override the table size to 10
+    And I add data "mid" at (50, 50)
+    And I add data "left" at (40, 50)
+    And I add data "right" at (60, 50)
+    And I add data "up" at (50, 60)
+    And I add data "down" at (50, 40)
+    And I add data "down_left" at (40, 40)
+    Then asking for collision candidates yields:
+        | center_x | center_y | radius | candidate_data                   |
+        | 55       |55        | 10     | mid,right,up,left,down,down_left |
+    Then asking for collision pairs yields:
+        | center_x | center_y | radius | candidate_data                   |
+        | 55       |55        | 10     | mid,right,up                     |
+
         
 
+  Scenario: Collision Detection
+    Given I create a spatial hash with cell size 10
+    When I override the table size to 10
+    And I add line segment 0,0:0,480 with data "xfixed"
+    And I add line segment 0,0:640,0 with data "yfixed"
+    Then asking for collision candidates yields:
+        | center_x | center_y | radius | candidate_data         |
+        | 36       | 16       | 36     | xfixed,yfixed          |
+    Then asking for collision pairs yields:
+        | center_x | center_y | radius | candidate_data                   |
+        | 37       | 16       | 36     | yfixed                           |
+        | 36       | 16       | 36     | xfixed,yfixed                    |
+        

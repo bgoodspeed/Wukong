@@ -8,8 +8,16 @@ require "game"
 #s.show
 
 game = Game.new({:width => 640, :height => 480})
+game.movement_distance = 1
+game.turn_speed = 10
+
 game.load_level("test-data/levels/trivial/trivial.yml")
-game.player = Player.new("test-data/sprites/avatar.png", game.window)
+p = Player.new("test-data/sprites/avatar.png", game)
+w = Weapon.new(game, "test-data/equipment/weapon.png")
+w.type = "projectile"
+p.equip_weapon(w)
+p.position = [300,200]
+game.set_player(p)
 
 game.show
 

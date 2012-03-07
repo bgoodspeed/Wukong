@@ -6,4 +6,4 @@ Feature: Game Description
   Scenario: Trivial Level
     Given I load the game on level "trivial" with screen size 640, 480
     When I see the first frame
-    Then I should be at 0,0 in the game space
+    Then I should be at 36,36 in the game space

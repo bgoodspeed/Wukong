@@ -22,6 +22,18 @@ When /^I update the game state$/ do
   @game.update_game_state
 end
 
+#TODO redesign this input mocking mechanism
+When /^I run the game loop (\d+) times and clear the state after run (\d+)$/ do |total_loops, input_loops|
+  total_loops.to_i.times do |idx|
+    if idx == input_loops.to_i
+      #@game.stubs(:button_down?).returns false
+    end
+    @game.simulate
+  end
+
+end
+
+#TODO redesign this input mocking mechanism, kills things on win32
 When /^I simulate "([^"]*)"$/ do |gosu_buttons|
   values = gosu_buttons.split(",").collect {|button| eval(button)}
   @game.stubs(:button_down?).returns false
@@ -31,4 +43,8 @@ end
 
 When /^I update the key state$/ do
   @game.update_key_state
+end
+
+Then /^the player weapon should be in use$/ do
+  @game.should be_weapon_in_use
 end

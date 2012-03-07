@@ -1,22 +1,46 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
+
+require 'statemachine'
+
+require 'utility_vector_math'
+class Array
+  include ArrayVectorOperations
+end
+
+require 'zorder'
+require 'utility_drawing'
+require 'spatial_hash'
 require 'level'
 require 'screen'
+require 'weapon'
 require 'player'
 require 'enemy'
 require 'clock'
 require 'heads_up_display'
+require 'collision_responder'
+require 'way_finding'
+require 'artificial_intelligence'
+require 'animation_manager'
+require 'path_following_manager'
 require 'loaders/player_loader'
 require 'loaders/level_loader'
 
+
+
 class Game
 
-  attr_accessor :player, :clock, :hud, :enemy #TNT added :enemy
+  attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
+    :movement_distance, :path_following_manager, :enemy
+
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
     @player_loader = PlayerLoader.new(self)
     @level_loader = LevelLoader.new
+    @collision_responder = CollisionResponder.new(self)
+    @animation_manager = AnimationManager.new(self)
+    @path_following_manager = PathFollowingManager.new(self)
     @keys = {}
     @clock = Clock.new(dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
@@ -35,33 +59,80 @@ class Game
 
   end
 
+
   #TNT set_enemy
   def set_enemy (enemy)
     @enemy = enemy
     @level.set_enemy(enemy)
   end
 
+  def load_animation(entity, name, animation, w, h, tiles)
+    @animation_manager.load_animation(entity, name, animation, w, h, tiles)
+  end
+
   def set_screen_size(width, height)
     @screen.set_size(width, height)
+  end
+
+
+  def add_projectile(start, theta, vel)
+    vf = @path_following_manager.add_projectile(start, theta, vel)
+    @level.add_projectile(vf)
+    vf
+  end
+
+  def remove_projectile(projectile)
+    @path_following_manager.remove_projectile(projectile)
+    @level.remove_projectile(projectile)
+    @player.inactivate_weapon
   end
 
   def draw
     render_one_frame
   end
 
+  #TODO abstract these somewhere
   @@UP = "Up"
   @@RIGHT = "Right"
   @@LEFT = "Left"
   @@DOWN = "Down"
-  @@TURN_SPEED = 90 #TODO this is probably too fast, need to set a framerate and have a clock
-  @@MOVEMENT_DISTANCE = 1 #TODO this is probably too fast, need to set a framerate and have a clock
+  @@FIRE = "Fire"
+  @@TURN_SPEED = 90
+  @@MOVEMENT_DISTANCE = 1
+  
+  def turn_speed
+    @turn_speed.nil? ? @@TURN_SPEED : @turn_speed
+  end
+
+  def movement_distance
+    @movement_distance.nil? ? @@MOVEMENT_DISTANCE : @movement_distance
+  end
+
+
   def update_game_state
     if @keys[@@RIGHT]
-      @player.turn(@@TURN_SPEED)
+      @player.turn(turn_speed)
+    end
+    if @keys[@@LEFT]
+      @player.turn(-turn_speed)
     end
     if @keys[@@UP]
-      @player.move_forward(@@MOVEMENT_DISTANCE)
+      @player.move_forward(movement_distance)
     end
+    if @keys[@@DOWN]
+      @player.move_forward(-movement_distance)
+    end
+    if @keys[@@FIRE]
+      @player.use_weapon
+    end
+
+
+    @animation_manager.tick
+    @path_following_manager.tick
+    collisions = @level.check_for_collisions
+
+    @collision_responder.handle_collisions(collisions)
+
   end
 
   def button_down?(button)
@@ -83,11 +154,15 @@ class Game
     if button_down? Gosu::KbDown or button_down? Gosu::GpButton1 then
       set_key_to_active(@@DOWN)
     end
+    if button_down? Gosu::KbSpace then
+      set_key_to_active(@@FIRE)
+    end
   end
 
   def render_one_frame
     @level.draw(@screen)
     @hud.draw(@screen)
+    @animation_manager.draw(@screen)
   end
 
   def set_key_to_active(key)
@@ -96,7 +171,9 @@ class Game
   def active_keys
     @keys
   end
-
+  def clear_keys
+    @keys = {}
+  end
   def player_position
     @player.position
   end
@@ -117,13 +194,25 @@ class Game
     @screen.show
   end
 
-  def simulate
+  def weapon_in_use?
+    @player.weapon_in_use?
+  end
+  def update_all
     @clock.tick
+    clear_keys
     update_key_state
     update_game_state
+
+  end
+  def simulate
+    update_all
     draw
+    #TODO bad fit this should be managed by the animation mgr?
+    if weapon_in_use?
+      @player.draw_weapon
+    end
     while @clock.current_frame_too_fast? do
-      # TODO NOOP, could sleep to free up CPU time
+      # TODO NOOP, could sleep to free up CPU cycles
     end
   end
 end

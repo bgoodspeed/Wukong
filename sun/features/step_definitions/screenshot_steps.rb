@@ -22,6 +22,7 @@ module PNGComparer
     x, y = diff.map{ |xy| xy[0] }, diff.map{ |xy| xy[1] }
 
     images.last.rect(x.min, y.min, x.max, y.max, ChunkyPNG::Color.rgb(0,255,0))
+    File.delete(outfile) if File.exists?(outfile)
     images.last.save(outfile)
     pixels_changed_pct
   end
