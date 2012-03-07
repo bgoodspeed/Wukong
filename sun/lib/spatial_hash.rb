@@ -30,8 +30,9 @@ class Collider
   def run_check_for(elem, candidate)
     raise "unknown type #{elem}" unless elem.class == VectorFollower
     cp = elem.current_position
-    #ls = Primitives::LineSegment.new(cp, cp.plus(elem.vector)  ) #TODO migth have to be p-v, p rather than p, p+v
-    ls = Primitives::LineSegment.new(cp.minus(elem.scaled_vector.scale(-1)), cp  ) #TODO migth have to be p-v, p rather than p, p+v
+    ls = Primitives::LineSegment.new(cp, cp.plus(elem.velocity_scaled_vector)  ) #TODO migth have to be p-v, p rather than p, p+v
+
+    #ls = Primitives::LineSegment.new(cp.minus(elem.scaled_vector.scale(-1)), cp  ) #TODO migth have to be p-v, p rather than p, p+v
     line_segment_checks[candidate.class].call(ls, candidate)
   end
   def check_for_collision_by_type(elem, candidate)

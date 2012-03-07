@@ -14,5 +14,5 @@ gem "statemachine"
 
 
 gem "mocha"
-gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
-gem "cucumber", :git => "git://github.com/cucumber/cucumber.git"
+gem "rspec-expectations"
+gem "cucumber"

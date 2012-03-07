@@ -121,6 +121,7 @@ class Game
       @player.use_weapon
     end
 
+
     @animation_manager.tick
     @path_following_manager.tick
     collisions = @level.check_for_collisions

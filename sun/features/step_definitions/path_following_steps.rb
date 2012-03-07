@@ -18,6 +18,7 @@ Then /^the projectile should be at (\d+),(\d+)$/ do |x,y|
 end
 Then /^there should be no projectiles$/ do
   projectiles = @path_manager.vector_following
+  
   projectiles.should == []
 end
 
