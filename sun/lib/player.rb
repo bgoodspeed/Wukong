@@ -4,8 +4,8 @@
 class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
-  attr_reader :direction, :radius
-  attr_accessor :step_size, :position, :weapon
+  attr_reader :radius
+  attr_accessor :step_size, :position, :weapon, :direction
   def initialize(avatar, game)
     @game = game
     @avatar = Gosu::Image.new(@game.window, avatar, false)

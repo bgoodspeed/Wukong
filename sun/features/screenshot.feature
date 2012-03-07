@@ -38,6 +38,7 @@ Feature: Game Description
   Scenario: Trivial Level Weapon
     Given I load the game on level "trivial" with screen size 640, 480
     And I set the player avatar to "avatar.png"
+    And I set the player direction to 180
     And I create an animation manager with a ratio of one animation tick to 1 game ticks
     And I set the player weapon with image "weapon.png"
     And I set the player weapon type to "projectile"

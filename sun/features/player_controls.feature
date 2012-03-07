@@ -42,5 +42,5 @@ Feature: Player Controls
     Then the player weapon should be in use
     Then there should be projectiles at:
       | expected_position |
-      | 36,46             |
+      | 36,26             |
 

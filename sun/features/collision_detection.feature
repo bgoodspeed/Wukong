@@ -16,6 +16,7 @@ Feature: Collision Detection
     Given I load the game on level "trivial" with screen size 640, 480
     And I create the path following manager
     And I set the player avatar to "avatar.png"
+    And I set the player direction to 180
     And I set the player step size to 10
     And I set the player weapon with image "weapon.png"
     And I set the player weapon type to "projectile"
@@ -31,6 +32,7 @@ Feature: Collision Detection
     And I create the path following manager
     And I set the player avatar to "avatar.png"
     And I set the player step size to 10
+    And I set the player direction to 180
     And I set the player weapon with image "weapon.png"
     And I set the player weapon type to "projectile"
     And I set the game clock to 60 fps

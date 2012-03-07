@@ -16,8 +16,9 @@ class Weapon
   def use
     unless @in_use
 
-      #TODO use real orientation
-      @game.add_projectile(@game.player.position, 180, 10) unless @type == "swung"
+      #TODO use weapon-specific velocity
+      p = @game.player
+      @game.add_projectile(p.position, p.direction, 10) unless @type == "swung"
     end
     @in_use = true
   end

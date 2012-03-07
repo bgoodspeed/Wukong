@@ -4,6 +4,9 @@ Given /^I set the player avatar to "([^"]*)"$/ do |avatar_image|
   @game.set_player @player
 end
 
+Given /^I set the player direction to (\d+)$/ do |dir|
+  @player.direction = dir.to_i
+end
 Given /^I set the player step size to (\d+)$/ do |step_size|
   @player.step_size = step_size.to_i
 end
