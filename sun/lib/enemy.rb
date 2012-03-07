@@ -1,7 +1,7 @@
 
 class Enemy
 
-  attr_reader :position
+  attr_accessor :position
 
   def initialize(enemy_avatar, window)
     @enemy_avatar = Gosu::Image.new(window, enemy_avatar, false)

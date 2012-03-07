@@ -10,7 +10,12 @@ Then /^the enemy should be in the scene$/ do
   elems.last.class.should == Enemy
 end
 
-#needs work here
+
+Given /^I set the enemy position (\d+),(\d+)$/ do |x, y|
+  pos = [x.to_i, y.to_i]
+  @enemy.position = pos
+end
+
 Then /^the enemy should be at position (\d+),(\d+)$/ do |x, y|
   expected = [x.to_i, y.to_i]
   @enemy.position.should be_within_epsilon_of(expected)

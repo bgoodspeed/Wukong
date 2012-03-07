@@ -66,4 +66,15 @@ Feature: Game Description
     And I set the game clock to 60 fps
     When I run the game loop 2 times
     And I take a screenshot named "animation2-capture.png"
-    Then I it should match the goldmaster "animation3.png"
+    Then I it should match the goldmaster "animation2.png"
+
+
+  Scenario: Trivial Level Enemy
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I set the player avatar to "avatar.png"
+    And I set the enemy avatar to "enemy_avatar.png"
+    And I set the enemy position 110,110
+    And I set the player step size to 50
+    When I see the first frame
+    And I take a screenshot named "enemy-capture.png"
+    And I it should match the goldmaster "enemy.png"
