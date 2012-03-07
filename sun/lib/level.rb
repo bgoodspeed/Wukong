@@ -87,6 +87,7 @@ class Level
   def draw_function_for(elem)
     mapping = {Primitives::LineSegment => lambda {|screen, linesegment| draw_line_segment(screen, linesegment, ZOrder.static.value) },
                Player => lambda {|screen, player| player.draw(screen) },
+               Enemy => lambda {|screen, enemy| enemy.draw(screen) },
                #TODO ugly, should this be here? not sure about design
                VectorFollower => lambda {|screen, vf|
                  d = 10

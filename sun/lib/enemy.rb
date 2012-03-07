@@ -6,7 +6,6 @@ class Enemy
   def initialize(enemy_avatar, window)
     @enemy_avatar = Gosu::Image.new(window, enemy_avatar, false)
     @position = [0,0]
-    puts "Enemy_avatar path: #{enemy_avatar}"
   end
 
   def draw(screen)
