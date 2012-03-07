@@ -3,19 +3,15 @@
 require 'level'
 require 'screen'
 require 'player'
-<<<<<<< HEAD
 require 'enemy'
-=======
 require 'clock'
 require 'heads_up_display'
->>>>>>> b259c3fcb718a1eddf8f8adff08e8151722576e9
-
 require 'loaders/player_loader'
 require 'loaders/level_loader'
 
 class Game
 
-  attr_accessor :player, :clock, :hud
+  attr_accessor :player, :clock, :hud, :enemy #TNT added :enemy
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
@@ -37,6 +33,12 @@ class Game
     @player = player
     @level.set_player(player)
 
+  end
+
+  #TNT set_enemy
+  def set_enemy (enemy)
+    @enemy = enemy
+    @level.set_enemy(enemy)
   end
 
   def set_screen_size(width, height)

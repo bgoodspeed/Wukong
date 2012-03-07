@@ -65,6 +65,17 @@ class Level
     @player = player
     @dynamic_elements << player
   end
+
+  def set_enemy(enemy)
+    @dynamic_elements.reject!{|elem| elem == @enemy}
+    add_enemy(enemy)
+  end
+
+  def add_enemy(enemy)
+    @enemy = enemy
+    @dynamic_elements << enemy
+  end
+
   def draw(screen)
     static_bodies.each {|body| body.draw(screen)}
     dynamic_elements.each {|body| body.draw(screen)}
