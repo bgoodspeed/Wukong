@@ -4,6 +4,7 @@
 module TransparencyUtils
   def transparency_color
     Gosu::Color.argb(0xffff00ff)
+    #Gosu::Color.argb(0, 255, 0, 255)
   end
 
 end

@@ -1,10 +1,17 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
+require 'opengl'
+require 'glu'
+include Gl
+include Glu
+
 require 'gosu'
 require 'devil/gosu'
 class GameWindow < Gosu::Window
   def initialize(game, width, height)
     super width, height, false
+    @w = width
+    @h = height
     @game = game
   end
 
@@ -22,6 +29,13 @@ class GameWindow < Gosu::Window
     
   end
 
+  def screenshotBG
+    
+    glEnable(GL_TEXTURE_2D)
+    ss = screenshot
+    glFlush()
+    ss
+  end
 end
 
 
@@ -38,7 +52,8 @@ class Screen
     @window.draw
   end
   def capture_screenshot(name)
-    @window.screenshot.save(name)
+    File.delete(name) if File.exists?(name)
+    @window.screenshotBG.save(name)
   end
 
   def show

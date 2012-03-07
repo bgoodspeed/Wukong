@@ -66,5 +66,6 @@ class Player
 
   def draw(screen)
     @avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction)
+    #@avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction, 0.5, 0.5, 1,1, transparency_color)
   end
 end
