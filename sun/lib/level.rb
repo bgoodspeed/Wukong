@@ -71,6 +71,18 @@ class Level
     @dynamic_elements << player
   end
 
+
+  def set_enemy(enemy)
+    @dynamic_elements.reject!{|elem| elem == @enemy}
+    add_enemy(enemy)
+  end
+
+  def add_enemy(enemy)
+    @enemy = enemy
+    @dynamic_elements << enemy
+  end
+
+
   include UtilityDrawing
   def draw_function_for(elem)
     mapping = {Primitives::LineSegment => lambda {|screen, linesegment| draw_line_segment(screen, linesegment, ZOrder.static.value) },
@@ -83,6 +95,7 @@ class Level
     raise "Unknown draw function for #{elem.class}" unless mapping.has_key?(elem.class)
     mapping[elem.class]
   end
+
   def draw(screen)
     static_bodies.each {|body| draw_function_for(body).call(screen, body)}
     dynamic_elements.each {|body| draw_function_for(body).call(screen, body)}

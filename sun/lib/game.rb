@@ -15,6 +15,7 @@ require 'level'
 require 'screen'
 require 'weapon'
 require 'player'
+require 'enemy'
 require 'clock'
 require 'heads_up_display'
 require 'collision_responder'
@@ -22,10 +23,6 @@ require 'way_finding'
 require 'artificial_intelligence'
 require 'animation_manager'
 require 'path_following_manager'
-
-
-
-
 require 'loaders/player_loader'
 require 'loaders/level_loader'
 
@@ -33,8 +30,9 @@ require 'loaders/level_loader'
 
 class Game
 
-  attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed, 
-    :movement_distance, :path_following_manager
+  attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
+    :movement_distance, :path_following_manager, :enemy
+
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
@@ -59,6 +57,13 @@ class Game
     @player = player
     @level.set_player(player)
 
+  end
+
+
+  #TNT set_enemy
+  def set_enemy (enemy)
+    @enemy = enemy
+    @level.set_enemy(enemy)
   end
 
   def load_animation(entity, name, animation, w, h, tiles)
