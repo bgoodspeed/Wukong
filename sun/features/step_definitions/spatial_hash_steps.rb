@@ -67,8 +67,14 @@ Then /^asking for collision pairs yields:$/ do |table|
   table.map_column!('center_y') {|a| a.to_i}
   table.map_column!('radius') {|a| a.to_i}
   table.hashes.each do |h|
-    data_objs = @spatial_hash.player_collisions(h['radius'], [h['center_x'], h['center_y']]) #TODO reconsider this design
-    data = data_objs.collect {|data_obj| data_obj.user_data}
+    pos = [h['center_x'], h['center_y']]
+    r = h['radius']
+    p = Mocha::Mock.new("player")
+    p.stubs(:collision_type).returns Player
+    p.stubs(:collision_radius).returns r
+    p.stubs(:collision_center).returns pos
+    data_objs = @spatial_hash.dynamic_collisions([p] ) 
+    data = data_objs.collect {|data_obj| data_obj.last.user_data}
     data.join(",").should == h['candidate_data']
   end
 end

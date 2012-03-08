@@ -85,6 +85,8 @@ class Level
 
   include UtilityDrawing
   def draw_function_for(elem)
+    #TODO move all drawing logic out of models in case we replace gosu
+    #TODO maybe a gosu image manager
     mapping = {Primitives::LineSegment => lambda {|screen, linesegment| draw_line_segment(screen, linesegment, ZOrder.static.value) },
                Player => lambda {|screen, player| player.draw(screen) },
                Enemy => lambda {|screen, enemy| enemy.draw(screen) },
@@ -106,12 +108,8 @@ class Level
     @dynamic_elements -= [p]
   end
 
-  #TODO this is really check for player collisions...
   def check_for_collisions
-    cols = @spatial_hash.player_collisions(@player.radius, @player.position)
-    cols2 = @spatial_hash.dynamic_collisions(@dynamic_elements - [@player])
-    c1 = cols.collect {|col| StaticCollision.new(@player, col)}
-    c2 = cols2.collect {|col| StaticCollision.new(col.first, col.last)}
-    c1 + c2
+    cols = @spatial_hash.dynamic_collisions(@dynamic_elements )
+    cols.collect {|col| StaticCollision.new(col.first, col.last)}
   end
 end

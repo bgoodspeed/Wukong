@@ -27,13 +27,23 @@ class Collider
     circle_check = check_for(candidate.class)
     circle_check.call(circle, candidate)
   end
-  def run_check_for(elem, candidate)
-    raise "unknown type #{elem}" unless elem.class == VectorFollower
-    cp = elem.current_position
-    ls = Primitives::LineSegment.new(cp, cp.plus(elem.velocity_scaled_vector)  ) #TODO migth have to be p-v, p rather than p, p+v
 
-    #ls = Primitives::LineSegment.new(cp.minus(elem.scaled_vector.scale(-1)), cp  ) #TODO migth have to be p-v, p rather than p, p+v
+  def handle_vector_follower(elem, candidate)
+    ls = Primitives::LineSegment.new(elem.current_position, elem.current_position.plus(elem.velocity_scaled_vector)  )
     line_segment_checks[candidate.class].call(ls, candidate)
+  end
+  def handle_player(elem, candidate)
+    c = Primitives::Circle.new(elem.collision_center, elem.collision_radius  )
+    circle_checks[candidate.class].call(c, candidate)
+  end
+
+  def run_check_for(elem, candidate)
+    m = {
+      VectorFollower => lambda {|e, c| handle_vector_follower(e, c) },
+      Player => lambda {|e,c| handle_player(e, c) }
+    }
+    raise "unknown type #{elem}" unless m.has_key?(elem.collision_type)
+    m[elem.collision_type].call(elem, candidate)
   end
   def check_for_collision_by_type(elem, candidate)
     run_check_for(elem, candidate)
@@ -130,14 +140,22 @@ class SpatialHash
   end
 
   def collision_radius_for(elem)
-    m = { VectorFollower => lambda {|elem| elem.collision_radius}}
-    raise "collision radius needed for #{elem}" unless m.has_key?(elem.class)
-    m[elem.class].call(elem)
+    #TODO rebuild to use arbitrary collision volumes?
+    m = { 
+      VectorFollower => lambda {|elem| elem.collision_radius},
+      Player => lambda {|elem| elem.collision_radius}
+
+    }
+    raise "collision radius needed for #{elem}" unless m.has_key?(elem.collision_type)
+    m[elem.collision_type].call(elem)
   end
   def collision_center_for(elem)
-    m = { VectorFollower => lambda {|elem| elem.collision_center}}
-    raise "collision center needed for #{elem}" unless m.has_key?(elem.class)
-    m[elem.class].call(elem)
+    m = { 
+      VectorFollower => lambda {|elem| elem.collision_center},
+      Player => lambda {|elem| elem.collision_center}
+    }
+    raise "collision center needed for #{elem}" unless m.has_key?(elem.collision_type)
+    m[elem.collision_type].call(elem)
   end
 
   #TODO this can be done all at once rather than N passes (just iterate over the space buckets)

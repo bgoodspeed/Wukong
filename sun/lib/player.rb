@@ -10,7 +10,9 @@ class Player
     @game = game
     @avatar = Gosu::Image.new(@game.window, avatar, false)
     @avatar.clear :dest_select => transparency_color
-    @position = [@avatar.width/2.0, @avatar.height/2.0 ]
+    p = [@avatar.width/2.0, @avatar.height/2.0 ]
+    @radius = p.max
+    @position = p
     @direction = 0
     @step_size = 1
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
@@ -62,6 +64,17 @@ class Player
       move_forward(-1 * @last_distance)
       @last_distance = nil
     end
+  end
+
+  #TODO use strings/enums/symbols for collision types not classes
+  def collision_type
+    self.class
+  end
+  def collision_radius
+    @radius
+  end
+  def collision_center
+    @position
   end
 
   def draw(screen)

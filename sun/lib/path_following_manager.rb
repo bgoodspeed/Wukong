@@ -24,6 +24,9 @@ class VectorFollower
   def current_position
     @start.plus(@vector.scale(@current_step * @velocity))
   end
+  def collision_type
+    self.class
+  end
   def collision_radius
     @velocity
   end
