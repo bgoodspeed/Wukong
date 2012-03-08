@@ -2,6 +2,24 @@
 ## and open the template in the editor.
 #
 
+#TODO move this to utility module
+class Array
+    # define an iterator over each pair of indexes in an array
+    def each_pair_index
+        (0..(self.length-1)).each do |i|
+            ((i+1)..(self.length-1 )).each do |j|
+                yield i, j
+            end
+        end
+    end
+
+    # define an iterator over each pair of values in an array for easy reuse
+    def each_pair
+        self.each_pair_index do |i, j|
+            yield self[i], self[j]
+        end
+    end
+end
 
 include PrimitiveIntersectionTests
 class Collider
@@ -28,19 +46,32 @@ class Collider
     circle_check.call(circle, candidate)
   end
 
+  def wrap_vector_follower(elem)
+    Primitives::LineSegment.new(elem.current_position, elem.current_position.plus(elem.velocity_scaled_vector)  )
+  end
   def handle_vector_follower(elem, candidate)
-    ls = Primitives::LineSegment.new(elem.current_position, elem.current_position.plus(elem.velocity_scaled_vector)  )
+    ls = wrap_vector_follower(elem)
     line_segment_checks[candidate.class].call(ls, candidate)
   end
   def handle_player(elem, candidate)
+    cand = candidate
     c = Primitives::Circle.new(elem.collision_center, elem.collision_radius  )
-    circle_checks[candidate.class].call(c, candidate)
+    #TODO clean this design up
+    if candidate.class == VectorFollower
+      cand = wrap_vector_follower(candidate)
+    end
+    m = circle_checks[cand.class]
+    m.call(c, cand)
   end
 
+  def handle_enemy(elem, candidate)
+    handle_player(elem, candidate)
+  end
   def run_check_for(elem, candidate)
     m = {
       VectorFollower => lambda {|e, c| handle_vector_follower(e, c) },
-      Player => lambda {|e,c| handle_player(e, c) }
+      Player => lambda {|e,c| handle_player(e, c) },
+      Enemy => lambda {|e,c| handle_enemy(e, c) }
     }
     raise "unknown type #{elem}" unless m.has_key?(elem.collision_type)
     m[elem.collision_type].call(elem, candidate)
@@ -64,6 +95,9 @@ class SpatialHash
     @data = []
   end
 
+  def clear
+    @data = []
+  end
   def cell_index_for(vertex)
     [(vertex.vx/@cell_size).floor, (vertex.vy/@cell_size).floor]
   end
@@ -143,7 +177,8 @@ class SpatialHash
     #TODO rebuild to use arbitrary collision volumes?
     m = { 
       VectorFollower => lambda {|elem| elem.collision_radius},
-      Player => lambda {|elem| elem.collision_radius}
+      Player => lambda {|elem| elem.collision_radius},
+      Enemy => lambda {|elem| elem.collision_radius}
 
     }
     raise "collision radius needed for #{elem}" unless m.has_key?(elem.collision_type)
@@ -152,7 +187,8 @@ class SpatialHash
   def collision_center_for(elem)
     m = { 
       VectorFollower => lambda {|elem| elem.collision_center},
-      Player => lambda {|elem| elem.collision_center}
+      Player => lambda {|elem| elem.collision_center},
+      Enemy => lambda {|elem| elem.collision_center}
     }
     raise "collision center needed for #{elem}" unless m.has_key?(elem.collision_type)
     m[elem.collision_type].call(elem)
@@ -170,5 +206,20 @@ class SpatialHash
       rv += cs.collect {|cand| [elem, cand]}
     end
     rv
+  end
+
+  def all_collisions
+    cols = []
+    @data.each_with_index do |bucket, index|
+      next if bucket.nil?
+      bucket.each do |elem|
+
+        bucket.each_pair do |a,b|
+          rv = @collider.check_for_collision_by_type(a,b)
+          cols << [a,b] if rv
+        end
+      end
+    end
+    cols
   end
 end

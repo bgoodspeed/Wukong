@@ -40,5 +40,20 @@ Feature: Collision Detection
     And I run the game loop 44 times and clear the state after run 1
     Then there should be no projectiles
 
+  Scenario: Projectile Collisions Destroyed By Collision With Enemy
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create the path following manager
+    And I set the player avatar to "avatar.png"
+    And I set the player step size to 10
+    And I set the player direction to 180
+    And I set the enemy avatar to "enemy_avatar.png"
+    And I set the enemy position 36,300
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Gosu::KbSpace"
+    And I run the game loop 27 times and clear the state after run 1
+    Then there should be no projectiles
+
 
 

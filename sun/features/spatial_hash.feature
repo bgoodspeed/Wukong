@@ -49,6 +49,16 @@ Feature: Data Structure for Storing Visual Data
         | 8          |             |
         | 7          | foo,bar     |
 
+  Scenario: Spatial Storage Deletion
+    Given I create a spatial hash with cell size 10
+    When I override the table size to 10
+    And I add data "foo" at (10, 20)
+    And I add data "bar" at (10, 21)
+    And I clear the spatial hash
+    And the data array looks like:
+        | hash_index | data        |
+        | 7          |             |
+
 
   Scenario: Collision Detection
     Given I create a spatial hash with cell size 10

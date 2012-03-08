@@ -2,6 +2,13 @@
 # and open the template in the editor.
 
 
+class DynamicCollision
+  attr_reader :dynamic1, :dynamic2
+  def initialize(dynamic, dynamic2)
+    @dynamic1 = dynamic
+    @dynamic2 = dynamic2
+  end
+end
 class StaticCollision
   attr_reader :static, :dynamic
   def initialize(dynamic, static)
@@ -43,14 +50,15 @@ class Level
     @circles = []
     @rectangles = []
     @dynamic_elements = []
-    @spatial_hash = SpatialHash.new(@@CELL_SIZE)
+    @static_hash = SpatialHash.new(@@CELL_SIZE)
+    @dynamic_hash = SpatialHash.new(@@CELL_SIZE)
     
   end
 
   def add_line_segment(sx,sy, ex, ey)
     segment = Primitives::LineSegment.new([sx,sy],[ex,ey])
     @line_segments << segment
-    @spatial_hash.add_line_segment(segment, segment)
+    @static_hash.add_line_segment(segment, segment)
     @space.add_segment(segment)
   end
   def add_projectile(p)
@@ -109,7 +117,12 @@ class Level
   end
 
   def check_for_collisions
-    cols = @spatial_hash.dynamic_collisions(@dynamic_elements )
-    cols.collect {|col| StaticCollision.new(col.first, col.last)}
+    cols = @static_hash.dynamic_collisions(@dynamic_elements )
+    @dynamic_hash.clear
+    @dynamic_elements.each {|e| @dynamic_hash.insert_data_at(e, e.collision_center)}
+    all = @dynamic_hash.all_collisions
+    dyns = all.collect {|col| DynamicCollision.new(col.first, col.last)}
+    stats = cols.collect {|col| StaticCollision.new(col.first, col.last)}
+    stats + dyns
   end
 end

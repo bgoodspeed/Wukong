@@ -33,6 +33,10 @@ class VectorFollower
   def collision_center
     current_position
   end
+
+  def to_s
+    "#{self.class}: current position: #{current_position}; velocity #{@velocity}; vector #{@vector}"
+  end
 end
 
 class PathFollowingManager

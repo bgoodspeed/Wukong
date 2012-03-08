@@ -19,6 +19,12 @@ When /^I add data "([^"]*)" at \((\d+), (\d+)\)$/ do |data, x, y|
   @spatial_hash.insert_data_at(circle, [x.to_i, y.to_i])
 end
 
+When /^I clear the spatial hash$/ do
+  @spatial_hash.clear
+end
+
+
+
 Then /^the cell coordinate for vertex (\d+),(\d+) is (\d+),(\d+)$/ do |vx, vy, i, j|
   rv = @spatial_hash.cell_index_for([vx.to_i,vy.to_i])
   rv.should == [i.to_i, j.to_i]
