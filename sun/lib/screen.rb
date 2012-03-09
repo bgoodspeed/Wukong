@@ -57,7 +57,8 @@ class Screen
 
   def capture_screenshot(name)
     File.delete(name) if File.exists?(name)
-    @window.screenshotBG.save(name)
+    @window.screenshot.save(name)
+    #@window.screenshotBG.save(name)
   end
 
   def show

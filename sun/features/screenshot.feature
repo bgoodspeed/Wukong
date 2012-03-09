@@ -1,8 +1,8 @@
 @slow
-Feature: Game Description
+Feature: Screenshots
   In order to play the game
-  As a player
-  I want to be able to see myself in a level
+  As a developer
+  I want to capture scenarios
 
   Scenario: Trivial Level
     Given I load the game on level "trivial" with screen size 640, 480

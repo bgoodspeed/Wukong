@@ -186,6 +186,7 @@ class Game
   end
 
   def render_one_frame
+
     @level.draw(@screen)
     @hud.draw(@screen)
     @animation_manager.draw(@screen)
