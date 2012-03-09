@@ -72,7 +72,7 @@ Feature: Collision Detection
     And the player health should be 9
     And the enemy health should be 4
 
-  Scenario: Player collisions with Enemy damages both
+  Scenario: Player collisions with Enemy damages both ghost
     Given I load the game on level "trivial" with screen size 640, 480
     And I create the path following manager
     And I set the player avatar to "avatar.bmp"

@@ -90,6 +90,10 @@ class Level
     @dynamic_elements << enemy
   end
 
+  def remove_enemy(enemy)
+    @enemy = nil
+    @dynamic_elements.reject!{|elem| elem == enemy}
+  end
 
   include UtilityDrawing
   def draw_function_for(elem)

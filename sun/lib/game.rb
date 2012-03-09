@@ -25,13 +25,14 @@ require 'animation_manager'
 require 'path_following_manager'
 require 'loaders/player_loader'
 require 'loaders/level_loader'
+require 'death_event'
 
 
 
 class Game
 
   attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
-    :movement_distance, :path_following_manager, :enemy
+    :movement_distance, :path_following_manager, :enemy, :events
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
@@ -42,6 +43,7 @@ class Game
     @animation_manager = AnimationManager.new(self)
     @path_following_manager = PathFollowingManager.new(self)
     @keys = {}
+    @events = []
     @active = true
     @clock = Clock.new(dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
@@ -60,13 +62,20 @@ class Game
 
   end
 
-
   #TNT set_enemy
-  def set_enemy (enemy)
+  def set_enemy(enemy)
     @enemy = enemy
     @level.set_enemy(enemy)
   end
 
+  def remove_enemy(enemy)
+    @enemy = nil
+    @level.remove_enemy(enemy)
+  end
+
+  def add_death_event(who)
+    @events << DeathEvent.new(who)
+  end
   def load_animation(entity, name, animation, w, h, tiles)
     @animation_manager.load_animation(entity, name, animation, w, h, tiles)
   end
@@ -116,6 +125,12 @@ class Game
       @active = false
       @screen.close
     end
+
+    @events.each{|event| 
+      raise "unkown event type #{event}" unless event.kind_of? DeathEvent
+      remove_enemy(event.who)
+    }
+
     if @keys[@@RIGHT]
       @player.turn(turn_speed)
     end

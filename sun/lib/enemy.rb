@@ -39,12 +39,16 @@ class Enemy
     @position
   end
 
+  def dead?
+    @health <= 0
+  end
   #TODO this should be in a module 
   def take_damage(from)
     # puts "#{self} took damage from #{from}"
-
     @health -= 1
-    
+    if dead?
+      @game.add_death_event(self)
+    end
   end
   def to_s
     "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
