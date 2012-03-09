@@ -1,14 +1,21 @@
 
 class Enemy
 
-  attr_accessor :position
+  attr_accessor :position, :health
 
-  def initialize(enemy_avatar, window)
-    @enemy_avatar = Gosu::Image.new(window, enemy_avatar, false)
+  def initialize(enemy_avatar, game)
+    @game = game
+    @enemy_avatar = Gosu::Image.new(@game.window, enemy_avatar, false)
     p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
     @radius = p.max
-
-    @position = [0,0]
+    @health = 15
+    @position = p
+  end
+  def undo_last_move
+    unless @last_distance.nil?
+      move_forward(-1 * @last_distance)
+      @last_distance = nil
+    end
   end
 
   def draw(screen)
@@ -27,6 +34,12 @@ class Enemy
 
   #TODO this should be in a module 
   def take_damage(from)
-    #TODO puts "use #{from} to calculate enemy damage"
+    # puts "#{self} took damage from #{from}"
+
+    @health -= 1
+    
+  end
+  def to_s
+    "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
   end
 end

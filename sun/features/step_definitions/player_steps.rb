@@ -63,3 +63,24 @@ end
 Then /^the player radius should be (\d+)$/ do |radius|
   @player.radius.should == radius.to_i
 end
+
+Given /^I set the player health to (\d+)$/ do |arg1|
+  @player.health = arg1.to_i
+end
+
+Given /^I set the enemy health to (\d+)$/ do |arg1|
+  @enemy.health = arg1.to_i
+end
+
+Then /^the player health should be (\d+)$/ do |arg1|
+  @player.health.should == arg1.to_i
+end
+
+Then /^the enemy health should be (\d+)$/ do |arg1|
+  @enemy.health.should == arg1.to_i
+end
+
+Given /^I set the player position to (\d+),(\d+)$/ do |arg1, arg2|
+  @player.position = [arg1.to_i, arg2.to_i]
+end
+

@@ -8,4 +8,4 @@ Feature: Enemy Built
     And I set the enemy avatar to "enemy_avatar.png"
     When I see the first frame
     Then the enemy should be in the scene
-    And the enemy should be at position 0,0
+    And the enemy should be at position 35,35.5

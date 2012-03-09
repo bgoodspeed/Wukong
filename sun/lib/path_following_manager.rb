@@ -35,7 +35,7 @@ class VectorFollower
   end
 
   def to_s
-    "#{self.class}: current position: #{current_position}; velocity #{@velocity}; vector #{@vector}"
+    "#{self.class}: #{object_id} current position: #{current_position}; velocity #{@velocity}; vector #{@vector}"
   end
 end
 

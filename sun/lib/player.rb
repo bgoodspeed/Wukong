@@ -5,7 +5,7 @@ class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
   attr_reader :radius
-  attr_accessor :step_size, :position, :weapon, :direction
+  attr_accessor :step_size, :position, :weapon, :direction, :health
   def initialize(avatar, game)
     @game = game
     @avatar = Gosu::Image.new(@game.window, avatar, false)
@@ -13,6 +13,7 @@ class Player
     p = [@avatar.width/2.0, @avatar.height/2.0 ]
     @radius = p.max
     @position = p
+    @health = 0
     @direction = 0
     @step_size = 1
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
@@ -59,6 +60,8 @@ class Player
     raise "programmer error: unknown animation #{name}" unless name =~ /attack/ or name =~ /weapon/
     @position.dup
   end
+
+  #TODO likely to be duplicated
   def undo_last_move
     unless @last_distance.nil?
       move_forward(-1 * @last_distance)
@@ -77,8 +80,18 @@ class Player
     @position
   end
 
+  #TODO this should be in a module
+  def take_damage(col)
+    #puts "#{self} took damage from #{col}"
+    #TODO this doesn't really make sense but illustrates possible behaviors
+    @health -= 1
+  end
   def draw(screen)
     @avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction)
     #@avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction, 0.5, 0.5, 1,1, transparency_color)
   end
+  def to_s
+    "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
+  end
+
 end

@@ -119,7 +119,8 @@ class Level
   def check_for_collisions
     cols = @static_hash.dynamic_collisions(@dynamic_elements )
     @dynamic_hash.clear
-    @dynamic_elements.each {|e| @dynamic_hash.insert_data_at(e, e.collision_center)}
+    
+    @dynamic_elements.each {|e| @dynamic_hash.insert_circle_type_collider(e)}
     all = @dynamic_hash.all_collisions
     dyns = all.collect {|col| DynamicCollision.new(col.first, col.last)}
     stats = cols.collect {|col| StaticCollision.new(col.first, col.last)}

@@ -18,6 +18,7 @@ w.type = "projectile"
 p.equip_weapon(w)
 p.position = [300,200]
 game.set_player(p)
-
+e = Enemy.new("test-data/sprites/enemy_avatar.png", game)
+game.set_enemy(e)
 game.show
 

@@ -4,21 +4,21 @@
 
 #TODO move this to utility module
 class Array
-    # define an iterator over each pair of indexes in an array
-    def each_pair_index
-        (0..(self.length-1)).each do |i|
-            ((i+1)..(self.length-1 )).each do |j|
-                yield i, j
-            end
-        end
+  # define an iterator over each pair of indexes in an array
+  def each_pair_index
+    (0..(self.length-1)).each do |i|
+      ((i+1)..(self.length-1 )).each do |j|
+        yield i, j
+      end
     end
+  end
 
-    # define an iterator over each pair of values in an array for easy reuse
-    def each_pair
-        self.each_pair_index do |i, j|
-            yield self[i], self[j]
-        end
+  # define an iterator over each pair of values in an array for easy reuse
+  def each_pair
+    self.each_pair_index do |i, j|
+      yield self[i], self[j]
     end
+  end
 end
 
 include PrimitiveIntersectionTests
@@ -28,7 +28,8 @@ class Collider
     Primitives::LineSegment => lambda {|circle, lineseg| circle_line_segment_intersection?(circle, lineseg) }
   }
   @@LINE_SEGMENT_CHECKS = {
-    Primitives::LineSegment => lambda {|ls, ls2| line_segment_line_segment_intersection?(ls, ls2)}
+    Primitives::LineSegment => lambda {|ls, ls2| line_segment_line_segment_intersection?(ls, ls2)},
+    Primitives::Circle => lambda {|lineseg,circle| circle_line_segment_intersection?(circle, lineseg) }
   }
   def circle_checks
     @@CIRCLE_CHECKS
@@ -43,6 +44,7 @@ class Collider
   end
   def check_for_collision(circle, candidate)
     circle_check = check_for(candidate.class)
+    
     circle_check.call(circle, candidate)
   end
 
@@ -59,13 +61,28 @@ class Collider
     #TODO clean this design up
     if candidate.class == VectorFollower
       cand = wrap_vector_follower(candidate)
+    elsif candidate.class == Player
+      
+    elsif candidate.class == Enemy
+      cand = Primitives::Circle.new(candidate.collision_center, candidate.collision_radius )
     end
     m = circle_checks[cand.class]
     m.call(c, cand)
   end
 
   def handle_enemy(elem, candidate)
-    handle_player(elem, candidate)
+    cand = candidate
+    c = Primitives::Circle.new(elem.collision_center, elem.collision_radius  )
+    #TODO clean this design up
+    if candidate.class == VectorFollower
+      cand = wrap_vector_follower(candidate)
+    elsif candidate.class == Player
+
+    elsif candidate.class == Enemy
+      cand = Primitives::Circle.new(candidate.collision_center, candidate.collision_radius )
+    end
+    m = circle_checks[cand.class]
+    m.call(c, cand)
   end
   def run_check_for(elem, candidate)
     m = {
@@ -111,6 +128,18 @@ class SpatialHash
     steps = (lsv.norm/@cell_size).ceil
     steps.times do |step|
       insert_data_at(data, lsu.scale(step * @cell_size))
+    end
+  end
+  def insert_circle_type_collider(elem)
+    #TODO fix this logic too ugly
+    if elem.collision_type == VectorFollower
+      insert_data_at(elem, elem.collision_center)
+    end
+    #TODO reinstate this raise
+    # raise "use a larger cell size to store elements that big #{elem.collision_radius}" unless elem.collision_radius > @cell_size
+    hashes = candidate_hashes(elem.collision_radius, elem.collision_center)
+    hashes.each do |hash|
+      data_at(hash) << elem
     end
   end
   def insert_data_at(data, vertex)
@@ -212,14 +241,15 @@ class SpatialHash
     cols = []
     @data.each_with_index do |bucket, index|
       next if bucket.nil?
-      bucket.each do |elem|
-
-        bucket.each_pair do |a,b|
-          rv = @collider.check_for_collision_by_type(a,b)
-          cols << [a,b] if rv
-        end
+      ab = filter_ghosts(bucket)
+      ab.each_pair do |a,b|
+        rv = @collider.check_for_collision_by_type(a,b)
+        #puts "decided #{a} and #{b} collide" if rv
+        cols << [a,b] if rv
       end
+      
     end
-    cols
+    #TODO this should not be needed?
+    cols.uniq
   end
 end
