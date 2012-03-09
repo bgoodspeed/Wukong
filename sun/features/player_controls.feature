@@ -44,3 +44,14 @@ Feature: Player Controls
       | expected_position |
       | 36,26             |
 
+  Scenario: Mapping Q to quit
+    Given I load the game on level "trivial" with screen size 640, 480
+    When I simulate "Gosu::KbQ"
+    And I update the key state
+    And the following keys should be active: "Quit"
+
+  Scenario: Mapping quit to exit game
+    Given I load the game on level "trivial" with screen size 640, 480
+    When I press "Quit"
+    And I update the game state
+    Then the game should call quit

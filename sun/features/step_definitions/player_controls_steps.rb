@@ -48,3 +48,7 @@ end
 Then /^the player weapon should be in use$/ do
   @game.should be_weapon_in_use
 end
+
+Then /^the game should call quit$/ do
+  @game.should_not be_active
+end

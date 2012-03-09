@@ -42,6 +42,7 @@ class Game
     @animation_manager = AnimationManager.new(self)
     @path_following_manager = PathFollowingManager.new(self)
     @keys = {}
+    @active = true
     @clock = Clock.new(dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
   end
@@ -97,6 +98,7 @@ class Game
   @@LEFT = "Left"
   @@DOWN = "Down"
   @@FIRE = "Fire"
+  @@QUIT = "Quit"
   @@TURN_SPEED = 90
   @@MOVEMENT_DISTANCE = 1
   
@@ -110,6 +112,10 @@ class Game
 
 
   def update_game_state
+    if @keys[@@QUIT]
+      @active = false
+      @screen.close
+    end
     if @keys[@@RIGHT]
       @player.turn(turn_speed)
     end
@@ -157,6 +163,11 @@ class Game
     if button_down? Gosu::KbSpace then
       set_key_to_active(@@FIRE)
     end
+
+    if button_down? Gosu::KbQ then
+      set_key_to_active(@@QUIT)
+    end
+
   end
 
   def render_one_frame
@@ -215,4 +226,9 @@ class Game
       # TODO NOOP, could sleep to free up CPU cycles
     end
   end
+
+  def active?
+    @active
+  end
+
 end

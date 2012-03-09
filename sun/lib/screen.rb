@@ -47,10 +47,14 @@ class Screen
 
   end
 
-
   def draw
     @window.draw
   end
+
+  def close
+    @window.close
+  end
+
   def capture_screenshot(name)
     File.delete(name) if File.exists?(name)
     @window.screenshotBG.save(name)
