@@ -33,10 +33,10 @@ class CollisionResponder
           #TODO track the shooter of projectiles
           # puts "player shot self #{col.dynamic1} by projectile #{col.dynamic2}"
         end,
-        Enemy => lambda do |col|
-          col.dynamic1.undo_last_move
-          col.dynamic1.take_damage(col.dynamic2)
-          col.dynamic2.take_damage(col.dynamic1)
+        Enemy => lambda do |c|
+          c.dynamic1.undo_last_move
+          c.dynamic1.take_damage(c.dynamic2)
+          c.dynamic2.take_damage(c.dynamic1)
         end
       }
 

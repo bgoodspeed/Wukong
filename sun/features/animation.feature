@@ -5,7 +5,7 @@ Feature: Animation Details
 
   Scenario: Animation Timelines
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I create an animation manager with a ratio of one animation tick to 1 game ticks
     And I set the player attack animation to "animation.png"
     And I set the game clock to 60 fps

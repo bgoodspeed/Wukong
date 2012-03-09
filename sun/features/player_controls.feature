@@ -5,7 +5,7 @@ Feature: Player Controls
 
   Scenario: Mapping input to movements and actions
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I set the player step size to 25
     When I press "Right"
     And I press "Up"
@@ -15,7 +15,7 @@ Feature: Player Controls
 
   Scenario: Mocking Gosu Input
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I set the player step size to 25
     When I simulate "Gosu::KbLeft,Gosu::KbDown"
     And I update the key state
@@ -23,7 +23,7 @@ Feature: Player Controls
 
   Scenario: Mocking Gosu Input Weapons
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I set the player step size to 25
     When I simulate "Gosu::KbSpace"
     And I update the key state
@@ -33,7 +33,7 @@ Feature: Player Controls
     Given I load the game on level "trivial" with screen size 640, 480
     And I create an animation manager with a ratio of one animation tick to 1 game ticks
     And I create the path following manager
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I set the player step size to 25
     And I set the player weapon with image "weapon.png"
     And I set the player weapon type to "projectile"

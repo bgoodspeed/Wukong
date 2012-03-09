@@ -5,7 +5,7 @@ Feature: Heads Up Display
 
   Scenario: HUD Display
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I set the HUD text to:
     """
     line one

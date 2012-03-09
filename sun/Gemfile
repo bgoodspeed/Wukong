@@ -4,7 +4,8 @@ source "http://rubygems.org"
 gem "hoe"
 gem "opengl"
 gem "gosu"
-gem "texplay"
+gem "texplay", :platforms => [:mswin, :mingw, :ruby]
+
 gem "rake-compiler"
 gem "rdoc"
 gem "devil", :platforms => [:ruby, :mingw]

@@ -12,7 +12,7 @@ Feature: Game Description
 
   Scenario: Trivial Level Movement
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I set the player step size to 50
     When I turn to the right 90 degrees
     And I move forward 1 step
@@ -34,10 +34,9 @@ Feature: Game Description
     And I take a screenshot named "hud-capture.png"
     Then I it should match the goldmaster "hud.png"
 
-
   Scenario: Trivial Level Weapon
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I set the player direction to 180
     And I create an animation manager with a ratio of one animation tick to 1 game ticks
     And I set the player weapon with image "weapon.png"
@@ -50,7 +49,7 @@ Feature: Game Description
 
   Scenario: Trivial Level Animation
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I create an animation manager with a ratio of one animation tick to 1 game ticks
     And I set the player attack animation to "animation.png"
     And I set the game clock to 60 fps
@@ -60,7 +59,7 @@ Feature: Game Description
 
   Scenario: Trivial Level Animation After 2 Steps
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I create an animation manager with a ratio of one animation tick to 1 game ticks
     And I set the player attack animation to "animation.png"
     And I set the game clock to 60 fps
@@ -68,11 +67,10 @@ Feature: Game Description
     And I take a screenshot named "animation2-capture.png"
     Then I it should match the goldmaster "animation2.png"
 
-
   Scenario: Trivial Level Enemy
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
-    And I set the enemy avatar to "enemy_avatar.png"
+    And I set the player avatar to "avatar.bmp"
+    And I set the enemy avatar to "enemy_avatar.bmp"
     And I set the enemy position 110,110
     And I set the player step size to 50
     When I see the first frame

@@ -5,7 +5,7 @@ Feature: Path Following Details
 
   Scenario: Path Following - Projectiles
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I create the path following manager
     And I add a projectile starting at 0,0 from angle 180 at speed 1
     When I step the path following manager
@@ -15,7 +15,7 @@ Feature: Path Following Details
 
   Scenario: Path Following - Projectiles
     Given I load the game on level "trivial" with screen size 640, 480
-    And I set the player avatar to "avatar.png"
+    And I set the player avatar to "avatar.bmp"
     And I create the path following manager
     And I add a projectile starting at 0,0 from angle 180 at speed 5
     And I add a projectile starting at 0,0 from angle 90 at speed 10

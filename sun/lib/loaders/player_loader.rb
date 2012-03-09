@@ -8,7 +8,7 @@ class PlayerLoader
 
   def config
     {
-      'avatar' => "game-data/sprites/avatar.png"
+      'avatar' => "game-data/sprites/avatar.bmp"
     }
   end
 

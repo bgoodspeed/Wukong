@@ -9,7 +9,7 @@ class Player
   def initialize(avatar, game)
     @game = game
     @avatar = Gosu::Image.new(@game.window, avatar, false)
-    @avatar.clear :dest_select => transparency_color
+    #@avatar.clear :dest_select => transparency_color
     p = [@avatar.width/2.0, @avatar.height/2.0 ]
     @radius = p.max
     @position = p
@@ -86,9 +86,18 @@ class Player
     #TODO this doesn't really make sense but illustrates possible behaviors
     @health -= 1
   end
+  #TODO clean this up
+  include UtilityDrawing
   def draw(screen)
+#    @avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction, 0.5, 0.5, 1, 1, transparency_color, :default)
     @avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction)
+   
     #@avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction, 0.5, 0.5, 1,1, transparency_color)
+#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([@radius, 0])), ZOrder.dynamic.value)
+#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([0, @radius])), ZOrder.dynamic.value)
+#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([0, -@radius])), ZOrder.dynamic.value)
+#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([-@radius,0])), ZOrder.dynamic.value)
+
   end
   def to_s
     "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"

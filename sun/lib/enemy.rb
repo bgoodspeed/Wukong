@@ -10,6 +10,7 @@ class Enemy
     @radius = p.max
     @health = 15
     @position = p
+    @direction = 0
   end
   def undo_last_move
     unless @last_distance.nil?
@@ -18,8 +19,14 @@ class Enemy
     end
   end
 
+  #TODO clean this up
+  include UtilityDrawing
   def draw(screen)
-    @enemy_avatar.draw(@position[0], @position[1],1)
+    @enemy_avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction)
+#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([@radius, 0])), ZOrder.dynamic.value)
+#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([0, @radius])), ZOrder.dynamic.value)
+#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([0, -@radius])), ZOrder.dynamic.value)
+#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([-@radius,0])), ZOrder.dynamic.value)
   end
 
   def collision_type
