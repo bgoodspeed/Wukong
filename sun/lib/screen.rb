@@ -13,6 +13,11 @@ class GameWindow < Gosu::Window
     @w = width
     @h = height
     @game = game
+    self.caption = "Wukong: green(0xff55b053) Filled Background"
+
+    #TNT working image background
+    self.caption = "Wukong: grass.jpg"
+    @background_image = Gosu::Image.new(self, "game-data/background/grass.jpg", false)
   end
 
   def update
@@ -24,9 +29,10 @@ class GameWindow < Gosu::Window
   end
   
   def draw
-    draw_quad(0, 0, custom_green, 0, 480, custom_green, 640, 480, custom_green, 640, 0, custom_green, 0)
+    #draw_quad(0, 0, custom_green, 0, 480, custom_green, 640, 480, custom_green, 640, 0, custom_green, 0)
+    @background_image.draw(0,0,0)
+   
     @game.draw
-    
   end
 
   def screenshotBG
