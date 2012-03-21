@@ -1,0 +1,22 @@
+name: large
+measurements:
+  width: 1280
+  height: 960
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 1280
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 960
+  - start_x: 1280
+    start_y: 0
+    end_x: 1280
+    end_y: 960
+  - start_x: 0
+    start_y: 960
+    end_x: 1280
+    end_y: 960
+

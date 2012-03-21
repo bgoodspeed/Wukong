@@ -2,7 +2,7 @@
 
 Given /^I load the game on level "([^"]*)" with screen size (\d+), (\d+)$/ do |level_to_load, width, height|
   @game = Game.new({:width => width.to_i, :height => height.to_i})
-  @game.load_level("test-data/levels/#{level_to_load}/#{level_to_load}.yml")
+  @level = @game.load_level("test-data/levels/#{level_to_load}/#{level_to_load}.yml")
 end
 
 Given /^I set the screen size to (\d+),(\d+)$/ do |width, height|

@@ -8,6 +8,9 @@ include Glu
 require 'gosu'
 require 'devil/gosu'
 class GameWindow < Gosu::Window
+  def width; @w; end
+  def height; @h; end
+
   def initialize(game, width, height)
     super width, height, false
     @w = width
@@ -52,6 +55,8 @@ class Screen
     @window = GameWindow.new(game, width, height)
 
   end
+  def width; @window.width; end
+  def height; @window.height; end
 
   def draw
     @window.draw

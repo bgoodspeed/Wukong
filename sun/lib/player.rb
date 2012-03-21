@@ -42,7 +42,9 @@ class Player
     @game.load_animation(self, "weapon", @weapon.image_path, 24, 24, false) #TODO hardcoded values
   end
 
-
+  def screen_coordinates(camera)
+    [camera.screen_width/2.0, camera.screen_height/2.0]
+  end
   def turn(direction)
     @direction = ((@direction + direction) % MAX_TURN_DEGREES)
   end
@@ -58,7 +60,8 @@ class Player
 
   def animation_position_by_name(name)
     raise "programmer error: unknown animation #{name}" unless name =~ /attack/ or name =~ /weapon/
-    @position.dup
+    screen_coordinates(@game.camera).dup
+    #@position.dup
   end
 
   #TODO likely to be duplicated
@@ -89,14 +92,9 @@ class Player
   #TODO clean this up
   include UtilityDrawing
   def draw(screen)
-#    @avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction, 0.5, 0.5, 1, 1, transparency_color, :default)
-    @avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction)
-   
-    #@avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction, 0.5, 0.5, 1,1, transparency_color)
-#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([@radius, 0])), ZOrder.dynamic.value)
-#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([0, @radius])), ZOrder.dynamic.value)
-#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([0, -@radius])), ZOrder.dynamic.value)
-#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([-@radius,0])), ZOrder.dynamic.value)
+    coords = screen_coordinates(@game.camera)
+    @avatar.draw_rot(coords[0] , coords[1] , ZOrder.dynamic.value, @direction)
+    
 
   end
   def to_s

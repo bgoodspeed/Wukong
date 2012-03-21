@@ -17,6 +17,7 @@ require 'weapon'
 require 'player'
 require 'enemy'
 require 'clock'
+require 'camera'
 require 'heads_up_display'
 require 'collision_responder'
 require 'way_finding'
@@ -32,16 +33,18 @@ require 'death_event'
 class Game
 
   attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
-    :movement_distance, :path_following_manager, :enemy, :events
+    :movement_distance, :path_following_manager, :enemy, :events, :camera,
+    :screen
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
     @player_loader = PlayerLoader.new(self)
-    @level_loader = LevelLoader.new
+    @level_loader = LevelLoader.new(self)
     @collision_responder = CollisionResponder.new(self)
     @animation_manager = AnimationManager.new(self)
     @path_following_manager = PathFollowingManager.new(self)
+    @camera = Camera.new(self)
     @keys = {}
     @events = []
     @active = true
@@ -241,6 +244,10 @@ class Game
     while @clock.current_frame_too_fast? do
       # TODO NOOP, could sleep to free up CPU cycles
     end
+  end
+
+  def camera_position
+    @camera.position
   end
 
   def active?

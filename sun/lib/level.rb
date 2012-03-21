@@ -42,7 +42,7 @@ end
 class Level
   attr_accessor :measurements, :line_segments, :triangles, :circles, :rectangles, :dynamic_elements
   @@CELL_SIZE = 10
-  def initialize
+  def initialize(game=nil)
     @space = SpaceWrapper.new
     @measurements = []
     @line_segments = []
@@ -52,7 +52,7 @@ class Level
     @dynamic_elements = []
     @static_hash = SpatialHash.new(@@CELL_SIZE)
     @dynamic_hash = SpatialHash.new(@@CELL_SIZE)
-    
+    @game = game
   end
 
   def add_line_segment(sx,sy, ex, ey)
@@ -99,13 +99,18 @@ class Level
   def draw_function_for(elem)
     #TODO move all drawing logic out of models in case we replace gosu
     #TODO maybe a gosu image manager
-    mapping = {Primitives::LineSegment => lambda {|screen, linesegment| draw_line_segment(screen, linesegment, ZOrder.static.value) },
+    mapping = {Primitives::LineSegment => lambda {|screen, linesegment|
+                 offset = @game.camera.offset
+                 draw_line_segment(screen, linesegment, ZOrder.static.value, offset)
+               },
                Player => lambda {|screen, player| player.draw(screen) },
                Enemy => lambda {|screen, enemy| enemy.draw(screen) },
                #TODO ugly, should this be here? not sure about design
                VectorFollower => lambda {|screen, vf|
                  d = 10
-                 draw_rectangle(screen, Primitives::Rectangle.new(vf.current_position, vf.current_position.plus([d,0]), vf.current_position.plus([d,d]), vf.current_position.plus([0,d])))}
+                 cp = vf.current_position.minus(@game.camera.offset)
+
+                 draw_rectangle(screen, Primitives::Rectangle.new(cp, cp.plus([d,0]), cp.plus([d,d]), cp.plus([0,d])))}
     }
     raise "Unknown draw function for #{elem.class}" unless mapping.has_key?(elem.class)
     mapping[elem.class]

@@ -11,3 +11,9 @@ Feature: Level Description
     And there should be 0 triangles
     And there should be 0 circles
     And there should be 0 rectangles
+
+  Scenario: Large Level
+    Given I load the level "large"
+    When the level is examined
+    Then the level should measure 1280, 960
+    Then there should be 4 line segments

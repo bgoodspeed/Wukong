@@ -22,11 +22,12 @@ class Enemy
   #TODO clean this up
   include UtilityDrawing
   def draw(screen)
-    @enemy_avatar.draw_rot(@position[0] , @position[1] , ZOrder.dynamic.value, @direction)
-#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([@radius, 0])), ZOrder.dynamic.value)
-#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([0, @radius])), ZOrder.dynamic.value)
-#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([0, -@radius])), ZOrder.dynamic.value)
-#    draw_line_segment(screen, Primitives::LineSegment.new(@position, @position.plus([-@radius,0])), ZOrder.dynamic.value)
+    coords = screen_coordinates(@game.camera)
+    @enemy_avatar.draw_rot(coords[0] , coords[1] , ZOrder.dynamic.value, @direction)
+  end
+
+  def screen_coordinates(camera)
+    @position.minus(camera.offset)
   end
 
   def collision_type
