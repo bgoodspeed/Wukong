@@ -43,7 +43,7 @@ class Player
   end
 
   def screen_coordinates(camera)
-    [camera.screen_width/2.0, camera.screen_height/2.0]
+    @position.minus(camera.offset)
   end
   def turn(direction)
     @direction = ((@direction + direction) % MAX_TURN_DEGREES)

@@ -34,7 +34,7 @@ class Game
 
   attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
     :movement_distance, :path_following_manager, :enemy, :events, :camera,
-    :screen
+    :screen, :level
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)

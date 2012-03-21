@@ -40,7 +40,8 @@ class SpaceWrapper
 end
 
 class Level
-  attr_accessor :measurements, :line_segments, :triangles, :circles, :rectangles, :dynamic_elements
+  attr_accessor :measurements, :line_segments, :triangles, :circles, 
+    :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, :maximum_y
   @@CELL_SIZE = 10
   def initialize(game=nil)
     @space = SpaceWrapper.new
@@ -52,10 +53,22 @@ class Level
     @dynamic_elements = []
     @static_hash = SpatialHash.new(@@CELL_SIZE)
     @dynamic_hash = SpatialHash.new(@@CELL_SIZE)
+    @minimum_x = 0
+    @minimum_y = 0
+    @maximum_x = 0
+    @maximum_y = 0
     @game = game
   end
 
+  def update_minimax(sx,sy,ex,ey)
+    @minimum_x = [sx, ex, @minimum_x].min
+    @maximum_x = [sx, ex, @maximum_x].max
+    @minimum_y = [sy, ey, @minimum_y].min
+    @maximum_y = [sy, ey, @maximum_y].max
+  end
+
   def add_line_segment(sx,sy, ex, ey)
+    update_minimax(sx,sy,ex,ey)
     segment = Primitives::LineSegment.new([sx,sy],[ex,ey])
     @line_segments << segment
     @static_hash.add_line_segment(segment, segment)
@@ -101,7 +114,7 @@ class Level
     #TODO maybe a gosu image manager
     mapping = {Primitives::LineSegment => lambda {|screen, linesegment|
                  offset = @game.camera.offset
-                 draw_line_segment(screen, linesegment, ZOrder.static.value, offset)
+                 draw_line_segment(screen, linesegment, ZOrder.static.value, offset, Gosu::Color::RED)
                },
                Player => lambda {|screen, player| player.draw(screen) },
                Enemy => lambda {|screen, enemy| enemy.draw(screen) },

@@ -11,7 +11,7 @@ game = Game.new({:width => 640, :height => 480})
 game.movement_distance = 1
 game.turn_speed = 10
 
-game.load_level("test-data/levels/trivial/trivial.yml")
+game.load_level("test-data/levels/huge/huge.yml")
 p = Player.new("test-data/sprites/avatar.bmp", game)
 w = Weapon.new(game, "test-data/equipment/weapon.png")
 w.type = "projectile"

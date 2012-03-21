@@ -1,0 +1,21 @@
+name: huge
+measurements:
+  width: 2560
+  height: 1920
+line_segments:
+  - start_x: -1280
+    start_y: -960
+    end_x: 1280
+    end_y:   -960
+  - start_x: -1280
+    start_y: -960
+    end_x: -1280
+    end_y:   960
+  - start_x: -1280
+    start_y: 960
+    end_x: 1280
+    end_y: 960
+  - start_x: 1280
+    start_y: 960
+    end_x: 1280
+    end_y: -960
