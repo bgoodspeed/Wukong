@@ -19,8 +19,7 @@ class GameWindow < Gosu::Window
     self.caption = "Wukong: green(0xff55b053) Filled Background"
 
     #TODO TNT working image background, should be pulled into level config
-    self.caption = "Wukong: grass.jpg"
-    @background_image = Gosu::Image.new(self, "game-data/background/grass.jpg", false)
+    self.caption = "Wukong: purplemonkeydishwasherbubblegum"
   end
 
   def update
@@ -32,8 +31,6 @@ class GameWindow < Gosu::Window
   end
   
   def draw
-    coords = @game.camera.screen_coordinates_for([0,0])
-    @background_image.draw(coords[0],coords[1],ZOrder.background.value)
    
     @game.draw
   end

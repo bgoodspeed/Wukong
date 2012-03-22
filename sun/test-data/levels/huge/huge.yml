@@ -1,4 +1,5 @@
 name: huge
+background_image: test-data/levels/huge/grass.jpg
 measurements:
   width: 2560
   height: 1920

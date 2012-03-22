@@ -53,3 +53,7 @@ end
 Then /^the minimum y is \-(\d+)$/ do |arg1|
   @level.minimum_y.should == arg1.to_i * -1
 end
+
+Then /^the background image is named "([^"]*)"$/ do |image_name|
+  @level.background_image.should =~ /#{image_name}/
+end

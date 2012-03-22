@@ -41,7 +41,9 @@ end
 
 class Level
   attr_accessor :measurements, :line_segments, :triangles, :circles, 
-    :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, :maximum_y
+    :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, 
+    :maximum_y
+  attr_reader :background_image
   @@CELL_SIZE = 10
   def initialize(game=nil)
     @space = SpaceWrapper.new
@@ -58,6 +60,15 @@ class Level
     @maximum_x = 0
     @maximum_y = 0
     @game = game
+  end
+
+  def background_image=(img)
+    @background_image = img
+    if @game
+      @background = Gosu::Image.new(@game.window, @background_image)
+    else
+      #TODO should game be required to build a level?
+    end
   end
 
   def update_minimax(sx,sy,ex,ey)
@@ -132,6 +143,10 @@ class Level
   end
 
   def draw(screen)
+    unless @background.nil?
+      coords = @game.camera.screen_coordinates_for([0,0]) #TODO is this always 0,0?
+      @background.draw(coords[0],coords[1],ZOrder.background.value)
+    end
     static_bodies.each {|body| draw_function_for(body).call(screen, body)}
     dynamic_elements.each {|body| draw_function_for(body).call(screen, body)}
   end

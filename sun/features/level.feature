@@ -15,6 +15,7 @@ Feature: Level Description
     And the maximum x is 640
     And the minimum y is 0
     And the maximum y is 480
+    And the background image is named "grass.jpg"
 
   Scenario: Large Level
     Given I load the level "large"
@@ -25,6 +26,7 @@ Feature: Level Description
     And the maximum x is 1280
     And the minimum y is 0
     And the maximum y is 960
+    And the background image is named "grass.jpg"
 
   Scenario: Huge Level
     Given I load the level "huge"
@@ -35,3 +37,4 @@ Feature: Level Description
     And the maximum x is 1280
     And the minimum y is -960
     And the maximum y is 960
+    And the background image is named "grass.jpg"
