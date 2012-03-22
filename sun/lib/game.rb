@@ -27,6 +27,7 @@ require 'path_following_manager'
 require 'loaders/player_loader'
 require 'loaders/level_loader'
 require 'death_event'
+require 'sound_manager'
 
 
 
@@ -34,7 +35,7 @@ class Game
 
   attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
     :movement_distance, :path_following_manager, :enemy, :events, :camera,
-    :screen, :level
+    :screen, :level, :sound_manager
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
@@ -50,6 +51,7 @@ class Game
     @active = true
     @clock = Clock.new(dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
+    @sound_manager = SoundManager.new(self)
   end
 
   def load_level(level_name)
@@ -252,6 +254,10 @@ class Game
 
   def active?
     @active
+  end
+
+  def play_effect(name)
+    @sound_manager.play_effect(name)
   end
 
 end

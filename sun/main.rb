@@ -14,6 +14,10 @@ game.turn_speed = 10
 game.load_level("test-data/levels/huge/huge.yml")
 p = Player.new("test-data/sprites/avatar.bmp", game)
 w = Weapon.new(game, "test-data/equipment/weapon.png")
+w.sound_effect_name = "shoot"
+sm = SoundManager.new(game)
+game.sound_manager = sm
+sm.add_effect("test-data/sounds/weapon.wav", "shoot")
 w.type = "projectile"
 p.equip_weapon(w)
 p.position = [300,200]
