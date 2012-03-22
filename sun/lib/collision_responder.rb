@@ -1,6 +1,8 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
+
+
 class CollisionResponder
 
   def initialize(game)
@@ -19,39 +21,40 @@ class CollisionResponder
     m[d.class]
   end
 
+  def responses
+    {
+      :damaging1 => lambda {|col| col.dynamic1.take_damage(col.dynamic2)},
+      :damaging2 => lambda {|col| col.dynamic2.take_damage(col.dynamic1)},
+      :removing2 => lambda {|col| @game.remove_projectile(col.dynamic2)},
+      :blocking1 => lambda {|col| col.dynamic1.undo_last_move},
+    }
+  end
+
   #TODO sort collision types?
   def dynamic_response(col)
     m = {
       Enemy => {
-        VectorFollower => lambda  do |col|
-          col.dynamic1.take_damage(col.dynamic2)
-          @game.remove_projectile(col.dynamic2)
-        end
+        VectorFollower => [:damaging1, :removing2]
       },
       Player => {
-        VectorFollower => lambda  do |col|
-          #TODO track the shooter of projectiles
-          # puts "player shot self #{col.dynamic1} by projectile #{col.dynamic2}"
-        end,
-        Enemy => lambda do |c|
-          c.dynamic1.undo_last_move
-          c.dynamic1.take_damage(c.dynamic2)
-          c.dynamic2.take_damage(c.dynamic1)
-        end
+        VectorFollower => [],
+        Enemy => [:damaging1, :damaging2, :blocking1]
       }
 
 
     }
-    raise "unknown base response type: #{col.dynamic1.class}" unless m.has_key? col.dynamic1.class
-    raise "unknown secondary response type: #{col.dynamic2.class}, primary is #{col.dynamic1.class}" unless m[col.dynamic1.class].has_key? col.dynamic2.class
-    m[col.dynamic1.class][col.dynamic2.class]
+    raise "unknown base response type: #{col.dynamic1.collision_type}" unless m.has_key? col.dynamic1.collision_type
+    raise "unknown secondary response type: #{col.dynamic2.collision_type}, primary is #{col.dynamic1.collision_type}" unless m[col.dynamic1.collision_type].has_key? col.dynamic2.collision_type
+    m[col.dynamic1.collision_type][col.dynamic2.collision_type]
   end
   def handle_collisions(collisions)
     collisions.each {|col|
       if col.class == StaticCollision
         response_by_class(col.dynamic).call(col)
       else
-        dynamic_response(col).call(col)
+        dynamic_response(col).each do |response|
+          responses[response].call(col)
+        end
       end
     }
   end
