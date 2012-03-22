@@ -42,9 +42,6 @@ class Player
     @game.load_animation(self, "weapon", @weapon.image_path, 24, 24, false) #TODO hardcoded values
   end
 
-  def screen_coordinates(camera)
-    @position.minus(camera.offset)
-  end
   def turn(direction)
     @direction = ((@direction + direction) % MAX_TURN_DEGREES)
   end
@@ -60,7 +57,7 @@ class Player
 
   def animation_position_by_name(name)
     raise "programmer error: unknown animation #{name}" unless name =~ /attack/ or name =~ /weapon/
-    screen_coordinates(@game.camera).dup
+    @game.camera.screen_coordinates_for(@position).dup
     #@position.dup
   end
 
@@ -92,11 +89,10 @@ class Player
   #TODO clean this up
   include UtilityDrawing
   def draw(screen)
-    coords = screen_coordinates(@game.camera)
+    coords = @game.camera.screen_coordinates_for(@position)
     @avatar.draw_rot(coords[0] , coords[1] , ZOrder.dynamic.value, @direction)
-    
-
   end
+  
   def to_s
     "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
   end

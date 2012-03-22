@@ -113,15 +113,17 @@ class Level
     #TODO move all drawing logic out of models in case we replace gosu
     #TODO maybe a gosu image manager
     mapping = {Primitives::LineSegment => lambda {|screen, linesegment|
-                 offset = @game.camera.offset
-                 draw_line_segment(screen, linesegment, ZOrder.static.value, offset, Gosu::Color::RED)
+                 p1 = @game.camera.screen_coordinates_for(linesegment.p1)
+                 p2 = @game.camera.screen_coordinates_for(linesegment.p2)
+                 ls = Primitives::LineSegment.new(p1, p2)
+                 draw_line_segment(screen, ls, ZOrder.static.value, Gosu::Color::RED)
                },
                Player => lambda {|screen, player| player.draw(screen) },
                Enemy => lambda {|screen, enemy| enemy.draw(screen) },
                #TODO ugly, should this be here? not sure about design
                VectorFollower => lambda {|screen, vf|
                  d = 10
-                 cp = vf.current_position.minus(@game.camera.offset)
+                 cp = @game.camera.screen_coordinates_for(vf.current_position)
 
                  draw_rectangle(screen, Primitives::Rectangle.new(cp, cp.plus([d,0]), cp.plus([d,d]), cp.plus([0,d])))}
     }

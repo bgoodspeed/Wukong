@@ -32,8 +32,7 @@ class GameWindow < Gosu::Window
   end
   
   def draw
-    #draw_quad(0, 0, custom_green, 0, 480, custom_green, 640, 480, custom_green, 640, 0, custom_green, 0)
-    coords = [0,0].minus(@game.camera.offset)
+    coords = @game.camera.screen_coordinates_for([0,0])
     @background_image.draw(coords[0],coords[1],ZOrder.background.value)
    
     @game.draw

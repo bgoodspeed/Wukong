@@ -10,12 +10,8 @@ module TransparencyUtils
 end
 module UtilityDrawing
   include TransparencyUtils
-  def draw_line_segment(screen, ls, zorder = ZOrder.dynamic.value, offset=[0,0], color=Gosu::Color::BLACK)
-    
-    start = ls.p1.minus(offset)
-    done = ls.p2.minus(offset)
-
-    screen.draw_line(start[0], start[1], Gosu::Color::BLACK, done[0], done[1], color, zorder  )
+  def draw_line_segment(screen, ls, zorder = ZOrder.dynamic.value, color=Gosu::Color::BLACK)
+    screen.draw_line(ls.sx, ls.sy, Gosu::Color::BLACK, ls.ex, ls.ey, color, zorder  )
   end
 
   def draw_animation_at(screen, position, animation)

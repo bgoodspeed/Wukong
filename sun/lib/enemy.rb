@@ -22,13 +22,10 @@ class Enemy
   #TODO clean this up
   include UtilityDrawing
   def draw(screen)
-    coords = screen_coordinates(@game.camera)
+    coords = @game.camera.screen_coordinates_for(@position)
     @enemy_avatar.draw_rot(coords[0] , coords[1] , ZOrder.dynamic.value, @direction)
   end
 
-  def screen_coordinates(camera)
-    @position.minus(camera.offset)
-  end
 
   def collision_type
     Enemy

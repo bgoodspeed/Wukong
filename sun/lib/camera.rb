@@ -42,4 +42,9 @@ class Camera
 
     rv
   end
+
+  def screen_coordinates_for(position)
+    position.minus(offset)
+  end
+
 end
