@@ -16,7 +16,7 @@ class GameWindow < Gosu::Window
     @w = width
     @h = height
     @game = game
-    self.caption = "Wukong: green(0xff55b053) Filled Background"
+    #self.caption = "Wukong: green(0xff55b053) Filled Background"
 
     #TODO TNT working image background, should be pulled into level config
     self.caption = "Wukong: purplemonkeydishwasherbubblegum"
