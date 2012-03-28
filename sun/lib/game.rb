@@ -155,6 +155,7 @@ class Game
         @menu_manager.move_down
       end
       if @keys[@@MENU_ENTER]
+        
         @menu_manager.invoke_current
       end
 
@@ -230,7 +231,7 @@ class Game
     if button_down? Gosu::KbSpace then
       set_key_to_active(@@FIRE)
     end
-    if button_down? Gosu::KbEnter then
+    if button_down? Gosu::KbEnter or button_down? Gosu::KbReturn then
       set_key_to_active(@@MENU_ENTER)
     end
 
