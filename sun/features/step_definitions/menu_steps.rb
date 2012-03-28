@@ -46,3 +46,7 @@ end
 Then /^the menu action result should be (\d+)$/ do |arg1|
   @menu_result.to_s.should == arg1.to_s
 end
+
+Then /^the game should be in menu mode$/ do
+  @menu_manager.should be_active
+end

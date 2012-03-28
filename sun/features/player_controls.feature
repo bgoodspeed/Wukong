@@ -56,3 +56,25 @@ Feature: Player Controls
     And I update the game state
     Then the game should call quit
 
+  Scenario: Mapping M to menu
+    Given I load the game on level "trivial" with screen size 640, 480
+    When I simulate "Gosu::KbM"
+    And I update the key state
+    And the following keys should be active: "Menu"
+
+  Scenario: Mapping menu to enter menu
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create the HUD
+    And I create a menu manager
+    And I create a new menu called "fake":
+      """
+      menu:
+        menu_id: pick_slot
+        entries:
+          - display_text: Alpha
+            action: choose_slot
+      """
+    And I set the main menu name to "fake"
+    When I press "Menu"
+    And I update the game state
+    Then the game should be in menu mode

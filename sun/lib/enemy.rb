@@ -43,7 +43,6 @@ class Enemy
   end
   #TODO this should be in a module 
   def take_damage(from)
-    # puts "#{self} took damage from #{from}"
     @health -= 1
     if dead?
       @game.add_death_event(self)

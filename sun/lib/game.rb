@@ -121,6 +121,7 @@ class Game
   @@DOWN = "Down"
   @@FIRE = "Fire"
   @@QUIT = "Quit"
+  @@MENU = "Menu"
   @@TURN_SPEED = 90
   @@MOVEMENT_DISTANCE = 1
   
@@ -137,11 +138,20 @@ class Game
     @menu_manager.current_menu_lines.each {|line|  @hud.add_line(line)}
 
   end
-  
+
+  #TODO this is getting messy
   def update_game_state
     if @keys[@@QUIT]
       @active = false
       @screen.close
+    end
+
+    if @keys[@@MENU]
+      enter_menu
+    end
+    if @menu_manager.active?
+      update_menu_state
+      return
     end
 
     @events.each{|event| 
@@ -215,6 +225,10 @@ class Game
 
     if button_down? Gosu::KbQ then
       set_key_to_active(@@QUIT)
+    end
+
+    if button_down? Gosu::KbM then
+      set_key_to_active(@@MENU)
     end
 
     #if button_down? Gosu::KbA then

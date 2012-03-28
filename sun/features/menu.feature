@@ -38,6 +38,27 @@ Feature: Menu
       """
     And I set the main menu name to "pick_slot"
     When I enter the menu
+    Then the current menu entry should have:
+      | display_text   | action         | action_argument |
+      | 1              | choose_slot    | 1               |
+
+  Scenario: Simple Menu Selection Movement
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a menu manager
+    And I create a new menu called "pick_slot":
+      """
+      menu:
+        menu_id: pick_slot
+        entries:
+          - display_text: 1
+            action: choose_slot
+            action_argument: 1
+          - display_text: 2
+            action: choose_slot
+            action_argument: 2
+      """
+    And I set the main menu name to "pick_slot"
+    When I enter the menu
     And I move down in the menu
     Then the current menu entry should have:
       | display_text   | action         | action_argument |
