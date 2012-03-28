@@ -8,6 +8,11 @@ require 'rspec-expectations'
 #World do
 #  extend Shoulda::Matchers
 #end
+require 'simplecov'
+SimpleCov.adapters.define 'only_lib_code' do
+  add_filter 'features'
+end
+SimpleCov.start 'only_lib_code'
 
 require 'game'
 require 'spatial_hash'

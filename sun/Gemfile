@@ -13,7 +13,7 @@ gem "chunky_png"
 gem "chipmunk"
 gem "statemachine"
 
-
+gem 'simplecov', :require => false, :group => :test
 gem "mocha"
 gem "rspec-expectations"
 gem "cucumber"

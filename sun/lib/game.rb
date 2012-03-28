@@ -122,6 +122,7 @@ class Game
   @@FIRE = "Fire"
   @@QUIT = "Quit"
   @@MENU = "Menu"
+  @@MENU_ENTER = "MenuEnter"
   @@TURN_SPEED = 90
   @@MOVEMENT_DISTANCE = 1
   
@@ -152,6 +153,9 @@ class Game
     if @menu_manager.active?
       if @keys[@@DOWN]
         @menu_manager.move_down
+      end
+      if @keys[@@MENU_ENTER]
+        @menu_manager.invoke_current
       end
 
       update_menu_state
@@ -225,6 +229,9 @@ class Game
     end
     if button_down? Gosu::KbSpace then
       set_key_to_active(@@FIRE)
+    end
+    if button_down? Gosu::KbEnter then
+      set_key_to_active(@@MENU_ENTER)
     end
 
     if button_down? Gosu::KbQ then

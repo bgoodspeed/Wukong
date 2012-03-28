@@ -19,7 +19,7 @@ class MenuEntry
 end
 
 class Menu
-  attr_reader :current_index
+  attr_reader :current_index, :menu_id
   def initialize(menu_id)
     @menu_id = menu_id
     @entries = []
@@ -55,15 +55,28 @@ class Menu
 
 end
 
+class Breadcrumb
+  attr_reader :menu_id, :action, :action_argument, :action_result
+  def initialize(menu_id, action, action_argument, action_result)
+    @menu_id, @action, @action_argument, @action_result = menu_id, action, action_argument, action_result
+  end
+end
+
 class MenuManager
-  attr_reader :active
+  attr_reader :active, :breadcrumbs
+  def self.default_actions
+    {
+      "debug_print" => lambda {|arg| puts "DEBUG_PRINT: #{arg}"}
+    }
+  end
+
   def initialize(game)
     @game = game
     @menus = {}
     @active = false
     @active_menu_name = nil
-    @actions = {}
-
+    @actions = MenuManager.default_actions
+    @breadcrumbs = []
   end
   def register_action(name, action)
     @actions[name] = action
@@ -77,8 +90,14 @@ class MenuManager
   end
   def invoke_current
     ce = current_menu_entry
-    action = @actions[ce.action]
-    action.call(ce.action_argument)
+    action = ce.action
+    action_argument = ce.action_argument
+    
+    m = @actions[action]
+    action_result = m.call(action_argument)
+    menu_id = current_menu.menu_id
+    @breadcrumbs << Breadcrumb.new(menu_id, action, action_argument, action_result)
+    action_result
   end
   def current_menu_index
     current_menu.current_index

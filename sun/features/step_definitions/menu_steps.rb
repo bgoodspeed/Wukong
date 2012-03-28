@@ -58,3 +58,16 @@ end
 Then /^the game should be in menu mode$/ do
   @menu_manager.should be_active
 end
+
+Then /^the breadcrumb trail should have the following:$/ do |table|
+  trail = @menu_manager.breadcrumbs
+
+  table.hashes.each_with_index {|hash, idx|
+    
+    trail[idx].menu_id.should == hash['menu_id']
+    trail[idx].action.should == hash['action']
+    trail[idx].action_argument.to_s.should == hash['action_argument']
+    trail[idx].action_result.to_s.should == hash['action_result']
+  }
+  
+end

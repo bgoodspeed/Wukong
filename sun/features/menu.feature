@@ -94,3 +94,4 @@ Feature: Menu
     Then the current menu entry should have:
       | display_text   | 
       | Option One     | 
+

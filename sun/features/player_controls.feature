@@ -78,3 +78,33 @@ Feature: Player Controls
     When I press "Menu"
     And I update the game state
     Then the game should be in menu mode
+
+  Scenario: Mapping Enter to menu_enter
+    Given I load the game on level "trivial" with screen size 640, 480
+    When I simulate "Gosu::KbEnter"
+    And I update the key state
+    And the following keys should be active: "MenuEnter"
+
+  Scenario: Mapping menu to enter menu
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create the HUD
+    And I create a menu manager
+    And I register a fake action to return triple the argument called "choose_slot"
+    And I create a new menu called "fake":
+      """
+      menu:
+        menu_id: pick_slot
+        entries:
+          - display_text: Alpha
+            action: choose_slot
+            action_argument: 7
+      """
+    And I set the main menu name to "fake"
+    When I press "Menu"
+    And I update the game state
+    When I press "MenuEnter"
+    And I update the game state
+    Then the breadcrumb trail should have the following:
+      | menu_id   | action      | action_argument | action_result |
+      | pick_slot | choose_slot | 7               | 21            |
+
