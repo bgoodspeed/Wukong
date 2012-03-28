@@ -19,7 +19,7 @@ class MenuEntry
 end
 
 class Menu
-
+  attr_reader :current_index
   def initialize(menu_id)
     @menu_id = menu_id
     @entries = []
@@ -79,6 +79,9 @@ class MenuManager
     ce = current_menu_entry
     action = @actions[ce.action]
     action.call(ce.action_argument)
+  end
+  def current_menu_index
+    current_menu.current_index
   end
   def current_menu
     menu_named @active_menu_name

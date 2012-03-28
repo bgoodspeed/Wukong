@@ -139,7 +139,7 @@ class Game
 
   end
 
-  #TODO this is getting messy
+  #TODO this is getting messy 2nd TODO really messy
   def update_game_state
     if @keys[@@QUIT]
       @active = false
@@ -150,6 +150,10 @@ class Game
       enter_menu
     end
     if @menu_manager.active?
+      if @keys[@@DOWN]
+        @menu_manager.move_down
+      end
+
       update_menu_state
       return
     end
@@ -285,11 +289,7 @@ class Game
     @clock.tick
     clear_keys
     update_key_state
-    if @menu_manager.active?
-      update_menu_state
-    else
-      update_game_state
-    end
+    update_game_state
   end
   def simulate
     update_all
@@ -322,4 +322,7 @@ class Game
     @hud.menu_mode = true
   end
 
+  def current_menu_index
+    @menu_manager.current_menu_index
+  end
 end
