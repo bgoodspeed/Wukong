@@ -284,10 +284,6 @@ class Game
   end
 
 
-  def add_tracking(hunter, prey)
-    puts "todo add tracking of #{hunter} vs #{prey}"
-  end
-
   def play_effect(name)
     @sound_manager.play_effect(name)
   end
