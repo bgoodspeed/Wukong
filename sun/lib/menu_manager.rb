@@ -35,6 +35,10 @@ class Menu
   def add_entry(entry)
     @entries << entry
   end
+  def lines
+    @entries.collect{|e| e.display_text}
+  end
+  
   def self.from_yaml(yaml)
     data = YAML.load(yaml)
     m = data['menu']
@@ -82,7 +86,9 @@ class MenuManager
   def current_menu_entry
     current_menu.current_entry
   end
-
+  def current_menu_lines
+    current_menu.lines
+  end
   def move_down
     current_menu.move_down
   end

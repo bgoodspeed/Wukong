@@ -8,6 +8,9 @@ class HeadsUpDisplay
     @font = Gosu::Font.new(game.window, Gosu::default_font_name, 20)
   end
 
+  def clear
+    @lines = []
+  end
   def add_line(line)
     @lines << line
   end

@@ -64,3 +64,4 @@ Feature: Menu
       | 1              | choose_slot    | 1               |
     When I invoke the current menu action
     Then the menu action result should be 3
+

@@ -132,7 +132,12 @@ class Game
     @movement_distance.nil? ? @@MOVEMENT_DISTANCE : @movement_distance
   end
 
+  def update_menu_state
+    @hud.clear
+    @menu_manager.current_menu_lines.each {|line|  @hud.add_line(line)}
 
+  end
+  
   def update_game_state
     if @keys[@@QUIT]
       @active = false
@@ -224,8 +229,10 @@ class Game
   def render_one_frame
 
     @level.draw(@screen)
-    @hud.draw(@screen)
     @animation_manager.draw(@screen)
+    @hud.draw(@screen)
+
+
   end
 
   def set_key_to_active(key)
@@ -264,8 +271,11 @@ class Game
     @clock.tick
     clear_keys
     update_key_state
-    update_game_state
-
+    if @menu_manager.active?
+      update_menu_state
+    else
+      update_game_state
+    end
   end
   def simulate
     update_all
