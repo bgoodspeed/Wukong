@@ -8,10 +8,12 @@ class Array
   include ArrayVectorOperations
 end
 
+
 require 'zorder'
 require 'utility_drawing'
 require 'event_emitter'
 require 'spatial_hash'
+require 'menu_manager'
 require 'level'
 require 'screen'
 require 'weapon'
@@ -38,7 +40,7 @@ class Game
   attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
     :movement_distance, :path_following_manager, :enemy, :events, :camera,
     :screen, :level, :sound_manager, :collision_responder, :collisions,
-    :wayfinding
+    :wayfinding, :menu_manager, :main_menu_name
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
@@ -48,7 +50,9 @@ class Game
     @collision_responder = CollisionResponder.new(self)
     @animation_manager = AnimationManager.new(self)
     @path_following_manager = PathFollowingManager.new(self)
+    @menu_manager = MenuManager.new(self)
     @camera = Camera.new(self)
+    @main_menu_name = "main menu"
     @keys = {}
     @events = []
     @active = true
@@ -286,6 +290,11 @@ class Game
 
   def play_effect(name)
     @sound_manager.play_effect(name)
+  end
+
+
+  def enter_menu(name=@main_menu_name)
+    @menu_manager.activate(name)
   end
 
 end
