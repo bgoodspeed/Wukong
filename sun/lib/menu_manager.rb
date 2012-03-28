@@ -13,6 +13,9 @@ class MenuEntry
   def action
     @conf['action']
   end
+  def action_argument
+    @conf['action_argument']
+  end
 end
 
 class Menu
@@ -23,6 +26,9 @@ class Menu
     @current_index = 0
   end
 
+  def move_down
+    @current_index = (@current_index + 1) % @entries.size
+  end
   def current_entry
     @entries[@current_index]
   end
@@ -52,6 +58,11 @@ class MenuManager
     @menus = {}
     @active = false
     @active_menu_name = nil
+    @actions = {}
+
+  end
+  def register_action(name, action)
+    @actions[name] = action
   end
 
   def add_menu(name, menu)
@@ -60,7 +71,11 @@ class MenuManager
   def menu_named(name)
     @menus[name]
   end
-
+  def invoke_current
+    ce = current_menu_entry
+    action = @actions[ce.action]
+    action.call(ce.action_argument)
+  end
   def current_menu
     menu_named @active_menu_name
   end
@@ -68,6 +83,9 @@ class MenuManager
     current_menu.current_entry
   end
 
+  def move_down
+    current_menu.move_down
+  end
   def activate(name)
     @active_menu_name = name
     @active = true
