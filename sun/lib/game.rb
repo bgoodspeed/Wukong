@@ -10,6 +10,7 @@ end
 
 require 'zorder'
 require 'utility_drawing'
+require 'event_emitter'
 require 'spatial_hash'
 require 'level'
 require 'screen'
@@ -17,6 +18,7 @@ require 'weapon'
 require 'player'
 require 'enemy'
 require 'clock'
+require 'camera'
 require 'heads_up_display'
 require 'collision_responder'
 require 'way_finding'
@@ -25,29 +27,35 @@ require 'animation_manager'
 require 'path_following_manager'
 require 'loaders/player_loader'
 require 'loaders/level_loader'
+
 require 'death_event'
+require 'sound_manager'
 
 
 
 class Game
 
   attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
-    :movement_distance, :path_following_manager, :enemy, :events,
+    :movement_distance, :path_following_manager, :enemy, :events, :camera,
+    :screen, :level, :sound_manager, :collision_responder, :collisions,
     :wayfinding
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
     @player_loader = PlayerLoader.new(self)
-    @level_loader = LevelLoader.new
+    @level_loader = LevelLoader.new(self)
     @collision_responder = CollisionResponder.new(self)
     @animation_manager = AnimationManager.new(self)
     @path_following_manager = PathFollowingManager.new(self)
+    @camera = Camera.new(self)
     @keys = {}
     @events = []
     @active = true
     @clock = Clock.new(dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
+    @sound_manager = SoundManager.new(self)
+    @collisions = []
   end
 
   def load_level(level_name)
@@ -151,9 +159,10 @@ class Game
 
     @animation_manager.tick
     @path_following_manager.tick
-    collisions = @level.check_for_collisions
+    
+    @collisions = @level.check_for_collisions
 
-    @collision_responder.handle_collisions(collisions)
+    @collision_responder.handle_collisions(@collisions)
 
   end
 
@@ -266,6 +275,10 @@ class Game
     end
   end
 
+  def camera_position
+    @camera.position
+  end
+
   def active?
     @active
   end
@@ -273,6 +286,10 @@ class Game
 
   def add_tracking(hunter, prey)
     puts "todo add tracking of #{hunter} vs #{prey}"
+  end
+
+  def play_effect(name)
+    @sound_manager.play_effect(name)
   end
 
 end

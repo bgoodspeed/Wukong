@@ -8,11 +8,18 @@ include Glu
 require 'gosu'
 require 'devil/gosu'
 class GameWindow < Gosu::Window
+  def width; @w; end
+  def height; @h; end
+
   def initialize(game, width, height)
     super width, height, false
     @w = width
     @h = height
     @game = game
+    #self.caption = "Wukong: green(0xff55b053) Filled Background"
+
+    #TODO TNT working image background, should be pulled into level config
+    self.caption = "Wukong: purplemonkeydishwasherbubblegum"
   end
 
   def update
@@ -24,9 +31,8 @@ class GameWindow < Gosu::Window
   end
   
   def draw
-    draw_quad(0, 0, custom_green, 0, 480, custom_green, 640, 480, custom_green, 640, 0, custom_green, 0)
+   
     @game.draw
-    
   end
 
   def screenshotBG
@@ -46,6 +52,8 @@ class Screen
     @window = GameWindow.new(game, width, height)
 
   end
+  def width; @window.width; end
+  def height; @window.height; end
 
   def draw
     @window.draw

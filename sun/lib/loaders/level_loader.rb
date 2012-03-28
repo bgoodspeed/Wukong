@@ -3,17 +3,29 @@
 require 'yaml'
 
 class LevelLoader
-  def initialize
-    
+  def initialize(game = nil)
+    @game = game
   end
 
   def load_level(which_level)
-    level = Level.new
+    level = Level.new(@game)
     data = YAML.load_file(which_level)
     level.measurements = [data["measurements"]["width"].to_i,data["measurements"]["height"].to_i]
-    data["line_segments"].each do |lineseg|
-      level.add_line_segment(lineseg["start_x"], lineseg["start_y"], lineseg["end_x"], lineseg["end_y"])
+    level.background_image = data["background_image"]
+
+    if data["line_segments"]
+      data["line_segments"].each do |lineseg|
+        level.add_line_segment(lineseg["start_x"], lineseg["start_y"], lineseg["end_x"], lineseg["end_y"])
+      end
     end
+    #TODO this is getting ugly
+    if data["event_emitters"]
+      data["event_emitters"].each do |ee|
+        pos = ee["position"].split(",").collect {|v| v.to_i}
+        level.add_event_emitter(pos, ee["radius"], ee["event"], ee["event_argument"])
+      end
+    end
+
     level
   end
 end

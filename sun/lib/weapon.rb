@@ -2,7 +2,7 @@
 # and open the template in the editor.
 
 class Weapon
-  attr_accessor :swing_start , :swing_sweep ,  :swing_frames, :image_path, :type
+  attr_accessor :swing_start , :swing_sweep ,  :swing_frames, :image_path, :type, :sound_effect_name
 
   def initialize(game, image)
     @image_path = image
@@ -19,6 +19,7 @@ class Weapon
       #TODO use weapon-specific velocity
       p = @game.player
       @game.add_projectile(p.position, p.direction, 10) unless @type == "swung"
+      @game.play_effect(@sound_effect_name)
     end
     @in_use = true
   end
@@ -27,7 +28,7 @@ class Weapon
   end
   #TODO bad fit, this shouldn't have to care about drawing, things are not being composed correctly
   def draw
-
+  
     # puts "draw weapon based on frame, swing start, player offset etc"
   end
 

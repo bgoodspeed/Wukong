@@ -53,6 +53,7 @@ class AnimationManager
   def draw(screen)
     visit do |entity, name, animation|
       position = position_for(entity, name)
+      
       draw_animation_at(screen, position, animation)
     end
   end

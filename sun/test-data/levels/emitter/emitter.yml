@@ -1,0 +1,13 @@
+name: emitter
+background_image: test-data/levels/emitter/grass.jpg
+
+measurements:
+  width: 640
+  height: 480
+
+event_emitters:
+  - position: 100, 200
+    radius: 5
+    event: play_sound
+    event_argument: land_mine_boom
+

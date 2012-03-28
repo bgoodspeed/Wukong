@@ -11,3 +11,39 @@ Feature: Level Description
     And there should be 0 triangles
     And there should be 0 circles
     And there should be 0 rectangles
+    And the minimum x is 0
+    And the maximum x is 640
+    And the minimum y is 0
+    And the maximum y is 480
+    And the background image is named "grass.jpg"
+
+  Scenario: Large Level
+    Given I load the level "large"
+    When the level is examined
+    Then the level should measure 1280, 960
+    Then there should be 4 line segments
+    And the minimum x is 0
+    And the maximum x is 1280
+    And the minimum y is 0
+    And the maximum y is 960
+    And the background image is named "grass.jpg"
+
+  Scenario: Huge Level
+    Given I load the level "huge"
+    When the level is examined
+    Then the level should measure 2560, 1920
+    Then there should be 4 line segments
+    And the minimum x is -1280
+    And the maximum x is 1280
+    And the minimum y is -960
+    And the maximum y is 960
+    And the background image is named "grass.jpg"
+
+  Scenario: Event Emitter Level
+    Given I load the level "emitter"
+    When the level is examined
+    Then there should be 1 event emitter
+    And the event emitters are:
+      | position | radius  | event_name | event_argument |
+      | 100,200  | 5       | play_sound | land_mine_boom |
+
