@@ -24,6 +24,8 @@ end
 include PrimitiveIntersectionTests
 class Collider
   @@CIRCLE_CHECKS = {
+    #TODO should these only be primitives?
+    EventEmitter => lambda {|circle, event_emitter| circle_circle_intersection?(circle, event_emitter.collision_primitive) },
     Primitives::Circle => lambda {|circle, circle2| circle_circle_intersection?(circle, circle2) },
     Primitives::LineSegment => lambda {|circle, lineseg| circle_line_segment_intersection?(circle, lineseg) }
   }
@@ -55,6 +57,7 @@ class Collider
     ls = wrap_vector_follower(elem)
     line_segment_checks[candidate.class].call(ls, candidate)
   end
+  #TODO clean this up soon
   def handle_player(elem, candidate)
     cand = candidate
     c = Primitives::Circle.new(elem.collision_center, elem.collision_radius  )
@@ -62,7 +65,7 @@ class Collider
     if candidate.class == VectorFollower
       cand = wrap_vector_follower(candidate)
     elsif candidate.class == Player
-      
+      #NOOP
     elsif candidate.class == Enemy
       cand = Primitives::Circle.new(candidate.collision_center, candidate.collision_radius )
     end

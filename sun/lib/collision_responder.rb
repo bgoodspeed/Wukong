@@ -10,7 +10,6 @@ class CollisionResponder
   end
 
   def response_by_class(d)
-
     m = {
       Player => lambda {|col| 
         col.dynamic.undo_last_move},
@@ -27,7 +26,26 @@ class CollisionResponder
       :damaging2 => lambda {|col| col.dynamic2.take_damage(col.dynamic1)},
       :removing2 => lambda {|col| @game.remove_projectile(col.dynamic2)},
       :blocking1 => lambda {|col| col.dynamic1.undo_last_move},
+      :blocking2 => lambda {|col| col.dynamic2.undo_last_move},
+      :trigger_event1 => lambda {|col| col.dynamic1.trigger},
     }
+  end
+
+  def static_response(col)
+    m = {
+      EventEmitter => {
+        Player => [:trigger_event1]
+      },
+      Primitives::LineSegment => {
+        Player => [:blocking2],
+        VectorFollower => [:removing2]
+      }
+    }
+
+    raise "unknown static base response type: #{col.static.collision_type}" unless m.has_key? col.static.collision_type
+    raise "unknown static secondary response type: #{col.dynamic.collision_type}, primary is #{col.static.collision_type}" unless m[col.static.collision_type].has_key? col.dynamic.collision_type
+    m[col.dynamic1.collision_type][col.dynamic2.collision_type]
+
   end
 
   #TODO sort collision types?
@@ -43,14 +61,17 @@ class CollisionResponder
 
 
     }
-    raise "unknown base response type: #{col.dynamic1.collision_type}" unless m.has_key? col.dynamic1.collision_type
-    raise "unknown secondary response type: #{col.dynamic2.collision_type}, primary is #{col.dynamic1.collision_type}" unless m[col.dynamic1.collision_type].has_key? col.dynamic2.collision_type
+    raise "unknown dynamic base response type: #{col.dynamic1.collision_type}" unless m.has_key? col.dynamic1.collision_type
+    raise "unknown dynamic secondary response type: #{col.dynamic2.collision_type}, primary is #{col.dynamic1.collision_type}" unless m[col.dynamic1.collision_type].has_key? col.dynamic2.collision_type
     m[col.dynamic1.collision_type][col.dynamic2.collision_type]
   end
   def handle_collisions(collisions)
     collisions.each {|col|
       if col.class == StaticCollision
-        response_by_class(col.dynamic).call(col)
+        static_response(col).each do |response|
+          responses[response].call(col)
+        end
+        # response_by_class(col.dynamic).call(col)
       else
         dynamic_response(col).each do |response|
           responses[response].call(col)

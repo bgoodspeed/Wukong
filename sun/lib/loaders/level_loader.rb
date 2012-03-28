@@ -12,9 +12,20 @@ class LevelLoader
     data = YAML.load_file(which_level)
     level.measurements = [data["measurements"]["width"].to_i,data["measurements"]["height"].to_i]
     level.background_image = data["background_image"]
-    data["line_segments"].each do |lineseg|
-      level.add_line_segment(lineseg["start_x"], lineseg["start_y"], lineseg["end_x"], lineseg["end_y"])
+
+    if data["line_segments"]
+      data["line_segments"].each do |lineseg|
+        level.add_line_segment(lineseg["start_x"], lineseg["start_y"], lineseg["end_x"], lineseg["end_y"])
+      end
     end
+    #TODO this is getting ugly
+    if data["event_emitters"]
+      data["event_emitters"].each do |ee|
+        pos = ee["position"].split(",").collect {|v| v.to_i}
+        level.add_event_emitter(pos, ee["radius"], ee["event"], ee["event_argument"])
+      end
+    end
+
     level
   end
 end

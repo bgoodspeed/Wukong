@@ -38,3 +38,12 @@ Feature: Level Description
     And the minimum y is -960
     And the maximum y is 960
     And the background image is named "grass.jpg"
+
+  Scenario: Event Emitter Level
+    Given I load the level "emitter"
+    When the level is examined
+    Then there should be 1 event emitter
+    And the event emitters are:
+      | position | radius  | event_name | event_argument |
+      | 100,200  | 5       | play_sound | land_mine_boom |
+

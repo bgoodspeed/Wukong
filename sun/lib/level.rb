@@ -8,6 +8,8 @@ class DynamicCollision
     @dynamic1 = dynamic
     @dynamic2 = dynamic2
   end
+  alias_method :static, :dynamic1
+  alias_method :dynamic, :dynamic2
 end
 class StaticCollision
   attr_reader :static, :dynamic
@@ -15,6 +17,10 @@ class StaticCollision
     @dynamic = dynamic
     @static = static
   end
+
+  alias_method :dynamic1, :static
+  alias_method :dynamic2, :dynamic
+
 end
 
 class CollisionHandlerChipmunk
@@ -42,7 +48,7 @@ end
 class Level
   attr_accessor :measurements, :line_segments, :triangles, :circles, 
     :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, 
-    :maximum_y
+    :maximum_y, :event_emitters
   attr_reader :background_image
   @@CELL_SIZE = 10
   def initialize(game=nil)
@@ -53,6 +59,7 @@ class Level
     @circles = []
     @rectangles = []
     @dynamic_elements = []
+    @event_emitters = []
     @static_hash = SpatialHash.new(@@CELL_SIZE)
     @dynamic_hash = SpatialHash.new(@@CELL_SIZE)
     @minimum_x = 0
@@ -76,6 +83,14 @@ class Level
     @maximum_x = [sx, ex, @maximum_x].max
     @minimum_y = [sy, ey, @minimum_y].min
     @maximum_y = [sy, ey, @maximum_y].max
+  end
+
+  def add_event_emitter(position, radius, event_name, event_arg)
+    update_minimax(position[0], position[1], position[0], position[1])
+    circle = Primitives::Circle.new(position, radius)
+    event_emitter = EventEmitter.new(@game, circle, event_name, event_arg)
+    @event_emitters << event_emitter
+    @static_hash.insert_circle_type_collider(event_emitter)
   end
 
   def add_line_segment(sx,sy, ex, ey)
@@ -163,6 +178,7 @@ class Level
     all = @dynamic_hash.all_collisions
     dyns = all.collect {|col| DynamicCollision.new(col.first, col.last)}
     stats = cols.collect {|col| StaticCollision.new(col.first, col.last)}
-    stats + dyns
+    rv = stats + dyns
+    rv
   end
 end

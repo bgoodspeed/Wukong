@@ -89,5 +89,17 @@ Feature: Collision Detection
     And the player health should be 9
     And the enemy health should be 4
 
+  Scenario: Event Emitting Collisions
+    Given I load the game on level "emitter" with screen size 640, 480
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 100,200
+    And I create a sound manager
+    And I add a sound effect from "weapon.wav" called "land_mine_boom"
+    And I set the game clock to 60 fps
+    When I simulate ""
+    And I run the game loop 1 times
+    Then there should be 1 collisions
+    And the play count for sound effect "land_mine_boom" should be 1
+
 
 

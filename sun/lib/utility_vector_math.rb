@@ -86,6 +86,8 @@ module Primitives
     def ex; @p2.vx; end
     def ey; @p2.vy; end
     def to_s; "Lineseg #{@p1}:#{@p2}"; end
+
+    def collision_type; self.class; end
   end
 
   #TODO this assumed AXIS ALIGNED to calculate l,r,b,t

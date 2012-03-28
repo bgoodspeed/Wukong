@@ -57,3 +57,19 @@ end
 Then /^the background image is named "([^"]*)"$/ do |image_name|
   @level.background_image.should =~ /#{image_name}/
 end
+
+Then /^there should be (\d+) event emitter$/ do |emitters|
+  @level.event_emitters.size.should == emitters.to_i
+end
+
+Then /^the event emitters are:$/ do |table|
+  emitters = @level.event_emitters
+  table.map_column!("position") {|vs| to_vector(vs)}
+  table.map_column!("radius") {|vs| vs.to_i}
+  table.hashes.each_with_index {|hash, idx|
+    emitters[idx].event_name.should == hash['event_name']
+    emitters[idx].event_argument.should == hash['event_argument']
+    emitters[idx].position.should == hash['position']
+    emitters[idx].radius.should == hash['radius']
+  }
+end
