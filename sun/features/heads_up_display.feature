@@ -52,7 +52,8 @@ Feature: Heads Up Display
       | 3 - Three      | choose_slot    | 3               |
     When I simulate ""
     And I run the game loop 1 times
-    Then the hud should contain:
+    Then the hud should be in menu mode
+    And the hud should contain:
     | hud text  |
     | 1 - One   |
     | 2 - Two   |

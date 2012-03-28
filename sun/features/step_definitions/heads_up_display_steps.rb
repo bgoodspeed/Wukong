@@ -11,3 +11,7 @@ end
 Then /^the hud should contain:$/ do | table|
   @hud.lines.should == table.rows.flatten
 end
+
+Then /^the hud should be in menu mode$/ do
+  @hud.should be_menu_mode
+end

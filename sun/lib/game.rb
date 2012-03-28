@@ -319,6 +319,7 @@ class Game
 
   def enter_menu(name=@main_menu_name)
     @menu_manager.activate(name)
+    @hud.menu_mode = true
   end
 
 end

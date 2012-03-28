@@ -45,6 +45,13 @@ hud = HeadsUpDisplay.new(game)
 game.hud = hud
 hud.add_line("here is hud line one")
 
+menu_manager = MenuManager.new(game)
+game.menu_manager = menu_manager
+
+menu = Menu.from_file("test-data/menus/main.yml")
+menu_manager.add_menu(game.main_menu_name, menu)
+
+
 sm.play_song("music", true)
 game.show
 
