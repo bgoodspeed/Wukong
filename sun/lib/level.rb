@@ -170,6 +170,8 @@ class Level
     @dynamic_elements -= [p]
   end
 
+
+  #TODO get rid of the distinction between static and dynamic
   def check_for_collisions
     cols = @static_hash.dynamic_collisions(@dynamic_elements )
     @dynamic_hash.clear

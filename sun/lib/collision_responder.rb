@@ -9,16 +9,6 @@ class CollisionResponder
     @game = game
   end
 
-  def response_by_class(d)
-    m = {
-      Player => lambda {|col| 
-        col.dynamic.undo_last_move},
-      Enemy => lambda {|col| col.dynamic.undo_last_move},
-      VectorFollower => lambda {|col| @game.remove_projectile(col.dynamic)},
-    }
-    raise "unknown how to respond to collision with #{d}" unless m.has_key?(d.class)
-    m[d.class]
-  end
 
   def responses
     {
@@ -31,6 +21,7 @@ class CollisionResponder
     }
   end
 
+  #TODO get rid of the distinction between static and dynamic
   def static_response(col)
     m = {
       EventEmitter => {
@@ -71,7 +62,6 @@ class CollisionResponder
         static_response(col).each do |response|
           responses[response].call(col)
         end
-        # response_by_class(col.dynamic).call(col)
       else
         dynamic_response(col).each do |response|
           responses[response].call(col)
