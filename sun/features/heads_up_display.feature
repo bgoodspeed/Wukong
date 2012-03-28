@@ -53,9 +53,45 @@ Feature: Heads Up Display
     When I simulate ""
     And I run the game loop 1 times
     Then the hud should be in menu mode
+    And the hud cursor position should be 20,60
     And the hud should contain:
     | hud text  |
     | 1 - One   |
     | 2 - Two   |
     | 3 - Three |
     
+  Scenario: Simple Menu Hud Integration 2
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a menu manager
+    And I register a fake action to return triple the argument called "choose_slot"
+    And I create the HUD
+    And I create a new menu called "pick_slot":
+      """
+      menu:
+        menu_id: pick_slot
+        entries:
+          - display_text: 1 - One
+            action: choose_slot
+            action_argument: 1
+          - display_text: 2 - Two
+            action: choose_slot
+            action_argument: 2
+          - display_text: 3 - Three
+            action: choose_slot
+            action_argument: 3
+      """
+    And I set the main menu name to "pick_slot"
+    When I enter the menu
+    And I move down in the menu
+    Then the current menu entry should have:
+      | display_text   | action         | action_argument |
+      | 2 - Two        | choose_slot    | 2               |
+    When I simulate ""
+    And I run the game loop 1 times
+    Then the hud should be in menu mode
+    And the hud cursor position should be 20,40
+    And the hud should contain:
+    | hud text  |
+    | 1 - One   |
+    | 2 - Two   |
+    | 3 - Three |

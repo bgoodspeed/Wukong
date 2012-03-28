@@ -15,3 +15,8 @@ end
 Then /^the hud should be in menu mode$/ do
   @hud.should be_menu_mode
 end
+
+Then /^the hud cursor position should be (\d+),(\d+)$/ do |arg1, arg2|
+  expected = [arg1.to_f, arg2.to_f]
+  @hud.cursor_position.should be_within_epsilon_of(expected)
+end

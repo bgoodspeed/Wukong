@@ -42,9 +42,17 @@ class HeadsUpDisplay
       ZOrder.hud.value)
   end
 
-  def draw_cursor(cwi, pos)
-    idx = cwi + 1
-    base_y = pos[1] * idx
+  #TODO ugly
+  def cursor_position
+    pos = [@x_spacing, @y_spacing ]
+    pos = pos.scale(@menu_scale)
+    cwi = @game.current_menu_index
+    pos[1] = pos[1] * (cwi + 1)
+    pos
+  end
+  def draw_cursor
+    pos = cursor_position
+    base_y = pos[1]
     @game.window.draw_triangle(pos[0] - 20, base_y - 10, Gosu::Color::WHITE,
                                pos[0] - 5,  base_y, Gosu::Color::WHITE,
                                pos[0] - 20, base_y + 10, Gosu::Color::WHITE)
@@ -54,7 +62,7 @@ class HeadsUpDisplay
     if menu_mode?
       pos = pos.scale(@menu_scale)
       darken_screen
-      draw_cursor(@game.current_menu_index, pos)
+      draw_cursor
     end
     
     @lines.each_with_index do |line, index|
