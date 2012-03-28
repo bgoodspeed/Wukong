@@ -19,6 +19,7 @@ w.sound_effect_name = "shoot"
 sm = SoundManager.new(game)
 game.sound_manager = sm
 sm.add_effect("test-data/sounds/weapon.wav", "shoot")
+sm.add_song("test-data/music/music.wav", "music")
 w.type = "projectile"
 p.equip_weapon(w)
 p.position = [300,200]
@@ -30,5 +31,6 @@ hud = HeadsUpDisplay.new(game)
 game.hud = hud
 hud.add_line("here is hud line one")
 
+sm.play_song("music", true)
 game.show
 

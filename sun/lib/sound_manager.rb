@@ -26,9 +26,9 @@ class SoundManager
     @song_by_name[sound_name] = Gosu::Song.new(@game.window, sound_file)
   end
 
-  def play_song(sound_name)
+  def play_song(sound_name, loops = false)
     if @song_by_name.has_key?(sound_name)
-      @song_by_name[sound_name].play
+      @song_by_name[sound_name].play(loops)
       @play_count_for_song[sound_name] += 1
     else
       # TODO: no sound file #{name}, add a log file.
@@ -44,7 +44,9 @@ class SoundManager
   end
 
   def is_playing_song(sound_name)
-    Gosu::Song.current_song == @song_by_name[sound_name]
+    return false unless Gosu::Song.current_song
+    (Gosu::Song.current_song == @song_by_name[sound_name]) &&
+      Gosu::Song.current_song.playing?
   end
 
 end
