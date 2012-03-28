@@ -1,0 +1,7 @@
+menu:
+  menu_id: main_menu
+  entries:
+    - display_text: Option One
+      action: todo_replace_me
+    - display_text: Another Option ... 2
+      action: todo_replace_me2

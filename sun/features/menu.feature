@@ -86,3 +86,11 @@ Feature: Menu
     When I invoke the current menu action
     Then the menu action result should be 3
 
+  Scenario: Main Menu
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a menu manager
+    And I load the main menu "main.yml"
+    When I enter the menu
+    Then the current menu entry should have:
+      | display_text   | 
+      | Option One     | 

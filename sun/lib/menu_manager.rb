@@ -38,7 +38,7 @@ class Menu
   def lines
     @entries.collect{|e| e.display_text}
   end
-  
+
   def self.from_yaml(yaml)
     data = YAML.load(yaml)
     m = data['menu']

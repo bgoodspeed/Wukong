@@ -1,8 +1,16 @@
+Given /^I load the main menu "([^"]*)"$/ do |filename|
+  @menu = Menu.from_file("test-data/menus/#{filename}")
+  @menu_manager.add_menu(@game.main_menu_name, @menu)
+end
+
+
 Given /^I create a new menu called "([^"]*)":$/ do |name, string|
+
   @menu = Menu.from_yaml(string)
   @menu_manager.add_menu(name, @menu)
   
 end
+
 Given /^I create a menu manager$/ do
   @menu_manager = MenuManager.new(@game)
   @game.menu_manager = @menu_manager
@@ -26,8 +34,8 @@ Then /^the current menu entry should have:$/ do |table|
   me = @menu_manager.current_menu_entry
   table.hashes.each_with_index {|hash, idx|
     me.display_text.to_s.should == hash['display_text'].to_s
-    me.action.to_s.should == hash['action'].to_s
-    me.action_argument.to_s.should == hash['action_argument'].to_s
+    me.action.to_s.should == hash['action'].to_s if hash.has_key?('action')
+    me.action_argument.to_s.should == hash['action_argument'].to_s if hash.has_key?('action_argument')
   }
 
 end
