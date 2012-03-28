@@ -55,3 +55,4 @@ Feature: Player Controls
     When I press "Quit"
     And I update the game state
     Then the game should call quit
+

@@ -3,11 +3,21 @@ Given /^I set the enemy avatar to "([^"]*)"$/ do |enemy_avatar|
   @game.set_enemy @enemy
 end
 
+Given /^I tell the enemy to track the player$/ do
+  @enemy.tracking_target = @player
+end
+
+
+Given /^I register the enemy in the path following manager using wayfinding$/ do
+  @path_manager.add_tracking(@enemy, @way_finding)
+end
+
 Then /^the enemy should be in the scene$/ do
   elems = @game.dynamic_elements
 
   elems.size.should == 2
-  elems.last.class.should == Enemy
+  cs = elems.collect{|e| e.class}
+  cs.should be_include(Enemy)
 end
 
 
@@ -26,3 +36,47 @@ Then /^the enemy should be at position (\d+),(\d+)\.(\d+)$/ do |x, arg2, arg3|
   expected = [x.to_f, "#{arg2}.#{arg3}".to_f]
   @enemy.position.should be_within_epsilon_of(expected)
 end
+
+Then /^the path following manager should be tracking the enemy$/ do
+  @path_manager.tracking.should be_has_key(@enemy)
+end
+
+
+Then /^the next wayfinding point for enemy should be (\d+),(\d+)$/ do |arg1, arg2|
+  expected =[arg1.to_f, arg2.to_f]
+  @path_manager.tracking_point_for(@enemy).should be_within_epsilon_of(expected)
+end
+
+def check_wayfind_direction(expected)
+  dir = @path_manager.current_tracking_direction_for(@enemy)
+  newpos = @enemy.position.plus(dir)
+
+  newd = newpos.distance_from(@player.position)
+  dist = @enemy.position.distance_from(@player.position)
+
+  newd.should be_< dist
+
+  dir.should be_within_epsilon_of(expected)
+end
+Then /^the next wayfinding direction for enemy should be (\d+),(\d+)$/ do |arg1, arg2|
+  expected =[arg1.to_f, arg2.to_f]
+  check_wayfind_direction(expected)
+end
+
+Then /^the next wayfinding direction for enemy should be (\d+)\.(\d+), (\d+)\.(\d+)$/ do |arg1, arg2, arg3, arg4|
+  expected = ["#{arg1}.#{arg2}".to_f,
+              "#{arg3}.#{arg4}".to_f]
+  check_wayfind_direction(expected)
+end
+Then /^the enemy should be at position (\d+)\.(\d+),(\d+)\.(\d+)$/ do |arg1, arg2, arg3, arg4|
+  expected = ["#{arg1}.#{arg2}".to_f,
+              "#{arg3}.#{arg4}".to_f]
+
+  @enemy.position.should be_within_epsilon_of(expected)
+end
+
+Given /^I tell the enemy velocity to (\d+)$/ do |arg1|
+  @enemy.velocity = arg1.to_i
+end
+
+

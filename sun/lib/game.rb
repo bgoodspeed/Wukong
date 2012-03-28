@@ -32,7 +32,8 @@ require 'death_event'
 class Game
 
   attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
-    :movement_distance, :path_following_manager, :enemy, :events
+    :movement_distance, :path_following_manager, :enemy, :events,
+    :wayfinding
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
@@ -160,6 +161,21 @@ class Game
     @screen.button_down?(button)
   end
 
+  #TODO temporary hack throwaway
+  def toggle_enemy_ai
+    if @ai_on
+      puts "turning off ai"
+      @path_following_manager.remove_tracking(@enemy, @wayfinding)
+      @ai_on = false
+    else
+      puts "turning on ai"
+      @enemy.tracking_target = @player
+      @path_following_manager.add_tracking(@enemy, @wayfinding)
+      @ai_on = true
+
+    end
+  end
+
   #TODO hackish :(
   def update_key_state
 
@@ -181,6 +197,13 @@ class Game
 
     if button_down? Gosu::KbQ then
       set_key_to_active(@@QUIT)
+    end
+
+    #if button_down? Gosu::KbA then
+    #  toggle_enemy_ai
+    #end
+    if button_down? Gosu::KbA then
+      toggle_enemy_ai
     end
 
   end
@@ -245,6 +268,11 @@ class Game
 
   def active?
     @active
+  end
+
+
+  def add_tracking(hunter, prey)
+    puts "todo add tracking of #{hunter} vs #{prey}"
   end
 
 end

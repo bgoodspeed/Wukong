@@ -2,6 +2,7 @@
 class WayFinding
   def initialize(points = [])
     @points = points
+    @close_enough_threshold = 5 #TODO this is dependant on the velocity of the tracker -- eg enemy
   end
   def add_point(p)
     raise "fixit" unless p.first.kind_of?(Numeric)
@@ -15,7 +16,11 @@ class WayFinding
 
   def best_point(position, target)
     current_dist = position.distance_from(target)
-    candidates = @points.select{|p| p.distance_from(target) < current_dist}
+    candidates = @points.select do |p|
+      (p.distance_from(target) < current_dist) &&
+        (p.distance_from(position) > @close_enough_threshold)
+
+    end
     nearest_point(position, candidates)
   end
   def self.from_yaml(yaml)
@@ -25,5 +30,9 @@ class WayFinding
       wf.add_point(point)
     end
     wf
+  end
+
+  def self.from_file(f)
+    self.from_yaml(IO.readlines(f).join(""))
   end
 end

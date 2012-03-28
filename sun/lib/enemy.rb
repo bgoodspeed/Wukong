@@ -1,7 +1,7 @@
 
 class Enemy
 
-  attr_accessor :position, :health
+  attr_accessor :position, :health, :tracking_target, :velocity
 
   def initialize(enemy_avatar, game)
     @game = game
@@ -10,6 +10,7 @@ class Enemy
     @radius = p.max
     @health = 15
     @position = p
+    @velocity = 5
     @direction = 0
   end
   def undo_last_move
@@ -50,6 +51,11 @@ class Enemy
       @game.add_death_event(self)
     end
   end
+
+  def tick_tracking(vector)
+    @position = @position.plus(vector.scale(@velocity))
+  end
+
   def to_s
     "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
   end

@@ -10,6 +10,9 @@ end
 When /^I step the path following manager$/ do
   @path_manager.tick
 end
+When /^I step the path following manager (\d+) times$/ do |arg1|
+  arg1.to_i.times { @path_manager.tick }
+end
 
 Then /^the projectile should be at (\d+),(\d+)$/ do |x,y|
   p = @path_manager.vector_following.first

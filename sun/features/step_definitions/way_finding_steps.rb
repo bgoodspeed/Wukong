@@ -1,6 +1,10 @@
 Given /^I create a new Wayfinding Layer:$/ do |yaml|
   @way_finding = WayFinding.from_yaml(yaml)
 end
+Given /^I load wayfinding layer "([^"]*)"$/ do |layer_name|
+  @way_finding = WayFinding.from_file("test-data/levels/#{layer_name}/wayfinding.yml")
+
+end
 
 When /^the agent in the scene is at (\d+),(\d+)$/ do |x,y|
   @agent_position = [x.to_f, y.to_f]
@@ -15,5 +19,8 @@ Then /^the best point for target (\d+),(\d+) should be at (\d+),(\d+)$/ do |tx, 
 end
 Then /^the best point for target (\d+),(\d+) should be undefined$/ do |tx, ty|
   p = @way_finding.best_point(@agent_position, [tx.to_f, ty.to_f])
+
+  
+
   p.should be_nil
 end
