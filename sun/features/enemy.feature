@@ -29,7 +29,7 @@ Feature: Enemy Built
     And the next wayfinding direction for enemy should be 0.71899, 0.69502
     And the enemy should be at position 38.59494,38.97511
 
-  Scenario: Enemy Chasing Player
+  Scenario: Enemy Chasing Player B
     Given I load the game on level "trivial" with screen size 640, 480
     And I load wayfinding layer "trivial"
     And I create the path following manager
@@ -47,3 +47,12 @@ Feature: Enemy Built
     And the path following manager should be tracking the enemy
     And the enemy should be at position 299.9998,299.9818
 
+  Scenario: Multiple Enemies
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    When I see the first frame
+    Then there should be 4 enemies
+    

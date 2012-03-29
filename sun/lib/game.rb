@@ -75,12 +75,13 @@ class Game
 
   end
 
-  #TNT set_enemy
-  def set_enemy(enemy)
-    @enemy = enemy
-    @level.set_enemy(enemy)
+  def add_enemy(enemy)
+    @level.add_enemy(enemy)
   end
 
+  def enemies
+    @level.enemies
+  end
   def remove_enemy(enemy)
     @enemy = nil
     @level.remove_enemy(enemy)

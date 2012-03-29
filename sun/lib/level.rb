@@ -48,11 +48,12 @@ end
 class Level
   attr_accessor :measurements, :line_segments, :triangles, :circles, 
     :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, 
-    :maximum_y, :event_emitters
+    :maximum_y, :event_emitters, :enemies
   attr_reader :background_image
   @@CELL_SIZE = 10
   def initialize(game=nil)
     @space = SpaceWrapper.new
+    @enemies = []
     @measurements = []
     @line_segments = []
     @triangles = []
@@ -118,19 +119,14 @@ class Level
     @dynamic_elements << player
   end
 
-
-  def set_enemy(enemy)
-    @dynamic_elements.reject!{|elem| elem == @enemy}
-    add_enemy(enemy)
-  end
-
   def add_enemy(enemy)
-    @enemy = enemy
+    @enemies << enemy
     @dynamic_elements << enemy
   end
 
   def remove_enemy(enemy)
     @enemy = nil
+    @enemies.reject!{|e| e == enemy}
     @dynamic_elements.reject!{|elem| elem == enemy}
   end
 

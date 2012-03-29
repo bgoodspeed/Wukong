@@ -36,7 +36,7 @@ game.set_player(p)
 e = Enemy.new("test-data/sprites/enemy_avatar.bmp", game)
 e.position = [100,100]
 e.velocity = 1
-game.set_enemy(e)
+game.add_enemy(e)
 e.tracking_target = p
 path_manager.add_tracking(e, wf)
 

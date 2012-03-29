@@ -1,6 +1,6 @@
 Given /^I set the enemy avatar to "([^"]*)"$/ do |enemy_avatar|
   @enemy = Enemy.new("test-data/sprites/#{enemy_avatar}", @game)
-  @game.set_enemy @enemy
+  @game.add_enemy @enemy
 end
 
 Given /^I tell the enemy to track the player$/ do
@@ -80,3 +80,6 @@ Given /^I tell the enemy velocity to (\d+)$/ do |arg1|
 end
 
 
+Then /^there should be (\d+) enemies$/ do |enemies|
+  @game.enemies.size.should == enemies.to_i
+end
