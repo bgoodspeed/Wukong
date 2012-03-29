@@ -2,6 +2,10 @@ Given /^I set the enemy avatar to "([^"]*)"$/ do |enemy_avatar|
   @enemy = Enemy.new("test-data/sprites/#{enemy_avatar}", @game)
   @game.add_enemy @enemy
 end
+Given /^I add an enemy from "([^"]*)"$/ do |file|
+  @enemy = Enemy.from_file(@game, "test-data/enemies/#{file}")
+  @game.add_enemy @enemy
+end
 
 Given /^I tell the enemy to track the player$/ do
   @enemy.tracking_target = @player

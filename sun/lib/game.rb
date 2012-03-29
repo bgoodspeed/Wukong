@@ -4,11 +4,12 @@
 require 'statemachine'
 
 require 'utility_vector_math'
+
 class Array
   include ArrayVectorOperations
 end
 
-
+require 'yaml_helper'
 require 'zorder'
 require 'utility_drawing'
 require 'event_emitter'

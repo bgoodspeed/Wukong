@@ -21,3 +21,12 @@ Feature: Player Details
     Then the player should be at position 41,36
     And the player radius should be 36
     And the player should be facing "east"
+
+  Scenario: Player YAML loading
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I load a player from "player.yml"
+    When I see the first frame
+    Then the player should be in the scene
+    And the player should be at position 36,36
+    And the player should be facing "north"
+    And the player radius should be 36

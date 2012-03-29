@@ -1,15 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
-module YamlHelper
-  def process_attributes(attrlist, instance, yaml_data)
-    defined = attrlist.select{|attr| yaml_data.has_key? attr.to_s}
-
-    defined.each {|attr|
-      instance.send("#{attr}=", yaml_data[attr.to_s])
-    }
-  end
-end
 
 class Weapon
   ATTRIBUTES = [:swing_start , :swing_sweep ,  :swing_frames,

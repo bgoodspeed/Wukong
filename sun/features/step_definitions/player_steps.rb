@@ -3,6 +3,10 @@ Given /^I set the player avatar to "([^"]*)"$/ do |avatar_image|
   @player = Player.new("test-data/sprites/#{avatar_image}", @game)
   @game.set_player @player
 end
+Given /^I load a player from "([^"]*)"$/ do |file|
+  @player = Player.from_file(@game, "test-data/players/#{file}")
+  @game.set_player @player
+end
 
 Given /^I set the player direction to (\d+)$/ do |dir|
   @player.direction = dir.to_i

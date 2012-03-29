@@ -1,8 +1,24 @@
 
 class Enemy
 
-  attr_accessor :position, :health, :tracking_target, :velocity
+  attr_accessor :tracking_target
+  ATTRIBUTES = [:position, :health, :velocity]
+  ATTRIBUTES.each {|attr| attr_accessor attr }
 
+  extend YamlHelper
+
+  #TODO make YAML utils and pass attributes
+  def self.from_yaml(game, yaml)
+    data = YAML.load(yaml)
+    conf = data['enemy']
+    obj = Enemy.new(conf['image_path'], game)
+    process_attributes(ATTRIBUTES, obj, conf)
+    obj
+  end
+
+  def self.from_file(game, f)
+    self.from_yaml(game, IO.readlines(f).join(""))
+  end
   def initialize(enemy_avatar, game)
     @game = game
     @enemy_avatar = Gosu::Image.new(@game.window, enemy_avatar, false)

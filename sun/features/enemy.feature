@@ -56,3 +56,10 @@ Feature: Enemy Built
     When I see the first frame
     Then there should be 4 enemies
     
+  Scenario: Enemies from YAML
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I add an enemy from "enemy.yml"
+    And I add an enemy from "enemy.yml"
+    And I add an enemy from "enemy.yml"
+    When I see the first frame
+    Then there should be 3 enemies

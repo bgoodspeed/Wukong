@@ -5,9 +5,27 @@ class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
   attr_reader :radius
-  attr_accessor :step_size, :position, :weapon, :direction, :health
+  ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health]
+  ATTRIBUTES.each {|attr| attr_accessor attr }
+
+  extend YamlHelper
+
+  #TODO make YAML utils and pass attributes
+  def self.from_yaml(game, yaml)
+    data = YAML.load(yaml)
+    conf = data['player']
+    obj = Player.new(conf['image_path'], game)
+    process_attributes(ATTRIBUTES, obj, conf)
+    obj
+  end
+
+  def self.from_file(game, f)
+    self.from_yaml(game, IO.readlines(f).join(""))
+  end
+
   def initialize(avatar, game)
     @game = game
+    #TODO consider moving all image construction to an image manager -- isolate gosu
     @avatar = Gosu::Image.new(@game.window, avatar, false)
     #@avatar.clear :dest_select => transparency_color
     p = [@avatar.width/2.0, @avatar.height/2.0 ]
@@ -69,7 +87,7 @@ class Player
     end
   end
 
-  #TODO use strings/enums/symbols for collision types not classes
+  #TODO use strings/enums/symbols for collision types not classes, make these first class values
   def collision_type
     self.class
   end
