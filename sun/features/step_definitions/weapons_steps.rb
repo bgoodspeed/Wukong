@@ -2,6 +2,10 @@ Given /^I set the player weapon with image "([^"]*)"$/ do |weapon_image|
   @weapon = Weapon.new(@game, "test-data/equipment/#{weapon_image}")
   @player.equip_weapon @weapon
 end
+Given /^I load and equip the weapon defined in "([^"]*)"$/ do |yml_file|
+  @weapon = Weapon.from_file(@game, "test-data/equipment/#{yml_file}")
+  @player.equip_weapon @weapon
+end
 
 Given /^I set the player weapon start to \-(\d+)$/ do |st|
   @weapon.swing_start = st.to_i
@@ -31,3 +35,4 @@ end
 Then /^the weapon sound should be played$/ do
   @sound_manager.play_count_for("player_weapon_sound").should == 1
 end
+

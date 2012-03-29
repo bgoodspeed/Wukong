@@ -1,24 +1,53 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
+module YamlHelper
+  def process_attributes(attrlist, instance, yaml_data)
+    defined = attrlist.select{|attr| yaml_data.has_key? attr.to_s}
+
+    defined.each {|attr|
+      instance.send("#{attr}=", yaml_data[attr.to_s])
+    }
+  end
+end
+
 class Weapon
-  attr_accessor :swing_start , :swing_sweep ,  :swing_frames, :image_path, :type, :sound_effect_name
+  ATTRIBUTES = [:swing_start , :swing_sweep ,  :swing_frames,
+    :image_path, :type, :sound_effect_name, :velocity]
+  ATTRIBUTES.each {|attr| attr_accessor attr }
+
+  extend YamlHelper
+
+  #TODO make YAML utils and pass attributes
+  def self.from_yaml(game, yaml)
+    data = YAML.load(yaml)
+    w = data['weapon']
+    weapon = Weapon.new(game, nil)
+    process_attributes(ATTRIBUTES, weapon, w)
+    weapon
+  end
+
+  def self.from_file(game, f)
+    self.from_yaml(game, IO.readlines(f).join(""))
+  end
+
 
   def initialize(game, image)
     @image_path = image
     @swing_start = 0
     @swing_sweep = 0
     @swing_frames = 0
+    @velocity = 10
     @type = "swung"
     @game = game
+    @sound_effect_name = "unset"
   end
 
   def use
     unless @in_use
 
-      #TODO use weapon-specific velocity
       p = @game.player
-      @game.add_projectile(p.position, p.direction, 10) unless @type == "swung"
+      @game.add_projectile(p.position, p.direction, @velocity) unless @type == "swung"
       @game.play_effect(@sound_effect_name)
     end
     @in_use = true
@@ -28,7 +57,6 @@ class Weapon
   end
   #TODO bad fit, this shouldn't have to care about drawing, things are not being composed correctly
   def draw
-  
     # puts "draw weapon based on frame, swing start, player offset etc"
   end
 
