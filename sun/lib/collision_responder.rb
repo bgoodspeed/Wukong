@@ -29,7 +29,11 @@ class CollisionResponder
       },
       Primitives::LineSegment => {
         Player => [:blocking2],
-        VectorFollower => [:removing2]
+        VectorFollower => [:removing2],
+        Enemy => [:blocking2]
+      },
+      Enemy => {
+        Primitives::LineSegment => [:blocking1]
       }
     }
 
@@ -43,13 +47,16 @@ class CollisionResponder
   def dynamic_response(col)
     m = {
       Enemy => {
-        VectorFollower => [:damaging1, :removing2]
+        VectorFollower => [:damaging1, :removing2],
+        Primitives::LineSegment => [:blocking1]
       },
       Player => {
         VectorFollower => [],
         Enemy => [:damaging1, :damaging2, :blocking1]
+      },
+      Primitives::LineSegment => {
+        Enemy => [:blocking2]
       }
-
 
     }
     raise "unknown dynamic base response type: #{col.dynamic1.collision_type}" unless m.has_key? col.dynamic1.collision_type

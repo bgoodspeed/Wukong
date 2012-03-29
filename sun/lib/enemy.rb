@@ -13,10 +13,11 @@ class Enemy
     @velocity = 5
     @direction = 0
   end
+
   def undo_last_move
-    unless @last_distance.nil?
-      move_forward(-1 * @last_distance)
-      @last_distance = nil
+    unless @last_move.nil?
+      @position = @position.minus @last_move
+      @last_move = nil
     end
   end
 
@@ -50,7 +51,8 @@ class Enemy
   end
 
   def tick_tracking(vector)
-    @position = @position.plus(vector.scale(@velocity))
+    @last_move = vector.scale(@velocity)
+    @position = @position.plus(@last_move)
   end
 
   def to_s

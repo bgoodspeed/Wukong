@@ -47,3 +47,9 @@ Feature: Level Description
       | position | radius  | event_name | event_argument |
       | 100,200  | 5       | play_sound | land_mine_boom |
 
+  Scenario: Obstacle Level
+    Given I load the level "obstacle"
+    When the level is examined
+    Then the level should measure 640, 480
+    Then there should be 5 line segments
+    

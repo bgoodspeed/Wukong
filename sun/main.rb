@@ -13,7 +13,8 @@ game.turn_speed = 10
 path_manager = PathFollowingManager.new(game)
 game.path_following_manager = path_manager
 
-game.load_level("test-data/levels/large/large.yml")
+#game.load_level("test-data/levels/large/large.yml")
+game.load_level("test-data/levels/obstacle/obstacle.yml")
 wf = WayFinding.from_file("test-data/levels/trivial/wayfinding.yml")
 game.wayfinding = wf
 
