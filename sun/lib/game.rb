@@ -25,8 +25,10 @@ require 'heads_up_display'
 require 'collision_responder'
 require 'way_finding'
 require 'artificial_intelligence'
+require 'input_manager'
 require 'animation_manager'
 require 'path_following_manager'
+
 require 'loaders/player_loader'
 require 'loaders/level_loader'
 
@@ -40,7 +42,7 @@ class Game
   attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
     :movement_distance, :path_following_manager, :enemy, :events, :camera,
     :screen, :level, :sound_manager, :collision_responder, :collisions,
-    :wayfinding, :menu_manager, :main_menu_name
+    :wayfinding, :menu_manager, :main_menu_name, :input_manager
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
@@ -51,9 +53,9 @@ class Game
     @animation_manager = AnimationManager.new(self)
     @path_following_manager = PathFollowingManager.new(self)
     @menu_manager = MenuManager.new(self)
+    @input_manager = InputManager.new(self)
     @camera = Camera.new(self)
     @main_menu_name = "main menu"
-    @keys = {}
     @events = []
     @active = true
     @clock = Clock.new(dependencies[:framerate])
@@ -116,14 +118,6 @@ class Game
   end
 
   #TODO abstract these somewhere
-  @@UP = "Up"
-  @@RIGHT = "Right"
-  @@LEFT = "Left"
-  @@DOWN = "Down"
-  @@FIRE = "Fire"
-  @@QUIT = "Quit"
-  @@MENU = "Menu"
-  @@MENU_ENTER = "MenuEnter"
   @@TURN_SPEED = 90
   @@MOVEMENT_DISTANCE = 1
   
@@ -141,49 +135,25 @@ class Game
 
   end
 
+  def deactivate_and_quit
+    @active = false
+    @screen.close
+  end
+
+  def menu_mode?
+    @menu_manager.active?
+  end
+
   #TODO this is getting messy 2nd TODO really messy
   def update_game_state
-    if @keys[@@QUIT]
-      @active = false
-      @screen.close
-    end
-
-    if @keys[@@MENU]
-      enter_menu
-    end
-    if @menu_manager.active?
-      if @keys[@@DOWN]
-        @menu_manager.move_down
-      end
-      if @keys[@@MENU_ENTER]
-        
-        @menu_manager.invoke_current
-      end
-
-      update_menu_state
-      return
-    end
-
-    @events.each{|event| 
+    @events.each{|event|
       raise "unkown event type #{event}" unless event.kind_of? DeathEvent
       remove_enemy(event.who)
     }
+    
+    @input_manager.respond_to_keys
 
-    if @keys[@@RIGHT]
-      @player.turn(turn_speed)
-    end
-    if @keys[@@LEFT]
-      @player.turn(-turn_speed)
-    end
-    if @keys[@@UP]
-      @player.move_forward(movement_distance)
-    end
-    if @keys[@@DOWN]
-      @player.move_forward(-movement_distance)
-    end
-    if @keys[@@FIRE]
-      @player.use_weapon
-    end
+
 
 
     @animation_manager.tick
@@ -195,9 +165,6 @@ class Game
 
   end
 
-  def button_down?(button)
-    @screen.button_down?(button)
-  end
 
   #TODO temporary hack throwaway
   def toggle_enemy_ai
@@ -214,44 +181,8 @@ class Game
     end
   end
 
-  #TODO hackish :(
-  def update_key_state
+  
 
-    if button_down? Gosu::KbLeft or button_down? Gosu::GpLeft then
-      set_key_to_active(@@LEFT)
-    end
-    if button_down? Gosu::KbRight or button_down? Gosu::GpRight then
-      set_key_to_active(@@RIGHT)
-    end
-    if button_down? Gosu::KbUp or button_down? Gosu::GpButton0 then
-      set_key_to_active(@@UP)
-    end
-    if button_down? Gosu::KbDown or button_down? Gosu::GpButton1 then
-      set_key_to_active(@@DOWN)
-    end
-    if button_down? Gosu::KbSpace then
-      set_key_to_active(@@FIRE)
-    end
-    if button_down? Gosu::KbEnter or button_down? Gosu::KbReturn then
-      set_key_to_active(@@MENU_ENTER)
-    end
-
-    if button_down? Gosu::KbQ then
-      set_key_to_active(@@QUIT)
-    end
-
-    if button_down? Gosu::KbM then
-      set_key_to_active(@@MENU)
-    end
-
-    #if button_down? Gosu::KbA then
-    #  toggle_enemy_ai
-    #end
-    if button_down? Gosu::KbA then
-      toggle_enemy_ai
-    end
-
-  end
 
   def render_one_frame
 
@@ -262,15 +193,6 @@ class Game
 
   end
 
-  def set_key_to_active(key)
-    @keys[key] = true
-  end
-  def active_keys
-    @keys
-  end
-  def clear_keys
-    @keys = {}
-  end
   def player_position
     @player.position
   end
@@ -296,8 +218,8 @@ class Game
   end
   def update_all
     @clock.tick
-    clear_keys
-    update_key_state
+    @input_manager.clear_keys
+    @input_manager.update_key_state
     update_game_state
   end
   def simulate
