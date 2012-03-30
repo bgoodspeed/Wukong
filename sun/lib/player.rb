@@ -5,7 +5,9 @@ class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
   attr_reader :radius
-  ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health]
+  ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, :turn_speed,
+    :movement_distance
+  ]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -34,6 +36,8 @@ class Player
     @health = 0
     @direction = 0
     @step_size = 1
+    @turn_speed = 90
+    @movement_distance = 1
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil
     @weapon = nil
@@ -45,9 +49,6 @@ class Player
     @weapon.use
   end
 
-  def draw_weapon
-    @weapon.draw
-  end
   def tick_weapon
     @weapon.tick
   end

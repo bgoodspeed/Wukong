@@ -1,2 +1,4 @@
 player:
   image_path: test-data/sprites/avatar.bmp
+  turn_speed: 90
+  movement_distance: 1

@@ -123,11 +123,14 @@ class Game
   @@MOVEMENT_DISTANCE = 1
   
   def turn_speed
-    @turn_speed.nil? ? @@TURN_SPEED : @turn_speed
+    #@turn_speed.nil? ? @@TURN_SPEED : @turn_speed
+    @player.turn_speed
+    
   end
 
   def movement_distance
-    @movement_distance.nil? ? @@MOVEMENT_DISTANCE : @movement_distance
+    #@movement_distance.nil? ? @@MOVEMENT_DISTANCE : @movement_distance
+    @player.movement_distance
   end
 
   def update_menu_state
@@ -226,10 +229,6 @@ class Game
   def simulate
     update_all
     draw
-    #TODO bad fit this should be managed by the animation mgr?
-    if weapon_in_use?
-      @player.draw_weapon
-    end
     while @clock.current_frame_too_fast? do
       # TODO NOOP, could sleep to free up CPU cycles
     end

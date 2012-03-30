@@ -8,8 +8,6 @@ require "game"
 #s.show
 
 game = Game.new({:width => 640, :height => 480})
-game.movement_distance = 2
-game.turn_speed = 5
 path_manager = PathFollowingManager.new(game)
 game.path_following_manager = path_manager
 cr = CollisionResponder.from_file(game, "test-data/collision_response/collision_response.yml")
