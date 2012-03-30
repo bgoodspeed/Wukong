@@ -48,8 +48,9 @@ Feature: Level Description
       | 100,200  | 5       | play_sound | land_mine_boom |
 
   Scenario: Obstacle Level
-    Given I load the level "obstacle"
+    Given I load the game on level "obstacle" with screen size 640, 480
     When the level is examined
     Then the level should measure 640, 480
     Then there should be 5 line segments
+    And wayfinding should not be nil
     

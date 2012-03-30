@@ -14,10 +14,7 @@ path_manager = PathFollowingManager.new(game)
 game.path_following_manager = path_manager
 
 #game.load_level("test-data/levels/large/large.yml")
-game.load_level("test-data/levels/obstacle/obstacle.yml")
-wf = WayFinding.from_file("test-data/levels/trivial/wayfinding.yml")
-game.wayfinding = wf
-
+game.load_level("game-data/levels/obstacle/obstacle.yml")
 
 
 p = Player.from_file(game, "game-data/players/player.yml")
@@ -30,7 +27,7 @@ game.set_player(p)
 e = Enemy.from_file(game, "game-data/enemies/enemy.yml")
 game.add_enemy(e)
 e.tracking_target = p
-path_manager.add_tracking(e, wf)
+path_manager.add_tracking(e, game.wayfinding)
 
 
 hud = HeadsUpDisplay.new(game)

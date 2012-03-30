@@ -25,6 +25,11 @@ class LevelLoader
         level.add_event_emitter(pos, ee["radius"], ee["event"], ee["event_argument"])
       end
     end
+    #TODO should this know about wayfinding directly?
+    if data["wayfinding"]
+      wayfinding = WayFinding.from_file(data["wayfinding"])
+      @game.wayfinding = wayfinding
+    end
 
     level
   end

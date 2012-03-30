@@ -1,6 +1,6 @@
 name: obstacle
-background_image: test-data/levels/obstacle/grass.jpg
-wayfinding: test-data/levels/obstacle/wayfinding.yml
+background_image: game-data/levels/obstacle/grass.jpg
+wayfinding: game-data/levels/obstacle/wayfinding.yml
 measurements:
   width: 640
   height: 480

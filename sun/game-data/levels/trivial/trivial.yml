@@ -1,6 +1,5 @@
-name: obstacle
-background_image: test-data/levels/obstacle/grass.jpg
-wayfinding: test-data/levels/obstacle/wayfinding.yml
+name: trivial
+background_image: test-data/levels/trivial/grass.jpg
 measurements:
   width: 640
   height: 480
@@ -21,7 +20,4 @@ line_segments:
     start_y: 480
     end_x: 640
     end_y: 480
-  - start_x: 150
-    start_y: 150
-    end_x: 400
-    end_y: 150
+

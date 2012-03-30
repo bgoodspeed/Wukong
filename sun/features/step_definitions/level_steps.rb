@@ -73,3 +73,7 @@ Then /^the event emitters are:$/ do |table|
     emitters[idx].radius.should == hash['radius']
   }
 end
+
+Then /^wayfinding should not be nil$/ do
+  @game.wayfinding.should_not be_nil
+end
