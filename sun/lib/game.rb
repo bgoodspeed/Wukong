@@ -29,6 +29,7 @@ require 'artificial_intelligence'
 require 'input_manager'
 require 'animation_manager'
 require 'path_following_manager'
+require 'timed_event'
 
 require 'loaders/player_loader'
 require 'loaders/level_loader'
@@ -43,7 +44,8 @@ class Game
   attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
     :movement_distance, :path_following_manager, :enemy, :events, :camera,
     :screen, :level, :sound_manager, :collision_responder, :collisions,
-    :wayfinding, :menu_manager, :main_menu_name, :input_manager
+    :wayfinding, :menu_manager, :main_menu_name, :input_manager,
+    :temporary_message
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
@@ -59,7 +61,7 @@ class Game
     @main_menu_name = "main menu"
     @events = []
     @active = true
-    @clock = Clock.new(dependencies[:framerate])
+    @clock = Clock.new(self, dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
     @sound_manager = SoundManager.new(self)
     @collisions = []
@@ -257,8 +259,7 @@ class Game
     @menu_manager.current_menu_index
   end
 
-  def temporary_message
-    #TODO manage this for growl style notifications?
-
+  def temporary_message=(msg)
+    @temporary_message = msg
   end
 end

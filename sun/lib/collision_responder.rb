@@ -79,6 +79,8 @@ class CollisionResponder
       :blocking2 => lambda {|col| col.dynamic2.undo_last_move},
       :trigger_event1 => lambda {|col| col.dynamic1.trigger},
       :trigger_event2 => lambda {|col| col.dynamic2.trigger},
+      #TODO sort of exploratory here, extract params, cleanup etc
+      :temporary_message1 => lambda {|col| @game.clock.enqueue_event("message", TimedEvent.new("temporary_message=",col.dynamic1.hud_message, 60 )) }
     }
   end
 

@@ -1,5 +1,5 @@
 Given /^I set the game clock to (\d+) fps$/ do |framerate|
-  @clock = Clock.new(framerate.to_i)
+  @clock = Clock.new(@game, framerate.to_i)
   @game.clock = @clock
 end
 
@@ -20,4 +20,10 @@ end
 
 Then /^the number of frames render should be (\d+)$/ do |frames|
   @clock.frames_rendered.should == frames.to_i
+end
+
+Given /^I enqueue a timed event named "([^"]*)" and action "([^"]*)" data "([^"]*)" for (\d+) ticks$/ do |event_name, action, data, lifespan|
+  @timed_event = TimedEvent.new(action, data, lifespan.to_i)
+
+  @clock.enqueue_event(event_name, @timed_event)
 end

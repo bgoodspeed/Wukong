@@ -30,3 +30,20 @@ Then /^the collision responses should be:$/ do |table|
     response_types.should be_include(expected)
   }
 end
+
+
+Then /^the response for "([^"]*)" should enqueue a timed event$/ do |arg1|
+  m = Mocha::Mock.new("m1")
+  m.stubs(:hud_message).returns "hi"
+  m2 = Mocha::Mock.new("m2")
+  response = nil
+  @collision_responder.responses.each {|k,v|
+    if k.to_s == arg1.to_s
+      response = v
+    end
+    }
+  response.call(Collision.new(m,m2))
+  @game.clock.events.size.should == 1
+
+end
+

@@ -6,3 +6,4 @@ end
 When /^I trigger the event emitter$/ do
   @event_emitter.trigger
 end
+

@@ -45,6 +45,10 @@ class Enemy
   end
 
 
+  #TODO hackish
+  def hud_message
+    "Enemy : #{@health}HP"
+  end
   def collision_type
     Enemy
   end

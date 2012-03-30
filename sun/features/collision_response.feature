@@ -45,3 +45,20 @@ Feature: Collision Response
     Then the collision responses should be:
         | collision_response_type |
         | removing1               |
+
+  Scenario: Collision Response Messaging
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a collision responder from file "collision_response.yml"
+    When a collision occurs between type "Enemy" and type "VectorFollower"
+    Then the collision responses should be:
+        | collision_response_type |
+        | removing2               |
+        | temporary_message1      |
+
+
+  Scenario: Collision Response Messaging Invocation
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a collision responder from file "collision_response.yml"
+    Then the response for "temporary_message1" should enqueue a timed event
+
+
