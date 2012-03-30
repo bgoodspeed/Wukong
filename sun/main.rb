@@ -15,11 +15,10 @@ game.load_level("game-data/levels/obstacle/obstacle.yml")
 im = InputManager.from_file(game, "test-data/input/input_config.yml")
 game.input_manager = im
 p = Player.from_file(game, "game-data/players/player.yml")
-w = Weapon.from_file(game, "game-data/equipment/weapon.yml")
+
 
 sm = SoundManager.from_file(game, "game-data/sounds/sound_config.yml")
 game.sound_manager = sm
-p.equip_weapon(w)
 game.set_player(p)
 e = Enemy.from_file(game, "game-data/enemies/enemy.yml")
 game.add_enemy(e)

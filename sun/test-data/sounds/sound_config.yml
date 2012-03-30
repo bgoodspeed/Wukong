@@ -4,6 +4,8 @@ sound_manager:
       name: death
     - filename: test-data/sounds/weapon.wav
       name: weapon
+    - filename: test-data/sounds/weapon.wav
+      name: shoot
 
   songs:
     - filename: test-data/music/music.wav

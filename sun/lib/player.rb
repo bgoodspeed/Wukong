@@ -17,6 +17,7 @@ class Player
     data = YAML.load(yaml)
     conf = data['player']
     obj = Player.new(conf['image_path'], game)
+    obj.equip_weapon(Weapon.from_file(game, conf['weapon_yaml'])) if conf['weapon_yaml']
     process_attributes(ATTRIBUTES, obj, conf)
     obj
   end

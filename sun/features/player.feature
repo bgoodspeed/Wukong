@@ -30,3 +30,18 @@ Feature: Player Details
     And the player should be at position 36,36
     And the player should be facing "north"
     And the player radius should be 36
+
+  Scenario: Player weapon YAML loading
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create an animation manager with a ratio of one animation tick to 1 game ticks
+    And I create a sound manager from file "sound_config.yml"
+    And I load a player from "player_with_weapon.yml"
+    When I use the weapon
+    When I see the first frame
+    And I run the game loop 1 times
+    Then the player should be in the scene
+    And the player should be at position 36,36
+    And the player should be facing "north"
+    And the player radius should be 36
+    Then the weapon should be in use and on frame 1
+    And the weapon sound should be played

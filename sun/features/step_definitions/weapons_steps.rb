@@ -23,7 +23,7 @@ When /^I use the weapon$/ do
 end
 
 Then /^the weapon should be in use and on frame (\d+)$/ do |frame|
-  @weapon.should be_in_use
+  @player.weapon.should be_in_use
   @animation_manager.animation_index_by_entity_and_name(@player, "weapon").animation_index.should == frame.to_i
 end
 
@@ -33,6 +33,6 @@ Given /^I set the player weapon sound effect to "([^"]*)"$/ do |sound_file|
 end
 
 Then /^the weapon sound should be played$/ do
-  @sound_manager.play_count_for("player_weapon_sound").should == 1
+  @sound_manager.play_count_for(@game.player.weapon.sound_effect_name).should == 1
 end
 

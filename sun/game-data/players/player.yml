@@ -5,3 +5,4 @@ player:
   turn_speed: 5
   health: 5
   max_health: 10
+  weapon_yaml: test-data/equipment/weapon.yml

@@ -41,8 +41,9 @@ end
 Then /^the player should be in the scene$/ do
   elems = @game.dynamic_elements
 
-  elems.size.should == 1
-  elems.first.class.should == Player
+  cs = elems.collect{|e| e.class}
+  cs.should be_include(Player)
+  
 end
 
 class Array
