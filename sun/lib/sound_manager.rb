@@ -1,5 +1,24 @@
 
 class SoundManager
+  extend YamlHelper
+
+  #TODO make YAML utils and pass attributes
+  def self.from_yaml(game, yaml)
+    data = YAML.load(yaml)
+    conf = data['sound_manager']
+    obj = SoundManager.new(game)
+
+    conf['effects'].each {|effect| obj.add_effect(effect['filename'], effect['name']) }
+    conf['songs'].each {|effect| obj.add_song(effect['filename'], effect['name']) }
+    
+    obj
+  end
+
+  def self.from_file(game, f)
+    self.from_yaml(game, IO.readlines(f).join(""))
+  end
+
+
   def initialize(game)
     @game = game
     @effects_by_name = {}

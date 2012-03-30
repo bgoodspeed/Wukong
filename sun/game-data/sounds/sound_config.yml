@@ -1,0 +1,8 @@
+sound_manager:
+  effects:
+    - filename: test-data/sounds/weapon.wav
+      name: shoot
+
+  songs:
+    - filename: test-data/music/music.wav
+      name: music

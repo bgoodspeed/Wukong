@@ -1,0 +1,10 @@
+sound_manager:
+  effects:
+    - filename: test-data/sounds/death.wav
+      name: death
+    - filename: test-data/sounds/weapon.wav
+      name: weapon
+
+  songs:
+    - filename: test-data/music/music.wav
+      name: music

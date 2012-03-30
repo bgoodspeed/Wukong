@@ -23,11 +23,8 @@ game.wayfinding = wf
 p = Player.from_file(game, "game-data/players/player.yml")
 w = Weapon.from_file(game, "game-data/equipment/weapon.yml")
 
-sm = SoundManager.new(game)
+sm = SoundManager.from_file(game, "game-data/sounds/sound_config.yml")
 game.sound_manager = sm
-#TODO make a sound effects config yml
-sm.add_effect("test-data/sounds/weapon.wav", "shoot")
-sm.add_song("test-data/music/music.wav", "music")
 p.equip_weapon(w)
 game.set_player(p)
 e = Enemy.from_file(game, "game-data/enemies/enemy.yml")

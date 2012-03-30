@@ -2,6 +2,10 @@ Given /^I create a sound manager$/ do
   @sound_manager = SoundManager.new(@game)
   @game.sound_manager = @sound_manager
 end
+Given /^I create a sound manager from file "([^"]*)"$/ do |configfile|
+  @sound_manager = SoundManager.from_file(@game, "test-data/sounds/#{configfile}")
+  @game.sound_manager = @sound_manager
+end
 
 Given /^I add a sound effect from "([^"]*)" called "([^"]*)"$/ do |sound_file, sound_name|
   @sound_manager.add_effect("test-data/sounds/#{sound_file}", sound_name)
