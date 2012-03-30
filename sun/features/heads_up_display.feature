@@ -95,3 +95,19 @@ Feature: Heads Up Display
     | 1 - One   |
     | 2 - Two   |
     | 3 - Three |
+
+  Scenario: HUD Player Info
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I load a player from "player.yml"
+    And I create the HUD
+    And I set the HUD text to:
+    """
+    Player HP: {{player.health}}/{{player.max_health}}
+    {{temporary_message}}
+    """
+    When I see the first frame
+    Then the hud formatted line 1 should be "Player HP: 5/6"
+    Then the hud should contain:
+    | hud text       |
+    | Player HP: 5/6 |
+    |                |

@@ -4,8 +4,6 @@
 $: << "lib"
 
 require "game"
-#s = Screen.new(640, 480)
-#s.show
 
 game = Game.new({:width => 640, :height => 480})
 path_manager = PathFollowingManager.new(game)

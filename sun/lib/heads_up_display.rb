@@ -6,7 +6,7 @@ class HeadsUpDisplay
   @@Y_SPACING = 10
 
 
-  attr_reader :lines
+  
   attr_accessor :x_spacing, :y_spacing, :menu_mode
   def initialize(game)
     @game = game
@@ -26,6 +26,44 @@ class HeadsUpDisplay
   end
   def add_line(line)
     @lines << line
+  end
+
+  def tokens_from_line(line)
+    rs = line.split("{{")
+    es = rs.collect {|r|
+      if r =~ /}}/
+        rv = r.split("}}")[0]
+      else
+        rv = []
+      end
+      rv
+    }
+    es.flatten.collect{|e| e.strip}
+
+  end
+
+  def format_line(l)
+    line = l.dup
+    tokens = tokens_from_line(line)
+
+    tokens.each {|token|
+      line.gsub!("{{#{token}}}", "#{game_evaluate(token)}")
+    }
+
+
+    line
+  end
+
+  def game_evaluate(token)
+    obj = @game
+    token.split(".").each {|elem|
+      raise "must implement #{elem} on #{obj}" unless obj.respond_to? elem
+      obj = obj.send(elem)
+    }
+    obj
+  end
+  def formatted_lines
+    @lines.collect {|line| format_line(line)}
   end
 
   def transparent_grey
@@ -57,6 +95,10 @@ class HeadsUpDisplay
                                pos[0] - 5,  base_y, Gosu::Color::WHITE,
                                pos[0] - 20, base_y + 10, Gosu::Color::WHITE)
   end
+
+  def lines
+    formatted_lines
+  end
   def draw(screen)
     pos = [@x_spacing, @y_spacing ]
     if menu_mode?
@@ -64,8 +106,8 @@ class HeadsUpDisplay
       darken_screen
       draw_cursor
     end
-    
-    @lines.each_with_index do |line, index|
+
+    lines.each_with_index do |line, index|
       @font.draw(line,
         pos[0],pos[1] * (index+1),ZOrder.hud.value )
     end

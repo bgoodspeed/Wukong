@@ -20,3 +20,9 @@ Then /^the hud cursor position should be (\d+),(\d+)$/ do |arg1, arg2|
   expected = [arg1.to_f, arg2.to_f]
   @hud.cursor_position.should be_within_epsilon_of(expected)
 end
+
+Then /^the hud formatted line (\d+) should be "([^"]*)"$/ do |lineno, arg2|
+  lines = @hud.formatted_lines
+  lines[lineno.to_i - 1].should == arg2
+
+end

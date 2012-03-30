@@ -256,4 +256,9 @@ class Game
   def current_menu_index
     @menu_manager.current_menu_index
   end
+
+  def temporary_message
+    #TODO manage this for growl style notifications?
+
+  end
 end

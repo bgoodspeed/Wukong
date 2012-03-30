@@ -5,8 +5,8 @@ class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
   attr_reader :radius
-  ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, :turn_speed,
-    :movement_distance
+  ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, :max_health, 
+    :turn_speed, :movement_distance
   ]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
