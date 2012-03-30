@@ -27,9 +27,8 @@ e.tracking_target = p
 path_manager.add_tracking(e, game.wayfinding)
 
 
-hud = HeadsUpDisplay.new(game)
+hud = HeadsUpDisplay.from_file(game, "game-data/hud/hud_config.yml")
 game.hud = hud
-hud.add_line("here is hud line one")
 
 menu_manager = MenuManager.new(game)
 game.menu_manager = menu_manager

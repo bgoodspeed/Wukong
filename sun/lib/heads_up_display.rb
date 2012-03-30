@@ -5,9 +5,24 @@ class HeadsUpDisplay
   @@X_SPACING = 10
   @@Y_SPACING = 10
 
+  ATTRIBUTES = [:x_spacing, :y_spacing, :menu_mode, :menu_scale, :lines ]
+  ATTRIBUTES.each {|attr| attr_accessor attr }
 
-  
-  attr_accessor :x_spacing, :y_spacing, :menu_mode
+  extend YamlHelper
+
+  #TODO make YAML utils and pass attributes
+  def self.from_yaml(game, yaml)
+    data = YAML.load(yaml)
+    conf = data['heads_up_display']
+    obj = HeadsUpDisplay.new(game)
+    process_attributes(ATTRIBUTES, obj, conf)
+    obj
+  end
+
+  def self.from_file(game, f)
+    self.from_yaml(game, IO.readlines(f).join(""))
+  end
+
   def initialize(game)
     @game = game
     @lines = []
