@@ -14,6 +14,34 @@ end
 
 class InputManager
   attr_accessor :keyboard, :gamepad
+
+  def self.from_yaml(game, yaml)
+    data = YAML.load(yaml)
+    conf = data['input_config']
+    kbd = conf['keyboard_config']
+    if kbd
+      kbd_conf = {}
+      kbd.each {|k,v| 
+        kbd_conf[eval(k)] = eval(v) }
+    else
+      kbd_conf = nil
+    end
+    gp = conf['gamepad_config']
+    if gp
+      gp_conf = {}
+      gp.each {|k,v| kbd_conf[eval(k)] = eval(v) }
+    else
+      gp_conf = nil
+    end
+    obj = InputManager.new(game , kbd_conf, gp_conf)
+    
+    obj
+  end
+
+  def self.from_file(game, f)
+    self.from_yaml(game, IO.readlines(f).join(""))
+  end
+
   def self.default_keyboard_config
     { Gosu::KbLeft => KeyActions::LEFT,
       Gosu::KbRight => KeyActions::RIGHT,
@@ -33,6 +61,7 @@ class InputManager
       Gosu::GpDown => KeyActions::DOWN }
   end
 
+  attr_reader :keyboard
   #TODO abstract these into yml ?
   def initialize(game, keyboard_conf = InputManager.default_keyboard_config, gamepad_conf = InputManager.default_gamepad_config)
     @game = game

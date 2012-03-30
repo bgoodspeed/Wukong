@@ -108,3 +108,10 @@ Feature: Player Controls
       | menu_id   | action      | action_argument | action_result |
       | pick_slot | choose_slot | 7               | 21            |
 
+
+   Scenario: Input manager from Yaml
+     Given I load the game on level "trivial" with screen size 640, 480
+     And I create an input manager from config file "input_config.yml"
+     Then the input managers mapping should contain:
+       | api_keysym  | keyaction      |
+       | Gosu::KbUp  | KeyActions::UP |

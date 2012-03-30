@@ -15,8 +15,8 @@ game.path_following_manager = path_manager
 
 #game.load_level("test-data/levels/large/large.yml")
 game.load_level("game-data/levels/obstacle/obstacle.yml")
-
-
+im = InputManager.from_file(game, "test-data/input/input_config.yml")
+game.input_manager = im
 p = Player.from_file(game, "game-data/players/player.yml")
 w = Weapon.from_file(game, "game-data/equipment/weapon.yml")
 
