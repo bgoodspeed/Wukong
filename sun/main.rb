@@ -8,8 +8,8 @@ require "game"
 #s.show
 
 game = Game.new({:width => 640, :height => 480})
-game.movement_distance = 1
-game.turn_speed = 10
+game.movement_distance = 2
+game.turn_speed = 5
 path_manager = PathFollowingManager.new(game)
 game.path_following_manager = path_manager
 
@@ -19,24 +19,18 @@ wf = WayFinding.from_file("test-data/levels/trivial/wayfinding.yml")
 game.wayfinding = wf
 
 
-game.movement_distance = 2
-game.turn_speed = 5
 
-p = Player.new("test-data/sprites/avatar.bmp", game)
-w = Weapon.new(game, "test-data/equipment/weapon.png")
-w.sound_effect_name = "shoot"
+p = Player.from_file(game, "game-data/players/player.yml")
+w = Weapon.from_file(game, "game-data/equipment/weapon.yml")
 
 sm = SoundManager.new(game)
 game.sound_manager = sm
+#TODO make a sound effects config yml
 sm.add_effect("test-data/sounds/weapon.wav", "shoot")
 sm.add_song("test-data/music/music.wav", "music")
-w.type = "projectile"
 p.equip_weapon(w)
-p.position = [300,200]
 game.set_player(p)
-e = Enemy.new("test-data/sprites/enemy_avatar.bmp", game)
-e.position = [100,100]
-e.velocity = 1
+e = Enemy.from_file(game, "game-data/enemies/enemy.yml")
 game.add_enemy(e)
 e.tracking_target = p
 path_manager.add_tracking(e, wf)

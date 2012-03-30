@@ -1,2 +1,3 @@
 player:
   image_path: test-data/sprites/avatar.bmp
+  position: [ 200, 300 ]
