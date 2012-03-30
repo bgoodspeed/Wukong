@@ -2,30 +2,6 @@
 # and open the template in the editor.
 
 
-class DynamicCollision
-  attr_reader :dynamic1, :dynamic2
-  def initialize(dynamic, dynamic2)
-    @dynamic1 = dynamic
-    @dynamic2 = dynamic2
-  end
-  alias_method :static, :dynamic1
-  alias_method :dynamic, :dynamic2
-end
-class StaticCollision
-  attr_reader :static, :dynamic
-  def initialize(dynamic, static)
-    @dynamic = dynamic
-    @static = static
-  end
-
-  alias_method :dynamic1, :static
-  alias_method :dynamic2, :dynamic
-
-end
-
-class CollisionHandlerChipmunk
-
-end
 
 require 'chipmunk'
 class SpaceWrapper
@@ -174,8 +150,8 @@ class Level
     
     @dynamic_elements.each {|e| @dynamic_hash.insert_circle_type_collider(e)}
     all = @dynamic_hash.all_collisions
-    dyns = all.collect {|col| DynamicCollision.new(col.first, col.last)}
-    stats = cols.collect {|col| StaticCollision.new(col.first, col.last)}
+    dyns = all.collect {|col| Collision.new(col.first, col.last)}
+    stats = cols.collect {|col| Collision.new(col.first, col.last)}
     rv = stats + dyns
     rv
   end

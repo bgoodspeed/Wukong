@@ -12,7 +12,8 @@ game.movement_distance = 2
 game.turn_speed = 5
 path_manager = PathFollowingManager.new(game)
 game.path_following_manager = path_manager
-
+cr = CollisionResponder.from_file(game, "test-data/collision_response/collision_response.yml")
+game.collision_responder = cr
 #game.load_level("test-data/levels/large/large.yml")
 game.load_level("game-data/levels/obstacle/obstacle.yml")
 im = InputManager.from_file(game, "test-data/input/input_config.yml")

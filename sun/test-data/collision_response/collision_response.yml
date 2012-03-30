@@ -1,0 +1,20 @@
+collision_response:
+  EventEmitter:
+    Player: [ :trigger_event1 ]
+  Primitives::LineSegment:
+    Player: [:blocking2]
+    VectorFollower: [:removing2]
+    Enemy: [:blocking2]
+  Enemy:
+    VectorFollower: [:damaging1, :removing2]
+    Primitives::LineSegment: [:blocking1]
+  VectorFollower:
+    Player: []
+    Enemy: [:damaging2, :removing1]
+    Primitives::LineSegment: [:removing1]
+  Player:
+    Primitives::LineSegment: [:blocking1]
+    VectorFollower: []
+    Enemy: [:damaging1, :damaging2, :blocking1]
+    EventEmitter: [:trigger_event2]
+      
