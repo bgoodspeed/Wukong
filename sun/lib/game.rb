@@ -198,8 +198,8 @@ class Game
     @hud.draw(@screen)
 
     #TODO HACK
-    if mouse_on_screen && @mouse_drawn
-      @screen.draw_crosshairs_at(mouse_screen_coords)
+    if @input_manager.mouse_on_screen && @mouse_drawn
+      @screen.draw_crosshairs_at(@input_manager.mouse_screen_coords)
     end
 
   end
@@ -228,14 +228,6 @@ class Game
     @player.weapon_in_use?
   end
 
-  def mouse_on_screen
-    msc = mouse_screen_coords
-    return false if msc.x <= 0
-    return false if msc.x > screen.width
-    return false if msc.y <= 0
-    return false if msc.y > screen.height
-    true
-  end
 
   def update_all
     @clock.tick
@@ -281,14 +273,6 @@ class Game
     @temporary_message = msg
   end
 
-  def mouse_screen_coords
-    [window.mouse_x, window.mouse_y ]
-  end
-
-  def mouse_world_coordinates
-    msc = mouse_screen_coords
-    @camera.world_coordinates_for(msc)
-  end
 
   #TODO make wiki note that screen coords are top left to bottom right
 

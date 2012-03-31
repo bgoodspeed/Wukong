@@ -95,6 +95,25 @@ class InputManager
 
   end
 
+  def mouse_world_coordinates
+    msc = mouse_screen_coords
+    @game.camera.world_coordinates_for(msc)
+  end
+
+
+  def mouse_screen_coords
+    [@game.window.mouse_x, @game.window.mouse_y ]
+  end
+
+  def mouse_on_screen
+    msc = mouse_screen_coords
+    return false if msc.x <= 0
+    return false if msc.x > @game.screen.width
+    return false if msc.y <= 0
+    return false if msc.y > @game.screen.height
+    true
+  end
+
   def run_activated(behaviors)
     behaviors.each { |action, behavior| behavior.call if @keys[action] }
   end
