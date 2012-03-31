@@ -97,7 +97,7 @@ Feature: Collision Detection
     And I add a sound effect from "weapon.wav" called "land_mine_boom"
     And I set the game clock to 60 fps
     When I simulate ""
-    And I run the game loop 1 times
+    And I run the game loop 2 times
     Then there should be 1 collisions
     And the play count for sound effect "land_mine_boom" should be 1
 

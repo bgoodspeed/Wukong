@@ -9,6 +9,7 @@ Feature: Events
     And I add a sound effect from "weapon.wav" called "foo"
     And I create an event emitter to play the "foo" sound
     When I trigger the event emitter
+    And handle events
     Then the play count for sound effect "foo" should be 1
     
 

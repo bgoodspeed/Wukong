@@ -29,8 +29,9 @@ require 'artificial_intelligence'
 require 'input_manager'
 require 'animation_manager'
 require 'path_following_manager'
-require 'timed_event'
 
+require 'timed_event'
+require 'event_manager'
 require 'loaders/player_loader'
 require 'loaders/level_loader'
 
@@ -42,10 +43,10 @@ require 'sound_manager'
 class Game
 
   attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
-    :movement_distance, :path_following_manager, :enemy, :events, :camera,
+    :movement_distance, :path_following_manager, :enemy, :camera,
     :screen, :level, :sound_manager, :collision_responder, :collisions,
     :wayfinding, :menu_manager, :main_menu_name, :input_manager,
-    :temporary_message, :mouse_drawn
+    :temporary_message, :mouse_drawn, :event_manager
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
@@ -57,10 +58,10 @@ class Game
     @path_following_manager = PathFollowingManager.new(self)
     @menu_manager = MenuManager.new(self)
     @input_manager = InputManager.new(self)
+    @event_manager = EventManager.new(self)
     @camera = Camera.new(self)
     @mouse_drawn = true
     @main_menu_name = "main menu"
-    @events = []
     @active = true
     @clock = Clock.new(self, dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
@@ -93,8 +94,12 @@ class Game
     @level.remove_enemy(enemy)
   end
 
+  #TODO death event should be created by client code
   def add_death_event(who)
-    @events << DeathEvent.new(who)
+    add_event(DeathEvent.new(who))
+  end
+  def add_event(e)
+    @event_manager.add_event(e)
   end
   def load_animation(entity, name, animation, w, h, tiles)
     @animation_manager.load_animation(entity, name, animation, w, h, tiles)
@@ -151,25 +156,17 @@ class Game
     @menu_manager.active?
   end
 
+  def events
+    @event_manager.events
+  end
   #TODO this is getting messy 2nd TODO really messy
   def update_game_state
-    @events.each{|event|
-      raise "unkown event type #{event}" unless event.kind_of? DeathEvent
-      remove_enemy(event.who)
-    }
-    
+    @event_manager.handle_events
     @input_manager.respond_to_keys
-
-
-
-
     @animation_manager.tick
     @path_following_manager.tick
-    
     @collisions = @level.check_for_collisions
-
     @collision_responder.handle_collisions(@collisions)
-
   end
 
 
