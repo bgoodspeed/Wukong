@@ -14,11 +14,11 @@ declared_enemies:
 spawn_points:
   - point: [ 50, 50 ]
     name: fiftyfifty
-    spawn_schedule: once
+    spawn_schedule: 2 enemies every 10 ticks for 100 total ticks
     spawn_argument: [ e1 ]
   - point: [ 100, 100 ]
     name: hundredhundred
-    spawn_schedule: every 2 ticks for 10 ticks
+    spawn_schedule: 1 enemies every 5 ticks for 0 total ticks until COND
     spawn_argument: [ e2, e3 ]
 line_segments:
   - start_x: 0

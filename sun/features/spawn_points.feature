@@ -8,7 +8,7 @@ Feature: Spawn Points
     When the level is examined
     Then there should be 2 spawn points
     Then the spawn points should be:
-      | point    | name           | spawn_schedule                   | spawn_argument |
-      | 50, 50   | fiftyfifty     | once                             | e1             |
-      | 100, 100 | hundredhundred | every 2 ticks for 10 ticks       | e2, e3         |
+      | point    | name           | spawn_schedule                                        | spawn_argument |
+      | 50, 50   | fiftyfifty     | 2 enemies every 10 ticks for 100 total ticks          | e1             |
+      | 100, 100 | hundredhundred | 1 enemies every 5 ticks for 0 total ticks until COND  | e2, e3         |
 
