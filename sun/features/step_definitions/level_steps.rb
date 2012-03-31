@@ -99,6 +99,11 @@ Then /^the spawn points should be:$/ do |table|
     points[idx].name.should == hash['name']
     points[idx].spawn_schedule.should == hash['spawn_schedule']
     points[idx].spawn_argument.should == [hash['spawn_argument']].flatten
+    points[idx].enemy_quantity.to_s.should == hash['enemy_quantity'] if hash.has_key?('enemy_quantity')
+    points[idx].frequency.to_s.should == hash['frequency'] if hash.has_key?('frequency')
+    points[idx].total_time.to_s.should == hash['total_time'] if hash.has_key?('total_time')
+    points[idx].condition.to_s.should == hash['condition'] if hash.has_key?('condition')
+
   }
   
 end
