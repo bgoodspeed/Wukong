@@ -37,7 +37,7 @@ When /^I run the game loop (\d+) times and clear the state after run (\d+)$/ do 
   end
 
 end
-#TODO call mocha_teardown
+
 #TODO redesign this input mocking mechanism, kills things on win32
 When /^I simulate "([^"]*)"$/ do |gosu_buttons|
   values = gosu_buttons.split(",").collect {|button| eval(button)}

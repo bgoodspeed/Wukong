@@ -122,3 +122,14 @@ Feature: Heads Up Display
     | hud text       |
     | Player HP: 5/6 |
     |                |
+
+  Scenario: HUD Player From Yaml
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I load a player from "player.yml"
+    And I create the HUD from file "hud_config.yml"
+    When I see the first frame
+    Then the hud formatted line 1 should be "Player HP: 5/6"
+    Then the hud should contain:
+    | hud text       |
+    | Player HP: 5/6 |
+    |                |

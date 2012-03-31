@@ -45,7 +45,7 @@ class Game
     :movement_distance, :path_following_manager, :enemy, :events, :camera,
     :screen, :level, :sound_manager, :collision_responder, :collisions,
     :wayfinding, :menu_manager, :main_menu_name, :input_manager,
-    :temporary_message
+    :temporary_message, :mouse_drawn
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
@@ -58,6 +58,7 @@ class Game
     @menu_manager = MenuManager.new(self)
     @input_manager = InputManager.new(self)
     @camera = Camera.new(self)
+    @mouse_drawn = true
     @main_menu_name = "main menu"
     @events = []
     @active = true
@@ -196,6 +197,10 @@ class Game
     @animation_manager.draw(@screen)
     @hud.draw(@screen)
 
+    #TODO HACK
+    if mouse_on_screen && @mouse_drawn
+      @screen.draw_crosshairs_at(mouse_screen_coords)
+    end
 
   end
 
@@ -222,10 +227,23 @@ class Game
   def weapon_in_use?
     @player.weapon_in_use?
   end
+
+  def mouse_on_screen
+    msc = mouse_screen_coords
+    return false if msc.x <= 0
+    return false if msc.x > screen.width
+    return false if msc.y <= 0
+    return false if msc.y > screen.height
+    true
+  end
+
   def update_all
     @clock.tick
     @input_manager.clear_keys
     @input_manager.update_key_state
+
+    #TODO hack delete me
+
     update_game_state
   end
   def simulate
@@ -261,5 +279,25 @@ class Game
 
   def temporary_message=(msg)
     @temporary_message = msg
+  end
+
+  def mouse_screen_coords
+    [window.mouse_x, window.mouse_y ]
+  end
+
+  def mouse_world_coordinates
+    msc = mouse_screen_coords
+    @camera.world_coordinates_for(msc)
+  end
+
+  #TODO make wiki note that screen coords are top left to bottom right
+
+
+  #TODO hack throwaway
+  def hack_todo_print_mouse_location
+
+    mx = window.mouse_x
+    my = window.mouse_y
+    puts "Got mouse location #{mx},#{my}  (they are: #{mx.class})"
   end
 end

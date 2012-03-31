@@ -69,3 +69,39 @@ Feature: Camera Description
     Then the camera should be centered at 320, 240
     And the camera offset should be 0,0
     And the player screen coordinates should be 500, 400
+
+  Scenario: Screen coordinate to world coordinate mapping
+    Given I load the game on level "huge" with screen size 640, 480
+    And I set the player avatar to "avatar.bmp"
+    And I create a game camera tracking the player
+    And I set the player position to 320,240
+    And I set the mouse position to 320, 240 in screen coords
+    Then the camera should be centered at 320, 240
+    And the camera offset should be 0,0
+    And the player screen coordinates should be 320, 240
+    And the mouse world coordinates should be 320, 240
+
+  Scenario: Screen coordinate to world coordinate mapping 2
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I set the player avatar to "avatar.bmp"
+    And I create a game camera tracking the player
+    And I set the player position to 500,400
+    And I set the mouse position to 100, 200 in screen coords
+    When I simulate "Gosu::MsLeft"
+    Then the camera should be centered at 320, 240
+    And the camera offset should be 0,0
+    And the player screen coordinates should be 500, 400
+    And the mouse world coordinates should be 100, 200
+
+ Scenario: Screen coordinate to world coordinate mapping 3
+    Given I load the game on level "huge" with screen size 640, 480
+    And I create a game camera tracking the player
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 100,200
+    And I set the mouse position to 320, 240 in screen coords
+    Then the camera should be centered at 100, 200
+    And the camera offset should be -220,-40
+    And the player screen coordinates should be 320, 240
+    And the mouse world coordinates should be 100, 200
+
+

@@ -84,6 +84,11 @@ class Screen
   def draw_line(*args)
     @window.draw_line(*args)
   end
+  def draw_crosshairs_at(p, l=4)
+    @window.draw_line(p.x - l, p.y, Gosu::Color::WHITE, p.x + l, p.y, Gosu::Color::WHITE, ZOrder.hud.value)
+    @window.draw_line(p.x, p.y - l, Gosu::Color::WHITE, p.x, p.y + l, Gosu::Color::WHITE, ZOrder.hud.value)
+  end
+
   def button_down?(button)
     @window.button_down?(button)
   end

@@ -43,8 +43,10 @@ class Camera
     rv
   end
 
-  def screen_coordinates_for(position)
-    position.minus(offset)
+  def screen_coordinates_for(p)
+    p.minus(offset)
   end
-
+  def world_coordinates_for(p)
+    p.plus(offset)
+  end
 end

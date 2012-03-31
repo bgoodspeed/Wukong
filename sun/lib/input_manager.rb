@@ -10,6 +10,7 @@ module KeyActions
   QUIT = "Quit"
   MENU = "Menu"
   MENU_ENTER = "MenuEnter"
+  MOUSE_CLICK = "MouseClick"
 end
 
 class InputManager
@@ -60,14 +61,18 @@ class InputManager
       Gosu::GpUp => KeyActions::UP,
       Gosu::GpDown => KeyActions::DOWN }
   end
+  def self.default_mouse_config
+    { Gosu::MsLeft => KeyActions::MOUSE_CLICK }
+  end
 
   attr_reader :keyboard
   #TODO abstract these into yml ?
-  def initialize(game, keyboard_conf = InputManager.default_keyboard_config, gamepad_conf = InputManager.default_gamepad_config)
+  def initialize(game, keyboard_conf = InputManager.default_keyboard_config, gamepad_conf = InputManager.default_gamepad_config, mouse_conf = InputManager.default_mouse_config)
     @game = game
     @keys = {}
     @keyboard = keyboard_conf
     @gamepad = gamepad_conf
+    @mouse = mouse_conf
 
     #TODO how to make this configurable? maybe not needed since input->action is configurable
     @always_available_behaviors = {
@@ -80,6 +85,7 @@ class InputManager
       KeyActions::UP => lambda { @game.player.move_forward(@game.movement_distance) },
       KeyActions::DOWN => lambda { @game.player.move_forward(-@game.movement_distance) },
       KeyActions::FIRE => lambda { @game.player.use_weapon },
+      KeyActions::MOUSE_CLICK => lambda { @game.hack_todo_print_mouse_location },
     }
 
     @menu_behaviors = {
@@ -109,7 +115,7 @@ class InputManager
 
 
   def button_mappings
-    @gamepad.merge(@keyboard)
+    @mouse.merge(@gamepad.merge(@keyboard))
   end
 
   def update_key_state
