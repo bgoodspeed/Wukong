@@ -6,3 +6,4 @@ weapon:
   type: projectile
   sound_effect_name: shoot
   velocity: 10
+ 

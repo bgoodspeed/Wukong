@@ -53,4 +53,12 @@ Feature: Level Description
     Then the level should measure 640, 480
     Then there should be 5 line segments
     And wayfinding should not be nil
+
+  Scenario: Demo Level
+    Given I load the game on level "demo" with screen size 640, 480
+    When the level is examined
+    Then the level should measure 640, 480
+    Then there should be 5 line segments
+    Then there should be be 3 enemies defined
+    And there should be 2 spawn points
     

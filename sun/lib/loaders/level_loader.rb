@@ -30,6 +30,17 @@ class LevelLoader
       wayfinding = WayFinding.from_file(data["wayfinding"])
       @game.wayfinding = wayfinding
     end
+    if data["declared_enemies"]
+      data["declared_enemies"].each {|e|
+        level.add_declared_enemy(e['name'], Enemy.from_file(@game, e['enemy_yaml']))
+      }
+    end
+    if data["spawn_points"]
+      data["spawn_points"].each {|sp|
+        pt = SpawnPoint.new(sp['point'],sp['name'], sp['spawn_schedule'], sp['spawn_argument'] )
+        level.add_spawn_point(pt)
+      }
+    end
 
     level
   end

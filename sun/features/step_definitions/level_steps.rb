@@ -77,3 +77,28 @@ end
 Then /^wayfinding should not be nil$/ do
   @game.wayfinding.should_not be_nil
 end
+
+Then /^there should be be (\d+) enemies defined$/ do |arg1|
+  @level.declared_enemies.size.should == arg1.to_i
+end
+
+#TODO maybe make spawn_points_steps.rb and move the spawn stuff there
+Then /^there should be (\d+) spawn points$/ do |arg1|
+  @level.spawn_points.size.should == arg1.to_i
+end
+
+Then /^the spawn points should be:$/ do |table|
+  points = @level.spawn_points
+  table.map_column!("point") {|vs| to_vector(vs)}
+  table.map_column!("spawn_argument") {|vs|
+    r = vs.split(",")
+    r.collect{|e| e.strip}
+    }
+  table.hashes.each_with_index {|hash, idx|
+    points[idx].point.should == hash['point']
+    points[idx].name.should == hash['name']
+    points[idx].spawn_schedule.should == hash['spawn_schedule']
+    points[idx].spawn_argument.should == [hash['spawn_argument']].flatten
+  }
+  
+end

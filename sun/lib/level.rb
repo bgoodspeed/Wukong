@@ -21,10 +21,17 @@ class SpaceWrapper
 
 end
 
+class SpawnPoint
+  attr_accessor :point, :name, :spawn_schedule, :spawn_argument
+  def initialize(point, name, spawn_schedule, spawn_argument)
+    @point, @name, @spawn_schedule, @spawn_argument = point, name, spawn_schedule, spawn_argument
+  end
+end
+
 class Level
   attr_accessor :measurements, :line_segments, :triangles, :circles, 
     :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, 
-    :maximum_y, :event_emitters, :enemies
+    :maximum_y, :event_emitters, :enemies, :declared_enemies, :spawn_points
   attr_reader :background_image
   @@CELL_SIZE = 10
   def initialize(game=nil)
@@ -37,6 +44,8 @@ class Level
     @rectangles = []
     @dynamic_elements = []
     @event_emitters = []
+    @declared_enemies = {}
+    @spawn_points = []
     @static_hash = SpatialHash.new(@@CELL_SIZE)
     @dynamic_hash = SpatialHash.new(@@CELL_SIZE)
     @minimum_x = 0
@@ -62,6 +71,9 @@ class Level
     @maximum_y = [sy, ey, @maximum_y].max
   end
 
+  def add_declared_enemy(n,e)
+    @declared_enemies[n] = e
+  end
   def add_event_emitter(position, radius, event_name, event_arg)
     update_minimax(position[0], position[1], position[0], position[1])
     circle = Primitives::Circle.new(position, radius)
@@ -81,6 +93,9 @@ class Level
     @dynamic_elements << p
   end
 
+  def add_spawn_point(sp)
+    @spawn_points << sp
+  end
   def static_bodies
     [@line_segments, @triangles, @circles, @rectangles].flatten
   end

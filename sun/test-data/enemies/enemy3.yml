@@ -1,0 +1,3 @@
+enemy:
+  image_path: test-data/sprites/enemy_avatar.bmp
+  health: 30

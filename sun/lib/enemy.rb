@@ -2,7 +2,7 @@
 class Enemy
 
   attr_accessor :tracking_target
-  ATTRIBUTES = [:position, :health, :velocity]
+  ATTRIBUTES = [:position, :health, :velocity, :name]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
