@@ -283,12 +283,12 @@ class Game
   end
 
   def enable_action(action)
-    @event_manager.enable_action(action)
+    @input_manager.enable_action(action)
   end
   def disable_action(action)
-    @event_manager.disable_action(action)
+    @input_manager.disable_action(action)
   end
   def event_enabled?(action)
-    @event_manager.event_enabled?(action)
+    @input_manager.event_enabled?(action)
   end
 end

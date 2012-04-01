@@ -73,6 +73,8 @@ class InputManager
     @keyboard = keyboard_conf
     @gamepad = gamepad_conf
     @mouse = mouse_conf
+    #TODO could go into a key repeat manager or something like that
+    @disabled = {}
 
     #TODO how to make this configurable? maybe not needed since input->action is configurable
     @always_available_behaviors = {
@@ -161,6 +163,16 @@ class InputManager
   def clear_keys
     @last_keys = @keys
     @keys = {}
+  end
+  def enable_action(action)
+    @disabled[action] = false
+  end
+  def disable_action(action)
+    @disabled[action] = true
+  end
+
+  def event_enabled?(action)
+    !@disabled[action]
   end
 
 end
