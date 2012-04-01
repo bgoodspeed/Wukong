@@ -115,3 +115,5 @@ Feature: Player Controls
      Then the input managers mapping should contain:
        | api_keysym  | keyaction      |
        | Gosu::KbUp  | KeyActions::UP |
+
+

@@ -281,4 +281,14 @@ class Game
     my = window.mouse_y
     puts "Got mouse location #{mx},#{my}  (they are: #{mx.class})"
   end
+
+  def enable_action(action)
+    @event_manager.enable_action(action)
+  end
+  def disable_action(action)
+    @event_manager.disable_action(action)
+  end
+  def event_enabled?(action)
+    @event_manager.event_enabled?(action)
+  end
 end

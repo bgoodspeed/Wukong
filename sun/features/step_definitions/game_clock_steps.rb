@@ -27,3 +27,17 @@ Given /^I enqueue a timed event named "([^"]*)" and action "([^"]*)" data "([^"]
 
   @clock.enqueue_event(event_name, @timed_event)
 end
+
+Given /^I enqueue a timed event with name "([^"]*)" and start_action "([^"]*)" and end_action "([^"]*)" and data "([^"]*)" for (\d+) ticks$/ do |name, startact, endact, data, ticks|
+  @timed_event = TimedEvent.new(endact, data, ticks.to_i)
+  @timed_event.start_action = startact
+  @clock.enqueue_event(name, @timed_event)
+end
+
+Then /^the action "([^"]*)" should be disabled$/ do |arg1|
+  @game.event_enabled?(arg1).should be_false
+end
+
+Then /^the action "([^"]*)" should be enabled$/ do |arg1|
+  @game.event_enabled?(arg1).should be_true
+end

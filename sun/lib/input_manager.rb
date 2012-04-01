@@ -90,7 +90,8 @@ class InputManager
 
     @menu_behaviors = {
       KeyActions::DOWN => lambda { @game.menu_manager.move_down},
-      KeyActions::MENU_ENTER => lambda { @game.menu_manager.invoke_current}
+      KeyActions::MENU_ENTER => lambda { @game.menu_manager.invoke_current},
+      KeyActions::MOUSE_CLICK => lambda { @game.hack_todo_print_mouse_location },
     }
 
   end
@@ -115,7 +116,11 @@ class InputManager
   end
 
   def run_activated(behaviors)
-    behaviors.each { |action, behavior| behavior.call if @keys[action] }
+    behaviors.each { |action, behavior|
+      if @keys[action]
+        behavior.call
+      end
+    }
   end
 
   def respond_to_keys
@@ -154,6 +159,7 @@ class InputManager
     @keys
   end
   def clear_keys
+    @last_keys = @keys
     @keys = {}
   end
 
