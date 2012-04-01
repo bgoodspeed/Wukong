@@ -19,9 +19,12 @@ class Enemy
   def self.from_file(game, f)
     self.from_yaml(game, IO.readlines(f).join(""))
   end
+
+  attr_reader :image_file, :direction
   def initialize(enemy_avatar, game)
     @game = game
-    @enemy_avatar = Gosu::Image.new(@game.window, enemy_avatar, false)
+    @image_file = enemy_avatar
+    @enemy_avatar = @game.image_manager.register_image(enemy_avatar)
     p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
     @radius = p.max
     @health = 15
@@ -35,13 +38,6 @@ class Enemy
       @position = @position.minus @last_move
       @last_move = nil
     end
-  end
-
-  #TODO clean this up
-  include UtilityDrawing
-  def draw(screen)
-    coords = @game.camera.screen_coordinates_for(@position)
-    @enemy_avatar.draw_rot(coords[0] , coords[1] , ZOrder.dynamic.value, @direction)
   end
 
 

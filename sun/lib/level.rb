@@ -77,7 +77,7 @@ class Level
   def background_image=(img)
     @background_image = img
     if @game
-      @background = Gosu::Image.new(@game.window, @background_image)
+      @background = @game.image_manager.register_image(@background_image)
     else
       #TODO should game be required to build a level?
     end
@@ -150,8 +150,8 @@ class Level
                  ls = Primitives::LineSegment.new(p1, p2)
                  draw_line_segment(screen, ls, ZOrder.static.value, Gosu::Color::RED)
                },
-               Player => lambda {|screen, player| player.draw(screen) },
-               Enemy => lambda {|screen, enemy| enemy.draw(screen) },
+               Player => lambda {|screen, player| @game.image_manager.draw_in_screen_coords(player) },
+               Enemy => lambda {|screen, enemy| @game.image_manager.draw_in_screen_coords(enemy) },
                #TODO ugly, should this be here? not sure about design
                VectorFollower => lambda {|screen, vf|
                  d = 10

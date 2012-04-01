@@ -26,10 +26,12 @@ class Player
     self.from_yaml(game, IO.readlines(f).join(""))
   end
 
+  attr_reader :image_file
   def initialize(avatar, game)
     @game = game
-    #TODO consider moving all image construction to an image manager -- isolate gosu
-    @avatar = Gosu::Image.new(@game.window, avatar, false)
+    #TODO move register image calls into loaders/yaml parsers
+    @image_file = avatar
+    @avatar = @game.image_manager.register_image(avatar)
     #@avatar.clear :dest_select => transparency_color
     p = [@avatar.width/2.0, @avatar.height/2.0 ]
     @radius = p.max
@@ -106,12 +108,6 @@ class Player
     #puts "#{self} took damage from #{col}"
     #TODO this doesn't really make sense but illustrates possible behaviors
     @health -= 1
-  end
-  #TODO clean this up
-  include UtilityDrawing
-  def draw(screen)
-    coords = @game.camera.screen_coordinates_for(@position)
-    @avatar.draw_rot(coords[0] , coords[1] , ZOrder.dynamic.value, @direction)
   end
   
   def to_s

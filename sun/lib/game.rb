@@ -12,6 +12,7 @@ end
 require 'yaml_helper'
 require 'zorder'
 require 'utility_drawing'
+require 'image_manager'
 require 'event_emitter'
 require 'spatial_hash'
 require 'menu_manager'
@@ -46,17 +47,19 @@ class Game
     :movement_distance, :path_following_manager, :enemy, :camera,
     :screen, :level, :sound_manager, :collision_responder, :collisions,
     :wayfinding, :menu_manager, :main_menu_name, :input_manager,
-    :temporary_message, :mouse_drawn, :event_manager
+    :temporary_message, :mouse_drawn, :event_manager, :image_manager
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
+    @image_manager = ImageManager.new(self)
     @player_loader = PlayerLoader.new(self)
     @level_loader = LevelLoader.new(self)
     @collision_responder = CollisionResponder.new(self)
     @animation_manager = AnimationManager.new(self)
     @path_following_manager = PathFollowingManager.new(self)
     @menu_manager = MenuManager.new(self)
+
     @input_manager = InputManager.new(self)
     @event_manager = EventManager.new(self)
     @camera = Camera.new(self)
