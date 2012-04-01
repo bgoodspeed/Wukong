@@ -6,3 +6,4 @@ player:
   health: 5
   max_health: 10
   weapon_yaml: test-data/equipment/weapon.yml
+  menu_action_delay: 12

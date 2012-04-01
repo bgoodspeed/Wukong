@@ -3,36 +3,27 @@
 
 class TimedEvent
   attr_accessor :data, :lifespan, :enqueued_at, :start_action
-  def initialize(action, data, lifespan)
-    @action = action
-    @end_action = action
-    @data = data
+  def initialize(start_action, start_data, end_action, end_data, lifespan)
+    @start_action = start_action
+    @end_action = end_action
+    @start_data = start_data
+    @end_data = end_data
     @lifespan = lifespan
     @enqueued_at = nil
-    @start_action = nil
   end
 
   def enqueued(t, game)
     @enqueued_at = t
-    raise "timed event: unknown action #{@action}" unless game.respond_to? @action
-    if @start_action
-      game.send(@start_action, @data)
-    else
-      game.send(@end_action, @data)
-    end
+    raise "timed event: unknown start action  #{@start_action} rest of #{@end_action}conf#{@start_data} #{@end_data}" unless game.respond_to? @start_action
+    game.send(@start_action, @start_data)
   end
 
   def tick
     #TODO?
   end
 
-  #TODO these calls should be specified differently
   def completed(game)
-    if @start_action
-      game.send(@end_action, @data)
-    else
-      game.send(@end_action, nil)
-    end
+    game.send(@end_action, @end_data)
 
   end
 

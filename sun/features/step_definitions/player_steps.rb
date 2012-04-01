@@ -14,6 +14,9 @@ end
 Given /^I set the player step size to (\d+)$/ do |step_size|
   @player.step_size = step_size.to_i
 end
+Given /^I set the player menu action delay to (\d+)$/ do |arg1|
+  @player.menu_action_delay = arg1.to_i
+end
 
 When /^I turn to the right (\d+) degrees$/ do |turn_sweep|
   @player.turn(turn_sweep.to_i)

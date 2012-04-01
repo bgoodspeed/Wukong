@@ -91,7 +91,11 @@ class InputManager
     }
 
     @menu_behaviors = {
-      KeyActions::DOWN => lambda { @game.menu_manager.move_down},
+      KeyActions::DOWN => lambda { 
+        te = TimedEvent.new("disable_action", KeyActions::DOWN, "enable_action", KeyActions::DOWN, @game.player.menu_action_delay)
+        @game.clock.enqueue_event("timeout_down", te)
+        @game.menu_manager.move_down
+      },
       KeyActions::MENU_ENTER => lambda { @game.menu_manager.invoke_current},
       KeyActions::MOUSE_CLICK => lambda { @game.hack_todo_print_mouse_location },
     }
@@ -119,7 +123,7 @@ class InputManager
 
   def run_activated(behaviors)
     behaviors.each { |action, behavior|
-      if @keys[action]
+      if @keys[action] && !@disabled[action]
         behavior.call
       end
     }

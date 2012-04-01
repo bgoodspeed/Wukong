@@ -6,7 +6,7 @@ class Player
   MAX_TURN_DEGREES = 360
   attr_reader :radius
   ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, :max_health, 
-    :turn_speed, :movement_distance
+    :turn_speed, :movement_distance, :menu_action_delay
   ]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
@@ -38,6 +38,7 @@ class Player
     @direction = 0
     @step_size = 1
     @turn_speed = 90
+    @menu_action_delay = 4
     @movement_distance = 1
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil

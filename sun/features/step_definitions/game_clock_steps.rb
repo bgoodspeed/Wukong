@@ -23,14 +23,13 @@ Then /^the number of frames render should be (\d+)$/ do |frames|
 end
 
 Given /^I enqueue a timed event named "([^"]*)" and action "([^"]*)" data "([^"]*)" for (\d+) ticks$/ do |event_name, action, data, lifespan|
-  @timed_event = TimedEvent.new(action, data, lifespan.to_i)
+  @timed_event = TimedEvent.new(action, data, action, nil, lifespan.to_i)
 
   @clock.enqueue_event(event_name, @timed_event)
 end
 
 Given /^I enqueue a timed event with name "([^"]*)" and start_action "([^"]*)" and end_action "([^"]*)" and data "([^"]*)" for (\d+) ticks$/ do |name, startact, endact, data, ticks|
-  @timed_event = TimedEvent.new(endact, data, ticks.to_i)
-  @timed_event.start_action = startact
+  @timed_event = TimedEvent.new(startact, data, endact, data, ticks.to_i)
   @clock.enqueue_event(name, @timed_event)
 end
 

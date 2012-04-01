@@ -45,3 +45,27 @@ Feature: Game Clock
     Then the action "bar" should be enabled
     When I run the game loop 2 times
     Then the action "foo" should be enabled
+
+  Scenario: Game Clock Timed Events used for KeyPress repeat control Full Scenario
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I load a player from "player.yml"
+    And I create the HUD from file "hud_config.yml"
+    And I create a menu manager
+    And I load the main menu "three.yml"
+    And I set the game clock to 60 fps
+    And the player should be at position 36,36
+    And I set the player menu action delay to 2
+    And I enqueue a timed event with name "dam" and start_action "disable_action" and end_action "enable_action" and data "Down" for 2 ticks
+    When I enter the menu
+    When I simulate "Gosu::KbDown"
+    When I run the game loop 1 times
+    Then the action "Down" should be disabled
+    Then the action "bar" should be enabled
+    Then the current menu entry should have:
+      | display_text   | 
+      | one            |
+    When I simulate "Gosu::KbDown"
+    When I run the game loop 2 times
+    Then the current menu entry should have:
+      | display_text   |
+      | two            |
