@@ -1,11 +1,12 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
+#TODO this class is getting messy, deals with hud stuff, formatting, drawing fonts, drawing menu stuff and intersection testing with screen elements.
 class HeadsUpDisplay
   @@X_SPACING = 10
   @@Y_SPACING = 10
 
-  ATTRIBUTES = [:x_spacing, :y_spacing, :menu_mode, :menu_scale, :lines ]
+  ATTRIBUTES = [:x_spacing, :y_spacing, :menu_mode, :menu_scale, :lines, :menu_width ]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -31,6 +32,7 @@ class HeadsUpDisplay
     @y_spacing = @@Y_SPACING
     @menu_mode = false
     @menu_scale = 2
+    @menu_width = 300
   end
 
   def menu_mode?
@@ -111,20 +113,62 @@ class HeadsUpDisplay
                                pos[0] - 20, base_y + 10, Gosu::Color::WHITE)
   end
 
+
+  def regions
+    (0 .. lines.size-1).collect {|i| region_for_index(i)}
+  end
+
+  include PrimitiveIntersectionTests
+  def highlighted_regions
+    msc = @game.input_manager.mouse_screen_coords
+    rv = []
+    regions.each_with_index {|r, idx| rv << idx if rectangle_point_intersection?(r, msc) }
+    rv
+  end
+  
+  def highlight_mouse_selection
+    rs = regions
+    regs = highlighted_regions.collect {|hridx| rs[hridx]}
+    regs.each {|rect|  draw_rectangle_as_box(@game.screen, rect, ZOrder.hud.value, Gosu::Color::GREEN) }
+
+
+    
+  end
+
   def lines
     formatted_lines
   end
+
+
+  def region_for_index(index)
+    pos = [@x_spacing, @y_spacing ]
+    if menu_mode?
+      pos = pos.scale(@menu_scale)
+    end
+    x = pos[0]
+    y = pos[1] * (index+1)
+    step = pos[1]
+    xs = @menu_width
+
+    Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
+  end
+
+  include UtilityDrawing
   def draw(screen)
     pos = [@x_spacing, @y_spacing ]
+
     if menu_mode?
       pos = pos.scale(@menu_scale)
       darken_screen
       draw_cursor
+      highlight_mouse_selection if @game.input_manager.mouse_on_screen
     end
 
     lines.each_with_index do |line, index|
-      @font.draw(line,
-        pos[0],pos[1] * (index+1),ZOrder.hud.value )
+      x = pos[0]
+      y = pos[1] * (index+1)
+      @font.draw(line, x,y,ZOrder.hud.value )
+      
     end
   end
 end

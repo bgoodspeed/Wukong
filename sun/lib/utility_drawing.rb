@@ -20,6 +20,13 @@ module UtilityDrawing
     
   end
 
+  def draw_rectangle_as_box(screen, r,  zorder = ZOrder.dynamic.value, color=Gosu::Color::BLACK)
+    draw_line_segment(screen, Primitives::LineSegment.new(r.p1, r.p2), zorder, color)
+    draw_line_segment(screen, Primitives::LineSegment.new(r.p2, r.p3), zorder, color)
+    draw_line_segment(screen, Primitives::LineSegment.new(r.p3, r.p4), zorder, color)
+    draw_line_segment(screen, Primitives::LineSegment.new(r.p4, r.p1), zorder, color)
+  end
+
   def draw_rectangle(screen, r)
     screen.draw_quad(
       r.p1.x, r.p1.y, Gosu::Color::BLACK,

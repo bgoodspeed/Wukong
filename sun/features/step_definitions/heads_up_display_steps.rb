@@ -30,3 +30,10 @@ Then /^the hud formatted line (\d+) should be "([^"]*)"$/ do |lineno, arg2|
   lines[lineno.to_i - 1].should == arg2
 
 end
+
+Then /^there should be (\d+) regions to check the mouse against$/ do |arg1|
+  @hud.regions.size.should == arg1.to_i
+end
+Then /^highlighted region should be line (\d+)$/ do |arg1|
+  @hud.highlighted_regions.first.should == arg1.to_i
+end

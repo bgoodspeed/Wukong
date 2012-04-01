@@ -133,3 +133,15 @@ Feature: Heads Up Display
     | hud text       |
     | Player HP: 5/6 |
     |                |
+
+  Scenario: HUD Player Menu Highlights
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I load a player from "player.yml"
+    And I create a menu manager
+    And I load the main menu "main.yml"
+    And I create the HUD from file "hud_config.yml"
+    And I set the mouse position to 30, 30 in screen coords
+    When I enter the menu
+    When I see the first frame
+    Then there should be 2 regions to check the mouse against
+    And highlighted region should be line 0
