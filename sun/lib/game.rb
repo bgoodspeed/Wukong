@@ -17,6 +17,7 @@ require 'mouse_collision_wrapper'
 #TODO consider this plethora of event classes...
 require 'pick_event'
 require 'event_emitter'
+require 'collider'
 require 'spatial_hash'
 require 'menu_manager'
 require 'level'

@@ -10,8 +10,17 @@ class MouseCollisionWrapper
   end
 
   def collision_type
+    to_collision.class
+  end
+
+  def collision_response_type
     self.class
   end
+
+  def to_collision
+    Primitives::Circle.new(@position, @radius)
+  end
+
   def collision_radius
     @radius
   end

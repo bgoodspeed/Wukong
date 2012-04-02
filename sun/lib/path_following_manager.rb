@@ -24,8 +24,12 @@ class VectorFollower
   def current_position
     @start.plus(@vector.scale(@current_step * @velocity))
   end
+  def to_collision
+    Primitives::LineSegment.new(current_position, current_position.plus(velocity_scaled_vector)  )
+  end
+
   def collision_type
-    self.class
+    to_collision.class
   end
   def collision_radius
     @velocity
@@ -33,6 +37,10 @@ class VectorFollower
   def collision_center
     current_position
   end
+  def collision_response_type
+    self.class
+  end
+
 
   def to_s
     "#{self.class}: #{object_id} current position: #{current_position}; velocity #{@velocity}; vector #{@vector}"

@@ -73,6 +73,10 @@ module Primitives
       @user_data = nil #TODO reconsider this design? should the circle belong to a data holder?
     end
     def to_s; "Circle #{@position}:#{@radius}"; end
+    def collision_response_type; self.class; end
+    def collision_type; self.class; end
+    
+    def to_collision; self; end
   end
   class LineSegment
     attr_accessor :p1, :p2, :user_data
@@ -86,8 +90,9 @@ module Primitives
     def ex; @p2.vx; end
     def ey; @p2.vy; end
     def to_s; "Lineseg #{@p1}:#{@p2}"; end
-
+    def collision_response_type; self.class; end
     def collision_type; self.class; end
+    def to_collision; self; end
   end
 
   #TODO this assumed AXIS ALIGNED to calculate l,r,b,t

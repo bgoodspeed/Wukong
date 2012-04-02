@@ -22,95 +22,6 @@ class Array
 end
 
 include PrimitiveIntersectionTests
-class Collider
-  @@CIRCLE_CHECKS = {
-    #TODO should these only be primitives?
-    EventEmitter => lambda {|circle, event_emitter| circle_circle_intersection?(circle, event_emitter.collision_primitive) },
-    Primitives::Circle => lambda {|circle, circle2| circle_circle_intersection?(circle, circle2) },
-    Primitives::LineSegment => lambda {|circle, lineseg| circle_line_segment_intersection?(circle, lineseg) },
-    MouseCollisionWrapper => lambda {|circle, circle2| circle_circle_intersection?(circle, circle2) }
-  }
-  @@LINE_SEGMENT_CHECKS = {
-    Primitives::LineSegment => lambda {|ls, ls2| line_segment_line_segment_intersection?(ls, ls2)},
-    Primitives::Circle => lambda {|lineseg,circle| circle_line_segment_intersection?(circle, lineseg) }
-  }
-  def circle_checks
-    @@CIRCLE_CHECKS
-  end
-  def line_segment_checks
-    @@LINE_SEGMENT_CHECKS
-  end
-  def check_for(type)
-    c = circle_checks[type]
-    raise "No such type checker: #{type}" unless c
-    c
-  end
-  def check_for_collision(circle, candidate)
-    circle_check = check_for(candidate.class)
-    
-    circle_check.call(circle, candidate)
-  end
-
-  def wrap_vector_follower(elem)
-    Primitives::LineSegment.new(elem.current_position, elem.current_position.plus(elem.velocity_scaled_vector)  )
-  end
-  def handle_vector_follower(elem, candidate)
-    ls = wrap_vector_follower(elem)
-    line_segment_checks[candidate.class].call(ls, candidate)
-  end
-  #TODO clean this up soon
-  def handle_player(elem, candidate)
-    cand = candidate
-    c = Primitives::Circle.new(elem.collision_center, elem.collision_radius  )
-    #TODO clean this design up
-    if candidate.class == VectorFollower
-      cand = wrap_vector_follower(candidate)
-    elsif candidate.class == Player
-      #NOOP
-    elsif candidate.class == Enemy
-      cand = Primitives::Circle.new(candidate.collision_center, candidate.collision_radius )
-    end
-    m = circle_checks[cand.class]
-    m.call(c, cand)
-  end
-
-  def handle_enemy(elem, candidate)
-    cand = candidate
-    c = Primitives::Circle.new(elem.collision_center, elem.collision_radius  )
-    #TODO clean this design up
-    if candidate.class == VectorFollower
-      cand = wrap_vector_follower(candidate)
-    elsif candidate.class == Player
-
-    elsif candidate.class == Enemy
-      cand = Primitives::Circle.new(candidate.collision_center, candidate.collision_radius )
-    end
-    m = circle_checks[cand.class]
-    m.call(c, cand)
-  end
-  def handle_mouse(elem, candidate)
-    cand = candidate
-    c = Primitives::Circle.new(elem.collision_center, elem.collision_radius  )
-
-    m = circle_checks[cand.class]
-    m.call(c, cand)
-  end
-
-  def run_check_for(elem, candidate)
-    m = {
-      VectorFollower => lambda {|e, c| handle_vector_follower(e, c) },
-      Player => lambda {|e,c| handle_player(e, c) },
-      Enemy => lambda {|e,c| handle_enemy(e, c) },
-      MouseCollisionWrapper => lambda {|e,c| handle_mouse(e, c) },
-
-    }
-    raise "unknown type #{elem}" unless m.has_key?(elem.collision_type)
-    m[elem.collision_type].call(elem, candidate)
-  end
-  def check_for_collision_by_type(elem, candidate)
-    run_check_for(elem, candidate)
-  end
-end
 
 # Based on Optimized Spatial Hashing for Collision Detection of Deformable Objects
 # by Matthias Teschner Bruno Heidelberger Matthias M¨uller Danat Pomeranets Markus Gross
@@ -218,26 +129,12 @@ class SpatialHash
 
   #TODO this is duplicative and crappy
   def collision_radius_for(elem)
-    #TODO rebuild to use arbitrary collision volumes?
-    m = { 
-      VectorFollower => lambda {|elem| elem.collision_radius},
-      Player => lambda {|elem| elem.collision_radius},
-      Enemy => lambda {|elem| elem.collision_radius},
-      MouseCollisionWrapper => lambda {|elem| elem.collision_radius},
-
-    }
-    raise "collision radius needed for #{elem}" unless m.has_key?(elem.collision_type)
-    m[elem.collision_type].call(elem)
+    raise "collision radius needed for #{elem}" unless elem.respond_to?(:collision_radius)
+    elem.collision_radius
   end
   def collision_center_for(elem)
-    m = { 
-      VectorFollower => lambda {|elem| elem.collision_center},
-      Player => lambda {|elem| elem.collision_center},
-      Enemy => lambda {|elem| elem.collision_center},
-      MouseCollisionWrapper => lambda {|elem| elem.collision_center}
-    }
-    raise "collision center needed for #{elem}" unless m.has_key?(elem.collision_type)
-    m[elem.collision_type].call(elem)
+    raise "collision centerneeded for #{elem}" unless elem.respond_to?(:collision_center)
+    elem.collision_center
   end
 
   #TODO this can be done all at once rather than N passes (just iterate over the space buckets)

@@ -8,6 +8,7 @@ class EventManager
     @events = []
 
     #TODO not sure if this should be here or in the events themselves
+    #TODO Action Manager could hold this
     @handlers = {
       #TODO make death event map to this?
       DeathEvent => lambda {|e| @game.remove_enemy(e.who)},

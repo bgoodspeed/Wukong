@@ -71,6 +71,7 @@ class CollisionResponder
   end
 
 
+  #TODO Action Manager could hold this
   def responses
     {
       :damaging1 => lambda {|col| col.dynamic1.take_damage(col.dynamic2)},
@@ -91,9 +92,9 @@ class CollisionResponder
 
   def response(col)
     m = @config
-    raise "collision: unknown base response type: #{col.dynamic1.collision_type}" unless m.has_key? col.dynamic1.collision_type
-    raise "collision: unknown secondary response type: #{col.dynamic2.collision_type}, primary is #{col.dynamic1.collision_type}" unless m[col.dynamic1.collision_type].has_key? col.dynamic2.collision_type
-    m[col.dynamic1.collision_type][col.dynamic2.collision_type]
+    raise "collision: unknown base response type: #{col.dynamic1.collision_response_type}" unless m.has_key? col.dynamic1.collision_response_type
+    raise "collision: unknown secondary response type: #{col.dynamic2.collision_response_type}, primary is #{col.dynamic1.collision_response_type}" unless m[col.dynamic1.collision_response_type].has_key? col.dynamic2.collision_response_type
+    m[col.dynamic1.collision_response_type][col.dynamic2.collision_response_type]
   end
   
   def handle_collisions(collisions)

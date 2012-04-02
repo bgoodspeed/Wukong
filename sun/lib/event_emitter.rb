@@ -32,15 +32,23 @@ class EventEmitter
   end
 
   def collision_type
+    to_collision.class
+  end
+  def collision_response_type
     self.class
   end
 
+  def to_collision
+    #Primitives::Circle.new(@position, @radius)
+    @collision_primitive
+  end
   def collision_radius
-    @collision_primitive.radius
+    to_collision.radius
   end
   def collision_center
-    @collision_primitive.position
+    to_collision.position
   end
+
 
 
   def events_by_name(name)

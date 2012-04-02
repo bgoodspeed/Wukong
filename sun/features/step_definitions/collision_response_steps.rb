@@ -11,6 +11,7 @@ end
 def mock_collision_type(t)
   m = Mocha::Mock.new("elem")
   m.stubs(:collision_type).returns(t)
+  m.stubs(:collision_response_type).returns(t)
   m
 end
 When /^a collision occurs between type "([^"]*)" and type "([^"]*)"$/ do |type1, type2|

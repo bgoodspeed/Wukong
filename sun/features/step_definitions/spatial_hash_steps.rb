@@ -76,9 +76,11 @@ Then /^asking for collision pairs yields:$/ do |table|
     pos = [h['center_x'], h['center_y']]
     r = h['radius']
     p = Mocha::Mock.new("player")
-    p.stubs(:collision_type).returns Player
+    p.stubs(:collision_type).returns Primitives::Circle
+    p.stubs(:collision_response_type).returns Player
     p.stubs(:collision_radius).returns r
     p.stubs(:collision_center).returns pos
+    p.stubs(:to_collision).returns Primitives::Circle.new(pos, r)
     data_objs = @spatial_hash.dynamic_collisions([p] ) 
     data = data_objs.collect {|data_obj| data_obj.last.user_data}
     data.join(",").should == h['candidate_data']

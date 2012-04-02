@@ -64,6 +64,8 @@ end
 
 class MenuManager
   attr_reader :active, :breadcrumbs
+
+  #TODO Action Manager could hold this
   def self.default_actions
     {
       "debug_print" => lambda {|arg| puts "DEBUG_PRINT: #{arg}"},
@@ -99,12 +101,16 @@ class MenuManager
   def invoke_current
     do_invoke(current_menu_entry)
   end
+
+  def actions
+    @actions
+  end
   def do_invoke(c)
     ce = c
     action = ce.action
     action_argument = ce.action_argument
     
-    m = @actions[action]
+    m = actions[action]
     action_result = m.call(action_argument)
     menu_id = current_menu.menu_id
     @breadcrumbs << Breadcrumb.new(menu_id, action, action_argument, action_result)

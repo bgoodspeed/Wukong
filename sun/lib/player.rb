@@ -92,15 +92,22 @@ class Player
     end
   end
 
-  #TODO use strings/enums/symbols for collision types not classes, make these first class values
-  def collision_type
+  def collision_response_type
     self.class
   end
+  #TODO use strings/enums/symbols for collision types not classes, make these first class values
+  def collision_type
+    to_collision.class
+  end
+
+  def to_collision
+    Primitives::Circle.new(@position, @radius)
+  end
   def collision_radius
-    @radius
+    to_collision.radius
   end
   def collision_center
-    @position
+    to_collision.position
   end
 
   #TODO this should be in a module
