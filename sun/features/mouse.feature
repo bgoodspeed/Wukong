@@ -73,3 +73,16 @@ Feature: Mouse
     And the player should be at position 36,36
     And a "PickEvent" event should be queued
     And the "PickEvent" event should have "picked.class" equal to "Player"
+
+   Scenario: Picking - Enemy
+    Given I load the game on level "demo" with screen size 640, 480
+    And I set the mouse position to 200, 200 in screen coords
+    And I load a player from "player.yml"
+    And I add an enemy from "enemyp.yml"
+    When I see the first frame
+    When I press "MouseClick"
+    And I update the game state
+    Then the player should be in the scene
+    And the player should be at position 36,36
+    And a "PickEvent" event should be queued
+    And the "PickEvent" event should have "picked.class" equal to "Enemy"

@@ -1,3 +1,4 @@
 enemy:
   image_path: test-data/sprites/enemy_avatar.bmp
+  position: [ 200, 200 ]
   
