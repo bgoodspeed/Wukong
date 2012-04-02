@@ -8,21 +8,8 @@ class Collider
       },
       Primitives::LineSegment => {
         Primitives::LineSegment => lambda {|a, b| line_segment_line_segment_intersection?(a.to_collision, b.to_collision)},
+        Primitives::Circle => lambda {|a,b| circle_line_segment_intersection?(b.to_collision, a.to_collision)},
       },
-      VectorFollower => {
-        Primitives::LineSegment => lambda {|a,b| puts "vf vs lineseg"}
-      },
-      #TODO these should use primitives
-      Player => {
-        Primitives::LineSegment => lambda {|a,b| circle_line_segment_intersection?(a.to_collision, b.to_collision)},
-        Enemy => lambda {|a,b| puts "player vs enemy"},
-        EventEmitter => lambda {|a,b| puts "player vs event emitter"},
-        Primitives::Circle => lambda {|a,b| puts "player vs circle #{a} vs #{b}"},
-        VectorFollower => lambda {|a,b| puts "player vs vf"}
-      },
-      Enemy => {
-        Primitives::LineSegment => lambda {|a,b| puts "enemy vs lineseg"}
-      }
     }
   end
   def check_for_collision_by_type(a,b)

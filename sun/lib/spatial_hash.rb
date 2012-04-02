@@ -118,15 +118,6 @@ class SpatialHash
     a == b
   end
 
-  # TODO should this be all collisions? likely faster
-  def player_collisions(radius, vertex)
-    candidates(radius, vertex).flatten.select do |candidate|
-      circle = Primitives::Circle.new(vertex, radius)
-      rv = @collider.check_for_collision(circle, candidate)
-      rv
-    end
-  end
-
   #TODO this is duplicative and crappy
   def collision_radius_for(elem)
     raise "collision radius needed for #{elem}" unless elem.respond_to?(:collision_radius)
@@ -139,7 +130,6 @@ class SpatialHash
 
   #TODO this can be done all at once rather than N passes (just iterate over the space buckets)
   def dynamic_collisions(elems)
-    
     rv = []
     elems.each do |elem|
       cs = candidates(collision_radius_for(elem), collision_center_for(elem)).flatten.select do|candidate|
