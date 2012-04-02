@@ -1,21 +1,15 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
 
+
+#TODO how to make this configurable? maybe not needed since input->action is configurable
 class ActionManager
-  def self.default_menu_actions
-
+  def default_menu_actions
     {
       "debug_print" => lambda {|arg| puts "DEBUG_PRINT: #{arg}"},
       "noop" => lambda {|arg| }
     }
   end
-
-
-  #TODO unify these interfaces
-  attr_reader :collision_responses, :menu_actions, :event_actions
-  def initialize(game)
-    @game = game
-    @collision_responses = {
+  def default_collision_responses
+    {
       :damaging1 => lambda {|col| col.dynamic1.take_damage(col.dynamic2)},
       :damaging2 => lambda {|col| col.dynamic2.take_damage(col.dynamic1)},
       :removing1 => lambda {|col| @game.remove_projectile(col.dynamic1)},
@@ -30,15 +24,86 @@ class ActionManager
       #TODO sort of exploratory here, extract params, cleanup etc
       :temporary_message1 => lambda {|col| @game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", col.dynamic1.hud_message,"temporary_message=", nil, 60 )) }
     }
-    @menu_actions = ActionManager.default_menu_actions
-        #TODO not sure if this should be here or in the events themselves
-    @event_actions = {
-      #TODO make death event map to this?
+  end
+
+  def default_event_actions
+    {
+      #TODO not sure if this should be here or in the events themselves
       DeathEvent => lambda {|e| @game.remove_enemy(e.who)},
       LambdaEvent => lambda {|e| e.invoke },
-      PickEvent => lambda {|e| puts "In Event Manager: must implement what to do when #{e.picked}"}
+      PickEvent => lambda {|e| puts "In Action Manager: must implement what to do when #{e.picked}"}
     }
+  end
+  def default_always_available_behaviors
+    {
+      KeyActions::QUIT => lambda { @game.deactivate_and_quit },
+    }
+  end
+  def default_menu_behaviors
+    {
+      KeyActions::MENU => lambda {
+        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
+        te = TimedEvent.new("disable_action", KeyActions::MENU, "enable_action", KeyActions::MENU, @game.player.menu_action_delay)
+        @game.clock.enqueue_event("timeout_down", te)
+        @game.exit_menu
+      },
+      KeyActions::DOWN => lambda {
+        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
+        te = TimedEvent.new("disable_action", KeyActions::DOWN, "enable_action", KeyActions::DOWN, @game.player.menu_action_delay)
+        @game.clock.enqueue_event("timeout_down", te)
+        @game.menu_manager.move_down
+      },
+      KeyActions::MENU_ENTER => lambda {
+        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
+        te = TimedEvent.new("disable_action", KeyActions::MENU_ENTER, "enable_action", KeyActions::MENU_ENTER, @game.player.menu_action_delay)
+        @game.clock.enqueue_event("timeout_down", te)
+        @game.menu_manager.invoke_current
+      },
+      KeyActions::MOUSE_CLICK => lambda {
+        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
+        te = TimedEvent.new("disable_action", KeyActions::MOUSE_CLICK, "enable_action", KeyActions::MOUSE_CLICK, @game.player.menu_action_delay)
+        @game.clock.enqueue_event("timeout_down", te)
+        @game.menu_manager.invoke_current_mouse
+      },
+    }
+  end
+  def default_gameplay_behaviors
+    {
+      KeyActions::MENU => lambda {
+        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
+        te = TimedEvent.new("disable_action", KeyActions::MENU, "enable_action", KeyActions::MENU, @game.player.menu_action_delay)
+        @game.clock.enqueue_event("timeout_down", te)
 
+        @game.enter_menu
+      },
+      KeyActions::RIGHT => lambda { @game.player.turn(@game.turn_speed) },
+      KeyActions::LEFT => lambda { @game.player.turn(-@game.turn_speed) },
+      KeyActions::UP => lambda { @game.player.move_forward(@game.movement_distance) },
+      KeyActions::DOWN => lambda { @game.player.move_forward(-@game.movement_distance) },
+      KeyActions::FIRE => lambda { @game.player.use_weapon },
+      KeyActions::MOUSE_CLICK => lambda {
+         #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
+        te = TimedEvent.new("disable_action", KeyActions::MOUSE_CLICK, "enable_action", KeyActions::MOUSE_CLICK, @game.player.menu_action_delay)
+        @game.clock.enqueue_event("timeout_down", te)
+
+        @game.pick_game_element
+      }
+    }
+  end
+
+
+  #TODO unify these interfaces?
+  attr_reader :collision_responses, :menu_actions, :event_actions, 
+    :always_available_behaviors, :gameplay_behaviors, :menu_behaviors
+  
+  def initialize(game)
+    @game = game
+    @collision_responses = default_collision_responses
+    @menu_actions = default_menu_actions
+    @event_actions = default_event_actions
+    @always_available_behaviors = default_always_available_behaviors
+    @gameplay_behaviors = default_gameplay_behaviors
+    @menu_behaviors = default_menu_behaviors
   end
 
 end

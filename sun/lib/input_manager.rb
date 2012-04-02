@@ -75,60 +75,6 @@ class InputManager
     @mouse = mouse_conf
     #TODO could go into a key repeat manager or something like that
     @disabled = {}
-
-    #TODO how to make this configurable? maybe not needed since input->action is configurable
-    @always_available_behaviors = {
-      KeyActions::QUIT => lambda { @game.deactivate_and_quit },
-    }
-    @gameplay_behaviors = {
-      KeyActions::MENU => lambda {
-        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::MENU, "enable_action", KeyActions::MENU, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
-
-        @game.enter_menu
-      },
-      KeyActions::RIGHT => lambda { @game.player.turn(@game.turn_speed) },
-      KeyActions::LEFT => lambda { @game.player.turn(-@game.turn_speed) },
-      KeyActions::UP => lambda { @game.player.move_forward(@game.movement_distance) },
-      KeyActions::DOWN => lambda { @game.player.move_forward(-@game.movement_distance) },
-      KeyActions::FIRE => lambda { @game.player.use_weapon },
-      KeyActions::MOUSE_CLICK => lambda {
-         #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::MOUSE_CLICK, "enable_action", KeyActions::MOUSE_CLICK, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
-
-        @game.pick_game_element
-      },
-    }
-
-    @menu_behaviors = {
-      KeyActions::MENU => lambda {
-        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::MENU, "enable_action", KeyActions::MENU, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
-        @game.exit_menu
-      },
-      KeyActions::DOWN => lambda {
-        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::DOWN, "enable_action", KeyActions::DOWN, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
-        @game.menu_manager.move_down
-      },
-      KeyActions::MENU_ENTER => lambda {
-        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::MENU_ENTER, "enable_action", KeyActions::MENU_ENTER, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
-        @game.menu_manager.invoke_current
-      },
-      KeyActions::MOUSE_CLICK => lambda {
-        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::MOUSE_CLICK, "enable_action", KeyActions::MOUSE_CLICK, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
-        @game.menu_manager.invoke_current_mouse
-      },
-    }
-
   end
 
   def mouse_world_coordinates
@@ -160,17 +106,17 @@ class InputManager
 
   def respond_to_keys
 
-    run_activated @always_available_behaviors
+    run_activated @game.action_manager.always_available_behaviors
     
     if @game.menu_mode?
-      run_activated @menu_behaviors
+      run_activated @game.action_manager.menu_behaviors
       if @game.menu_mode?  #TODO ugly, second call because menu behaviors can turn this off
         @game.update_menu_state
       end
       return
     end
 
-    run_activated @gameplay_behaviors
+    run_activated @game.action_manager.gameplay_behaviors
 
   end
 
