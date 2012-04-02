@@ -31,7 +31,8 @@ class ActionManager
       #TODO not sure if this should be here or in the events themselves
       DeathEvent => lambda {|e| @game.remove_enemy(e.who)},
       LambdaEvent => lambda {|e| e.invoke },
-      PickEvent => lambda {|e| puts "In Action Manager: must implement what to do when #{e.picked}"}
+      PickEvent => lambda {|e| puts "In Action Manager: must implement what to do when #{e.picked}"},
+      SpawnEvent => lambda {|e| @game.add_enemy(e.spawn)}
     }
   end
   def default_always_available_behaviors

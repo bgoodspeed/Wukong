@@ -11,7 +11,7 @@ game.path_following_manager = path_manager
 cr = CollisionResponder.from_file(game, "test-data/collision_response/collision_response.yml")
 game.collision_responder = cr
 #game.load_level("test-data/levels/large/large.yml")
-game.load_level("game-data/levels/obstacle/obstacle.yml")
+game.load_level("game-data/levels/demo/demo.yml")
 im = InputManager.from_file(game, "test-data/input/input_config.yml")
 game.input_manager = im
 p = Player.from_file(game, "game-data/players/player.yml")

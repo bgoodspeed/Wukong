@@ -47,6 +47,7 @@ class CollisionResponder
         Enemy => [:blocking2]
       },
       Enemy => {
+        Enemy => [],
         VectorFollower => [:damaging1, :removing2],
         Primitives::LineSegment => [:blocking1],
         MouseCollisionWrapper => [:mouse_pick1]

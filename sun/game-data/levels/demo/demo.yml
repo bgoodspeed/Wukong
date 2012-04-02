@@ -1,4 +1,4 @@
-name: simple
+name: demo
 background_image: test-data/levels/demo/grass.jpg
 wayfinding: test-data/levels/demo/wayfinding.yml
 measurements:
@@ -14,7 +14,7 @@ declared_enemies:
 spawn_points:
   - point: [ 50, 50 ]
     name: fiftyfifty
-    spawn_schedule: 1 enemies every 1 ticks for 20 total ticks until COND
+    spawn_schedule: 1 enemies every 300 ticks for 900 total ticks
     spawn_argument: [ e1 ]
 line_segments:
   - start_x: 0

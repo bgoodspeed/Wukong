@@ -54,8 +54,14 @@ class SpawnPoint
     return true if v.nil?
     (@game.clock.current_tick - v) >= @frequency
   end
+
+  def too_old?(v)
+    return false if v.nil?
+    return false if @total_time.nil?
+    (@game.clock.current_tick - v) >= @total_time
+  end
   def active_by_clock?
-    old_enough?(@last_spawn_time)
+    old_enough?(@last_spawn_time) && !too_old?(@first_spawn_time)
   end
   def stopped_by_cond?
     return false if @condition.nil?

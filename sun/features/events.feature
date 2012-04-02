@@ -12,4 +12,11 @@ Feature: Events
     And handle events
     Then the play count for sound effect "foo" should be 1
     
-
+  Scenario: Spawn Events
+    Given I load the game on level "simple" with screen size 640, 480
+    And I create a condition manager
+    And I stub "foo" on game to return "false"
+    When I add a fake condition that checks "foo" on game named "COND"
+    And I run the game loop 1 times
+    And handle events
+    Then there should be 1 enemies

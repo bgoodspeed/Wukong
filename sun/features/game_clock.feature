@@ -69,3 +69,21 @@ Feature: Game Clock
     Then the current menu entry should have:
       | display_text   |
       | two            |
+
+
+  Scenario: Spawn Events Repeating
+    Given I load the game on level "simple" with screen size 640, 480
+    And I create a condition manager
+    And I stub "foo" on game to return "false"
+    When I add a fake condition that checks "foo" on game named "COND"
+    And I run the game loop 11 times
+    Then there should be 10 enemies
+
+  Scenario: Spawn Events Repeating Till Limit
+    Given I load the game on level "simple" with screen size 640, 480
+    And I load a player from "player_moved.yml"
+    And I create a condition manager
+    And I stub "foo" on game to return "false"
+    When I add a fake condition that checks "foo" on game named "COND"
+    And I run the game loop 21 times
+    Then there should be 20 enemies
