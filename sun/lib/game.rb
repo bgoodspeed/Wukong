@@ -12,6 +12,8 @@ end
 require 'yaml_helper'
 require 'zorder'
 require 'utility_drawing'
+require 'spawn_point'
+require 'spawn_event'
 require 'image_manager'
 require 'mouse_collision_wrapper'
 #TODO consider this plethora of event classes...
