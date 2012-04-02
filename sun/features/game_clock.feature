@@ -85,5 +85,5 @@ Feature: Game Clock
     And I create a condition manager
     And I stub "foo" on game to return "false"
     When I add a fake condition that checks "foo" on game named "COND"
-    And I run the game loop 21 times
+    And I run the game loop 25 times
     Then there should be 20 enemies

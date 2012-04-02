@@ -69,7 +69,9 @@ class SpawnPoint
   end
 
   def enqueue_events
-    @last_spawn_time = @game.clock.current_tick
+    t = @game.clock.current_tick
+    @first_spawn_time = t if @first_spawn_time.nil?
+    @last_spawn_time = t
     @spawn_argument.each do |enemy_name|
       @enemy_quantity.times do
         @game.add_event(SpawnEvent.new(@game.level.declared_enemy(enemy_name)))
