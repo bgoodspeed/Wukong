@@ -28,6 +28,7 @@ require 'enemy'
 require 'clock'
 require 'camera'
 require 'heads_up_display'
+require 'action_manager'
 require 'collision_responder'
 require 'way_finding'
 require 'artificial_intelligence'
@@ -51,11 +52,12 @@ class Game
     :movement_distance, :path_following_manager, :enemy, :camera,
     :screen, :level, :sound_manager, :collision_responder, :collisions,
     :wayfinding, :menu_manager, :main_menu_name, :input_manager,
-    :temporary_message, :mouse_drawn, :event_manager, :image_manager
+    :temporary_message, :mouse_drawn, :event_manager, :image_manager, :action_manager
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
+    @action_manager = ActionManager.new(self)
     @image_manager = ImageManager.new(self)
     @player_loader = PlayerLoader.new(self)
     @level_loader = LevelLoader.new(self)

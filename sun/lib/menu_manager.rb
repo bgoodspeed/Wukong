@@ -65,24 +65,18 @@ end
 class MenuManager
   attr_reader :active, :breadcrumbs
 
-  #TODO Action Manager could hold this
-  def self.default_actions
-    {
-      "debug_print" => lambda {|arg| puts "DEBUG_PRINT: #{arg}"},
-      "noop" => lambda {|arg| }
-    }
-  end
+
 
   def initialize(game)
     @game = game
     @menus = {}
     @active = false
     @active_menu_name = nil
-    @actions = MenuManager.default_actions
+    
     @breadcrumbs = []
   end
   def register_action(name, action)
-    @actions[name] = action
+    @game.action_manager.menu_actions[name] = action
   end
 
   def add_menu(name, menu)
@@ -103,7 +97,7 @@ class MenuManager
   end
 
   def actions
-    @actions
+    @game.action_manager.menu_actions
   end
   def do_invoke(c)
     ce = c
