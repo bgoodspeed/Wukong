@@ -59,7 +59,8 @@ class CollisionResponder
         Primitives::LineSegment => [:blocking1],
         VectorFollower => [],
         Enemy => [:damaging1, :damaging2, :blocking1],
-        EventEmitter => [:trigger_event2]
+        EventEmitter => [:trigger_event2],
+        MouseCollisionWrapper => [:mouse_pick1]
       },
     }
   end
@@ -79,6 +80,9 @@ class CollisionResponder
       :blocking2 => lambda {|col| col.dynamic2.undo_last_move},
       :trigger_event1 => lambda {|col| col.dynamic1.trigger},
       :trigger_event2 => lambda {|col| col.dynamic2.trigger},
+      :mouse_pick1 => lambda {|col| 
+        @game.remove_mouse_collision #TODO could also add a timed event here add a highlight around that enemy?
+        @game.add_event(PickEvent.new(@game, col.dynamic1))},
       #TODO sort of exploratory here, extract params, cleanup etc
       :temporary_message1 => lambda {|col| @game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", col.dynamic1.hud_message,"temporary_message=", nil, 60 )) }
     }

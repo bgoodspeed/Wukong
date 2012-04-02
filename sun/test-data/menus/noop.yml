@@ -1,0 +1,8 @@
+menu:
+  menu_id: noop_menu
+  entries:
+    - display_text: Option One
+      action: noop
+    - display_text: Another Option ... 2
+      action: noop
+      action_argument: arg2

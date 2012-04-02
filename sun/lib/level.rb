@@ -2,7 +2,6 @@
 # and open the template in the editor.
 
 
-
 require 'chipmunk'
 class SpaceWrapper
 
@@ -112,6 +111,13 @@ class Level
     @dynamic_elements << p
   end
 
+  def add_mouse(pos)
+    @dynamic_elements << MouseCollisionWrapper.new(@game, pos)
+  end
+
+  def remove_mouse
+    @dynamic_elements.reject!{|e| e.kind_of? MouseCollisionWrapper}
+  end
   def add_spawn_point(sp)
     @spawn_points << sp
   end
@@ -152,6 +158,7 @@ class Level
                },
                Player => lambda {|screen, player| @game.image_manager.draw_in_screen_coords(player) },
                Enemy => lambda {|screen, enemy| @game.image_manager.draw_in_screen_coords(enemy) },
+               MouseCollisionWrapper => lambda {|screen, enemy| "NOOP, could add a highlight?" },
                #TODO ugly, should this be here? not sure about design
                VectorFollower => lambda {|screen, vf|
                  d = 10

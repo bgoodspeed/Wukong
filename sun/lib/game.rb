@@ -13,6 +13,9 @@ require 'yaml_helper'
 require 'zorder'
 require 'utility_drawing'
 require 'image_manager'
+require 'mouse_collision_wrapper'
+#TODO consider this plethora of event classes...
+require 'pick_event'
 require 'event_emitter'
 require 'spatial_hash'
 require 'menu_manager'
@@ -237,6 +240,7 @@ class Game
     #TODO hack delete me
 
     update_game_state
+    remove_mouse_collision
   end
   def simulate
     update_all
@@ -261,8 +265,16 @@ class Game
 
 
   def enter_menu(name=@main_menu_name)
+
     @menu_manager.activate(name)
     @hud.menu_mode = true
+    @hud.swap_copy
+    
+  end
+  def exit_menu
+    @menu_manager.inactivate
+    @hud.menu_mode = false
+    @hud.swap
   end
 
   def current_menu_index
@@ -293,5 +305,14 @@ class Game
   end
   def event_enabled?(action)
     @input_manager.event_enabled?(action)
+  end
+
+
+  def pick_game_element
+    @level.add_mouse(@input_manager.mouse_screen_coords)
+  end
+
+  def remove_mouse_collision
+    @level.remove_mouse
   end
 end

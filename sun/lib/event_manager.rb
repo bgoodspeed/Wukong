@@ -11,7 +11,8 @@ class EventManager
     @handlers = {
       #TODO make death event map to this?
       DeathEvent => lambda {|e| @game.remove_enemy(e.who)},
-      LambdaEvent => lambda {|e| e.invoke }
+      LambdaEvent => lambda {|e| e.invoke },
+      PickEvent => lambda {|e| puts "In Event Manager: must implement what to do when #{e.picked}"}
     }
   end
 
@@ -21,9 +22,14 @@ class EventManager
     @events << e
   end
   def handle_events
+    @handled = []
     @events.each{|event|
       raise "unknown event type: #{event}" unless @handlers.has_key? event.class
       @handlers[event.class].call(event)
+      @handled << event
     }
+
+    @events = @events - @handled
+
   end
 end

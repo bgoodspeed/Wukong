@@ -27,7 +27,8 @@ class Collider
     #TODO should these only be primitives?
     EventEmitter => lambda {|circle, event_emitter| circle_circle_intersection?(circle, event_emitter.collision_primitive) },
     Primitives::Circle => lambda {|circle, circle2| circle_circle_intersection?(circle, circle2) },
-    Primitives::LineSegment => lambda {|circle, lineseg| circle_line_segment_intersection?(circle, lineseg) }
+    Primitives::LineSegment => lambda {|circle, lineseg| circle_line_segment_intersection?(circle, lineseg) },
+    MouseCollisionWrapper => lambda {|circle, circle2| circle_circle_intersection?(circle, circle2) }
   }
   @@LINE_SEGMENT_CHECKS = {
     Primitives::LineSegment => lambda {|ls, ls2| line_segment_line_segment_intersection?(ls, ls2)},
@@ -87,11 +88,21 @@ class Collider
     m = circle_checks[cand.class]
     m.call(c, cand)
   end
+  def handle_mouse(elem, candidate)
+    cand = candidate
+    c = Primitives::Circle.new(elem.collision_center, elem.collision_radius  )
+
+    m = circle_checks[cand.class]
+    m.call(c, cand)
+  end
+
   def run_check_for(elem, candidate)
     m = {
       VectorFollower => lambda {|e, c| handle_vector_follower(e, c) },
       Player => lambda {|e,c| handle_player(e, c) },
-      Enemy => lambda {|e,c| handle_enemy(e, c) }
+      Enemy => lambda {|e,c| handle_enemy(e, c) },
+      MouseCollisionWrapper => lambda {|e,c| handle_mouse(e, c) },
+
     }
     raise "unknown type #{elem}" unless m.has_key?(elem.collision_type)
     m[elem.collision_type].call(elem, candidate)
@@ -205,12 +216,14 @@ class SpatialHash
     end
   end
 
+  #TODO this is duplicative and crappy
   def collision_radius_for(elem)
     #TODO rebuild to use arbitrary collision volumes?
     m = { 
       VectorFollower => lambda {|elem| elem.collision_radius},
       Player => lambda {|elem| elem.collision_radius},
-      Enemy => lambda {|elem| elem.collision_radius}
+      Enemy => lambda {|elem| elem.collision_radius},
+      MouseCollisionWrapper => lambda {|elem| elem.collision_radius},
 
     }
     raise "collision radius needed for #{elem}" unless m.has_key?(elem.collision_type)
@@ -220,7 +233,8 @@ class SpatialHash
     m = { 
       VectorFollower => lambda {|elem| elem.collision_center},
       Player => lambda {|elem| elem.collision_center},
-      Enemy => lambda {|elem| elem.collision_center}
+      Enemy => lambda {|elem| elem.collision_center},
+      MouseCollisionWrapper => lambda {|elem| elem.collision_center}
     }
     raise "collision center needed for #{elem}" unless m.has_key?(elem.collision_type)
     m[elem.collision_type].call(elem)

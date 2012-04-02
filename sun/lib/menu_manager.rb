@@ -19,7 +19,7 @@ class MenuEntry
 end
 
 class Menu
-  attr_reader :current_index, :menu_id
+  attr_reader :current_index, :menu_id, :entries
   def initialize(menu_id)
     @menu_id = menu_id
     @entries = []
@@ -66,7 +66,8 @@ class MenuManager
   attr_reader :active, :breadcrumbs
   def self.default_actions
     {
-      "debug_print" => lambda {|arg| puts "DEBUG_PRINT: #{arg}"}
+      "debug_print" => lambda {|arg| puts "DEBUG_PRINT: #{arg}"},
+      "noop" => lambda {|arg| }
     }
   end
 
@@ -88,8 +89,18 @@ class MenuManager
   def menu_named(name)
     @menus[name]
   end
+
+  def invoke_current_mouse
+    ce = current_menu_entry_mouse
+    return if ce.nil?
+    do_invoke(ce)
+  end
+
   def invoke_current
-    ce = current_menu_entry
+    do_invoke(current_menu_entry)
+  end
+  def do_invoke(c)
+    ce = c
     action = ce.action
     action_argument = ce.action_argument
     
@@ -108,6 +119,16 @@ class MenuManager
   def current_menu_entry
     current_menu.current_entry
   end
+
+  def current_menu_entry_mouse
+    rs = @game.hud.highlighted_regions
+    if rs.empty?
+      puts "nothing to click there #{@game.input_manager.mouse_screen_coords}"
+      return nil
+    end
+    current_menu.entries[rs.first]
+  end
+
   def current_menu_lines
     current_menu.lines
   end
@@ -117,6 +138,11 @@ class MenuManager
   def activate(name)
     @active_menu_name = name
     @active = true
+  end
+  def inactivate
+    @active = false
+    @active_menu_name = nil
+
   end
 
   alias_method :active?, :active

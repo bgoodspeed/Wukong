@@ -39,6 +39,15 @@ Then /^the current menu entry should have:$/ do |table|
   }
 
 end
+Then /^the current mouse menu entry should have:$/ do |table|
+  me = @menu_manager.current_menu_entry_mouse
+  
+  table.hashes.each_with_index {|hash, idx|
+    me.display_text.to_s.should == hash['display_text'].to_s
+    me.action.to_s.should == hash['action'].to_s if hash.has_key?('action')
+    me.action_argument.to_s.should == hash['action_argument'].to_s if hash.has_key?('action_argument')
+  }
+end
 
 When /^I move down in the menu$/ do
   @menu_manager.move_down
@@ -71,3 +80,4 @@ Then /^the breadcrumb trail should have the following:$/ do |table|
   }
   
 end
+

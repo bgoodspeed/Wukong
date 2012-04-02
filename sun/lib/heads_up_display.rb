@@ -45,6 +45,21 @@ class HeadsUpDisplay
     @lines << line
   end
 
+  def old_lines
+    @old_lines ? @old_lines : []
+  end
+  def swap_copy
+    @old_lines = @lines.dup
+    @lines = @lines.dup
+  end
+
+  def swap
+
+    lines = @lines.dup
+    @lines = old_lines
+    @old_lines = lines
+  end
+
   def tokens_from_line(line)
     rs = line.split("{{")
     es = rs.collect {|r|
