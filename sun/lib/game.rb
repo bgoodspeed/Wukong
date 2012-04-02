@@ -20,6 +20,7 @@ require 'event_emitter'
 require 'collider'
 require 'spatial_hash'
 require 'menu_manager'
+require 'condition_manager'
 require 'level'
 require 'screen'
 require 'weapon'
@@ -52,7 +53,8 @@ class Game
     :movement_distance, :path_following_manager, :enemy, :camera,
     :screen, :level, :sound_manager, :collision_responder, :collisions,
     :wayfinding, :menu_manager, :main_menu_name, :input_manager,
-    :temporary_message, :mouse_drawn, :event_manager, :image_manager, :action_manager
+    :temporary_message, :mouse_drawn, :event_manager, :image_manager, 
+    :action_manager, :condition_manager
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
@@ -65,6 +67,7 @@ class Game
     @animation_manager = AnimationManager.new(self)
     @path_following_manager = PathFollowingManager.new(self)
     @menu_manager = MenuManager.new(self)
+    @condition_manager = ConditionManager.new(self)
 
     @input_manager = InputManager.new(self)
     @event_manager = EventManager.new(self)
@@ -174,6 +177,7 @@ class Game
     @input_manager.respond_to_keys
     @animation_manager.tick
     @path_following_manager.tick
+    @level.update_spawn_points
     @collisions = @level.check_for_collisions
     @collision_responder.handle_collisions(@collisions)
   end

@@ -12,7 +12,9 @@ class Clock
     @frames_rendered = 0
     @events = {}
   end
-
+  def current_tick
+    @frames_rendered
+  end
   def tick
     @frames_rendered += 1
     @last_time = Gosu::milliseconds

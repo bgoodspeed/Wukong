@@ -19,11 +19,18 @@ class SpaceWrapper
   end
 
 end
+class SpawnEvent
+  attr_reader :spawn
+  def initialize(spawn)
+    @spawn = spawn
+  end
+end
 
 class SpawnPoint
   attr_reader :enemy_quantity, :frequency, :total_time, :condition
   attr_accessor :point, :name, :spawn_schedule, :spawn_argument
-  def initialize(point, name, spawn_schedule, spawn_argument)
+  def initialize(game, point, name, spawn_schedule, spawn_argument)
+    @game = game
     @point, @name, @spawn_schedule, @spawn_argument = point, name, spawn_schedule, spawn_argument
     calculate_properties_from(@spawn_schedule)
   end
@@ -43,7 +50,27 @@ class SpawnPoint
     end
   end
 
+  def old_enough?(v)
+    return true if v.nil?
+    (@game.clock.current_tick - v) >= @frequency
+  end
+  def active_by_clock?
+    old_enough?(@last_spawn_time)
+  end
+  def stopped_by_cond?
+    return false if @condition.nil?
+    @game.condition_manager.condition_met?(@condition)
+  end
 
+  def enqueue_events
+    @last_spawn_time = @game.clock.current_tick
+    @spawn_argument.each do |enemy_name|
+      @enemy_quantity.times do
+        @game.add_event(SpawnEvent.new(@game.level.declared_enemy(enemy_name)))
+      end
+    end
+  end
+  
 end
 
 class Level
@@ -89,6 +116,9 @@ class Level
     @maximum_y = [sy, ey, @maximum_y].max
   end
 
+  def declared_enemy(n)
+    @declared_enemies[n].dup
+  end
   def add_declared_enemy(n,e)
     @declared_enemies[n] = e
   end
@@ -121,6 +151,14 @@ class Level
   def add_spawn_point(sp)
     @spawn_points << sp
   end
+  def update_spawn_points
+    @spawn_points.each do |sp|
+      if sp.active_by_clock? and !sp.stopped_by_cond?
+        sp.enqueue_events
+      end
+    end
+  end
+
   def static_bodies
     [@line_segments, @triangles, @circles, @rectangles].flatten
   end

@@ -52,9 +52,12 @@ Feature: Mouse
       | Option One     |
 
    Scenario: Picking - Nothing
-    Given I load the game on level "demo" with screen size 640, 480
+    Given I load the game on level "simple" with screen size 640, 480
     And I set the mouse position to 360, 360 in screen coords
     And I load a player from "player.yml"
+    And I create a condition manager
+    And I stub "foo" on game to return "true"
+    When I add a fake condition that checks "foo" on game named "COND"
     When I see the first frame
     When I press "MouseClick"
     And I update the game state

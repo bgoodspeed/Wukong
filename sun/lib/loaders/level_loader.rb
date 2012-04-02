@@ -37,7 +37,7 @@ class LevelLoader
     end
     if data["spawn_points"]
       data["spawn_points"].each {|sp|
-        pt = SpawnPoint.new(sp['point'],sp['name'], sp['spawn_schedule'], sp['spawn_argument'] )
+        pt = SpawnPoint.new(@game, sp['point'],sp['name'], sp['spawn_schedule'], sp['spawn_argument'] )
         level.add_spawn_point(pt)
       }
     end

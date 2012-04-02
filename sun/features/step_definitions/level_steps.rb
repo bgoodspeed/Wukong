@@ -107,3 +107,6 @@ Then /^the spawn points should be:$/ do |table|
   }
   
 end
+When /^the spawn points are updated$/ do
+  @level.update_spawn_points
+end

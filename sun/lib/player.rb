@@ -68,12 +68,10 @@ class Player
   def turn(direction)
     @direction = ((@direction + direction) % MAX_TURN_DEGREES)
   end
-
+  include GraphicsApi
   def move_forward(distance)
-
-    mv = []
-    mv[0] = Gosu::offset_x(@direction, distance * @step_size)
-    mv[1] = Gosu::offset_y(@direction, distance * @step_size)
+    dv = distance * @step_size
+    mv = [calculate_offset_x(@direction, dv), calculate_offset_y(@direction, dv)]
     @position = @position.plus(mv)
     @last_distance = distance
   end
