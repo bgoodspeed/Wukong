@@ -109,10 +109,6 @@ class Game
     @level.remove_enemy(enemy)
   end
 
-  #TODO death event should be created by client code
-  def add_death_event(who)
-    add_event(DeathEvent.new(who))
-  end
   def add_event(e)
     @event_manager.add_event(e)
   end
@@ -141,18 +137,12 @@ class Game
     render_one_frame
   end
 
-  #TODO abstract these somewhere
-  @@TURN_SPEED = 90
-  @@MOVEMENT_DISTANCE = 1
   
   def turn_speed
-    #@turn_speed.nil? ? @@TURN_SPEED : @turn_speed
     @player.turn_speed
-    
   end
 
   def movement_distance
-    #@movement_distance.nil? ? @@MOVEMENT_DISTANCE : @movement_distance
     @player.movement_distance
   end
 
@@ -184,25 +174,6 @@ class Game
     @collisions = @level.check_for_collisions
     @collision_responder.handle_collisions(@collisions)
   end
-
-
-  #TODO temporary hack throwaway
-  def toggle_enemy_ai
-    if @ai_on
-      puts "turning off ai"
-      @path_following_manager.remove_tracking(@enemy, @wayfinding)
-      @ai_on = false
-    else
-      puts "turning on ai"
-      @enemy.tracking_target = @player
-      @path_following_manager.add_tracking(@enemy, @wayfinding)
-      @ai_on = true
-
-    end
-  end
-
-  
-
 
   def render_one_frame
 

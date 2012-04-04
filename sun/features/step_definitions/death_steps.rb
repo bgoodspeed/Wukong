@@ -13,7 +13,7 @@ Then /^there should be a death event$/ do
 end
 
 When /^I create an enemy death event$/ do
-  @game.add_death_event(@enemy)
+  @game.add_event(DeathEvent.new(@enemy))
 end
 
 Then /^enemy should not be in scene$/ do

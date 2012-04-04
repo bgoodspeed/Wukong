@@ -16,8 +16,6 @@ class GameWindow < Gosu::Window
     @w = width
     @h = height
     @game = game
-    #self.caption = "Wukong: green(0xff55b053) Filled Background"
-
     #TODO extract this stuff to config file
     self.caption = "Wukong: purplemonkeydishwasherbubblegum"
   end
@@ -33,14 +31,6 @@ class GameWindow < Gosu::Window
   def draw
    
     @game.draw
-  end
-
-  def screenshotBG
-    
-    glEnable(GL_TEXTURE_2D)
-    ss = screenshot
-    glFlush()
-    ss
   end
 end
 
