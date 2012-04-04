@@ -42,6 +42,19 @@ class LevelLoader
       }
     end
 
+    if data["ored_completion_conditions"]
+      data["ored_completion_conditions"].each {|cc|
+        c = CompletionCondition.new(cc['condition'],cc['argument'])
+        level.add_ored_completion_condition(c)
+      }
+    end
+    if data["anded_completion_conditions"]
+      data["anded_completion_conditions"].each {|cc|
+        c = CompletionCondition.new(cc['condition'],cc['argument'])
+        level.add_anded_completion_condition(c)
+      }
+    end
+
     level
   end
 end

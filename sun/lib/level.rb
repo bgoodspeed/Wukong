@@ -24,7 +24,8 @@ end
 class Level
   attr_accessor :measurements, :line_segments, :triangles, :circles, 
     :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, 
-    :maximum_y, :event_emitters, :enemies, :declared_enemies, :spawn_points
+    :maximum_y, :event_emitters, :enemies, :declared_enemies, :spawn_points,
+    :ored_completion_conditions, :anded_completion_conditions
   attr_reader :background_image
   @@CELL_SIZE = 10
   def initialize(game=nil)
@@ -45,6 +46,8 @@ class Level
     @minimum_y = 0
     @maximum_x = 0
     @maximum_y = 0
+    @ored_completion_conditions = []
+    @anded_completion_conditions = []
     @game = game
   end
 
@@ -76,6 +79,17 @@ class Level
     event_emitter = EventEmitter.new(@game, circle, event_name, event_arg)
     @event_emitters << event_emitter
     @static_hash.insert_circle_type_collider(event_emitter)
+  end
+
+  def completed?
+    @game.completion_manager.check_conditions_or(@ored_completion_conditions) &&
+      @game.completion_manager.check_conditions_and(@anded_completion_conditions)
+  end
+  def add_ored_completion_condition(cc)
+    @ored_completion_conditions << cc
+  end
+  def add_anded_completion_condition(cc)
+    @anded_completion_conditions << cc
   end
 
   def add_line_segment(sx,sy, ex, ey)

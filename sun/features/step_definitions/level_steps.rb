@@ -110,3 +110,7 @@ end
 When /^the spawn points are updated$/ do
   @level.update_spawn_points
 end
+
+Then /^the level completion status should be "([^"]*)"$/ do |arg1|
+  @level.completed?.should == eval(arg1)
+end

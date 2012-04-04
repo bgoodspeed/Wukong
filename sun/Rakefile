@@ -38,7 +38,18 @@ Cucumber::Rake::Task.new("slow_specs") do |t|
   t.cucumber_opts = %w{--format progress --tags @slow}
 end
 
+task :start_profile do |t|
+  puts "starting profile"
+  ENV['do_profile'] = "yes"
+end
 
+task :profile_fast
+Rake::Task[:profile_fast].prerequisites << :start_profile
+Rake::Task[:profile_fast].prerequisites << :fast_specs
+task :profile
+Rake::Task[:profile].prerequisites << :start_profile
+Rake::Task[:profile].prerequisites << :cucumber
+#Rake::Task[:profile].prerequisites << [:start_profile, :cucumber]
 
 Rake::Task[:default].prerequisites << :cucumber
 # vim: syntax=ruby

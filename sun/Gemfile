@@ -17,3 +17,5 @@ gem 'simplecov', :require => false, :group => :test
 gem "mocha"
 gem "rspec-expectations"
 gem "cucumber"
+gem "ruby-prof"
+gem "perftools.rb"

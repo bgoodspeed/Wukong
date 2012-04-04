@@ -61,4 +61,10 @@ Feature: Level Description
     Then there should be 5 line segments
     Then there should be be 3 enemies defined
     And there should be 2 spawn points
-    
+
+  Scenario: Level Completion
+    Given I load the game on level "completion_at_frame_two" with screen size 640, 480
+    When I run the game loop 1 times
+    Then the level completion status should be "false"
+    When I run the game loop 1 times
+    Then the level completion status should be "true"

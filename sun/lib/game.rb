@@ -15,6 +15,7 @@ require 'utility_drawing'
 require 'spawn_point'
 require 'spawn_event'
 require 'image_manager'
+require 'completion_manager'
 require 'mouse_collision_wrapper'
 #TODO consider this plethora of event classes...
 require 'pick_event'
@@ -56,7 +57,7 @@ class Game
     :screen, :level, :sound_manager, :collision_responder, :collisions,
     :wayfinding, :menu_manager, :main_menu_name, :input_manager,
     :temporary_message, :mouse_drawn, :event_manager, :image_manager, 
-    :action_manager, :condition_manager
+    :action_manager, :condition_manager, :completion_manager
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
@@ -70,7 +71,7 @@ class Game
     @path_following_manager = PathFollowingManager.new(self)
     @menu_manager = MenuManager.new(self)
     @condition_manager = ConditionManager.new(self)
-
+    @completion_manager = CompletionManager.new(self)
     @input_manager = InputManager.new(self)
     @event_manager = EventManager.new(self)
     @camera = Camera.new(self)

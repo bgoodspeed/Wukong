@@ -8,7 +8,7 @@ Given /^I stub "([^"]*)" on game to return "([^"]*)"$/ do |m, rv|
 end
 
 When /^I add a fake condition that checks "([^"]*)" on game named "([^"]*)"$/ do |gameprop, name|
-  cond = lambda {|game| game.send(gameprop)}
+  cond = lambda {|game, unused| game.send(gameprop)}
   @condition_manager.register_condition(name, cond)
 end
 
