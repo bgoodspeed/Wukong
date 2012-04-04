@@ -87,6 +87,9 @@ end
 Then /^the enemy health should be (\d+)$/ do |arg1|
   @enemy.health.should == arg1.to_i
 end
+Then /^the player property "([^"]*)" should be "([^"]*)"$/ do |arg1, arg2|
+  @game.player.send(arg1).to_s.should == arg2.to_s
+end
 
 Given /^I set the player position to (\d+),(\d+)$/ do |arg1, arg2|
   @player.position = [arg1.to_i, arg2.to_i]

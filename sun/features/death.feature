@@ -18,4 +18,5 @@ Feature: Death Events
     When I create an enemy death event
     And I update the game state
     Then enemy should not be in scene
+    And the player property "enemies_killed" should be "1"
 
