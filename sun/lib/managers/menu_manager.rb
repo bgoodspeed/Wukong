@@ -142,7 +142,6 @@ class MenuManager
   def inactivate
     @active = false
     @active_menu_name = nil
-
   end
 
   alias_method :active?, :active

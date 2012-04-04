@@ -117,3 +117,24 @@ Feature: Player Controls
        | Gosu::KbUp  | KeyActions::UP |
 
 
+  Scenario: Mapping menu to exit menu
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create the HUD
+    And I create a menu manager
+    And I register a fake action to return triple the argument called "choose_slot"
+    And I create a new menu called "fake":
+      """
+      menu:
+        menu_id: pick_slot
+        entries:
+          - display_text: Alpha
+            action: choose_slot
+            action_argument: 7
+      """
+    And I set the main menu name to "fake"
+    When I simulate "Gosu::KbM"
+    And I run the game loop 5 times
+    Then the game should be in menu mode
+    When I simulate "Gosu::KbM"
+    And I run the game loop 1 times
+    Then the game should not be in menu mode

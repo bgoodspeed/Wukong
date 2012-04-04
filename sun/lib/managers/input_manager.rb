@@ -62,7 +62,7 @@ class InputManager
       Gosu::GpDown => KeyActions::DOWN }
   end
   def self.default_mouse_config
-    { Gosu::MsLeft => KeyActions::MOUSE_CLICK }
+    { Gosu::MsLeft => KeyActions::MOUSE_CLICK,}
   end
 
   attr_reader :keyboard

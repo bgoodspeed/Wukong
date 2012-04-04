@@ -40,30 +40,28 @@ class ActionManager
       KeyActions::QUIT => lambda { @game.deactivate_and_quit },
     }
   end
+
+  #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
+  def introduce_delay(action, delay)
+    te = TimedEvent.new("disable_action", action, "enable_action", action, delay)
+    @game.clock.enqueue_event("timeout_down", te)
+  end
   def default_menu_behaviors
     {
       KeyActions::MENU => lambda {
-        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::MENU, "enable_action", KeyActions::MENU, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
+        introduce_delay(KeyActions::MENU, @game.player.menu_action_delay)
         @game.exit_menu
       },
       KeyActions::DOWN => lambda {
-        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::DOWN, "enable_action", KeyActions::DOWN, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
+        introduce_delay(KeyActions::DOWN, @game.player.menu_action_delay)
         @game.menu_manager.move_down
       },
       KeyActions::MENU_ENTER => lambda {
-        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::MENU_ENTER, "enable_action", KeyActions::MENU_ENTER, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
+        introduce_delay(KeyActions::MENU_ENTER, @game.player.menu_action_delay)
         @game.menu_manager.invoke_current
       },
       KeyActions::MOUSE_CLICK => lambda {
-        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::MOUSE_CLICK, "enable_action", KeyActions::MOUSE_CLICK, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
+        introduce_delay(KeyActions::MOUSE_CLICK, @game.player.menu_action_delay)
         @game.menu_manager.invoke_current_mouse
       },
     }

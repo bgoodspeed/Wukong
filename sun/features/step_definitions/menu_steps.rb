@@ -67,6 +67,9 @@ end
 Then /^the game should be in menu mode$/ do
   @menu_manager.should be_active
 end
+Then /^the game should not be in menu mode$/ do
+  @menu_manager.should_not be_active
+end
 
 Then /^the breadcrumb trail should have the following:$/ do |table|
   trail = @menu_manager.breadcrumbs
