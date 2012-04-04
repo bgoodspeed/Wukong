@@ -135,6 +135,14 @@ class Level
     @dynamic_elements << player
   end
 
+  def tick
+    update_spawn_points
+    if completed?
+      e = LambdaEvent.new(@game, lambda{|game, arg| puts "decide what to do now that you've beaten this level. #{arg}"}, "argumentblahblah")
+      @game.add_event(e)
+    end
+  end
+
   def add_enemy(enemy)
     @enemies << enemy
     @dynamic_elements << enemy

@@ -50,16 +50,33 @@ require 'death_event'
 require 'managers/sound_manager'
 
 
-
+require 'forwardable'
 class Game
-
+  extend Forwardable
+  
   attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
     :movement_distance, :path_following_manager, :enemy, :camera,
     :screen, :level, :sound_manager, :collision_responder, :collisions,
     :wayfinding, :menu_manager, :main_menu_name, :input_manager,
     :temporary_message, :mouse_drawn, :event_manager, :image_manager, 
-    :action_manager, :condition_manager, :completion_manager
+    :action_manager, :condition_manager, :completion_manager, :active
 
+  alias_method :active?, :active
+
+  def_delegators :@player, :turn_speed, :movement_distance, :weapon_in_use?
+  def_delegators :@level, :add_enemy, :enemies, :dynamic_elements
+  def_delegators :@event_manager, :add_event, :events
+  def_delegators :@menu_manager, :current_menu_index
+  def_delegators :@animation_manager, :load_animation
+  def_delegators :@input_manager, :enable_action, :disable_action, :event_enabled?
+  def_delegators :@sound_manager, :play_effect
+  def_delegators :@screen, :window, :show
+  def_delegator:@screen, :set_size, :set_screen_size
+  def_delegator:@menu_manager, :active?, :menu_mode?
+  def_delegator:@player, :position, :player_position
+  def_delegator:@camera, :position, :camera_position
+  def_delegator:@level, :remove_mouse, :remove_mouse_collision
+  
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
@@ -98,29 +115,11 @@ class Game
 
   end
 
-  def add_enemy(enemy)
-    @level.add_enemy(enemy)
-  end
-
-  def enemies
-    @level.enemies
-  end
   def remove_enemy(enemy)
+    #TODO get rid of this @enemy var
     @enemy = nil
     @level.remove_enemy(enemy)
   end
-
-  def add_event(e)
-    @event_manager.add_event(e)
-  end
-  def load_animation(entity, name, animation, w, h, tiles)
-    @animation_manager.load_animation(entity, name, animation, w, h, tiles)
-  end
-
-  def set_screen_size(width, height)
-    @screen.set_size(width, height)
-  end
-
 
   def add_projectile(start, theta, vel)
     vf = @path_following_manager.add_projectile(start, theta, vel)
@@ -138,15 +137,6 @@ class Game
     render_one_frame
   end
 
-  
-  def turn_speed
-    @player.turn_speed
-  end
-
-  def movement_distance
-    @player.movement_distance
-  end
-
   def update_menu_state
     @hud.clear
     @menu_manager.current_menu_lines.each {|line|  @hud.add_line(line)}
@@ -158,26 +148,17 @@ class Game
     @screen.close
   end
 
-  def menu_mode?
-    @menu_manager.active?
-  end
-
-  def events
-    @event_manager.events
-  end
-  #TODO this is getting messy 2nd TODO really messy
   def update_game_state
     @event_manager.handle_events
     @input_manager.respond_to_keys
     @animation_manager.tick
     @path_following_manager.tick
-    @level.update_spawn_points
+    @level.tick
     @collisions = @level.check_for_collisions
     @collision_responder.handle_collisions(@collisions)
   end
 
   def render_one_frame
-
     @level.draw(@screen)
     @animation_manager.draw(@screen)
     @hud.draw(@screen)
@@ -189,41 +170,21 @@ class Game
 
   end
 
-  def player_position
-    @player.position
-  end
-
   def capture_screenshot(name)
     @screen.draw
     @screen.flush
     @screen.capture_screenshot(name)
   end
 
-  def dynamic_elements
-    @level.dynamic_elements
-  end
-  def window
-    @screen.window
-  end
-  def show
-    @screen.show
-  end
-
-  def weapon_in_use?
-    @player.weapon_in_use?
-  end
-
-
   def update_all
     @clock.tick
     @input_manager.clear_keys
     @input_manager.update_key_state
 
-    #TODO hack delete me
-
     update_game_state
     remove_mouse_collision
   end
+  
   def simulate
     update_all
     draw
@@ -231,61 +192,22 @@ class Game
       # TODO NOOP, could sleep to free up CPU cycles
     end
   end
-
-  def camera_position
-    @camera.position
-  end
-
-  def active?
-    @active
-  end
-
-
-  def play_effect(name)
-    @sound_manager.play_effect(name)
-  end
-
-
   def enter_menu(name=@main_menu_name)
-
     @menu_manager.activate(name)
     @hud.menu_mode = true
     @hud.swap_copy
-    
   end
+  
   def exit_menu
     @menu_manager.inactivate
     @hud.menu_mode = false
     @hud.swap
   end
 
-  def current_menu_index
-    @menu_manager.current_menu_index
-  end
-
-  def temporary_message=(msg)
-    @temporary_message = msg
-  end
-
-
   #TODO make wiki note that screen coords are top left to bottom right
-
-  def enable_action(action)
-    @input_manager.enable_action(action)
-  end
-  def disable_action(action)
-    @input_manager.disable_action(action)
-  end
-  def event_enabled?(action)
-    @input_manager.event_enabled?(action)
-  end
-
 
   def pick_game_element
     @level.add_mouse(@input_manager.mouse_screen_coords)
   end
 
-  def remove_mouse_collision
-    @level.remove_mouse
-  end
 end
