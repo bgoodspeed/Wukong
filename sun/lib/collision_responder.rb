@@ -23,7 +23,8 @@ class CollisionResponder
       cr[t1] = {} unless cr.has_key?(t1)
       type2c.each {|type2, r|
         t2 = eval(type2)
-        cr[t1][t2] = r
+        rs = r.collect {|e| e.to_sym}
+        cr[t1][t2] = rs
       }
     }
 
