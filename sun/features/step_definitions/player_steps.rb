@@ -4,7 +4,7 @@ Given /^I set the player avatar to "([^"]*)"$/ do |avatar_image|
   @game.set_player @player
 end
 Given /^I load a player from "([^"]*)"$/ do |file|
-  @player = Player.from_file(@game, "test-data/players/#{file}")
+  @player = YamlLoader.from_file(Player, @game, "test-data/players/#{file}")
   @game.set_player @player
 end
 

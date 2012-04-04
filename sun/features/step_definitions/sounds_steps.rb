@@ -3,7 +3,7 @@ Given /^I create a sound manager$/ do
   @game.sound_manager = @sound_manager
 end
 Given /^I create a sound manager from file "([^"]*)"$/ do |configfile|
-  @sound_manager = SoundManager.from_file(@game, "test-data/sounds/#{configfile}")
+  @sound_manager = YamlLoader.from_file(SoundManager, @game, "test-data/sounds/#{configfile}")
   @game.sound_manager = @sound_manager
 end
 

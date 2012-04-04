@@ -1,6 +1,7 @@
 
 class WayFinding
-  def initialize(points = [])
+  def initialize(game, points = [])
+    @game = game
     @points = points
     @close_enough_threshold = 5 #TODO this is dependant on the velocity of the tracker -- eg enemy
   end
@@ -23,16 +24,13 @@ class WayFinding
     end
     nearest_point(position, candidates)
   end
-  def self.from_yaml(yaml)
+  def self.from_yaml(game, yaml)
     data = YAML.load(yaml)
-    wf = self.new
+    wf = self.new(game)
     data['layer']['points'].each do |point|
       wf.add_point(point)
     end
     wf
   end
 
-  def self.from_file(f)
-    self.from_yaml(IO.readlines(f).join(""))
-  end
 end

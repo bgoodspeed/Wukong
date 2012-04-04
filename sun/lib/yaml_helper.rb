@@ -8,4 +8,6 @@ module YamlHelper
       instance.send("#{attr}=", v)
     }
   end
+
+
 end

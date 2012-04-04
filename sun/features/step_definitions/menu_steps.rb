@@ -1,12 +1,12 @@
 Given /^I load the main menu "([^"]*)"$/ do |filename|
-  @menu = Menu.from_file("test-data/menus/#{filename}")
+  @menu = YamlLoader.from_file(Menu, @game, "test-data/menus/#{filename}")
   @menu_manager.add_menu(@game.main_menu_name, @menu)
 end
 
 
 Given /^I create a new menu called "([^"]*)":$/ do |name, string|
 
-  @menu = Menu.from_yaml(string)
+  @menu = Menu.from_yaml(@game, string)
   @menu_manager.add_menu(name, @menu)
   
 end

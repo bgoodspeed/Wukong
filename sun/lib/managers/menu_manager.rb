@@ -20,7 +20,8 @@ end
 
 class Menu
   attr_reader :current_index, :menu_id, :entries
-  def initialize(menu_id)
+  def initialize(game, menu_id)
+    @game = game
     @menu_id = menu_id
     @entries = []
     @current_index = 0
@@ -39,18 +40,14 @@ class Menu
     @entries.collect{|e| e.display_text}
   end
 
-  def self.from_yaml(yaml)
+  def self.from_yaml(game, yaml)
     data = YAML.load(yaml)
     m = data['menu']
-    menu = Menu.new(m['menu_id'])
+    menu = Menu.new(game, m['menu_id'])
     m['entries'].each_with_index do |entry, index|
       menu.add_entry(MenuEntry.new(index, entry))
     end
     menu
-  end
-
-  def self.from_file(f)
-    self.from_yaml(IO.readlines(f).join(""))
   end
 
 end

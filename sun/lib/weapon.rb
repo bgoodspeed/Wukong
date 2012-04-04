@@ -18,11 +18,6 @@ class Weapon
     weapon
   end
 
-  def self.from_file(game, f)
-    self.from_yaml(game, IO.readlines(f).join(""))
-  end
-
-
   def initialize(game, image)
     @image_path = image
     @swing_start = 0

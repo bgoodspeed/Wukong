@@ -4,7 +4,7 @@ Given /^I create the HUD$/ do
   @game.hud = @hud
 end
 Given /^I create the HUD from file "([^"]*)"$/ do |file|
-  @hud = HeadsUpDisplay.from_file(@game, "test-data/hud/#{file}")
+  @hud = YamlLoader.from_file(HeadsUpDisplay, @game, "test-data/hud/#{file}")
   @game.hud = @hud
 end
 

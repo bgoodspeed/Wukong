@@ -3,7 +3,7 @@ Given /^I set the enemy avatar to "([^"]*)"$/ do |enemy_avatar|
   @game.add_enemy @enemy
 end
 Given /^I add an enemy from "([^"]*)"$/ do |file|
-  @enemy = Enemy.from_file(@game, "test-data/enemies/#{file}")
+  @enemy = YamlLoader.from_file(Enemy, @game, "test-data/enemies/#{file}")
   @game.add_enemy @enemy
 end
 

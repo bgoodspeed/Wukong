@@ -4,7 +4,7 @@ Given /^I create a collision responder$/ do
 end
 
 Given /^I create a collision responder from file "([^"]*)"$/ do |file|
-  @collision_responder = CollisionResponder.from_file(@game, "test-data/collision_response/#{file}")
+  @collision_responder = YamlLoader.from_file(CollisionResponder, @game, "test-data/collision_response/#{file}")
   @game.collision_responder = @collision_responder
 end
 

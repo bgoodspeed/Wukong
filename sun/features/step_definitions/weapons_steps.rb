@@ -3,7 +3,7 @@ Given /^I set the player weapon with image "([^"]*)"$/ do |weapon_image|
   @player.equip_weapon @weapon
 end
 Given /^I load and equip the weapon defined in "([^"]*)"$/ do |yml_file|
-  @weapon = Weapon.from_file(@game, "test-data/equipment/#{yml_file}")
+  @weapon = YamlLoader.from_file(Weapon, @game, "test-data/equipment/#{yml_file}")
   @player.equip_weapon @weapon
 end
 

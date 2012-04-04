@@ -16,9 +16,6 @@ class Enemy
     obj
   end
 
-  def self.from_file(game, f)
-    self.from_yaml(game, IO.readlines(f).join(""))
-  end
 
   attr_reader :image_file, :direction
   def initialize(enemy_avatar, game)

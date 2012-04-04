@@ -20,9 +20,6 @@ class HeadsUpDisplay
     obj
   end
 
-  def self.from_file(game, f)
-    self.from_yaml(game, IO.readlines(f).join(""))
-  end
 
   def initialize(game)
     @game = game

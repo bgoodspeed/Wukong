@@ -39,10 +39,6 @@ class InputManager
     obj
   end
 
-  def self.from_file(game, f)
-    self.from_yaml(game, IO.readlines(f).join(""))
-  end
-
   def self.default_keyboard_config
     { Gosu::KbLeft => KeyActions::LEFT,
       Gosu::KbRight => KeyActions::RIGHT,

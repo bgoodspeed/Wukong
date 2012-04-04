@@ -17,13 +17,9 @@ class Player
     data = YAML.load(yaml)
     conf = data['player']
     obj = Player.new(conf['image_path'], game)
-    obj.equip_weapon(Weapon.from_file(game, conf['weapon_yaml'])) if conf['weapon_yaml']
+    obj.equip_weapon(YamlLoader.from_file(Weapon, game, conf['weapon_yaml'])) if conf['weapon_yaml']
     process_attributes(ATTRIBUTES, obj, conf)
     obj
-  end
-
-  def self.from_file(game, f)
-    self.from_yaml(game, IO.readlines(f).join(""))
   end
 
   attr_reader :image_file

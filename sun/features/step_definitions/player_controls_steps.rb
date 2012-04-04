@@ -5,7 +5,7 @@ def map_test_key_name_to_real_key_name(key)
   key #TODO
 end
 Given /^I create an input manager from config file "([^"]*)"$/ do |config|
-  @input_manager = InputManager.from_file(@game, "test-data/input/#{config}")
+  @input_manager = YamlLoader.from_file(InputManager, @game, "test-data/input/#{config}")
   @game.input_manager = @input_manager
 end
 

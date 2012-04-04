@@ -10,6 +10,7 @@ class Array
 end
 
 require 'yaml_helper'
+require 'loaders/yaml_loader'
 require 'zorder'
 require 'utility_drawing'
 require 'spawn_point'
@@ -268,15 +269,6 @@ class Game
 
 
   #TODO make wiki note that screen coords are top left to bottom right
-
-
-  #TODO hack throwaway
-  def hack_todo_print_mouse_location
-
-    mx = window.mouse_x
-    my = window.mouse_y
-    puts "Got mouse location #{mx},#{my}  (they are: #{mx.class})"
-  end
 
   def enable_action(action)
     @input_manager.enable_action(action)

@@ -13,7 +13,7 @@ end
 
 
 class CollisionResponder
-
+  extend YamlHelper
   def self.from_yaml(game, yaml)
     data = YAML.load(yaml)
     conf = data['collision_response']
@@ -33,9 +33,6 @@ class CollisionResponder
     obj
   end
 
-  def self.from_file(game, f)
-    self.from_yaml(game, IO.readlines(f).join(""))
-  end
 
   def self.default_config
     {
