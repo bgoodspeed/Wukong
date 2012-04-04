@@ -92,6 +92,7 @@ Then /^the player property "([^"]*)" should be "([^"]*)"$/ do |arg1, arg2|
 end
 
 Given /^I set the player position to (\d+),(\d+)$/ do |arg1, arg2|
-  @player.position = [arg1.to_i, arg2.to_i]
+  p = @player.nil? ? @game.player : @player
+  p.position = [arg1.to_i, arg2.to_i]
 end
 

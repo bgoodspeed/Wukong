@@ -68,3 +68,14 @@ Feature: Level Description
     Then the level completion status should be "false"
     When I run the game loop 1 times
     Then the level completion status should be "true"
+
+  Scenario: Level Completion Combined
+    Given I load the game on level "combined" with screen size 640, 480
+    When I run the game loop 1 times
+    Then the level completion status should be "false"
+    When I run the game loop 1 times
+    Then the level completion status should be "false"
+    And I set the player position to 100,100
+    When I run the game loop 1 times
+    Then the level completion status should be "true"
+    

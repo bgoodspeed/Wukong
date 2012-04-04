@@ -76,6 +76,8 @@ Feature: Mouse
     And the player should be at position 36,36
     And a "PickEvent" event should be queued
     And the "PickEvent" event should have "picked.class" equal to "Player"
+    
+
 
    Scenario: Picking - Enemy
     Given I load the game on level "demo" with screen size 640, 480

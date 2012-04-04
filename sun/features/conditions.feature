@@ -30,5 +30,7 @@ Feature: Conditions
    | enemies_killed  | player       | 12           | enemies_killed_at_least | 13                 | false    |
    | enemies_killed  | player       | 12           | enemies_killed_at_least | 12                 | true     |
    | enemies_killed  | player       | 12           | enemies_killed_at_least | 11                 | true     |
+   | position        | player       | 2, 3         | player_near             | 200, 200           | false    |
+   | position        | player       | 200, 200     | player_near             | 200, 200           | true     |
 
 

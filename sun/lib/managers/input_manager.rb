@@ -20,19 +20,18 @@ class InputManager
     data = YAML.load(yaml)
     conf = data['input_config']
     kbd = conf['keyboard_config']
+    kbd_conf = nil
+
     if kbd
       kbd_conf = {}
       kbd.each {|k,v| 
         kbd_conf[eval(k)] = eval(v) }
-    else
-      kbd_conf = nil
     end
     gp = conf['gamepad_config']
+    gp_conf = nil
     if gp
       gp_conf = {}
       gp.each {|k,v| kbd_conf[eval(k)] = eval(v) }
-    else
-      gp_conf = nil
     end
     obj = InputManager.new(game , kbd_conf, gp_conf)
     
