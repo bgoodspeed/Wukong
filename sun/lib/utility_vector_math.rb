@@ -199,7 +199,7 @@ module PrimitiveIntersectionTests
   end
 
   def line_segment_line_segment_intersection?(l1, l2)
-    d = (l2.ey - l2.sy) *  (l1.ex - l1.sx) - (l2.ex - l2.sx) * (l1.ey - l1.sy)
+    d =   (l2.ey - l2.sy) * (l1.ex - l1.sx) - (l2.ex - l2.sx) * (l1.ey - l1.sy)
     n_a = (l2.ex - l2.sx) * (l1.sy - l2.sy) - (l2.ey - l2.sy) * (l1.sx - l2.sx)
     n_b = (l1.ex - l1.sx) * (l1.sy - l2.sy) - (l1.ey - l1.sy) * (l1.sx - l2.sx)
 

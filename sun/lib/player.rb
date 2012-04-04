@@ -6,7 +6,7 @@ class Player
   MAX_TURN_DEGREES = 360
   attr_reader :radius
   ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, :max_health, 
-    :turn_speed, :movement_distance, :menu_action_delay
+    :turn_speed, :movement_distance, :menu_action_delay, :enemies_killed
   ]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
@@ -34,6 +34,7 @@ class Player
     @position = p
     @health = 0
     @direction = 0
+    @enemies_killed = 0
     @step_size = 1
     @turn_speed = 90
     @menu_action_delay = 4
@@ -104,6 +105,9 @@ class Player
     to_collision.position
   end
 
+  def enemy_killed
+    @enemies_killed += 1
+  end
   #TODO this should be in a module
   def take_damage(col)
     #puts "#{self} took damage from #{col}"

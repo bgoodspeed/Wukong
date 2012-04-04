@@ -6,7 +6,7 @@ include Gl
 include Glu
 
 require 'gosu'
-require 'devil/gosu'
+#require 'devil/gosu'
 class GameWindow < Gosu::Window
   def width; @w; end
   def height; @h; end

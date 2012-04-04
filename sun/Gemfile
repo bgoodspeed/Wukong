@@ -8,7 +8,7 @@ gem "texplay", :platforms => [:mswin, :mingw, :ruby]
 
 gem "rake-compiler"
 gem "rdoc"
-gem "devil", :platforms => [:ruby, :mingw]
+#gem "devil", :platforms => [:ruby, :mingw]
 gem "chunky_png"
 gem "chipmunk"
 gem "statemachine"

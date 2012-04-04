@@ -82,6 +82,10 @@ class Level
   end
 
   def completed?
+    if @ored_completion_conditions.empty? and @anded_completion_conditions.empty?
+      #TODO handle level being unbounded
+      return false
+    end
     @game.completion_manager.check_conditions_or(@ored_completion_conditions) &&
       @game.completion_manager.check_conditions_and(@anded_completion_conditions)
   end

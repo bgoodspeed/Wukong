@@ -4,6 +4,11 @@ wayfinding: test-data/levels/demo/wayfinding.yml
 measurements:
   width: 640
   height: 480
+anded_completion_conditions:
+  - condition: player_health_at_least
+    argument: 1
+  - condition: enemies_killed_at_least
+    argument: 4
 declared_enemies:
   - enemy_yaml: test-data/enemies/enemy.yml
     name: e1

@@ -15,7 +15,7 @@ class CompletionManager
     conds.each do |cond|
       return true if @game.condition_manager.condition_met?(cond.condition, cond.argument)
     end
-    false
+    conds.empty? ? true : false
   end
   def check_conditions_and(conds)
     conds.each do |cond|

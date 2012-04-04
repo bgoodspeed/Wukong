@@ -29,7 +29,10 @@ class ActionManager
   def default_event_actions
     {
       #TODO not sure if this should be here or in the events themselves
-      DeathEvent => lambda {|e| @game.remove_enemy(e.who)},
+      DeathEvent => lambda {|e| 
+        #TODO untested
+        @game.player.enemy_killed
+        @game.remove_enemy(e.who)},
       LambdaEvent => lambda {|e| e.invoke },
       PickEvent => lambda {|e| puts "In Action Manager: must implement what to do when #{e.picked}"},
       SpawnEvent => lambda {|e| @game.add_enemy(e.spawn)}
