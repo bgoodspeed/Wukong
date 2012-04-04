@@ -7,3 +7,8 @@ Feature: Game Description
     Given I load the game on level "trivial" with screen size 640, 480
     When I see the first frame
     Then I should be at 36,36 in the game space
+
+  Scenario: Full Game Loading
+    Given I load the game "game"
+    When I see the first frame
+    Then I should be at 200,300 in the game space

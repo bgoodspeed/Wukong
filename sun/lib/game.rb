@@ -10,6 +10,7 @@ class Array
 end
 
 require 'yaml_helper'
+require 'loaders/game_loader'
 require 'loaders/yaml_loader'
 require 'zorder'
 require 'utility_drawing'
