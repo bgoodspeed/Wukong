@@ -24,12 +24,7 @@ class GameWindow < Gosu::Window
     @game.update_all
   end
 
-  def custom_green
-    Gosu::Color.argb(0xff55b053)
-  end
-  
   def draw
-   
     @game.draw
   end
 end
