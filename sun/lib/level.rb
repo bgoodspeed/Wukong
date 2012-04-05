@@ -105,7 +105,7 @@ class Level
     areas = @event_areas.select {|ea| ea.intersects?(collision_volume)}
 
     if areas.empty?
-      puts "TODO level.rb, no areas to interact with at player position #{collision_volume}"
+      #TODO level.rb, no areas to interact with at player position #{collision_volume}"
       return
     end
 

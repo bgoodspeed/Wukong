@@ -25,11 +25,23 @@ Feature: Game
         | Rectangle [10, 280]:[10, 470]:[280, 470]:[280, 280]   | Settings       | queue_settings_event        |
         | Rectangle [360, 280]:[360, 470]:[630, 470]:[630, 280] | Continue       | queue_continue_event        |
 
-  Scenario: New Game Loading Level Invoke Event Area
+  Scenario: New Game Loading Level Invoke Event Area - New Game
     Given I load the game "new_game_load_screen"
     And I set the player position to 100,100
     When I simulate "Gosu::KbO"
     When I run the game loop 1 times
     And a "StartNewGameEvent" event should be queued
 
+  Scenario: New Game Loading Level Off Event Area
+    Given I load the game "new_game_load_screen"
+    And I set the player position to 320,240
+    When I simulate "Gosu::KbO"
+    When I run the game loop 1 times
+    And there should be no events queued
 
+  Scenario: New Game Loading Level Invoke Event Area - Load Game
+    Given I load the game "new_game_load_screen"
+    And I set the player position to 350,20
+    When I simulate "Gosu::KbO"
+    When I run the game loop 1 times
+    And a "LoadGameEvent" event should be queued

@@ -43,7 +43,9 @@ class ActionManager
   def default_always_available_behaviors
     {
       KeyActions::QUIT => lambda { @game.deactivate_and_quit },
-      "queue_start_new_game_event" => lambda {|game, arg| game.add_event(StartNewGameEvent.new)}
+      "queue_start_new_game_event" => lambda {|game, arg| game.add_event(StartNewGameEvent.new)},
+      "queue_load_game_event" => lambda {|game, arg| game.add_event(LoadGameEvent.new)}
+     
     }
   end
 
