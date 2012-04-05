@@ -1,0 +1,9 @@
+game:
+  width: 640
+  height: 480
+  collision_response: "test-data/collision_response/collision_response.yml"
+  level: "test-data/levels/load_screen/load_screen.yml"
+  input_manager: "test-data/input/input_config.yml"
+  player: "test-data/players/load_screen_player.yml"
+  sound_manager: "game-data/sounds/sound_config.yml"
+  heads_up_display: "test-data/hud/hud_blank.yml"

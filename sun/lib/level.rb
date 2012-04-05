@@ -25,7 +25,7 @@ class Level
   attr_accessor :measurements, :line_segments, :triangles, :circles, 
     :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, 
     :maximum_y, :event_emitters, :enemies, :declared_enemies, :spawn_points,
-    :ored_completion_conditions, :anded_completion_conditions
+    :ored_completion_conditions, :anded_completion_conditions, :name, :event_areas
   attr_reader :background_image
   @@CELL_SIZE = 10
   def initialize(game=nil)
@@ -40,6 +40,7 @@ class Level
     @event_emitters = []
     @declared_enemies = {}
     @spawn_points = []
+    @event_areas = []
     @static_hash = SpatialHash.new(@@CELL_SIZE)
     @dynamic_hash = SpatialHash.new(@@CELL_SIZE)
     @minimum_x = 0
@@ -94,6 +95,21 @@ class Level
   end
   def add_anded_completion_condition(cc)
     @anded_completion_conditions << cc
+  end
+
+  def add_event_area(ea)
+    @event_areas << ea
+  end
+
+  def interact(collision_volume)
+    areas = @event_areas.select {|ea| ea.intersects?(collision_volume)}
+
+    if areas.empty?
+      puts "TODO level.rb, no areas to interact with at player position #{collision_volume}"
+      return
+    end
+
+    areas.first.invoke
   end
 
   def add_line_segment(sx,sy, ex, ey)
@@ -170,6 +186,15 @@ class Level
                },
                Player => lambda {|screen, player| @game.image_manager.draw_in_screen_coords(player) },
                Enemy => lambda {|screen, enemy| @game.image_manager.draw_in_screen_coords(enemy) },
+               EventArea => lambda {|screen, ea|
+                 r = ea.rect
+                 rect = Primitives::Rectangle.new(@game.camera.screen_coordinates_for(r.p1), @game.camera.screen_coordinates_for(r.p2), @game.camera.screen_coordinates_for(r.p3), @game.camera.screen_coordinates_for(r.p4))
+                 #TODO this is getting messy
+                 msg_offset = [15,15]
+                 @game.hud.draw_with_font(ea.label, rect.p1.x + msg_offset.x, rect.p1.y + msg_offset.y, ZOrder.hud.value)
+                 draw_rectangle_as_box(screen, rect,  ZOrder.static.value, color=Gosu::Color::BLACK)
+#                 puts "draw event area at #{ea.rect}, with text #{ea.label} inside"
+               },
                MouseCollisionWrapper => lambda {|screen, enemy| "NOOP, could add a highlight?" },
                #TODO ugly, should this be here? not sure about design
                VectorFollower => lambda {|screen, vf|
@@ -189,6 +214,7 @@ class Level
     end
     static_bodies.each {|body| draw_function_for(body).call(screen, body)}
     dynamic_elements.each {|body| draw_function_for(body).call(screen, body)}
+    event_areas.each {|body| draw_function_for(body).call(screen, body) }
   end
 
   def remove_projectile(p)

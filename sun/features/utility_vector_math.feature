@@ -100,10 +100,11 @@ Feature: Vector Math
   Scenario: Circle Rectangle Intersection
     Given we import vector math on arrays
     Then I should be able to test intersection of the following circles and rectangles
-      | circle    | rectangle                  | intersects? | 
-      | 0,0:1     | 0,-10:0,10:10,10:10,-10    | true        |
-      | 0,0:1     | 0,-2:0,2:2,2:2,-2          | true        |
-      | 4,4:1     | 0,-2:0,2:2,2:2,-2          | false       |
+      | circle     | rectangle                   | intersects? |
+      | 0,0:1      | 0,-10:0,10:10,10:10,-10     | true        |
+      | 0,0:1      | 0,-2:0,2:2,2:2,-2           | true        |
+      | 4,4:1      | 0,-2:0,2:2,2:2,-2           | false       |
+      | 100,100:36 | 10,10:10,200:300,200:300,10 | true        |
 
   Scenario: Circle Triangle Intersection
     Given we import vector math on arrays

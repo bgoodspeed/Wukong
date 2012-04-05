@@ -16,6 +16,7 @@ require 'zorder'
 require 'utility_drawing'
 require 'spawn_point'
 require 'spawn_event'
+require 'start_new_game_event'
 require 'managers/image_manager'
 require 'managers/completion_manager'
 require 'mouse_collision_wrapper'
@@ -43,6 +44,7 @@ require 'managers/animation_manager'
 require 'managers/path_following_manager'
 
 require 'timed_event'
+require 'event_area'
 require 'managers/event_manager'
 require 'loaders/player_loader'
 require 'loaders/level_loader'
@@ -141,7 +143,6 @@ class Game
   def update_menu_state
     @hud.clear
     @menu_manager.current_menu_lines.each {|line|  @hud.add_line(line)}
-
   end
 
   def deactivate_and_quit
@@ -209,6 +210,10 @@ class Game
 
   def pick_game_element
     @level.add_mouse(@input_manager.mouse_screen_coords)
+  end
+
+  def interact
+    @level.interact(@player.to_collision)
   end
 
 end

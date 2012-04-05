@@ -161,9 +161,30 @@ module PrimitiveIntersectionTests
     circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p1, rectangle.p2)) ||
       circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p2, rectangle.p3)) ||
       circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p3, rectangle.p4)) ||
-      circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p4, rectangle.p1))
-
+      circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p4, rectangle.p1)) ||
+      circle_inside_rectangle?(circle, rectangle)
   end
+
+  def circle_inside_rectangle?(circle, rectangle)
+    in_left = (rectangle.left < circle.position.x ||
+     rectangle.left < (circle.position.x - circle.radius) ||
+     rectangle.left < (circle.position.x + circle.radius) )
+
+    return false unless in_left
+    in_right = (rectangle.right > circle.position.x ||
+        rectangle.right > (circle.position.x - circle.radius) ||
+        rectangle.right > (circle.position.x + circle.radius) )
+    return false unless in_right
+    in_top = (rectangle.top > circle.position.y ||
+     rectangle.top > (circle.position.y - circle.radius) ||
+     rectangle.top > (circle.position.y + circle.radius) )
+    return false unless in_top
+    in_bottom = (rectangle.bottom < circle.position.y ||
+     rectangle.bottom < (circle.position.y - circle.radius) ||
+     rectangle.bottom < (circle.position.y + circle.radius) )
+     return in_bottom
+  end
+
   def circle_triangle_intersection?(circle, triangle)
     circle_line_segment_intersection?(circle, Primitives::LineSegment.new(triangle.p1, triangle.p2)) ||
       circle_line_segment_intersection?(circle, Primitives::LineSegment.new(triangle.p2, triangle.p3)) ||

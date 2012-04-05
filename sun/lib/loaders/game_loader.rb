@@ -18,10 +18,14 @@ class GameLoader
     game.sound_manager = YamlLoader.from_file(SoundManager, game, conf['sound_manager'])
     game.set_player(p)
     #TODO this is not right, should come from level/spawning
-    e = YamlLoader.from_file(Enemy, game, "game-data/enemies/enemy.yml")
-    game.add_enemy(e)
-    e.tracking_target = p
-    path_manager.add_tracking(e, game.wayfinding)
+    #TODO massive hack, get rid of this ASAP
+    if game.level.name !~ /load_screen/
+
+      e = YamlLoader.from_file(Enemy, game, "game-data/enemies/enemy.yml")
+      game.add_enemy(e)
+      e.tracking_target = p
+      path_manager.add_tracking(e, game.wayfinding)
+    end
 
 
     hud = YamlLoader.from_file(HeadsUpDisplay, game, conf['heads_up_display'])

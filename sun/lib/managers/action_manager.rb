@@ -38,9 +38,12 @@ class ActionManager
       SpawnEvent => lambda {|e| @game.add_enemy(e.spawn)}
     }
   end
+
+  #TODO unify these APIs, all lambdas should take game, arg
   def default_always_available_behaviors
     {
       KeyActions::QUIT => lambda { @game.deactivate_and_quit },
+      "queue_start_new_game_event" => lambda {|game, arg| game.add_event(StartNewGameEvent.new)}
     }
   end
 
@@ -71,11 +74,12 @@ class ActionManager
   end
   def default_gameplay_behaviors
     {
+      KeyActions::INTERACT => lambda {
+        introduce_delay(KeyActions::MENU, @game.player.menu_action_delay)
+        @game.interact
+      }, 
       KeyActions::MENU => lambda {
-        #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::MENU, "enable_action", KeyActions::MENU, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
-
+        introduce_delay(KeyActions::MENU, @game.player.menu_action_delay)
         @game.enter_menu
       },
       KeyActions::RIGHT => lambda { @game.player.turn(@game.turn_speed) },
@@ -84,10 +88,7 @@ class ActionManager
       KeyActions::DOWN => lambda { @game.player.move_forward(-@game.movement_distance) },
       KeyActions::FIRE => lambda { @game.player.use_weapon },
       KeyActions::MOUSE_CLICK => lambda {
-         #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
-        te = TimedEvent.new("disable_action", KeyActions::MOUSE_CLICK, "enable_action", KeyActions::MOUSE_CLICK, @game.player.menu_action_delay)
-        @game.clock.enqueue_event("timeout_down", te)
-
+        introduce_delay(KeyActions::MOUSE_CLICK, @game.player.menu_action_delay)
         @game.pick_game_element
       }
     }
@@ -108,4 +109,13 @@ class ActionManager
     @menu_behaviors = default_menu_behaviors
   end
 
+  def all_responses
+    @collision_responses.merge(@menu_actions).merge(@event_actions).merge(@always_available_behaviors).merge(@gameplay_behaviors).merge(@menu_behaviors)
+  end
+
+  def invoke(action_name, arg=nil)
+    rs = all_responses
+    raise "unknown action #{action_name}" unless rs.has_key?(action_name)
+    rs[action_name].call(@game, arg )
+  end
 end

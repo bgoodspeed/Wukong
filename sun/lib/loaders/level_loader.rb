@@ -14,6 +14,7 @@ class LevelLoader
     data = YAML.load_file(which_level)
     level.measurements = [data["measurements"]["width"].to_i,data["measurements"]["height"].to_i]
     level.background_image = data["background_image"]
+    level.name = data["name"]
 
     data["line_segments"].to_a.each do |lineseg|
       level.add_line_segment(lineseg["start_x"], lineseg["start_y"], lineseg["end_x"], lineseg["end_y"])
@@ -43,6 +44,13 @@ class LevelLoader
     data["anded_completion_conditions"].to_a.each {|cc|
       c = CompletionCondition.new(cc['condition'],cc['argument'])
       level.add_anded_completion_condition(c)
+    }
+    data["event_areas"].to_a.each {|ea|
+      tl = ea['top_left']
+      br = ea['bottom_right']
+      rect = Primitives::Rectangle.new(tl, [tl.x, br.y], br, [br.x, tl.y])
+      ea = EventArea.new(@game, rect, ea['label'], ea['action'] )
+      level.add_event_area(ea)
     }
 
     level

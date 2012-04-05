@@ -7,6 +7,7 @@ module KeyActions
   LEFT = "Left"
   DOWN = "Down"
   FIRE = "Fire"
+  INTERACT = "Interact"
   QUIT = "Quit"
   MENU = "Menu"
   MENU_ENTER = "MenuEnter"
@@ -47,6 +48,7 @@ class InputManager
       Gosu::KbEnter => KeyActions::MENU_ENTER,
       Gosu::KbReturn => KeyActions::MENU_ENTER,
       Gosu::KbM => KeyActions::MENU,
+      Gosu::KbO => KeyActions::INTERACT,
       Gosu::KbQ => KeyActions::QUIT }
 
   end

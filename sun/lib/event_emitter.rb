@@ -26,6 +26,7 @@ class EventEmitter
     @collision_primitive = collision_primitive
     @event_name = event_name
     @event_argument = event_arg
+    #TODO these should be defined elsewhere
     @events = {
       "play_sound" => LambdaEvent.new(@game, lambda {|game, arg| game.play_effect(arg)}, @event_argument )
     }

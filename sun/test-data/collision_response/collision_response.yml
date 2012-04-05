@@ -3,7 +3,7 @@ collision_response:
     "Player": [ trigger_event1 ]
   "Primitives::LineSegment":
     "Player": [ blocking2 ]
-    "VectorFollower": [:removing2 ]
+    "VectorFollower": [ removing2 ]
     "Enemy": [ blocking2 ]
   "Enemy":
     "Enemy": [ ]

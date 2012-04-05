@@ -9,6 +9,7 @@ input_config:
     Gosu::KbReturn: KeyActions::MENU_ENTER
     Gosu::KbM: KeyActions::MENU
     Gosu::KbQ: KeyActions::QUIT
+    Gosu::KbO: KeyActions::INTERACT
   gamepad_config:
     Gosu::GpLeft: KeyActions::LEFT
     Gosu::GpRight: KeyActions::RIGHT

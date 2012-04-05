@@ -20,7 +20,8 @@ class HeadsUpDisplay
     obj
   end
 
-
+  #TODO make a font manager or something
+  attr_reader :font
   def initialize(game)
     @game = game
     @lines = []
@@ -92,6 +93,7 @@ class HeadsUpDisplay
     obj
   end
   def formatted_lines
+    return [] if @lines.nil?
     @lines.collect {|line| format_line(line)}
   end
 
@@ -182,5 +184,9 @@ class HeadsUpDisplay
       @font.draw(line, x,y,ZOrder.hud.value )
       
     end
+  end
+
+  def draw_with_font(line, x,y, zo)
+    @font.draw(line, x,y, zo )
   end
 end
