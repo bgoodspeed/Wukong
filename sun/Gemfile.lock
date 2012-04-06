@@ -42,8 +42,6 @@ GEM
     simplecov-html (0.5.3)
     statemachine (2.0.1)
     term-ansicolor (1.0.7)
-    texplay (0.4.2)
-      gosu (>= 0.7.25)
 
 PLATFORMS
   ruby
@@ -63,4 +61,3 @@ DEPENDENCIES
   ruby-prof
   simplecov
   statemachine
-  texplay
