@@ -12,19 +12,19 @@ class ActionManager
   end
   def default_collision_responses
     {
-      :damaging1 => lambda {|col| col.dynamic1.take_damage(col.dynamic2)},
-      :damaging2 => lambda {|col| col.dynamic2.take_damage(col.dynamic1)},
-      :removing1 => lambda {|col| @game.remove_projectile(col.dynamic1)},
-      :removing2 => lambda {|col| @game.remove_projectile(col.dynamic2)},
-      :blocking1 => lambda {|col| col.dynamic1.undo_last_move},
-      :blocking2 => lambda {|col| col.dynamic2.undo_last_move},
-      :trigger_event1 => lambda {|col| col.dynamic1.trigger},
-      :trigger_event2 => lambda {|col| col.dynamic2.trigger},
-      :mouse_pick1 => lambda {|col|
+      :damaging1 => lambda {|game, col| col.dynamic1.take_damage(col.dynamic2)},
+      :damaging2 => lambda {|game, col| col.dynamic2.take_damage(col.dynamic1)},
+      :removing1 => lambda {|game, col| game.remove_projectile(col.dynamic1)},
+      :removing2 => lambda {|game, col| game.remove_projectile(col.dynamic2)},
+      :blocking1 => lambda {|game, col| col.dynamic1.undo_last_move},
+      :blocking2 => lambda {|game, col| col.dynamic2.undo_last_move},
+      :trigger_event1 => lambda {|game, col| col.dynamic1.trigger},
+      :trigger_event2 => lambda {|game, col| col.dynamic2.trigger},
+      :mouse_pick1 => lambda {|game, col|
         @game.remove_mouse_collision #TODO could also add a timed event here add a highlight around that enemy?
         @game.add_event(Event.new(col.dynamic1, EventTypes::PICK))},
       #TODO sort of exploratory here, extract params, cleanup etc
-      :temporary_message1 => lambda {|col| @game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", col.dynamic1.hud_message,"temporary_message=", nil, 60 )) }
+      :temporary_message1 => lambda {|game, col| game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", col.dynamic1.hud_message,"temporary_message=", nil, 60 )) }
     }
   end
 

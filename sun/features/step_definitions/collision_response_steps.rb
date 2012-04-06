@@ -43,7 +43,7 @@ Then /^the response for "([^"]*)" should enqueue a timed event$/ do |arg1|
       response = v
     end
     }
-  response.call(Collision.new(m,m2))
+  response.call(@game, Collision.new(m,m2))
   @game.clock.events.size.should == 1
 
 end

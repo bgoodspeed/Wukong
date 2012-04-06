@@ -84,7 +84,7 @@ class CollisionResponder
   def handle_collisions(collisions)
     collisions.each {|col|
         response(col).each do |response|
-          responses[response].call(col)
+          responses[response].call(@game, col)
         end
     }
   end
