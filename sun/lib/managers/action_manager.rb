@@ -6,8 +6,8 @@
 class ActionManager
   def default_menu_actions
     {
-      "debug_print" => lambda {|arg| puts "DEBUG_PRINT: #{arg}"},
-      "noop" => lambda {|arg| }
+      "debug_print" => lambda {|game, arg| puts "DEBUG_PRINT: #{arg}"},
+      "noop" => lambda {|game, arg| }
     }
   end
   def default_collision_responses

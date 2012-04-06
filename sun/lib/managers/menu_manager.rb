@@ -102,7 +102,7 @@ class MenuManager
     action_argument = ce.action_argument
     
     m = actions[action]
-    action_result = m.call(action_argument)
+    action_result = m.call(@game, action_argument)
     menu_id = current_menu.menu_id
     @breadcrumbs << Breadcrumb.new(menu_id, action, action_argument, action_result)
     action_result

@@ -53,7 +53,7 @@ When /^I move down in the menu$/ do
   @menu_manager.move_down
 end
 Given /^I register a fake action to return triple the argument called "([^"]*)"$/ do |name|
-  @menu_manager.register_action(name, lambda {|arg| arg * 3})
+  @menu_manager.register_action(name, lambda {|game, arg| arg * 3})
 end
 
 When /^I invoke the current menu action$/ do
