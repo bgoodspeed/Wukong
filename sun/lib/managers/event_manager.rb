@@ -41,7 +41,7 @@ class EventManager
     @handled = []
     @events.each{|event|
       raise "unknown event type: #{event}" unless handlers.has_key? event.event_type
-      handler_for(event.event_type).call(event)
+      handler_for(event.event_type).call(@game, event)
       @handled << event
     }
 
