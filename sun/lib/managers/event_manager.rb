@@ -14,6 +14,10 @@ class Event
   def initialize(argument, event_type)
     @argument, @event_type = argument, event_type
   end
+
+  def to_s
+    "Event:#{event_type} arg(#{argument})"
+  end
 end
 
 class EventManager
@@ -42,6 +46,5 @@ class EventManager
     }
 
     @events = @events - @handled
-
   end
 end

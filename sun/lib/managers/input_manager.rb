@@ -96,7 +96,7 @@ class InputManager
   def run_activated(behaviors)
     behaviors.each { |action, behavior|
       if @keys[action] && !@disabled[action]
-        behavior.call
+        behavior.call(@game, nil)
       end
     }
   end
