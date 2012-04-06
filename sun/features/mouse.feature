@@ -74,8 +74,8 @@ Feature: Mouse
     And I update the game state
     Then the player should be in the scene
     And the player should be at position 36,36
-    And a "PickEvent" event should be queued
-    And the "PickEvent" event should have "picked.class" equal to "Player"
+    And a "EventTypes::PICK" event should be queued
+    And the "EventTypes::PICK" event should have "argument.class" equal to "Player"
     
 
 
@@ -89,5 +89,5 @@ Feature: Mouse
     And I update the game state
     Then the player should be in the scene
     And the player should be at position 36,36
-    And a "PickEvent" event should be queued
-    And the "PickEvent" event should have "picked.class" equal to "Enemy"
+    And a "EventTypes::PICK" event should be queued
+    And the "EventTypes::PICK" event should have "argument.class" equal to "Enemy"

@@ -20,7 +20,7 @@ class ActionManager
       :trigger_event2 => lambda {|col| col.dynamic2.trigger},
       :mouse_pick1 => lambda {|col|
         @game.remove_mouse_collision #TODO could also add a timed event here add a highlight around that enemy?
-        @game.add_event(PickEvent.new(@game, col.dynamic1))},
+        @game.add_event(Event.new(col.dynamic1, EventTypes::PICK))},
       #TODO sort of exploratory here, extract params, cleanup etc
       :temporary_message1 => lambda {|col| @game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", col.dynamic1.hud_message,"temporary_message=", nil, 60 )) }
     }
@@ -29,13 +29,13 @@ class ActionManager
   def default_event_actions
     {
       #TODO not sure if this should be here or in the events themselves
-      DeathEvent => lambda {|e| 
+      EventTypes::DEATH => lambda {|e|
         #TODO untested
         @game.player.enemy_killed
-        @game.remove_enemy(e.who)},
-      LambdaEvent => lambda {|e| e.invoke },
-      PickEvent => lambda {|e| puts "In Action Manager: must implement what to do when #{e.picked}"},
-      SpawnEvent => lambda {|e| @game.add_enemy(e.spawn)}
+        @game.remove_enemy(e.argument)},
+      EventTypes::LAMBDA => lambda {|e| e.invoke },
+      EventTypes::PICK => lambda {|e| puts "In Action Manager: must implement what to do when #{e.picked}"},
+      EventTypes::SPAWN => lambda {|e| @game.add_enemy(e.argument)}
     }
   end
 
@@ -43,8 +43,9 @@ class ActionManager
   def default_always_available_behaviors
     {
       KeyActions::QUIT => lambda { @game.deactivate_and_quit },
-      "queue_start_new_game_event" => lambda {|game, arg| game.add_event(StartNewGameEvent.new)},
-      "queue_load_game_event" => lambda {|game, arg| game.add_event(LoadGameEvent.new)}
+      "queue_start_new_game_event" => lambda {|game, arg| game.add_event(Event.new(nil, EventTypes::START_NEW_GAME))},
+      #TODO figure out which game to load from menu?
+      "queue_load_game_event" => lambda {|game, arg| game.add_event(Event.new(nil, EventTypes::LOAD_GAME))}
      
     }
   end

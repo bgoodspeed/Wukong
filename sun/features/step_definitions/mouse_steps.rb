@@ -17,8 +17,8 @@ Then /^the mouse should be considered on screen$/ do
 end
 
 Then /^a "([^"]*)" event should be queued$/ do |arg1|
-  ecs = @game.events.collect {|e| e.class.to_s}
-  ecs.should be_include(arg1)
+  ecs = @game.events.collect {|e| e.event_type.to_s}
+  ecs.should be_include(eval(arg1))
 end
 Then /^there should be no events queued$/ do
   @game.events.should be_empty
@@ -32,7 +32,7 @@ def invoke_property_string_on(e, property_string)
   v
 end
 Then /^the "([^"]*)" event should have "([^"]*)" equal to "([^"]*)"$/ do |event_class, property_string, expected_value|
-  events = @game.events.select {|e| e.class.to_s == event_class }
+  events = @game.events.select {|e| e.event_type.to_s == eval(event_class) }
   e = events.first
   invoke_property_string_on(e, property_string).to_s.should == expected_value
 end

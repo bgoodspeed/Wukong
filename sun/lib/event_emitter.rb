@@ -1,6 +1,7 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
+
 class LambdaEvent
   def initialize(game, lambda, arg)
     @game = game
@@ -10,6 +11,10 @@ class LambdaEvent
 
   def invoke
     @lambda.call(@game, @argument)
+  end
+
+  def event_type
+    EventTypes::LAMBDA
   end
 
 end

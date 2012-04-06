@@ -46,7 +46,7 @@ class SpawnPoint
     @last_spawn_time = t
     @spawn_argument.each do |enemy_name|
       @enemy_quantity.times do
-        @game.add_event(SpawnEvent.new(@game.level.declared_enemy(enemy_name)))
+        @game.add_event(Event.new(@game.level.declared_enemy(enemy_name), EventTypes::SPAWN))
       end
     end
   end

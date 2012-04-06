@@ -30,7 +30,7 @@ Feature: Game
     And I set the player position to 100,100
     When I simulate "Gosu::KbO"
     When I run the game loop 1 times
-    And a "StartNewGameEvent" event should be queued
+    And a "EventTypes::START_NEW_GAME" event should be queued
 
   Scenario: New Game Loading Level Off Event Area
     Given I load the game "new_game_load_screen"
@@ -44,4 +44,4 @@ Feature: Game
     And I set the player position to 350,20
     When I simulate "Gosu::KbO"
     When I run the game loop 1 times
-    And a "LoadGameEvent" event should be queued
+    And a "EventTypes::LOAD_GAME" event should be queued

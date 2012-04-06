@@ -9,11 +9,11 @@ end
 Then /^there should be a death event$/ do
   events = @game.events
   events.size.should == 1
-  events.first.class.should == DeathEvent
+  events.first.event_type.should == EventTypes::DEATH
 end
 
 When /^I create an enemy death event$/ do
-  @game.add_event(DeathEvent.new(@enemy))
+  @game.add_event(Event.new(@enemy, EventTypes::DEATH))
 end
 
 Then /^enemy should not be in scene$/ do

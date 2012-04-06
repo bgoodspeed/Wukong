@@ -68,7 +68,7 @@ class Enemy
   def take_damage(from)
     @health -= 1
     if dead?
-      @game.add_event(DeathEvent.new(self))
+      @game.add_event(Event.new(self, EventTypes::DEATH))
     end
   end
 

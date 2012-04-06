@@ -18,8 +18,8 @@ Feature: Spawn Points
     And I stub "foo" on game to return "false"
     When I add a fake condition that checks "foo" on game named "COND"
     When the spawn points are updated
-    Then a "SpawnEvent" event should be queued
-    And the "SpawnEvent" event should have "spawn.class" equal to "Enemy"
+    Then a "EventTypes::SPAWN" event should be queued
+    And the "EventTypes::SPAWN" event should have "argument.class" equal to "Enemy"
 
   Scenario: Spawn Point - Spawning not yet
     Given I load the game on level "simple" with screen size 640, 480
@@ -35,8 +35,8 @@ Feature: Spawn Points
     And I stub "foo" on game to return "false"
     When I add a fake condition that checks "foo" on game named "COND"
     And I run the game loop 1 times
-    Then a "SpawnEvent" event should be queued
-    And the "SpawnEvent" event should have "spawn.class" equal to "Enemy"
+    Then a "EventTypes::SPAWN" event should be queued
+    And the "EventTypes::SPAWN" event should have "argument.class" equal to "Enemy"
 
 
 

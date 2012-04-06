@@ -1,5 +1,20 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
+
+
+module EventTypes
+  LAMBDA = "LAMBDA"
+  PICK = "PICK"
+  SPAWN = "SPAWN"
+  DEATH = "DEATH"
+  START_NEW_GAME = "START_NEW_GAME"
+  LOAD_GAME = "LOAD_GAME"
+end
+
+class Event
+  attr_reader :argument, :event_type
+  def initialize(argument, event_type)
+    @argument, @event_type = argument, event_type
+  end
+end
 
 class EventManager
   attr_accessor :events
@@ -21,8 +36,8 @@ class EventManager
   def handle_events
     @handled = []
     @events.each{|event|
-      raise "unknown event type: #{event}" unless handlers.has_key? event.class
-      handler_for(event.class).call(event)
+      raise "unknown event type: #{event}" unless handlers.has_key? event.event_type
+      handler_for(event.event_type).call(event)
       @handled << event
     }
 

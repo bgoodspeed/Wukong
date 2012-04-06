@@ -14,15 +14,11 @@ require 'loaders/game_loader'
 require 'loaders/yaml_loader'
 require 'zorder'
 require 'utility_drawing'
+require 'managers/event_manager'
 require 'spawn_point'
-require 'spawn_event'
-require 'start_new_game_event'
-require 'load_game_event'
 require 'managers/image_manager'
 require 'managers/completion_manager'
 require 'mouse_collision_wrapper'
-#TODO consider this plethora of event classes...
-require 'pick_event'
 require 'event_emitter'
 require 'collider'
 require 'spatial_hash'
@@ -46,11 +42,9 @@ require 'managers/path_following_manager'
 
 require 'timed_event'
 require 'event_area'
-require 'managers/event_manager'
 require 'loaders/player_loader'
 require 'loaders/level_loader'
 
-require 'death_event'
 require 'managers/sound_manager'
 
 
