@@ -13,7 +13,7 @@ class GameLoader
     game.collision_responder = YamlLoader.from_file(CollisionResponder, game, conf['collision_response'])
     game.load_level(conf['level'])
     game.input_manager = YamlLoader.from_file(InputManager, game, conf['input_manager'])
-
+    game.new_game_level = conf['new_game_level']
     p = YamlLoader.from_file(Player, game, conf['player'])
     game.sound_manager = YamlLoader.from_file(SoundManager, game, conf['sound_manager'])
     game.set_player(p)

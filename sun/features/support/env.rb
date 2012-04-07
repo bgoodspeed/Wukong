@@ -34,6 +34,8 @@ Before do |scenario|
 
 end
 
+#TODO look into timing each scenario and reporting slow ones that are not already tagged
+#TODO consider deferring GC ala rails
 After do |scenario|
 
   if ENV['do_profile'] =~ /yes/

@@ -57,7 +57,7 @@ class Game
     :screen, :level, :sound_manager, :collision_responder, :collisions,
     :wayfinding, :menu_manager, :main_menu_name, :input_manager,
     :temporary_message, :mouse_drawn, :event_manager, :image_manager, 
-    :action_manager, :condition_manager, :completion_manager, :active
+    :action_manager, :condition_manager, :completion_manager, :active, :new_game_level
 
   alias_method :active?, :active
 

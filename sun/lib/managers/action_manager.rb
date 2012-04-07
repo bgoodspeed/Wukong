@@ -38,6 +38,7 @@ class ActionManager
         game.player.enemy_killed
         game.remove_enemy(e.argument)},
       EventTypes::LAMBDA => lambda {|game,e| e.invoke },
+      EventTypes::START_NEW_GAME => lambda { |game, e| game.load_level(game.new_game_level)},
       EventTypes::PICK => lambda {|game,e| puts "In Action Manager: must implement what to do when #{e.picked}"},
       EventTypes::SPAWN => lambda {|game,e| game.add_enemy(e.argument)}
     }
@@ -121,8 +122,7 @@ class ActionManager
     @collision_responses.merge(@menu_actions).merge(@event_actions).merge(@always_available_behaviors).merge(@gameplay_behaviors).merge(@menu_behaviors)
   end
 
-  def invoke(action_name, arg=nil)
-    rs = all_responses
+  def invoke(action_name, arg=nil, rs = all_responses)
     raise "unknown action #{action_name}" unless rs.has_key?(action_name)
     rs[action_name].call(@game, arg )
   end
