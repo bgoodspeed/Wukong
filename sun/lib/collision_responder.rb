@@ -1,6 +1,19 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
+module ResponseTypes
+  TRIGGER_EVENT1 = :trigger_event1
+  TRIGGER_EVENT2 = :trigger_event2
+  BLOCKING1 = :blocking1
+  BLOCKING2 = :blocking2
+  REMOVING1 = :removing1
+  REMOVING2 = :removing2
+  DAMAGING1 = :damaging1
+  DAMAGING2 = :damaging2
+  MOUSE_PICK1 = :mouse_pick1
+  TEMPORARY_MESSAGE1 = :temporary_message1
+end
+
 class Collision
   attr_reader :dynamic1, :dynamic2
   def initialize(dynamic, dynamic2)
@@ -37,30 +50,30 @@ class CollisionResponder
   def self.default_config
     {
       EventEmitter => {
-        Player => [:trigger_event1]
+        Player => [ResponseTypes::TRIGGER_EVENT1]
       },
       Primitives::LineSegment => {
-        Player => [:blocking2],
-        VectorFollower => [:removing2],
-        Enemy => [:blocking2]
+        Player => [ResponseTypes::BLOCKING2],
+        VectorFollower => [ResponseTypes::REMOVING2],
+        Enemy => [ResponseTypes::BLOCKING2]
       },
       Enemy => {
         Enemy => [],
-        VectorFollower => [:damaging1, :removing2],
-        Primitives::LineSegment => [:blocking1],
-        MouseCollisionWrapper => [:mouse_pick1]
+        VectorFollower => [ResponseTypes::DAMAGING1, ResponseTypes::REMOVING2],
+        Primitives::LineSegment => [ResponseTypes::BLOCKING1],
+        MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1]
       },
       VectorFollower => {
         Player => [],
-        Enemy => [:damaging2, :removing1],
-        Primitives::LineSegment => [:removing1]
+        Enemy => [ResponseTypes::DAMAGING2, ResponseTypes::REMOVING1],
+        Primitives::LineSegment => [ResponseTypes::REMOVING1]
       },
       Player => {
-        Primitives::LineSegment => [:blocking1],
+        Primitives::LineSegment => [ResponseTypes::BLOCKING1],
         VectorFollower => [],
-        Enemy => [:damaging1, :damaging2, :blocking1],
-        EventEmitter => [:trigger_event2],
-        MouseCollisionWrapper => [:mouse_pick1]
+        Enemy => [ResponseTypes::DAMAGING1, ResponseTypes::DAMAGING2, ResponseTypes::BLOCKING1],
+        EventEmitter => [ResponseTypes::TRIGGER_EVENT2],
+        MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1]
       },
     }
   end

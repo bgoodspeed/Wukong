@@ -2,6 +2,10 @@
 
 #TODO how to make this configurable? maybe not needed since input->action is configurable
 
+module BehaviorTypes
+  QUEUE_NEW_GAME_EVENT = "queue_start_new_game_event"
+  QUEUE_LOAD_GAME_EVENT = "queue_load_game_event"
+end
 
 class ActionManager
   def default_menu_actions
@@ -12,19 +16,18 @@ class ActionManager
   end
   def default_collision_responses
     {
-      :damaging1 => lambda {|game, col| col.dynamic1.take_damage(col.dynamic2)},
-      :damaging2 => lambda {|game, col| col.dynamic2.take_damage(col.dynamic1)},
-      :removing1 => lambda {|game, col| game.remove_projectile(col.dynamic1)},
-      :removing2 => lambda {|game, col| game.remove_projectile(col.dynamic2)},
-      :blocking1 => lambda {|game, col| col.dynamic1.undo_last_move},
-      :blocking2 => lambda {|game, col| col.dynamic2.undo_last_move},
-      :trigger_event1 => lambda {|game, col| col.dynamic1.trigger},
-      :trigger_event2 => lambda {|game, col| col.dynamic2.trigger},
-      :mouse_pick1 => lambda {|game, col|
+      ResponseTypes::DAMAGING1 => lambda {|game, col| col.dynamic1.take_damage(col.dynamic2)},
+      ResponseTypes::DAMAGING2 => lambda {|game, col| col.dynamic2.take_damage(col.dynamic1)},
+      ResponseTypes::REMOVING1 => lambda {|game, col| game.remove_projectile(col.dynamic1)},
+      ResponseTypes::REMOVING2 => lambda {|game, col| game.remove_projectile(col.dynamic2)},
+      ResponseTypes::BLOCKING1 => lambda {|game, col| col.dynamic1.undo_last_move},
+      ResponseTypes::BLOCKING2 => lambda {|game, col| col.dynamic2.undo_last_move},
+      ResponseTypes::TRIGGER_EVENT1 => lambda {|game, col| col.dynamic1.trigger},
+      ResponseTypes::TRIGGER_EVENT2 => lambda {|game, col| col.dynamic2.trigger},
+      ResponseTypes::MOUSE_PICK1 => lambda {|game, col|
         @game.remove_mouse_collision #TODO could also add a timed event here add a highlight around that enemy?
         @game.add_event(Event.new(col.dynamic1, EventTypes::PICK))},
-      #TODO sort of exploratory here, extract params, cleanup etc
-      :temporary_message1 => lambda {|game, col| game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", col.dynamic1.hud_message,"temporary_message=", nil, 60 )) }
+      ResponseTypes::TEMPORARY_MESSAGE1  => lambda {|game, col| game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", col.dynamic1.hud_message,"temporary_message=", nil, 60 )) }
     }
   end
 
@@ -32,7 +35,6 @@ class ActionManager
     {
       #TODO not sure if this should be here or in the events themselves
       EventTypes::DEATH => lambda {|game,e|
-        #TODO untested
         game.player.enemy_killed
         game.remove_enemy(e.argument)},
       EventTypes::LAMBDA => lambda {|game,e| e.invoke },
@@ -45,9 +47,10 @@ class ActionManager
   def default_always_available_behaviors
     {
       KeyActions::QUIT => lambda {|game, arg| game.deactivate_and_quit },
-      "queue_start_new_game_event" => lambda {|game, arg| game.add_event(Event.new(nil, EventTypes::START_NEW_GAME))},
+
+      BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(nil, EventTypes::START_NEW_GAME))},
       #TODO figure out which game to load from menu?
-      "queue_load_game_event" => lambda {|game, arg| game.add_event(Event.new(nil, EventTypes::LOAD_GAME))}
+      BehaviorTypes::QUEUE_LOAD_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(nil, EventTypes::LOAD_GAME))}
      
     }
   end

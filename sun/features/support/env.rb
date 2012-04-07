@@ -17,6 +17,14 @@ SimpleCov.start 'only_lib_code'
 require 'game'
 require 'spatial_hash'
 
+def invoke_property_string_on(e, property_string)
+  properties = property_string.split(".")
+  v = e
+  properties.each {|prop|
+    v = v.send(prop)
+  }
+  v
+end
 
 Before do |scenario|
   if ENV['do_profile'] =~ /yes/

@@ -23,14 +23,6 @@ end
 Then /^there should be no events queued$/ do
   @game.events.should be_empty
 end
-def invoke_property_string_on(e, property_string)
-  properties = property_string.split(".")
-  v = e
-  properties.each {|prop|
-    v = v.send(prop)
-  }
-  v
-end
 Then /^the "([^"]*)" event should have "([^"]*)" equal to "([^"]*)"$/ do |event_class, property_string, expected_value|
   events = @game.events.select {|e| e.event_type.to_s == eval(event_class) }
   e = events.first
