@@ -45,6 +45,7 @@ require 'timed_event'
 require 'event_area'
 require 'loaders/player_loader'
 require 'loaders/level_loader'
+require 'loaders/save_loader'
 
 require 'managers/sound_manager'
 
@@ -59,7 +60,7 @@ class Game
     :wayfinding, :menu_manager, :main_menu_name, :input_manager,
     :temporary_message, :mouse_drawn, :event_manager, :image_manager, 
     :action_manager, :condition_manager, :completion_manager, :active, 
-    :new_game_level, :menu_for_load_game
+    :new_game_level, :menu_for_load_game, :game_load_path
 
   alias_method :active?, :active
 
@@ -95,16 +96,24 @@ class Game
     @camera = Camera.new(self)
     @mouse_drawn = true
     @main_menu_name = "main menu"
+    @game_load_path = "UNSET"
     @active = true
     @clock = Clock.new(self, dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
     @sound_manager = SoundManager.new(self)
+    @save_loader = SaveLoader.new(self)
     @collisions = []
+  end
+
+  def load_game_slot(slot)
+    @save_loader.load_slot(slot)
   end
 
   def load_level(level_name)
     @level = @level_loader.load_level(level_name)
-    @player = @player_loader.load_player
+    if !@player
+      @player = @player_loader.load_player
+    end
     @level.add_player(@player)
     @level
   end

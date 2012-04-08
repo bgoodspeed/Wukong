@@ -11,11 +11,17 @@ Feature: Loading
     Then the current menu entry should have:
       | display_text   | action         | argument |
       | Load Game 1    | load_game_slot | 1        |
-    When I stub "load_game_slot" on game to return "5"
+    And I register a fake action to return triple the argument called "load_game_slot"
     When I invoke the current menu action
-    Then the menu action result should be 5
+    Then the menu action result should be 3
     
-    
+  Scenario: Loading a game loads level, player etc
+    Given I load the game "new_game_load_screen"
+    Then the game property "level.name" should be "'load_screen'"
+    Then the game property "player.position" should be "[320, 240]"
+    And I load slot 1
+    Then the game property "level.name" should be "'demo'"
+    Then the game property "player.position" should be "[300, 300]"
     
 
 

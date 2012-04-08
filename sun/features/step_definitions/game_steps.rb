@@ -32,3 +32,7 @@ Then /^the event areas should be:$/ do |table|
     areas[idx].action.should == hash['action']
   }
 end
+
+Then /^I load slot (\d+)$/ do |arg1|
+  @game.load_game_slot(arg1.to_i)
+end

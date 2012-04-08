@@ -30,8 +30,11 @@ Then /^the menu named "([^"]*)" should be active$/ do |name|
   @menu_manager.current_menu.should == menu
 end
 
+def mm
+  @menu_manager ? @menu_manager : @game.menu_manager
+end
+
 Then /^the current menu entry should have:$/ do |table|
-  mm = @menu_manager ? @menu_manager : @game.menu_manager
   me = mm.current_menu_entry
   table.hashes.each_with_index {|hash, idx|
     me.display_text.to_s.should == hash['display_text'].to_s
@@ -41,7 +44,7 @@ Then /^the current menu entry should have:$/ do |table|
 
 end
 Then /^the current mouse menu entry should have:$/ do |table|
-  me = @menu_manager.current_menu_entry_mouse
+  me = mm.current_menu_entry_mouse
   
   table.hashes.each_with_index {|hash, idx|
     me.display_text.to_s.should == hash['display_text'].to_s
@@ -51,14 +54,14 @@ Then /^the current mouse menu entry should have:$/ do |table|
 end
 
 When /^I move down in the menu$/ do
-  @menu_manager.move_down
+  mm.move_down
 end
 Given /^I register a fake action to return triple the argument called "([^"]*)"$/ do |name|
-  @menu_manager.register_action(name, lambda {|game, arg| arg * 3})
+  mm.register_action(name, lambda {|game, arg| arg * 3})
 end
 
 When /^I invoke the current menu action$/ do
-  @menu_result = @menu_manager.invoke_current
+  @menu_result = mm.invoke_current
 end
 
 Then /^the menu action result should be (\d+)$/ do |arg1|
