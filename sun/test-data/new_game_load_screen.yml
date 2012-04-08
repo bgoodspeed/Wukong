@@ -8,3 +8,4 @@ game:
   sound_manager: "game-data/sounds/sound_config.yml"
   heads_up_display: "test-data/hud/hud_blank.yml"
   new_game_level: "test-data/levels/demo/demo.yml"
+  menu_for_load_game: "test-data/menus/load_game.yml"

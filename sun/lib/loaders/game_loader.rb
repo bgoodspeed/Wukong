@@ -34,8 +34,16 @@ class GameLoader
     menu_manager = MenuManager.new(game)
     game.menu_manager = menu_manager
 
+
+    #TODO extract this to YAML
     menu = YamlLoader.from_file(Menu, game, "test-data/menus/main.yml")
     menu_manager.add_menu(game.main_menu_name, menu)
+    if conf['menu_for_load_game']
+      game.menu_for_load_game = conf['menu_for_load_game']
+      m = YamlLoader.from_file(Menu, game, conf['menu_for_load_game'])
+      menu_manager.add_menu(game.menu_for_load_game, m)
+    end
+    
     
 
     game

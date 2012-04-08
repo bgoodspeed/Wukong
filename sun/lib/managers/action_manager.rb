@@ -5,6 +5,7 @@
 module BehaviorTypes
   QUEUE_NEW_GAME_EVENT = "queue_start_new_game_event"
   QUEUE_LOAD_GAME_EVENT = "queue_load_game_event"
+  CHOOSE_GAME_MENU = "CHOOSE_GAME_MENU"
 end
 
 class ActionManager
@@ -51,7 +52,10 @@ class ActionManager
 
       BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(nil, EventTypes::START_NEW_GAME))},
       #TODO figure out which game to load from menu?
-      BehaviorTypes::QUEUE_LOAD_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(nil, EventTypes::LOAD_GAME))}
+      BehaviorTypes::QUEUE_LOAD_GAME_EVENT => lambda {|game, arg| 
+        game.enter_menu(game.menu_for_load_game)
+        game.add_event(Event.new(nil, EventTypes::LOAD_GAME))},
+#      BehaviorTypes::CHOOSE_GAME_MENU => lambda {|game, arg| puts "todo activate a menu based on '#{arg}'"}
      
     }
   end

@@ -31,7 +31,8 @@ Then /^the menu named "([^"]*)" should be active$/ do |name|
 end
 
 Then /^the current menu entry should have:$/ do |table|
-  me = @menu_manager.current_menu_entry
+  mm = @menu_manager ? @menu_manager : @game.menu_manager
+  me = mm.current_menu_entry
   table.hashes.each_with_index {|hash, idx|
     me.display_text.to_s.should == hash['display_text'].to_s
     me.action.to_s.should == hash['action'].to_s if hash.has_key?('action')

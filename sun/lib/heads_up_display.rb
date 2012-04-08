@@ -25,6 +25,7 @@ class HeadsUpDisplay
   def initialize(game)
     @game = game
     @lines = []
+    @old_lines = []
     @font = Gosu::Font.new(game.window, Gosu::default_font_name, 20)
     @x_spacing = @@X_SPACING
     @y_spacing = @@Y_SPACING
@@ -46,14 +47,18 @@ class HeadsUpDisplay
   def old_lines
     @old_lines ? @old_lines : []
   end
+
+  def safe_dup(e)
+    e.nil? ? [] : e.dup
+  end
   def swap_copy
-    @old_lines = @lines.dup
-    @lines = @lines.dup
+    @old_lines = safe_dup(@lines)
+    @lines = safe_dup(@lines)
   end
 
   def swap
 
-    lines = @lines.dup
+    lines = safe_dup(@lines)
     @lines = old_lines
     @old_lines = lines
   end

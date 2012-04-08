@@ -39,9 +39,4 @@ Feature: Game
     When I run the game loop 1 times
     And there should be no events queued
 
-  Scenario: New Game Loading Level Invoke Event Area - Load Game
-    Given I load the game "new_game_load_screen"
-    And I set the player position to 350,20
-    When I simulate "Gosu::KbO"
-    When I run the game loop 1 times
-    And a "EventTypes::LOAD_GAME" event should be queued
+
