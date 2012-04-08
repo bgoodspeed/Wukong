@@ -52,9 +52,7 @@ class ActionManager
 
       BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(nil, EventTypes::START_NEW_GAME))},
       #TODO figure out which game to load from menu?
-      BehaviorTypes::QUEUE_LOAD_GAME_EVENT => lambda {|game, arg| 
-        game.enter_menu(game.menu_for_load_game)
-        game.add_event(Event.new(nil, EventTypes::LOAD_GAME))},
+      BehaviorTypes::QUEUE_LOAD_GAME_EVENT => lambda {|game, arg| game.enter_menu(game.menu_for_load_game) },
 #      BehaviorTypes::CHOOSE_GAME_MENU => lambda {|game, arg| puts "todo activate a menu based on '#{arg}'"}
      
     }

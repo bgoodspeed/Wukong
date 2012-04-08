@@ -11,7 +11,11 @@ Feature: Loading
     Then the current menu entry should have:
       | display_text   | action         | argument |
       | Load Game 1    | load_game_slot | 1        |
-
+    When I stub "load_game_slot" on game to return "5"
+    When I invoke the current menu action
+    Then the menu action result should be 5
+    
+    
     
 
 
