@@ -40,3 +40,6 @@ end
 Then /^the action "([^"]*)" should be enabled$/ do |arg1|
   @game.event_enabled?(arg1).should be_true
 end
+Then /^a timed event should be queued$/ do 
+  @game.clock.events.size.should be_>=(1)
+end

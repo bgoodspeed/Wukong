@@ -47,6 +47,8 @@ class Player
     @weapon.inactivate
   end
   def use_weapon
+    #TODO could log this, emit a temp msg to the hud etc
+    return unless @weapon
     @weapon.use
   end
 
@@ -59,6 +61,8 @@ class Player
   end
   def equip_weapon(w)
     @weapon = w
+    @weapon.equipped_on = self
+    #TODO we don't want to actually load the animation from disk at this point
     @game.load_animation(self, "weapon", @weapon.image_path, 24, 24, false) #TODO hardcoded values
   end
 

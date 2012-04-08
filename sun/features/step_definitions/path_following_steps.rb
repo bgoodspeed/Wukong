@@ -20,7 +20,8 @@ Then /^the projectile should be at (\d+),(\d+)$/ do |x,y|
   p.current_position.should be_near([x.to_f, y.to_f])
 end
 Then /^there should be no projectiles$/ do
-  projectiles = @path_manager.vector_following
+  pm = @path_manager ? @path_manager : @game.path_following_manager
+  projectiles = pm.vector_following
   
   projectiles.should == []
 end

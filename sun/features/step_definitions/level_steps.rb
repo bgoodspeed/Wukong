@@ -114,3 +114,7 @@ end
 Then /^the level completion status should be "([^"]*)"$/ do |arg1|
   @level.completed?.should == eval(arg1)
 end
+
+Then /^the level should have (\d+) dynamic elements$/ do |arg1|
+  @level.dynamic_elements.size.should == arg1.to_i
+end

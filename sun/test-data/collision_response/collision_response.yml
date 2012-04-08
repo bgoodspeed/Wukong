@@ -20,5 +20,7 @@ collision_response:
     "Enemy": [ damaging1, damaging2, blocking1 ]
     "EventEmitter": [ trigger_event2 ]
     "MouseCollisionWrapper": [ mouse_pick1 ]
+    "Weapon": [  ]
+#TODO note that player vs weapon collisions will need to be handled, eg check to see if it's your weapon
   "MouseCollisionWrapper":
     "Player": [ mouse_pick1 ]

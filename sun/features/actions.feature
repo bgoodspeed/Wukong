@@ -23,7 +23,8 @@ Feature: Action
     When I invoke the action "<action>" on collision with set "<set>"
     Then the game property "<game_prop>" should be "<game_value_final>"
   Examples:
-   | action                    | game_prop             | game_value_init | game_value_final | c1stubs | c1expects | c2stubs | c2expects      | set                  |
-   | ResponseTypes::BLOCKING2  | player.enemies_killed | 0               | 0                |         |           |         | undo_last_move | collision_responses  |
+   | action                         | game_prop             | game_value_init | game_value_final | c1stubs | c1expects | c2stubs | c2expects      | set                  |
+   | ResponseTypes::BLOCKING2       | player.enemies_killed | 0               | 0                |         |           |         | undo_last_move | collision_responses  |
+   | ResponseTypes::TRIGGER_EVENT1  | player.enemies_killed | 0               | 0                |         | trigger   |         |                | collision_responses  |
 
 

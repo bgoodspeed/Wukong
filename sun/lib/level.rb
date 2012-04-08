@@ -163,6 +163,9 @@ class Level
     end
   end
 
+  def add_weapon(weapon)
+    @dynamic_elements << weapon
+  end
   def add_enemy(enemy)
     @enemies << enemy
     @dynamic_elements << enemy
@@ -195,7 +198,8 @@ class Level
                  draw_rectangle_as_box(screen, rect,  ZOrder.static.value, color=Gosu::Color::BLACK)
 #                 puts "draw event area at #{ea.rect}, with text #{ea.label} inside"
                },
-               MouseCollisionWrapper => lambda {|screen, enemy| "NOOP, could add a highlight?" },
+               Weapon => lambda {|screen, weapon| "NOOP weapon #TODO"},
+               #MouseCollisionWrapper => lambda {|screen, enemy| puts "NOOP, could add a highlight?" },
                #TODO ugly, should this be here? not sure about design
                VectorFollower => lambda {|screen, vf|
                  d = 10

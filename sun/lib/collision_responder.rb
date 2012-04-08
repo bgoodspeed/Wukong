@@ -70,10 +70,11 @@ class CollisionResponder
       },
       Player => {
         Primitives::LineSegment => [ResponseTypes::BLOCKING1],
-        VectorFollower => [],
+        VectorFollower => [], #TODO unrealistic
         Enemy => [ResponseTypes::DAMAGING1, ResponseTypes::DAMAGING2, ResponseTypes::BLOCKING1],
         EventEmitter => [ResponseTypes::TRIGGER_EVENT2],
-        MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1]
+        MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1],
+        Weapon => [], #TODO unrealistic
       },
     }
   end

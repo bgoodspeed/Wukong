@@ -22,8 +22,14 @@ When /^I use the weapon$/ do
   @player.use_weapon
 end
 
+Then /^the weapon should not be in use$/ do
+  @player.weapon_in_use?.should == false
+end
+
+
+
 Then /^the weapon should be in use and on frame (\d+)$/ do |frame|
-  @player.weapon.should be_in_use
+  @player.weapon_in_use?.should == true
   @animation_manager.animation_index_by_entity_and_name(@player, "weapon").animation_index.should == frame.to_i
 end
 

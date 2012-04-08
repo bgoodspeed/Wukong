@@ -28,3 +28,28 @@ Feature: Weapons
     And I run the game loop 1 times
     Then the weapon should be in use and on frame 1
     And the weapon sound should be played
+
+  Scenario: Weapons in YAML - Non Projectile
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I set the player avatar to "avatar.bmp"
+    And I create an animation manager with a ratio of one animation tick to 1 game ticks
+    And I create a sound manager
+    Then the level should have 1 dynamic elements
+    And I add a sound effect from "weapon.wav" called "player_weapon_sound"
+    And I load and equip the weapon defined in "weapon_swung.yml"
+    When I use the weapon
+    And I run the game loop 1 times
+    Then the weapon should be in use and on frame 1
+    And the weapon sound should be played
+    And there should be no projectiles
+    And a timed event should be queued
+    And the level should have 2 dynamic elements
+
+  Scenario: Weapons - Unequipped
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I set the player avatar to "avatar.bmp"
+    And I create an animation manager with a ratio of one animation tick to 1 game ticks
+    When I use the weapon
+    And I run the game loop 1 times
+    Then the weapon should not be in use
+    

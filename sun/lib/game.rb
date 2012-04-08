@@ -38,6 +38,7 @@ require 'way_finding'
 require 'artificial_intelligence'
 require 'managers/input_manager'
 require 'managers/animation_manager'
+require 'vector_follower'
 require 'managers/path_following_manager'
 
 require 'timed_event'
@@ -211,4 +212,7 @@ class Game
     @level.interact(@player.to_collision)
   end
 
+  def noop(arg=nil)
+    #NOOP
+  end
 end
