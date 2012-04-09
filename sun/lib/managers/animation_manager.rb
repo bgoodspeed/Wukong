@@ -67,7 +67,7 @@ class AnimationManager
   end
   #TODO hardcoded sizes
   def load_animation(entity, name, animation,w=25, h=25, tiles=false)
-    gi = Gosu::Image::load_tiles(@game.window, animation, w,h,tiles) 
+    gi = Graphics::Image::load_tiles(@game.window, animation, w,h,tiles) 
     animations_for(entity)[name] = Animation.new(gi)
   end
   def animation_index_by_entity_and_name(entity, name)

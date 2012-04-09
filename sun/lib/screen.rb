@@ -7,7 +7,7 @@ include Glu
 
 require 'gosu'
 #require 'devil/gosu'
-class GameWindow < Gosu::Window
+class GameWindow < Graphics::Window
   def width; @w; end
   def height; @h; end
 
@@ -70,8 +70,8 @@ class Screen
     @window.draw_line(*args)
   end
   def draw_crosshairs_at(p, l=4)
-    @window.draw_line(p.x - l, p.y, Gosu::Color::WHITE, p.x + l, p.y, Gosu::Color::WHITE, ZOrder.hud.value)
-    @window.draw_line(p.x, p.y - l, Gosu::Color::WHITE, p.x, p.y + l, Gosu::Color::WHITE, ZOrder.hud.value)
+    @window.draw_line(p.x - l, p.y, Graphics::Color::WHITE, p.x + l, p.y, Graphics::Color::WHITE, ZOrder.hud.value)
+    @window.draw_line(p.x, p.y - l, Graphics::Color::WHITE, p.x, p.y + l, Graphics::Color::WHITE, ZOrder.hud.value)
   end
 
   def button_down?(button)

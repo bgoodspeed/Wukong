@@ -239,9 +239,9 @@ end
 
 module GraphicsApi
   def calculate_offset_x(vector, scale)
-    Gosu::offset_x(vector,scale)
+    Graphics::offset_x(vector,scale)
   end
   def calculate_offset_y(vector, scale)
-    Gosu::offset_y(vector,scale)
+    Graphics::offset_y(vector,scale)
   end
 end

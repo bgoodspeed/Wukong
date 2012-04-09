@@ -26,7 +26,7 @@ class HeadsUpDisplay
     @game = game
     @lines = []
     @old_lines = []
-    @font = Gosu::Font.new(game.window, Gosu::default_font_name, 20)
+    @font = Graphics::Font.new(game.window, Graphics::default_font_name, 20)
     @x_spacing = @@X_SPACING
     @y_spacing = @@Y_SPACING
     @menu_mode = false
@@ -103,7 +103,7 @@ class HeadsUpDisplay
   end
 
   def transparent_grey
-    Gosu::Color.argb(0xAA000000)
+    Graphics::Color.argb(0xAA000000)
   end
 
   def darken_screen
@@ -127,9 +127,9 @@ class HeadsUpDisplay
   def draw_cursor
     pos = cursor_position
     base_y = pos[1]
-    @game.window.draw_triangle(pos[0] - 20, base_y - 10, Gosu::Color::WHITE,
-                               pos[0] - 5,  base_y, Gosu::Color::WHITE,
-                               pos[0] - 20, base_y + 10, Gosu::Color::WHITE)
+    @game.window.draw_triangle(pos[0] - 20, base_y - 10, Graphics::Color::WHITE,
+                               pos[0] - 5,  base_y, Graphics::Color::WHITE,
+                               pos[0] - 20, base_y + 10, Graphics::Color::WHITE)
   end
 
 
@@ -148,7 +148,7 @@ class HeadsUpDisplay
   def highlight_mouse_selection
     rs = regions
     regs = highlighted_regions.collect {|hridx| rs[hridx]}
-    regs.each {|rect|  draw_rectangle_as_box(@game.screen, rect, ZOrder.hud.value, Gosu::Color::GREEN) }
+    regs.each {|rect|  draw_rectangle_as_box(@game.screen, rect, ZOrder.hud.value, Graphics::Color::GREEN) }
 
 
     

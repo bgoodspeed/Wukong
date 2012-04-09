@@ -25,7 +25,7 @@ class SoundManager
   end
 
   def add_effect(file_name, name)
-    @effects_by_name[name] = Gosu::Sample.new(@game.window, file_name)
+    @effects_by_name[name] = Graphics::Sample.new(@game.window, file_name)
   end
 
   def play_effect(name)
@@ -38,7 +38,7 @@ class SoundManager
   end
 
   def add_song(sound_file, sound_name)
-    @song_by_name[sound_name] = Gosu::Song.new(@game.window, sound_file)
+    @song_by_name[sound_name] = Graphics::Song.new(@game.window, sound_file)
   end
 
   def play_song(sound_name, loops = false)
@@ -59,9 +59,9 @@ class SoundManager
   end
 
   def is_playing_song(sound_name)
-    return false unless Gosu::Song.current_song
-    (Gosu::Song.current_song == @song_by_name[sound_name]) &&
-      Gosu::Song.current_song.playing?
+    return false unless Graphics::Song.current_song
+    (Graphics::Song.current_song == @song_by_name[sound_name]) &&
+      Graphics::Song.current_song.playing?
   end
 
 end

@@ -7,7 +7,7 @@ class ImageManager
     @images = {}
   end
   def register_image(filepath)
-    img = Gosu::Image.new(@game.window, filepath, false)
+    img = Graphics::Image.new(@game.window, filepath, false)
     @images[filepath] = img
     img
   end

@@ -17,7 +17,7 @@ Feature: Player Controls
     Given I load the game on level "trivial" with screen size 640, 480
     And I set the player avatar to "avatar.bmp"
     And I set the player step size to 25
-    When I simulate "Gosu::KbLeft,Gosu::KbDown"
+    When I simulate "Graphics::KbLeft,Graphics::KbDown"
     And I update the key state
     And the following keys should be active: "Left,Down"
 
@@ -25,7 +25,7 @@ Feature: Player Controls
     Given I load the game on level "trivial" with screen size 640, 480
     And I set the player avatar to "avatar.bmp"
     And I set the player step size to 25
-    When I simulate "Gosu::KbSpace"
+    When I simulate "Graphics::KbSpace"
     And I update the key state
     And the following keys should be active: "Fire"
 
@@ -46,7 +46,7 @@ Feature: Player Controls
 
   Scenario: Mapping Q to quit
     Given I load the game on level "trivial" with screen size 640, 480
-    When I simulate "Gosu::KbQ"
+    When I simulate "Graphics::KbQ"
     And I update the key state
     And the following keys should be active: "Quit"
 
@@ -58,7 +58,7 @@ Feature: Player Controls
 
   Scenario: Mapping M to menu
     Given I load the game on level "trivial" with screen size 640, 480
-    When I simulate "Gosu::KbM"
+    When I simulate "Graphics::KbM"
     And I update the key state
     And the following keys should be active: "Menu"
 
@@ -81,7 +81,7 @@ Feature: Player Controls
 
   Scenario: Mapping Enter to menu_enter
     Given I load the game on level "trivial" with screen size 640, 480
-    When I simulate "Gosu::KbEnter"
+    When I simulate "Graphics::KbEnter"
     And I update the key state
     And the following keys should be active: "MenuEnter"
 
@@ -114,7 +114,7 @@ Feature: Player Controls
      And I create an input manager from config file "input_config.yml"
      Then the input managers mapping should contain:
        | api_keysym  | keyaction      |
-       | Gosu::KbUp  | KeyActions::UP |
+       | Graphics::KbUp  | KeyActions::UP |
 
 
   Scenario: Mapping menu to exit menu
@@ -132,9 +132,9 @@ Feature: Player Controls
             action_argument: 7
       """
     And I set the main menu name to "fake"
-    When I simulate "Gosu::KbM"
+    When I simulate "Graphics::KbM"
     And I run the game loop 5 times
     Then the game should be in menu mode
-    When I simulate "Gosu::KbM"
+    When I simulate "Graphics::KbM"
     And I run the game loop 1 times
     Then the game should not be in menu mode

@@ -9,7 +9,9 @@ class Array
   include ArrayVectorOperations
 end
 
+
 require 'yaml_helper'
+require 'graphics'
 require 'loaders/game_loader'
 require 'loaders/yaml_loader'
 require 'zorder'

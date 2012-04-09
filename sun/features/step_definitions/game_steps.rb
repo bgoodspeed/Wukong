@@ -30,11 +30,11 @@ end
 
 def stub_out_gosu
   GameWindow.stubs(:new).returns(stub_window)
-  Gosu::Font.stubs(:new).returns(stub_font)
-  Gosu::Image.stubs(:new).returns(stub_image)
-  Gosu::Image.stubs(:load_tiles).returns(stub_image)
-  Gosu::Sample.stubs(:new).returns(stub_sample)
-  Gosu::Song.stubs(:new).returns(stub_song)
+  Graphics::Font.stubs(:new).returns(stub_font)
+  Graphics::Image.stubs(:new).returns(stub_image)
+  Graphics::Image.stubs(:load_tiles).returns(stub_image)
+  Graphics::Sample.stubs(:new).returns(stub_sample)
+  Graphics::Song.stubs(:new).returns(stub_song)
 end
 
 

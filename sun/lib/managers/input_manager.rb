@@ -40,26 +40,26 @@ class InputManager
   end
 
   def self.default_keyboard_config
-    { Gosu::KbLeft => KeyActions::LEFT,
-      Gosu::KbRight => KeyActions::RIGHT,
-      Gosu::KbUp => KeyActions::UP,
-      Gosu::KbDown => KeyActions::DOWN,
-      Gosu::KbSpace => KeyActions::FIRE,
-      Gosu::KbEnter => KeyActions::MENU_ENTER,
-      Gosu::KbReturn => KeyActions::MENU_ENTER,
-      Gosu::KbM => KeyActions::MENU,
-      Gosu::KbO => KeyActions::INTERACT,
-      Gosu::KbQ => KeyActions::QUIT }
+    { Graphics::KbLeft => KeyActions::LEFT,
+      Graphics::KbRight => KeyActions::RIGHT,
+      Graphics::KbUp => KeyActions::UP,
+      Graphics::KbDown => KeyActions::DOWN,
+      Graphics::KbSpace => KeyActions::FIRE,
+      Graphics::KbEnter => KeyActions::MENU_ENTER,
+      Graphics::KbReturn => KeyActions::MENU_ENTER,
+      Graphics::KbM => KeyActions::MENU,
+      Graphics::KbO => KeyActions::INTERACT,
+      Graphics::KbQ => KeyActions::QUIT }
 
   end
   def self.default_gamepad_config
-    { Gosu::GpLeft => KeyActions::LEFT,
-      Gosu::GpRight => KeyActions::RIGHT,
-      Gosu::GpUp => KeyActions::UP,
-      Gosu::GpDown => KeyActions::DOWN }
+    { Graphics::GpLeft => KeyActions::LEFT,
+      Graphics::GpRight => KeyActions::RIGHT,
+      Graphics::GpUp => KeyActions::UP,
+      Graphics::GpDown => KeyActions::DOWN }
   end
   def self.default_mouse_config
-    { Gosu::MsLeft => KeyActions::MOUSE_CLICK,}
+    { Graphics::MsLeft => KeyActions::MOUSE_CLICK,}
   end
 
   attr_reader :keyboard

@@ -20,8 +20,8 @@ class PathFollowingManager
   def add_projectile(start, theta, velocity)
     vector = start
     vector = []
-    vector[0] = Gosu::offset_x(theta, 1) #TODO isolate all gosu references
-    vector[1] = Gosu::offset_y(theta, 1)
+    vector[0] = Graphics::offset_x(theta, 1) #TODO isolate all gosu references
+    vector[1] = Graphics::offset_y(theta, 1)
     vf = VectorFollower.new(start, vector, velocity)
     @vector_following << vf
     vf

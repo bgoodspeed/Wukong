@@ -185,7 +185,7 @@ class Level
                  p1 = @game.camera.screen_coordinates_for(linesegment.p1)
                  p2 = @game.camera.screen_coordinates_for(linesegment.p2)
                  ls = Primitives::LineSegment.new(p1, p2)
-                 draw_line_segment(screen, ls, ZOrder.static.value, Gosu::Color::RED)
+                 draw_line_segment(screen, ls, ZOrder.static.value, Graphics::Color::RED)
                },
                Player => lambda {|screen, player| @game.image_manager.draw_in_screen_coords(player) },
                Enemy => lambda {|screen, enemy| @game.image_manager.draw_in_screen_coords(enemy) },
@@ -195,7 +195,7 @@ class Level
                  #TODO this is getting messy
                  msg_offset = [15,15]
                  @game.hud.draw_with_font(ea.label, rect.p1.x + msg_offset.x, rect.p1.y + msg_offset.y, ZOrder.hud.value)
-                 draw_rectangle_as_box(screen, rect,  ZOrder.static.value, color=Gosu::Color::BLACK)
+                 draw_rectangle_as_box(screen, rect,  ZOrder.static.value, color=Graphics::Color::BLACK)
 #                 puts "draw event area at #{ea.rect}, with text #{ea.label} inside"
                },
                Weapon => lambda {|screen, weapon| "NOOP weapon #TODO"},

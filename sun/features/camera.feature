@@ -87,7 +87,7 @@ Feature: Camera Description
     And I create a game camera tracking the player
     And I set the player position to 500,400
     And I set the mouse position to 100, 200 in screen coords
-    When I simulate "Gosu::MsLeft"
+    When I simulate "Graphics::MsLeft"
     Then the camera should be centered at 320, 240
     And the camera offset should be 0,0
     And the player screen coordinates should be 500, 400

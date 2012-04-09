@@ -8,7 +8,7 @@ class Clock
     @target_framerate = framerate
     @target_frame_time = (1.0/@target_framerate.to_f)*1000.0
 
-    @start_time = @last_time = Gosu::milliseconds
+    @start_time = @last_time = Graphics::milliseconds
     @frames_rendered = 0
     @events = {}
   end
@@ -17,7 +17,7 @@ class Clock
   end
   def tick
     @frames_rendered += 1
-    @last_time = Gosu::milliseconds
+    @last_time = Graphics::milliseconds
     to_rm = []
     @events.each {|name, event|
       if @frames_rendered > (event.enqueued_at + event.lifespan)
@@ -33,10 +33,10 @@ class Clock
     elapsed_time_ms < @target_frame_time
   end
   def elapsed_time_ms
-    Gosu::milliseconds - @last_time
+    Graphics::milliseconds - @last_time
   end
   def total_elapsed_time_ms
-    Gosu::milliseconds - @start_time
+    Graphics::milliseconds - @start_time
   end
 
   def enqueue_event(event_name, timed_event)

@@ -3,15 +3,15 @@
 
 module TransparencyUtils
   def transparency_color
-    Gosu::Color.argb(0xffff00ff)
-    #Gosu::Color.argb(0, 255, 0, 255)
+    Graphics::Color.argb(0xffff00ff)
+    #Graphics::Color.argb(0, 255, 0, 255)
   end
 
 end
 module UtilityDrawing
   include TransparencyUtils
-  def draw_line_segment(screen, ls, zorder = ZOrder.dynamic.value, color=Gosu::Color::BLACK)
-    screen.draw_line(ls.sx, ls.sy, Gosu::Color::BLACK, ls.ex, ls.ey, color, zorder  )
+  def draw_line_segment(screen, ls, zorder = ZOrder.dynamic.value, color=Graphics::Color::BLACK)
+    screen.draw_line(ls.sx, ls.sy, Graphics::Color::BLACK, ls.ex, ls.ey, color, zorder  )
   end
 
   def draw_animation_at(screen, position, animation)
@@ -20,7 +20,7 @@ module UtilityDrawing
     
   end
 
-  def draw_rectangle_as_box(screen, r,  zorder = ZOrder.dynamic.value, color=Gosu::Color::BLACK)
+  def draw_rectangle_as_box(screen, r,  zorder = ZOrder.dynamic.value, color=Graphics::Color::BLACK)
     draw_line_segment(screen, Primitives::LineSegment.new(r.p1, r.p2), zorder, color)
     draw_line_segment(screen, Primitives::LineSegment.new(r.p2, r.p3), zorder, color)
     draw_line_segment(screen, Primitives::LineSegment.new(r.p3, r.p4), zorder, color)
@@ -29,10 +29,10 @@ module UtilityDrawing
 
   def draw_rectangle(screen, r)
     screen.draw_quad(
-      r.p1.x, r.p1.y, Gosu::Color::BLACK,
-      r.p2.x, r.p2.y, Gosu::Color::BLACK,
-      r.p3.x, r.p3.y, Gosu::Color::BLACK,
-      r.p4.x, r.p4.y, Gosu::Color::BLACK
+      r.p1.x, r.p1.y, Graphics::Color::BLACK,
+      r.p2.x, r.p2.y, Graphics::Color::BLACK,
+      r.p3.x, r.p3.y, Graphics::Color::BLACK,
+      r.p4.x, r.p4.y, Graphics::Color::BLACK
     )
   end
 end

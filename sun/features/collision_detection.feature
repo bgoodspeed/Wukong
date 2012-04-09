@@ -8,7 +8,7 @@ Feature: Collision Detection
     And I set the player avatar to "avatar.bmp"
     And I set the player step size to 10
     And I set the game clock to 60 fps
-    When I simulate "Gosu::KbUp,Gosu::KbLeft"
+    When I simulate "Graphics::KbUp,Graphics::KbLeft"
     And I run the game loop 2 times
     Then the player should be at position 36,36
 
@@ -21,7 +21,7 @@ Feature: Collision Detection
     And I set the player weapon with image "weapon.png"
     And I set the player weapon type to "projectile"
     And I set the game clock to 60 fps
-    When I simulate "Gosu::KbSpace"
+    When I simulate "Graphics::KbSpace"
     And I run the game loop 1 times
     Then there should be projectiles at:
       | expected_position |
@@ -36,7 +36,7 @@ Feature: Collision Detection
     And I set the player weapon with image "weapon.png"
     And I set the player weapon type to "projectile"
     And I set the game clock to 60 fps
-    When I simulate "Gosu::KbSpace"
+    When I simulate "Graphics::KbSpace"
     And I run the game loop 44 times and clear the state after run 1
     Then there should be no projectiles
 
@@ -51,7 +51,7 @@ Feature: Collision Detection
     And I set the player weapon with image "weapon.png"
     And I set the player weapon type to "projectile"
     And I set the game clock to 60 fps
-    When I simulate "Gosu::KbSpace"
+    When I simulate "Graphics::KbSpace"
     And I run the game loop 22 times and clear the state after run 1
     Then there should be no projectiles
 
@@ -67,7 +67,7 @@ Feature: Collision Detection
     And I set the enemy position 50,300
     And I set the enemy health to 5
     And I set the game clock to 60 fps
-    When I simulate "Gosu::KbUp"
+    When I simulate "Graphics::KbUp"
     And I run the game loop 17 times
     And the player health should be 9
     And the enemy health should be 4
@@ -84,7 +84,7 @@ Feature: Collision Detection
     And I set the enemy position 50,300
     And I set the enemy health to 5
     And I set the game clock to 60 fps
-    When I simulate "Gosu::KbUp"
+    When I simulate "Graphics::KbUp"
     And I run the game loop 17 times
     And the player health should be 9
     And the enemy health should be 4

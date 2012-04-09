@@ -28,14 +28,14 @@ Feature: Game
   Scenario: New Game Loading Level Invoke Event Area - New Game
     Given I load the game "new_game_load_screen"
     And I set the player position to 100,100
-    When I simulate "Gosu::KbO"
+    When I simulate "Graphics::KbO"
     When I run the game loop 1 times
     And a "EventTypes::START_NEW_GAME" event should be queued
 
   Scenario: New Game Loading Level Off Event Area
     Given I load the game "new_game_load_screen"
     And I set the player position to 320,240
-    When I simulate "Gosu::KbO"
+    When I simulate "Graphics::KbO"
     When I run the game loop 1 times
     And there should be no events queued
 

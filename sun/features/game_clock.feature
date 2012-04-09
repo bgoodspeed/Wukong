@@ -57,14 +57,14 @@ Feature: Game Clock
     And I set the player menu action delay to 2
     And I enqueue a timed event with name "dam" and start_action "disable_action" and end_action "enable_action" and data "Down" for 2 ticks
     When I enter the menu
-    When I simulate "Gosu::KbDown"
+    When I simulate "Graphics::KbDown"
     When I run the game loop 1 times
     Then the action "Down" should be disabled
     Then the action "bar" should be enabled
     Then the current menu entry should have:
       | display_text   | 
       | one            |
-    When I simulate "Gosu::KbDown"
+    When I simulate "Graphics::KbDown"
     When I run the game loop 2 times
     Then the current menu entry should have:
       | display_text   |

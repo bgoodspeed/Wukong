@@ -1,5 +1,5 @@
 When /^I expect gosu to load the image$/ do 
-  Gosu::Image.expects(:new).returns("image mock")
+  Graphics::Image.expects(:new).returns("image mock")
 end
 
 When /^I create an image manager$/ do

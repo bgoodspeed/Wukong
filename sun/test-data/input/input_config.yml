@@ -1,19 +1,19 @@
 input_config:
   keyboard_config:
-    Gosu::KbLeft: KeyActions::LEFT
-    Gosu::KbRight: KeyActions::RIGHT
-    Gosu::KbUp: KeyActions::UP
-    Gosu::KbDown: KeyActions::DOWN
-    Gosu::KbSpace: KeyActions::FIRE
-    Gosu::KbEnter: KeyActions::MENU_ENTER
-    Gosu::KbReturn: KeyActions::MENU_ENTER
-    Gosu::KbM: KeyActions::MENU
-    Gosu::KbQ: KeyActions::QUIT
-    Gosu::KbO: KeyActions::INTERACT
+    Graphics::KbLeft: KeyActions::LEFT
+    Graphics::KbRight: KeyActions::RIGHT
+    Graphics::KbUp: KeyActions::UP
+    Graphics::KbDown: KeyActions::DOWN
+    Graphics::KbSpace: KeyActions::FIRE
+    Graphics::KbEnter: KeyActions::MENU_ENTER
+    Graphics::KbReturn: KeyActions::MENU_ENTER
+    Graphics::KbM: KeyActions::MENU
+    Graphics::KbQ: KeyActions::QUIT
+    Graphics::KbO: KeyActions::INTERACT
   gamepad_config:
-    Gosu::GpLeft: KeyActions::LEFT
-    Gosu::GpRight: KeyActions::RIGHT
-    Gosu::GpUp: KeyActions::UP
-    Gosu::GpDown: KeyActions::DOWN
+    Graphics::GpLeft: KeyActions::LEFT
+    Graphics::GpRight: KeyActions::RIGHT
+    Graphics::GpUp: KeyActions::UP
+    Graphics::GpDown: KeyActions::DOWN
   
 
