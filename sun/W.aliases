@@ -1,0 +1,8 @@
+W='cd ~/src/Wukong/sun'
+b='cd $OLDPWD'
+be='bundle exec'
+ber='bundle exec rake'
+berf='bundle exec rake fast_specs'
+berm='bundle exec ruby main.rb'
+bern='bundle exec rake named_specs'
+bers='bundle exec rake slow_specs'
