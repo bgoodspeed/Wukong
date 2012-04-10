@@ -37,6 +37,9 @@ def stub_out_gosu
   Graphics::Song.stubs(:new).returns(stub_song)
 end
 
+Given /^I use the game named "([^"]*)"$/ do |arg1|
+  @game = lookup_game_named("test-data/#{arg1}.yml")
+end
 
 Given /^I load the game on level "([^"]*)" with screen size (\d+), (\d+)$/ do |level_to_load, width, height|
   #stub_out_gosu

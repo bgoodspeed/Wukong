@@ -25,6 +25,14 @@ def invoke_property_string_on(e, property_string)
   }
   v
 end
+$games_by_name = {}
+
+def lookup_game_named(name)
+  unless $games_by_name.has_key? name
+    $games_by_name[name] = YamlLoader.game_from_file(name)
+  end
+  $games_by_name[name]
+end
 
 Before do |scenario|
   if ENV['do_profile'] =~ /yes/

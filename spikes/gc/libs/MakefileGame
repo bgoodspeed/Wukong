@@ -1,0 +1,7 @@
+LDFLAGS   += -I. gosu/lib/libgosu.a -lintl
+LDFLAGS   += -Lc:/lib/SDL_mixer/lib -lSDL_mixer 
+LDFLAGS   += -Lc:/lib/freeimage/Dist -lfreeimage 
+LDFLAGS   += -Lc:/lib/SDL/lib -llibsdl 
+LDFLAGS   += -lopengl32 -lglu32 -lgdi32 -lwinmm -ldxguid -lws2_32 -ldinput8
+LDFLAGS   += -Lc:/lib/openal/libs/Win64 -lOpenAl32
+
