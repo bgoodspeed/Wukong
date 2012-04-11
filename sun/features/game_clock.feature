@@ -9,7 +9,7 @@ Feature: Game Clock
     And I set the player avatar to "avatar.bmp"
     And I set the game clock to 60 fps
     When I run the game loop 1 times
-    Then the elapsed clock time should be between 15 and 70 milliseconds
+    Then the elapsed clock time should be between 15 and 20 milliseconds
     And the number of frames render should be 1
 
   Scenario: Game Clock Averaged

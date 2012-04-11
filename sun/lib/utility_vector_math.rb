@@ -19,14 +19,21 @@ module ArrayVectorOperations
     each {|v| rv = v.send(op, rv) }
     rv
   end
+  #HACK this is hard coded to 2d
+  def sum2d
+    self[0] + self[1]
+  end
   def sum
     foldl(:+, 0)
   end
 
+  #HACK this is hard coded to 2d
   def dot(other)
-    raise "size mismatch" unless self.size == other.size
-    rvs = gather_up_as(:*, other)
-    rvs.sum
+#    rvs = gather_up_as(:*, other)
+    rvs = []
+    rvs[0] = self[0] * other[0]
+    rvs[1] = self[1] * other[1]
+    rvs.sum2d
   end
 
   def norm
