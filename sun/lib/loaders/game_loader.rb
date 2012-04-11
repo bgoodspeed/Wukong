@@ -45,7 +45,10 @@ class GameLoader
       menu_manager.add_menu(game.menu_for_load_game, m)
     end
     
-    
+    if conf['splash_screen']
+      game.splash_manager.add_splash(conf['splash_screen'])
+      game.splash_manager.splash_mode = true
+    end
 
     game
   end

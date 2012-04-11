@@ -19,6 +19,11 @@ class ImageManager
     @images.collect {|k| k[1]}
   end
 
+  def draw_image(e)
+    coords = e.position
+    lookup_image(e.image_file).draw(coords[0] , coords[1] , ZOrder.dynamic.value)
+  end
+
   def draw_in_screen_coords(e)
     coords = @game.camera.screen_coordinates_for(e.position)
     lookup_image(e.image_file).draw_rot(coords[0] , coords[1] , ZOrder.dynamic.value, e.direction)

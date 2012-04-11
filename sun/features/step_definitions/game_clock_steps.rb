@@ -3,7 +3,7 @@ Given /^I set the game clock to (\d+) fps$/ do |framerate|
   @game.clock = @clock
 end
 
-
+#TODO speed this up and reinstate 60fps
 
 When /^I run the game loop (\d+) times$/ do |loops|
   loops.to_i.times do

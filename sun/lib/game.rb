@@ -50,6 +50,7 @@ require 'loaders/level_loader'
 require 'loaders/save_loader'
 
 require 'managers/sound_manager'
+require 'managers/splash_manager'
 
 
 require 'forwardable'
@@ -62,7 +63,7 @@ class Game
     :wayfinding, :menu_manager, :main_menu_name, :input_manager,
     :temporary_message, :mouse_drawn, :event_manager, :image_manager, 
     :action_manager, :condition_manager, :completion_manager, :active, 
-    :new_game_level, :menu_for_load_game, :game_load_path
+    :new_game_level, :menu_for_load_game, :game_load_path, :splash_manager
 
   alias_method :active?, :active
 
@@ -73,6 +74,7 @@ class Game
   def_delegators :@animation_manager, :load_animation
   def_delegators :@input_manager, :enable_action, :disable_action, :event_enabled?
   def_delegators :@sound_manager, :play_effect
+  def_delegators :@splash_manager, :splash_mode
   def_delegators :@screen, :window, :show
   def_delegator:@screen, :set_size, :set_screen_size
   def_delegator:@menu_manager, :active?, :menu_mode?
@@ -103,6 +105,7 @@ class Game
     @clock = Clock.new(self, dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
     @sound_manager = SoundManager.new(self)
+    @splash_manager = SplashManager.new(self)
     @save_loader = SaveLoader.new(self)
     @collisions = []
   end
@@ -159,6 +162,7 @@ class Game
   end
 
   def update_game_state
+    
     @event_manager.handle_events
     @input_manager.respond_to_keys
     @animation_manager.tick
@@ -169,6 +173,11 @@ class Game
   end
 
   def render_one_frame
+    if @splash_manager.splash_mode
+      @splash_manager.draw(@screen)
+      return
+    end
+
     @level.draw(@screen)
     @animation_manager.draw(@screen)
     @hud.draw(@screen)
@@ -199,6 +208,7 @@ class Game
     update_all
     draw
     while @clock.current_frame_too_fast? do
+    #  puts "looping"
       # TODO NOOP, could sleep to free up CPU cycles
     end
   end

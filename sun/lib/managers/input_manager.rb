@@ -102,6 +102,10 @@ class InputManager
   end
 
   def respond_to_keys
+    if @game.splash_mode
+      @game.splash_manager.splash_mode = false unless @keys.empty?
+      return
+    end
 
     run_activated @game.action_manager.always_available_behaviors
     
