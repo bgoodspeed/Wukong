@@ -1,3 +1,3 @@
 enemy:
-  image_path: test-data/sprites/enemy1.png
+  image_path: test-data/sprites/enemy3.png
   health: 30
