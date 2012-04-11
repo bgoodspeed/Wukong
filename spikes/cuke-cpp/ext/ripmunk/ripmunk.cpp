@@ -27,5 +27,6 @@ void Init_ripmunk() {
             .define_constructor(Constructor<Foo>())
             .define_method("hello", &test_hello);
 
+
 }
 

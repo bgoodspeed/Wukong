@@ -6,6 +6,7 @@ $:.unshift File.join(File.dirname(__FILE__),'..','lib')
 require 'test/unit'
 require 'ripmunk'
 
+
 class RipmunkTest < Test::Unit::TestCase
 
   def test_can_make_a_foo

@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/ext/ripmunk/ripmunk.cpp</file>
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/Rakefile</file>
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/ext/ripmunk/extconf.rb</file>
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/tmp/i686-linux/ripmunk/1.9.2/Makefile</file>
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/Gemfile</file>
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/test/ripmunk_test.rb</file>
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/lib/ripmunk.rb</file>
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/lib/spatial_hash.rb</file>
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/features/support/env.rb</file>
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/features/step_definitions/spatial_hash_steps.rb</file>
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/features/spatial_hash.feature</file>
+        <file>file:/home/bg/src/Wukong/spikes/cuke-cpp/lib/utility_vector_math.rb</file>
+    </open-files>
 </project-private>
