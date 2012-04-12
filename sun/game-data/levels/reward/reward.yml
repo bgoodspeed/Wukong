@@ -26,4 +26,4 @@ event_areas:
   - top_left: [ 10, 10 ]
     bottom_right: [ 280, 180 ]
     label: Reward
-    action: queue_start_new_game_event
+    action: take_reward

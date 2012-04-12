@@ -1,6 +1,8 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
+require 'yaml'
+
 class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
@@ -128,5 +130,20 @@ class Player
   def to_s
     "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
   end
+  #TODO make a module
+  def to_yaml
 
+    overrides = {  }
+    overrides[:weapon] = @weapon.orig_filename if @weapon
+    cf = {}
+    ATTRIBUTES.each {|attr|
+      if overrides.has_key?(attr)
+        rv = overrides[attr]
+      else
+        rv = self.send(attr)
+      end
+      cf[attr.to_s] = rv
+      }
+    {"player" => cf}.to_yaml(:UseHeader => true)
+  end
 end

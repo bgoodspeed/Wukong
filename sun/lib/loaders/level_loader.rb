@@ -12,6 +12,7 @@ class LevelLoader
   def load_level(which_level)
     level = Level.new(@game)
     data = YAML.load_file(which_level)
+    level.orig_filename = which_level
     level.measurements = [data["measurements"]["width"].to_i,data["measurements"]["height"].to_i]
     level.background_image = data["background_image"]
     level.background_music = data["background_music"] if data["background_music"]

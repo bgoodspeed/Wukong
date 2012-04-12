@@ -45,3 +45,10 @@ Feature: Player Details
     And the player radius should be 36
     Then the weapon should be in use and on frame 1
     And the weapon sound should be played
+
+  Scenario: Player YAML saving
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I load a player from "player.yml"
+    When I see the first frame
+    Then the player should have yaml matching "expected_player.yml"
+   
