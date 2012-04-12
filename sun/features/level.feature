@@ -71,6 +71,7 @@ Feature: Level Description
 
   Scenario: Level Completion Combined
     Given I load the game on level "combined" with screen size 640, 480
+    And I set the player health to 100
     When I run the game loop 1 times
     Then the level completion status should be "false"
     When I run the game loop 1 times

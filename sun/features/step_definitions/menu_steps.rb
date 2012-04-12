@@ -24,7 +24,7 @@ When /^I enter the menu$/ do
 end
 
 Then /^the menu named "([^"]*)" should be active$/ do |name|
-  menu = @menu_manager.menu_named(name)
+  menu = mm.menu_named(name)
 
   @menu_manager.should be_active
   @menu_manager.current_menu.should == menu
@@ -69,10 +69,10 @@ Then /^the menu action result should be (\d+)$/ do |arg1|
 end
 
 Then /^the game should be in menu mode$/ do
-  @menu_manager.should be_active
+  mm.should be_active
 end
 Then /^the game should not be in menu mode$/ do
-  @menu_manager.should_not be_active
+  mm.should_not be_active
 end
 
 Then /^the breadcrumb trail should have the following:$/ do |table|

@@ -2,12 +2,13 @@
 # and open the template in the editor.
 
 class Clock
+  attr_accessor :throttle
   attr_reader :frames_rendered, :events
   def initialize(game, framerate)
     @game = game
     @target_framerate = framerate
     @target_frame_time = (1.0/@target_framerate.to_f)*1000.0
-
+    @throttle = true
     @start_time = @last_time = Graphics::milliseconds
     @frames_rendered = 0
     @events = {}
@@ -30,7 +31,7 @@ class Clock
     @events.reject!{|k,v| to_rm.include?(k)}
   end
   def current_frame_too_fast?
-    elapsed_time_ms < @target_frame_time
+    @throttle && (elapsed_time_ms < @target_frame_time)
   end
   def elapsed_time_ms
     Graphics::milliseconds - @last_time

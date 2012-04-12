@@ -117,8 +117,14 @@ class Player
     #puts "#{self} took damage from #{col}"
     #TODO this doesn't really make sense but illustrates possible behaviors
     @health -= 1
+    if dead?
+      @game.add_event(Event.new(self, EventTypes::DEATH))
+    end
   end
-  
+  def dead?
+    @health <= 0
+  end
+
   def to_s
     "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
   end

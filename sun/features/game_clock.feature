@@ -9,7 +9,7 @@ Feature: Game Clock
     And I set the player avatar to "avatar.bmp"
     And I set the game clock to 60 fps
     When I run the game loop 1 times
-    Then the elapsed clock time should be between 15 and 20 milliseconds
+    Then the elapsed clock time should be between 15 and 25 milliseconds
     And the number of frames render should be 1
 
   Scenario: Game Clock Averaged
@@ -73,6 +73,7 @@ Feature: Game Clock
 
   Scenario: Spawn Events Repeating
     Given I load the game on level "simple" with screen size 640, 480
+    And I set the player health to 100
     And I create a condition manager
     And I stub "foo" on game to return "false"
     When I add a fake condition that checks "foo" on game named "COND"

@@ -11,8 +11,9 @@ class GameBM
     
     #@game.sound_manager.play_song("music", true)
   end
-  def unthrottle
-    @game.clock.throttle = false
+
+  def load_level
+    @game.load_level(@game.new_game_level)
   end
   def profile(s="")
     require 'ruby-prof'
@@ -42,7 +43,7 @@ class GameBM
     
     Dir.mkdir "profile" unless File.exists?("profile")
     f = @name.gsub("/","_").gsub(" ", "_")
-    p = "bm_demo_#{@prof_loops}_#{f}_#{s}"
+    p = "bm_load_#{@prof_loops}_#{f}_#{s}"
     printer.print(:path => "profile", :profile => p)
 
   end
@@ -54,14 +55,14 @@ class GameBM
     end
   end
 end
-bm = GameBM.new("game-data/game.yml")
+bm = GameBM.new("test-data/new_game_load_screen.yml")
 
 if $0 == __FILE__
   bm.profile
   bm.benchmark
-  bm.unthrottle
-  bm.profile("unthrottled")
-  bm.benchmark("unthrottled: ")
+  bm.load_level
+  bm.profile("afterlevel")
+  bm.benchmark("afterlevel")
   #bm.game.show
 else
   bm.benchmark

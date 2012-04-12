@@ -72,8 +72,12 @@ Then /^the player radius should be (\d+)$/ do |radius|
   @player.radius.should == radius.to_i
 end
 
+def p
+  @player ? @player : @game.player
+end
+
 Given /^I set the player health to (\d+)$/ do |arg1|
-  @player.health = arg1.to_i
+  p.health = arg1.to_i
 end
 
 Given /^I set the enemy health to (\d+)$/ do |arg1|
@@ -92,7 +96,13 @@ Then /^the player property "([^"]*)" should be "([^"]*)"$/ do |arg1, arg2|
 end
 
 Given /^I set the player position to (\d+),(\d+)$/ do |arg1, arg2|
-  p = @player.nil? ? @game.player : @player
   p.position = [arg1.to_i, arg2.to_i]
 end
 
+When /^I damage the player$/ do
+  p.take_damage(nil)
+end
+
+Then /^the player should be dead$/ do
+  p.should be_dead
+end

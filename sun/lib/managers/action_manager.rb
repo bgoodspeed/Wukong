@@ -36,8 +36,15 @@ class ActionManager
     {
       #TODO not sure if this should be here or in the events themselves
       EventTypes::DEATH => lambda {|game,e|
-        game.player.enemy_killed
-        game.remove_enemy(e.argument)},
+        if e.argument.kind_of?(game.player.class)
+          game.over = true
+          game.enter_menu(game.game_over_menu)
+          game.disable_action(KeyActions::MENU)
+        else
+          game.player.enemy_killed
+          game.remove_enemy(e.argument)
+        end
+        },
       EventTypes::LAMBDA => lambda {|game,e| e.invoke },
       EventTypes::START_NEW_GAME => lambda { |game, e| game.load_level(game.new_game_level)},
       EventTypes::PICK => lambda {|game,e| puts "In Action Manager: must implement what to do when #{e.picked}"},

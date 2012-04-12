@@ -63,7 +63,8 @@ class Game
     :wayfinding, :menu_manager, :main_menu_name, :input_manager,
     :temporary_message, :mouse_drawn, :event_manager, :image_manager, 
     :action_manager, :condition_manager, :completion_manager, :active, 
-    :new_game_level, :menu_for_load_game, :game_load_path, :splash_manager
+    :new_game_level, :menu_for_load_game, :game_load_path, :splash_manager, 
+    :over, :game_over_menu
 
   alias_method :active?, :active
 
@@ -102,6 +103,7 @@ class Game
     @main_menu_name = "main menu"
     @game_load_path = "UNSET"
     @active = true
+    @over = false 
     @clock = Clock.new(self, dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
     @sound_manager = SoundManager.new(self)

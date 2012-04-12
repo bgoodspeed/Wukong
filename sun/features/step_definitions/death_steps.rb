@@ -15,6 +15,13 @@ end
 When /^I create an enemy death event$/ do
   @game.add_event(Event.new(@enemy, EventTypes::DEATH))
 end
+When /^I create a player death event$/ do
+  @game.add_event(Event.new(@game.player, EventTypes::DEATH))
+end
+
+Then /^the game should be over$/ do
+  @game.over.should be_true
+end
 
 Then /^enemy should not be in scene$/ do
   elems = @game.dynamic_elements

@@ -49,6 +49,11 @@ class GameLoader
       game.splash_manager.add_splash(conf['splash_screen'])
       game.splash_manager.splash_mode = true
     end
+    if conf['game_over_menu']
+      game.game_over_menu = conf['game_over_menu']
+      m = YamlLoader.from_file(Menu, game, conf['game_over_menu'])
+      menu_manager.add_menu(game.game_over_menu, m)
+    end
 
     game
   end

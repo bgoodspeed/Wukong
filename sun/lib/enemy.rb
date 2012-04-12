@@ -61,6 +61,7 @@ class Enemy
     self.class
   end
 
+  #TODO this should be in a module
   def dead?
     @health <= 0
   end

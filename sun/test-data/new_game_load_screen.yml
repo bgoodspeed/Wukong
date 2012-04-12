@@ -10,3 +10,4 @@ game:
   new_game_level: "test-data/levels/demo/demo.yml"
   menu_for_load_game: "test-data/menus/load_game.yml"
   game_load_path: "test-data/loads/"
+  game_over_menu: "test-data/menus/game_over.yml"
