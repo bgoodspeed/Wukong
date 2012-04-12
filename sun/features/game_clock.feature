@@ -39,7 +39,21 @@ Feature: Game Clock
     When I run the game loop 1 times
     And the number of frames render should be 1
     Then the elapsed clock time should be between 0 and 25 milliseconds
-    
+    When I run the game loop 30 times
+   Then the elapsed clock time should be between 0 and 550 milliseconds
+
+  Scenario: Reloading Levels Profiled New Game to Demo
+    Given I load the game "new_game_load_screen"
+    And I set the game clock to 60 fps
+    And I reset the clock
+    When I run the game loop 1 times
+    And the number of frames render should be 1
+    And I reload the level "demo"
+    When I run the game loop 1 times
+    And the number of frames render should be 1
+    Then the elapsed clock time should be between 0 and 25 milliseconds
+    When I run the game loop 30 times
+   Then the elapsed clock time should be between 0 and 550 milliseconds
 
   Scenario: Game Clock Timed Events
     Given I load the game on level "trivial" with screen size 640, 480
