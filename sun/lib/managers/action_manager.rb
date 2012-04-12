@@ -79,6 +79,10 @@ class ActionManager
       KeyActions::DOWN => lambda { |game, arg|
         introduce_delay(game, KeyActions::DOWN, game.player.menu_action_delay)
         game.menu_manager.move_down
+      },#TODO: Tung's hacking the up button for gameover menu
+      KeyActions::UP => lambda { |game, arg|
+        introduce_delay(game, KeyActions::UP, game.player.menu_action_delay)
+        game.menu_manager.move_up
       },
       KeyActions::MENU_ENTER => lambda { |game, arg|
         introduce_delay(game, KeyActions::MENU_ENTER, game.player.menu_action_delay)

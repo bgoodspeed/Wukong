@@ -30,6 +30,11 @@ class Menu
   def move_down
     @current_index = (@current_index + 1) % @entries.size
   end
+  #TODO: Tung's hacking move up in menus
+  def move_up
+    @current_index = (@current_index - 1) % @entries.size
+  end
+
   def current_entry
     @entries[@current_index]
   end
@@ -131,6 +136,10 @@ class MenuManager
   end
   def move_down
     current_menu.move_down
+  end
+  #TODO: Tung's hacking move up in menus
+  def move_up
+    current_menu.move_up
   end
   def activate(name)
     @active_menu_name = name
