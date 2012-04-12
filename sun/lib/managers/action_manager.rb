@@ -46,7 +46,8 @@ class ActionManager
         end
         },
       EventTypes::LAMBDA => lambda {|game,e| e.invoke },
-      EventTypes::START_NEW_GAME => lambda { |game, e| game.load_level(game.new_game_level)},
+      EventTypes::LOAD_LEVEL => lambda { |game, e| game.load_level(e.argument)},
+      EventTypes::START_NEW_GAME => lambda { |game, e| game.load_level(e.argument)},
       EventTypes::PICK => lambda {|game,e| puts "In Action Manager: must implement what to do when #{e.picked}"},
       EventTypes::SPAWN => lambda {|game,e| game.add_enemy(e.argument)}
     }
@@ -57,7 +58,7 @@ class ActionManager
     {
       KeyActions::QUIT => lambda {|game, arg| game.deactivate_and_quit },
 
-      BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(nil, EventTypes::START_NEW_GAME))},
+      BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(game.new_game_level, EventTypes::START_NEW_GAME))},
       #TODO figure out which game to load from menu?
       BehaviorTypes::QUEUE_LOAD_GAME_EVENT => lambda {|game, arg| game.enter_menu(game.menu_for_load_game) },
 #      BehaviorTypes::CHOOSE_GAME_MENU => lambda {|game, arg| puts "todo activate a menu based on '#{arg}'"}

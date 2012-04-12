@@ -9,12 +9,12 @@ Feature: Action
     When I invoke the action "<action>" with argument stubbing "<stubs>" and expecting "<expects>" and set "<set>"
     Then the game property "<game_prop>" should be "<game_value_final>"
   Examples:
-   | action                     | game_prop             | game_value_init | game_value_final | stubs    | expects | set                          |
-   | EventTypes::DEATH          | player.enemies_killed | 0               | 1                | argument |         |                              |
-   | EventTypes::SPAWN          | enemies.size          | 0               | 1                | argument |         |                              |
-   | EventTypes::SPAWN          | enemies.size          | 0               | 1                | argument |         |                              |
-   | KeyActions::DOWN           | player.position       | [320, 240]      | [320.0, 242.0]   |          |         | gameplay_behaviors           |
-   | EventTypes::START_NEW_GAME | level.name            | 'load_screen'   | 'demo'           |          |         | event_actions                |
+   | action                     | game_prop             | game_value_init | game_value_final | stubs                                           | expects | set                          |
+   | EventTypes::DEATH          | player.enemies_killed | 0               | 1                | argument                                        |         |                              |
+   | EventTypes::SPAWN          | enemies.size          | 0               | 1                | argument                                        |         |                              |
+   | EventTypes::SPAWN          | enemies.size          | 0               | 1                | argument                                        |         |                              |
+   | KeyActions::DOWN           | player.position       | [320, 240]      | [320.0, 242.0]   |                                                 |         | gameplay_behaviors           |
+   | EventTypes::START_NEW_GAME | level.name            | 'load_screen'   | 'demo'           | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
 
   Scenario Outline: Actions being invoked collision response
     Given I load the game on level "trivial" with screen size 640, 480

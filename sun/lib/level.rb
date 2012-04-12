@@ -25,7 +25,8 @@ class Level
   attr_accessor :measurements, :line_segments, :triangles, :circles, 
     :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, 
     :maximum_y, :event_emitters, :enemies, :declared_enemies, :spawn_points,
-    :ored_completion_conditions, :anded_completion_conditions, :name, :event_areas
+    :ored_completion_conditions, :anded_completion_conditions, :name, 
+    :event_areas, :reward_level
   attr_reader :background_image, :background_music
   @@CELL_SIZE = 10
   def initialize(game=nil)
@@ -166,7 +167,9 @@ class Level
   def tick
     update_spawn_points
     if completed?
-      e = LambdaEvent.new(@game, lambda{|game, arg| puts "decide what to do now that you've beaten this level. #{arg}"}, "argumentblahblah")
+      raise "need to set reward level for completable levels: #{self} #{@name}" unless @reward_level
+      e = Event.new( @reward_level, EventTypes::LOAD_LEVEL)
+      #e = LambdaEvent.new(@game, lambda{|game, arg| puts "decide what to do now that you've beaten this level. #{arg}"}, "argumentblahblah")
       @game.add_event(e)
     end
   end

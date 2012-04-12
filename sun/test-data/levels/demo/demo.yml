@@ -2,6 +2,7 @@ name: demo
 background_image: test-data/levels/demo/grass.jpg
 background_music: test-data/music/music.wav
 wayfinding: test-data/levels/demo/wayfinding.yml
+reward_level: test-data/levels/foo/foo.yml
 measurements:
   width: 640
   height: 480

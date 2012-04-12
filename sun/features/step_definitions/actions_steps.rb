@@ -2,13 +2,26 @@
 def expectall(on, a)
   stub_args = a.split(",")
   stub_args.each {|arg|
-    on.expects(arg)
+    if arg =~ /:/
+      ms = arg.split(":")
+      on.expects(ms[0]).returns(ms[1])
+    else
+      on.expects(arg)
+    end
+    
   }
 end
 def stuball(on, arg)
   stub_args = arg.split(",")
   stub_args.each {|arg|
-    on.stubs(arg)
+    if arg =~ /:/
+      ms = arg.split(":")
+      on.stubs(ms[0]).returns(ms[1])
+    else
+      on.stubs(arg)
+    end
+
+    
   }
 end
 When /^I invoke the action "([^"]*)" with argument stubbing "([^"]*)" and expecting "([^"]*)" and set "([^"]*)"$/ do |action_name, arg2, arg3, arg4|

@@ -62,6 +62,7 @@ Feature: Level Description
     Then there should be be 3 enemies defined
     And there should be 2 spawn points
     And the background music is named "music.wav"
+    And the reward level is "foo"
 
   Scenario: Level Completion
     Given I load the game on level "completion_at_frame_two" with screen size 640, 480

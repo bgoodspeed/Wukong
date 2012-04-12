@@ -130,3 +130,6 @@ Then /^the background music is named "([^"]*)"$/ do |arg1|
   @game.level.background_music.should == "test-data/music/#{arg1}"
 end
 
+Then /^the reward level is "([^"]*)"$/ do |arg1|
+  @game.level.reward_level.should == "test-data/levels/#{arg1}/#{arg1}.yml"
+end

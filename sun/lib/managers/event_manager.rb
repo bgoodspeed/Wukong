@@ -7,7 +7,7 @@ module EventTypes
   DEATH = "DEATH"
   START_NEW_GAME = "START_NEW_GAME"
   LOAD_GAME = "LOAD_GAME"
-  
+  LOAD_LEVEL = "LOAD_LEVEL"
 end
 
 class Event

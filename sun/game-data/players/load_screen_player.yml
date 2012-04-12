@@ -1,0 +1,9 @@
+player:
+  image_path: test-data/sprites/player20120411.png
+  movement_distance: 2
+  turn_speed: 5
+  health: 5
+  max_health: 6
+  position: [ 320, 240 ]
+  menu_action_delay: 12
+  weapon_yaml: game-data/equipment/gun.yml

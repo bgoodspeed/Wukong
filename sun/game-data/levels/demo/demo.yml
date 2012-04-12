@@ -1,6 +1,7 @@
 name: demo
-background_image: test-data/levels/demo/grass.jpg
-wayfinding: test-data/levels/demo/wayfinding.yml
+background_image: game-data/levels/demo/grass.jpg
+wayfinding: game-data/levels/demo/wayfinding.yml
+reward_level: game-data/levels/reward/reward.yml
 measurements:
   width: 640
   height: 480
@@ -8,7 +9,7 @@ anded_completion_conditions:
   - condition: player_health_at_least
     argument: 1
   - condition: enemies_killed_at_least
-    argument: 4
+    argument: 3
 declared_enemies:
   - enemy_yaml: test-data/enemies/enemy.yml
     name: e1

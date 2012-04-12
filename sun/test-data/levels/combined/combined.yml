@@ -1,6 +1,7 @@
 name: combined
 background_image: test-data/levels/completion_at_frame_two/grass.jpg
 wayfinding: test-data/levels/completion_at_frame_two/wayfinding.yml
+reward_level: test-data/levels/baz/baz.yml
 measurements:
   width: 640
   height: 480

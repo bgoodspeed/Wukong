@@ -1,0 +1,41 @@
+name: load_screen
+background_image: test-data/levels/load_screen/grass.jpg
+background_music: test-data/music/music.wav
+wayfinding: test-data/levels/load_screen/wayfinding.yml
+measurements:
+  width: 640
+  height: 480
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+event_areas:
+  - top_left: [ 10, 10 ]
+    bottom_right: [ 280, 180 ]
+    label: Start New Game
+    action: queue_start_new_game_event
+  - top_left: [ 360, 10 ]
+    bottom_right: [ 630, 180 ]
+    label: Load Game
+    action: queue_load_game_event
+  - top_left: [ 10, 280 ]
+    bottom_right: [ 280, 470 ]
+    label: Settings
+    action: queue_settings_event
+  - top_left: [ 360, 280 ]
+    bottom_right: [ 630, 470 ]
+    label: Continue
+    action: queue_continue_event
