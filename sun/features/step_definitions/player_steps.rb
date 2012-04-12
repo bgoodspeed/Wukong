@@ -106,3 +106,13 @@ end
 Then /^the player should be dead$/ do
   p.should be_dead
 end
+
+Then /^the player should have yaml:$/ do |string|
+  p.to_yaml.should == string
+end
+Then /^the player should have yaml matching "([^"]*)"$/ do |arg1|
+  p.to_yaml.should == IO.readlines("test-data/players/expected_player.yml").join("")
+end
+
+
+

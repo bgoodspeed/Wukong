@@ -80,3 +80,12 @@ end
 Then /^I load slot (\d+)$/ do |arg1|
   @game.load_game_slot(arg1.to_i)
 end
+
+Given /^I save slot (\d+)$/ do |arg1|
+  @name = @game.save_game_slot(arg1.to_i)
+end
+
+
+Then /^the save file should match "([^"]*)"$/ do |arg1|
+  IO.readlines(@name).join("").should == IO.readlines("test-data/loads/#{arg1}").join("")
+end

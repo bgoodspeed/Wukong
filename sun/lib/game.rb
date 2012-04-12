@@ -115,6 +115,9 @@ class Game
   def load_game_slot(slot)
     @save_loader.load_slot(slot)
   end
+  def save_game_slot(slot)
+    @save_loader.save_slot(slot)
+  end
 
   def load_level(level_name)
     @level = @level_loader.load_level(level_name)

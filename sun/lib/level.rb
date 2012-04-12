@@ -26,7 +26,7 @@ class Level
     :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, 
     :maximum_y, :event_emitters, :enemies, :declared_enemies, :spawn_points,
     :ored_completion_conditions, :anded_completion_conditions, :name, 
-    :event_areas, :reward_level
+    :event_areas, :reward_level, :orig_filename
   attr_reader :background_image, :background_music
   @@CELL_SIZE = 10
   def initialize(game=nil)

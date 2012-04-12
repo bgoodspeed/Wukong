@@ -133,3 +133,4 @@ end
 Then /^the reward level is "([^"]*)"$/ do |arg1|
   @game.level.reward_level.should == "test-data/levels/#{arg1}/#{arg1}.yml"
 end
+

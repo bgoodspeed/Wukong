@@ -22,6 +22,13 @@ Feature: Loading
     And I load slot 1
     Then the game property "level.name" should be "'demo'"
     Then the game property "player.position" should be "[300, 300]"
+
+  Scenario: Saving a game saves level, player etc
+    Given I load the game "new_game_load_screen"
+    And I set the player position to 350,200
+    And I save slot 2
+    Then the save file should match "expected_savedata.yml"
+
     
 
 
