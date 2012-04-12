@@ -82,4 +82,7 @@ Feature: Level Description
     When I run the game loop 1 times
     Then the level completion status should be "true"
 
-
+  Scenario: Reward Level Save Menu
+    Given I load the game "demo"
+    Then the game property "menu_for_save_game" should be "'test-data/menus/save_game.yml'"
+    

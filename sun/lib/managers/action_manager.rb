@@ -5,6 +5,7 @@
 module BehaviorTypes
   QUEUE_NEW_GAME_EVENT = "queue_start_new_game_event"
   QUEUE_LOAD_GAME_EVENT = "queue_load_game_event"
+  QUEUE_SAVE_GAME_EVENT = "queue_save_game_event"
   CHOOSE_GAME_MENU = "CHOOSE_GAME_MENU"
 end
 
@@ -12,6 +13,7 @@ class ActionManager
   def default_menu_actions
     {
       "debug_print" => lambda {|game, arg| puts "DEBUG_PRINT: #{arg}"},
+      "save_game_slot" => lambda {|game, arg| puts "calling with #{arg}" ; game.save_game_slot(arg)},
       "noop" => lambda {|game, arg| }
     }
   end
@@ -60,6 +62,7 @@ class ActionManager
 
       BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(game.new_game_level, EventTypes::START_NEW_GAME))},
       #TODO figure out which game to load from menu?
+      BehaviorTypes::QUEUE_SAVE_GAME_EVENT => lambda {|game, arg| game.enter_menu(game.menu_for_save_game) },
       BehaviorTypes::QUEUE_LOAD_GAME_EVENT => lambda {|game, arg| game.enter_menu(game.menu_for_load_game) },
 #      BehaviorTypes::CHOOSE_GAME_MENU => lambda {|game, arg| puts "todo activate a menu based on '#{arg}'"}
      

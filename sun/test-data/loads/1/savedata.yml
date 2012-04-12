@@ -1,3 +1,4 @@
+---
 savedata:
-  level: "test-data/levels/demo/demo.yml"
-  player: "test-data/players/player_moved.yml"
+  level: test-data/levels/demo/demo.yml
+  player: test-data/loads/1/player.yml

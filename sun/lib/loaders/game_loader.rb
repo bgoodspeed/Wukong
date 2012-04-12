@@ -44,6 +44,11 @@ class GameLoader
       m = YamlLoader.from_file(Menu, game, conf['menu_for_load_game'])
       menu_manager.add_menu(game.menu_for_load_game, m)
     end
+    if conf['menu_for_save_game']
+      game.menu_for_save_game = conf['menu_for_save_game']
+      m = YamlLoader.from_file(Menu, game, conf['menu_for_save_game'])
+      menu_manager.add_menu(game.menu_for_save_game, m)
+    end
     
     if conf['splash_screen']
       game.splash_manager.add_splash(conf['splash_screen'])

@@ -1,4 +1,4 @@
 --- 
 savedata: 
   level: test-data/levels/load_screen/load_screen.yml
-  player: test-data/loadarea/8/player.yml
+  player: test-data/loads/8/player.yml

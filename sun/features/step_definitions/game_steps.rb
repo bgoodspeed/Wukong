@@ -88,4 +88,9 @@ end
 
 Then /^the save file should match "([^"]*)"$/ do |arg1|
   IO.readlines(@name).join("").should == IO.readlines("test-data/loads/#{arg1}").join("")
+
+end
+
+Given /^I set the property "([^"]*)" to "([^"]*)"$/ do |arg1, arg2|
+  @game.send("#{arg1}=", arg2)
 end

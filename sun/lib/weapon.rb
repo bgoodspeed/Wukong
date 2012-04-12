@@ -4,13 +4,13 @@
 
 class Weapon
   ATTRIBUTES = [:swing_start , :swing_sweep ,  :swing_frames, :weapon_length,
-    :image_path, :type, :sound_effect_name, :velocity, :equipped_on]
+    :image_path, :type, :sound_effect_name, :velocity, :equipped_on, :orig_filename]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
 
   #TODO make YAML utils and pass attributes
-  def self.from_yaml(game, yaml)
+  def self.from_yaml(game, yaml, fn="unknown")
     data = YAML.load(yaml)
     w = data['weapon']
     weapon = Weapon.new(game, nil)

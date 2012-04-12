@@ -64,7 +64,7 @@ class Game
     :temporary_message, :mouse_drawn, :event_manager, :image_manager, 
     :action_manager, :condition_manager, :completion_manager, :active, 
     :new_game_level, :menu_for_load_game, :game_load_path, :splash_manager, 
-    :over, :game_over_menu
+    :over, :game_over_menu, :menu_for_save_game
 
   alias_method :active?, :active
 

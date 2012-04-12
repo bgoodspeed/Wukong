@@ -8,7 +8,7 @@ class Player
   MAX_TURN_DEGREES = 360
   attr_reader :radius
   ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, :max_health, 
-    :turn_speed, :movement_distance, :menu_action_delay, :enemies_killed
+    :turn_speed, :movement_distance, :menu_action_delay, :enemies_killed, :image_path
   ]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
@@ -19,7 +19,11 @@ class Player
     data = YAML.load(yaml)
     conf = data['player']
     obj = Player.new(conf['image_path'], game)
-    obj.equip_weapon(YamlLoader.from_file(Weapon, game, conf['weapon_yaml'])) if conf['weapon_yaml']
+    if conf['weapon_yaml']
+      w = YamlLoader.from_file(Weapon, game, conf['weapon_yaml'])
+      w.orig_filename = conf['weapon_yaml']
+      obj.equip_weapon(w)
+    end
     process_attributes(ATTRIBUTES, obj, conf)
     obj
   end
