@@ -122,7 +122,9 @@ class Game
       @player = @player_loader.load_player
     end
     @level.add_player(@player)
-
+    if @level.background_music
+      @sound_manager.play_song(@level.background_music, true)
+    end
     @clock.reset
     @level
   end

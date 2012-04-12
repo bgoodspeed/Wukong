@@ -14,6 +14,7 @@ class LevelLoader
     data = YAML.load_file(which_level)
     level.measurements = [data["measurements"]["width"].to_i,data["measurements"]["height"].to_i]
     level.background_image = data["background_image"]
+    level.background_music = data["background_music"] if data["background_music"]
     level.name = data["name"]
 
     data["line_segments"].to_a.each do |lineseg|

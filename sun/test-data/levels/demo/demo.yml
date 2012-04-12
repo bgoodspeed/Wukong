@@ -1,5 +1,6 @@
 name: demo
 background_image: test-data/levels/demo/grass.jpg
+background_music: test-data/music/music.wav
 wayfinding: test-data/levels/demo/wayfinding.yml
 measurements:
   width: 640

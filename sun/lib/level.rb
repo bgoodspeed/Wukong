@@ -26,7 +26,7 @@ class Level
     :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, 
     :maximum_y, :event_emitters, :enemies, :declared_enemies, :spawn_points,
     :ored_completion_conditions, :anded_completion_conditions, :name, :event_areas
-  attr_reader :background_image
+  attr_reader :background_image, :background_music
   @@CELL_SIZE = 10
   def initialize(game=nil)
     @space = SpaceWrapper.new
@@ -56,6 +56,14 @@ class Level
     @background_image = img
     if @game
       @background = @game.image_manager.register_image(@background_image)
+    else
+      #TODO should game be required to build a level?
+    end
+  end
+  def background_music=(img)
+    @background_music = img
+    if @game
+      @music = @game.sound_manager.add_song(@background_music, @background_music)
     else
       #TODO should game be required to build a level?
     end

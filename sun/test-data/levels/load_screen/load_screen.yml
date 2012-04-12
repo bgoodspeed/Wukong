@@ -1,5 +1,6 @@
 name: load_screen
 background_image: test-data/levels/load_screen/grass.jpg
+background_music: test-data/music/music.wav
 wayfinding: test-data/levels/load_screen/wayfinding.yml
 measurements:
   width: 640

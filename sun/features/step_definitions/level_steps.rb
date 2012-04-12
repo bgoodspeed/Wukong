@@ -126,3 +126,7 @@ end
 Given /^I reload the level "([^"]*)"$/ do |arg1|
   @game.load_level("test-data/levels/#{arg1}/#{arg1}.yml")
 end
+Then /^the background music is named "([^"]*)"$/ do |arg1|
+  @game.level.background_music.should == "test-data/music/#{arg1}"
+end
+
