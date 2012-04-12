@@ -13,6 +13,8 @@ class Collider
     }
   end
   def check_for_collision_by_type(a,b)
+    #TODO refine and elaborate this notion, declare collidable types, etc
+    return false if a.class == b.class
     raise "collider: error unknown base type #{a.collision_type} -> #{a}" unless @config.has_key?(a.collision_type)
     raise "collider: error unknown secondary type #{b.collision_type} -> #{b}, primary is #{a.collision_type}" unless @config[a.collision_type].has_key?(b.collision_type)
     @config[a.collision_type][b.collision_type].call(a,b)

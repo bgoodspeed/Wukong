@@ -122,6 +122,8 @@ class Game
       @player = @player_loader.load_player
     end
     @level.add_player(@player)
+
+    @clock.reset
     @level
   end
 

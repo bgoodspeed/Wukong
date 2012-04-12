@@ -4,11 +4,15 @@
 class Clock
   attr_accessor :throttle
   attr_reader :frames_rendered, :events
-  def initialize(game, framerate)
+  def initialize(game, framerate, throttle=false)
     @game = game
     @target_framerate = framerate
     @target_frame_time = (1.0/@target_framerate.to_f)*1000.0
-    @throttle = true
+    @throttle = throttle
+    reset
+  end
+
+  def reset
     @start_time = @last_time = Graphics::milliseconds
     @frames_rendered = 0
     @events = {}

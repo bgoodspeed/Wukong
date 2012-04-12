@@ -6,7 +6,7 @@ class GameBM
   attr_accessor :game
   def initialize(f)
     @name = f
-    @prof_loops = 197
+    @prof_loops = 1
     @game = YamlLoader.game_from_file(f)
     
     #@game.sound_manager.play_song("music", true)
@@ -20,25 +20,6 @@ class GameBM
     RubyProf.start
     @prof_loops.times { @game.simulate }
     result = RubyProf.stop
-    ignores = [
-      /Kernel/,
-      /String/,
-      /Integer/,
-      /.*RSpec.*/,
-      /.*Mocha.*/,
-      /Object/,
-      /Symbol/,
-      /Module/,
-      /Proc/,
-      /Fixnum/,
-      /Float/,
-      /Class/,
-      /Mocha/,
-      /NilClass/,
-      /MatchData/,
-      /Hash/,
-    ]
-    result.eliminate_methods!(ignores)
     printer = RubyProf::MultiPrinter.new(result)
     
     Dir.mkdir "profile" unless File.exists?("profile")
@@ -49,9 +30,9 @@ class GameBM
   end
   def benchmark(s = "")
     Benchmark.bm(7) do |m|
-      m.report("#{s}first 10") {   10.times { @game.simulate}}
-      m.report("#{s}next 100") {  100.times { @game.simulate}}
-      m.report("#{s}last 1000"){ 1000.times { @game.simulate}}
+      m.report("#{s}first 1") {   10.times { @game.simulate}}
+      m.report("#{s}next 10") {   10.times { @game.simulate}}
+      m.report("#{s}last 100") {  100.times { @game.simulate}}
     end
   end
 end

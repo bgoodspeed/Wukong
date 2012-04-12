@@ -141,6 +141,9 @@ module PrimitiveIntersectionTests
   end
 
   def circle_line_segment_intersection?(circle, line_segment)
+    return true if circle_point_intersection?(circle, line_segment.p1)
+    return true if circle_point_intersection?(circle, line_segment.p2)
+
     seg_v = line_segment.p2.minus(line_segment.p1)
     pt_v = circle.position.minus(line_segment.p1)
     seg_vu = seg_v.unit

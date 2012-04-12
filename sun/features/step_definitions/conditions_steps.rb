@@ -34,3 +34,8 @@ Then /^asking if game condition "([^"]*)" with arg "([^"]*)" is met should be "(
   argv = handle_vector(arg)
   @condition_manager.condition_met?(name, argv).should be(rv), "Expected condtion #{name}(#{arg}) to be #{rv}"
 end
+
+
+Then /^there should be (\d+) conditions registered$/ do |arg1|
+  @game.condition_manager.conditions.size.should == arg1.to_i
+end

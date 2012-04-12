@@ -78,13 +78,17 @@ Then /^wayfinding should not be nil$/ do
   @game.wayfinding.should_not be_nil
 end
 
+def level
+  @level ? @level : @game.level
+end
+
 Then /^there should be be (\d+) enemies defined$/ do |arg1|
-  @level.declared_enemies.size.should == arg1.to_i
+  level.declared_enemies.size.should == arg1.to_i
 end
 
 #TODO maybe make spawn_points_steps.rb and move the spawn stuff there
 Then /^there should be (\d+) spawn points$/ do |arg1|
-  @level.spawn_points.size.should == arg1.to_i
+  level.spawn_points.size.should == arg1.to_i
 end
 
 Then /^the spawn points should be:$/ do |table|
@@ -117,4 +121,8 @@ end
 
 Then /^the level should have (\d+) dynamic elements$/ do |arg1|
   @level.dynamic_elements.size.should == arg1.to_i
+end
+
+Given /^I reload the level "([^"]*)"$/ do |arg1|
+  @game.load_level("test-data/levels/#{arg1}/#{arg1}.yml")
 end

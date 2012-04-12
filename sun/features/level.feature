@@ -79,4 +79,5 @@ Feature: Level Description
     And I set the player position to 100,100
     When I run the game loop 1 times
     Then the level completion status should be "true"
-    
+
+
