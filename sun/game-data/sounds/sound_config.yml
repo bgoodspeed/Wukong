@@ -4,5 +4,5 @@ sound_manager:
       name: shoot
 
   songs:
-    - filename: test-data/music/music.wav
+    - filename: test-data/music/splash.wav
       name: music
