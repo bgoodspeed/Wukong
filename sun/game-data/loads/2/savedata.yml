@@ -1,0 +1,4 @@
+--- 
+savedata: 
+  level: game-data/levels/reward/reward.yml
+  player: game-data/loads/2/player.yml

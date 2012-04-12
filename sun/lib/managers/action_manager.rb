@@ -13,7 +13,8 @@ class ActionManager
   def default_menu_actions
     {
       "debug_print" => lambda {|game, arg| puts "DEBUG_PRINT: #{arg}"},
-      "save_game_slot" => lambda {|game, arg| puts "calling with #{arg}" ; game.save_game_slot(arg)},
+      "save_game_slot" => lambda {|game, arg| game.save_game_slot(arg)}, #TODO could add temp message and maybe exit menu
+      "load_game_slot" => lambda {|game, arg| game.load_game_slot(arg)},
       "noop" => lambda {|game, arg| }
     }
   end
