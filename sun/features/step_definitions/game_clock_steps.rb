@@ -11,8 +11,12 @@ When /^I run the game loop (\d+) times$/ do |loops|
   end
 end
 
+
+def clock
+  @game.clock
+end
 Then /^the elapsed clock time should be between (\d+) and (\d+) milliseconds$/ do |min, max|
-  time = @clock.total_elapsed_time_ms
+  time = clock.total_elapsed_time_ms
   time.should be >= min.to_i
   time.should be <= max.to_i
 end
@@ -32,6 +36,11 @@ Given /^I enqueue a timed event with name "([^"]*)" and start_action "([^"]*)" a
   @timed_event = TimedEvent.new(startact, data, endact, data, ticks.to_i)
   @clock.enqueue_event(name, @timed_event)
 end
+
+Given /^I reset the clock$/ do
+  @game.clock.reset
+end
+
 
 Then /^the action "([^"]*)" should be disabled$/ do |arg1|
   @game.event_enabled?(arg1).should be_false

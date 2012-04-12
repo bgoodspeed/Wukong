@@ -17,8 +17,8 @@ class Camera
     position.minus([screen_width/2.0, screen_height/2.0])
   end
 
-  def position
-    goal = @game.player.position
+
+  def calculate_position(goal)
     rv = goal.dup
     screen_extent = [@game.screen.width/2.0, @game.screen.height/2.0]
     level_min_bounds = [@game.level.minimum_x, @game.level.minimum_y]
@@ -31,7 +31,7 @@ class Camera
     elsif (goal.x > maxx)
       rv[0] = maxx
     end
-    
+
     miny = level_min_bounds[1] + screen_extent[1]
     maxy = level_max_bounds[1] - screen_extent[1]
     if (goal.y < miny)
@@ -41,6 +41,10 @@ class Camera
     end
 
     rv
+
+  end
+  def position
+    calculate_position(@game.player.position)
   end
 
   def screen_coordinates_for(p)

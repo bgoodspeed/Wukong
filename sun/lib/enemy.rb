@@ -26,6 +26,7 @@ class Enemy
     @radius = p.max
     @health = 15
     @position = p
+    @col = Primitives::Circle.new(@position, @radius)
     @velocity = 5
     @direction = 0
   end
@@ -48,7 +49,8 @@ class Enemy
   end
 
   def to_collision
-    Primitives::Circle.new(@position, @radius)
+    @col.position = @position
+    @col
   end
   def collision_radius
     to_collision.radius
