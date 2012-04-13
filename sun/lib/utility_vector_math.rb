@@ -176,22 +176,26 @@ module PrimitiveIntersectionTests
   end
 
   def circle_inside_rectangle?(circle, rectangle)
+    minx = circle.position.x - circle.radius
+    maxx = circle.position.x + circle.radius
     in_left = (rectangle.left < circle.position.x ||
-     rectangle.left < (circle.position.x - circle.radius) ||
-     rectangle.left < (circle.position.x + circle.radius) )
+     rectangle.left < minx ||
+     rectangle.left < maxx )
 
     return false unless in_left
     in_right = (rectangle.right > circle.position.x ||
-        rectangle.right > (circle.position.x - circle.radius) ||
-        rectangle.right > (circle.position.x + circle.radius) )
+        rectangle.right > minx ||
+        rectangle.right > maxx )
     return false unless in_right
+    miny = circle.position.y - circle.radius
+    maxy = circle.position.y + circle.radius
     in_top = (rectangle.top > circle.position.y ||
-     rectangle.top > (circle.position.y - circle.radius) ||
-     rectangle.top > (circle.position.y + circle.radius) )
+     rectangle.top > miny ||
+     rectangle.top > maxy )
     return false unless in_top
     in_bottom = (rectangle.bottom < circle.position.y ||
-     rectangle.bottom < (circle.position.y - circle.radius) ||
-     rectangle.bottom < (circle.position.y + circle.radius) )
+     rectangle.bottom < miny ||
+     rectangle.bottom < maxy )
      return in_bottom
   end
 
@@ -230,9 +234,15 @@ module PrimitiveIntersectionTests
   end
 
   def line_segment_line_segment_intersection?(l1, l2)
-    d =   (l2.ey - l2.sy) * (l1.ex - l1.sx) - (l2.ex - l2.sx) * (l1.ey - l1.sy)
-    n_a = (l2.ex - l2.sx) * (l1.sy - l2.sy) - (l2.ey - l2.sy) * (l1.sx - l2.sx)
-    n_b = (l1.ex - l1.sx) * (l1.sy - l2.sy) - (l1.ey - l1.sy) * (l1.sx - l2.sx)
+    lsxd = l1.sx - l2.sx
+    lsyd = l1.sy - l2.sy
+    l2yd = l2.ey - l2.sy
+    l2xd = l2.ex - l2.sx
+    l1xd = l1.ex - l1.sx
+    l1yd = l1.ey - l1.sy
+    d =   (l2yd) * (l1xd) - (l2xd) * (l1yd)
+    n_a = (l2xd) * (lsyd) - (l2yd) * (lsxd)
+    n_b = (l1xd) * (lsyd) - (l1yd) * (lsxd)
 
     return false if (d == 0)
     ua = n_a.to_f/d.to_f
