@@ -101,23 +101,15 @@ class ActionManager
   end
   def default_gameplay_behaviors
     {
-      KeyActions::INTERACT => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MENU, game.player.menu_action_delay)
-        game.interact
-      }, 
-      KeyActions::MENU => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MENU, game.player.menu_action_delay)
-        game.enter_menu
-      },
+      KeyActions::INTERACT    => delaying(KeyActions::INTERACT)    {|game,arg| game.interact},
+      KeyActions::MENU        => delaying(KeyActions::MENU)        {|game,arg| game.enter_menu},
+      KeyActions::MOUSE_CLICK => delaying(KeyActions::MOUSE_CLICK) {|game,arg| game.pick_game_element},
+      
       KeyActions::RIGHT => lambda { |game, arg| game.player.turn(game.turn_speed) },
-      KeyActions::LEFT => lambda { |game, arg| game.player.turn(-game.turn_speed) },
-      KeyActions::UP => lambda { |game, arg| game.player.move_forward(game.movement_distance) },
-      KeyActions::DOWN => lambda { |game, arg| game.player.move_forward(-game.movement_distance) },
-      KeyActions::FIRE => lambda { |game, arg| game.player.use_weapon },
-      KeyActions::MOUSE_CLICK => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MOUSE_CLICK, game.player.menu_action_delay)
-        game.pick_game_element
-      }
+      KeyActions::LEFT  => lambda { |game, arg| game.player.turn(-game.turn_speed) },
+      KeyActions::UP    => lambda { |game, arg| game.player.move_forward(game.movement_distance) },
+      KeyActions::DOWN  => lambda { |game, arg| game.player.move_forward(-game.movement_distance) },
+      KeyActions::FIRE  => lambda { |game, arg| game.player.use_weapon },
     }
   end
 
