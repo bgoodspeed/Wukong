@@ -20,7 +20,9 @@ module Collidable
     @collision_type.position = @position
     @collision_type
   end
-
+  def to_s
+    "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
+  end
 
 
 end

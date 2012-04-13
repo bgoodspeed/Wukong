@@ -103,9 +103,6 @@ class Player
     @enemies_killed += 1
   end
 
-  def to_s
-    "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
-  end
   
   def to_yaml
     overrides = {  }

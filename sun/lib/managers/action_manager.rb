@@ -82,28 +82,21 @@ class ActionManager
     te = TimedEvent.new("disable_action", action, "enable_action", action, delay)
     game.clock.enqueue_event("timeout_down", te)
   end
+
+  def delaying(key,  &block)
+    lambda {|game, arg|
+      introduce_delay(game, key, game.player.menu_action_delay)
+      yield game,arg
+    }
+  end
+
   def default_menu_behaviors
     {
-      KeyActions::MENU => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MENU, game.player.menu_action_delay)
-        game.exit_menu
-      },
-      KeyActions::DOWN => lambda { |game, arg|
-        introduce_delay(game, KeyActions::DOWN, game.player.menu_action_delay)
-        game.menu_manager.move_down
-      },#TODO: Tung's hacking the up button for gameover menu
-      KeyActions::UP => lambda { |game, arg|
-        introduce_delay(game, KeyActions::UP, game.player.menu_action_delay)
-        game.menu_manager.move_up
-      },
-      KeyActions::MENU_ENTER => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MENU_ENTER, game.player.menu_action_delay)
-        game.menu_manager.invoke_current
-      },
-      KeyActions::MOUSE_CLICK => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MOUSE_CLICK, game.player.menu_action_delay)
-        game.menu_manager.invoke_current_mouse
-      },
+      KeyActions::MENU        => delaying(KeyActions::MENU )        { |game, arg| game.exit_menu },
+      KeyActions::DOWN        => delaying(KeyActions::DOWN )        { |game, arg| game.menu_manager.move_down },
+      KeyActions::UP          => delaying(KeyActions::UP )          { |game, arg| game.menu_manager.move_up },
+      KeyActions::MENU_ENTER  => delaying(KeyActions::MENU_ENTER )  { |game, arg| game.menu_manager.invoke_current },
+      KeyActions::MOUSE_CLICK => delaying(KeyActions::MOUSE_CLICK ) { |game, arg| game.menu_manager.invoke_current_mouse },
     }
   end
   def default_gameplay_behaviors

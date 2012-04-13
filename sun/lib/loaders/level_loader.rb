@@ -32,6 +32,7 @@ class LevelLoader
       wayfinding = YamlLoader.from_file(WayFinding, @game, data["wayfinding"])
       @game.wayfinding = wayfinding
     end
+    
     data["declared_enemies"].to_a.each {|e|
       level.add_declared_enemy(e['name'], YamlLoader.from_file(Enemy, @game, e['enemy_yaml']))
     }
@@ -40,14 +41,8 @@ class LevelLoader
       level.add_spawn_point(pt)
     }
 
-    data["ored_completion_conditions"].to_a.each {|cc|
-      c = CompletionCondition.new(cc['condition'],cc['argument'])
-      level.add_ored_completion_condition(c)
-    }
-    data["anded_completion_conditions"].to_a.each {|cc|
-      c = CompletionCondition.new(cc['condition'],cc['argument'])
-      level.add_anded_completion_condition(c)
-    }
+    level.ored_completion_conditions = data["ored_completion_conditions"].to_a.collect {|cc| conf_for(cc) }
+    level.anded_completion_conditions = data["anded_completion_conditions"].to_a.collect {|cc| conf_for(cc)}
     data["event_areas"].to_a.each {|ea|
       tl = ea['top_left']
       br = ea['bottom_right']
@@ -57,5 +52,8 @@ class LevelLoader
     }
 
     level
+  end
+  def conf_for(cc)
+    CompletionCondition.new(cc['condition'],cc['argument'])
   end
 end
