@@ -79,3 +79,11 @@ When /^I invoke the action "([^"]*)" with argument "([^"]*)"$/ do |action_name, 
 end
 
 
+Then /^the last saved time should be nil$/ do
+  @game.clock.last_save_time.should be_nil
+end
+
+Then /^the last saved time should not be nil$/ do
+  @game.clock.last_save_time.should_not be_nil
+end
+

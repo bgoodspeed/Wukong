@@ -28,8 +28,15 @@ Feature: Action
    | ResponseTypes::TRIGGER_EVENT1  | player.enemies_killed | 0               | 0                |         | trigger   |         |                | collision_responses  |
 
 
-  Scenario: Menu Actions being invoked event
+  Scenario: Menu Actions being invoked event Load
     Given I load the game "new_game_load_screen"
     When I invoke the action "BehaviorTypes::LOAD_GAME_SLOT" with argument "'1'"
     Then the game property "level.name" should be "'demo'"
+
+  Scenario: Menu Actions being invoked event Save
+    Given I load the game "new_game_load_screen"
+    And I set the property "game_load_path" to "test-data/loadarea"
+    Then the last saved time should be nil
+    When I invoke the action "BehaviorTypes::SAVE_GAME_SLOT" with argument "'9'"
+    Then the last saved time should not be nil
     
