@@ -1,5 +1,5 @@
 name: trivial
-background_image: test-data/levels/trivial/grass.jpg
+background_image: game-data/levels/trivial/grass.jpg
 measurements:
   width: 640
   height: 480

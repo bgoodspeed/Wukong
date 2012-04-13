@@ -1,4 +1,4 @@
 enemy:
-  image_path: test-data/sprites/enemy_avatar.bmp
+  image_path: game-data/sprites/enemy_avatar.bmp
   position: [ 100 , 100 ]
   velocity: 1

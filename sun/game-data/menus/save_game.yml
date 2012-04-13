@@ -1,0 +1,9 @@
+menu:
+  menu_id: load_game
+  entries:
+    - display_text: Save Game 1
+      action: save_game_slot
+      action_argument: 1
+    - display_text: Save Game 2
+      action: save_game_slot
+      action_argument: 2

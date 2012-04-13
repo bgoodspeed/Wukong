@@ -1,0 +1,8 @@
+menu:
+  menu_id: main_menu
+  entries:
+    - display_text: Option One
+      action: debug_print
+    - display_text: Another Option ... 2
+      action: debug_print
+      action_argument: arg2

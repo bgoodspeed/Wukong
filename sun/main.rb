@@ -10,6 +10,6 @@ game = YamlLoader.game_from_file("game-data/new_game_load_screen.yml")
 
 
 #TODO this should be triggered by and stored in the level
-game.sound_manager.play_song("music", true)
+#game.sound_manager.play_song("music", true)
 game.show
 

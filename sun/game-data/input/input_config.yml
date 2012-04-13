@@ -1,0 +1,19 @@
+input_config:
+  keyboard_config:
+    Graphics::KbLeft: KeyActions::LEFT
+    Graphics::KbRight: KeyActions::RIGHT
+    Graphics::KbUp: KeyActions::UP
+    Graphics::KbDown: KeyActions::DOWN
+    Graphics::KbSpace: KeyActions::FIRE
+    Graphics::KbEnter: KeyActions::MENU_ENTER
+    Graphics::KbReturn: KeyActions::MENU_ENTER
+    Graphics::KbM: KeyActions::MENU
+    Graphics::KbQ: KeyActions::QUIT
+    Graphics::KbO: KeyActions::INTERACT
+  gamepad_config:
+    Graphics::GpLeft: KeyActions::LEFT
+    Graphics::GpRight: KeyActions::RIGHT
+    Graphics::GpUp: KeyActions::UP
+    Graphics::GpDown: KeyActions::DOWN
+  
+

@@ -1,0 +1,9 @@
+menu:
+  menu_id: three_menu
+  entries:
+    - display_text: one
+      action: debug_print
+    - display_text: two
+      action: debug_print
+    - display_text: three
+      action: debug_print

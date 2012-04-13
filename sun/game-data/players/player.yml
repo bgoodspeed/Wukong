@@ -1,5 +1,5 @@
 player:
-  image_path: test-data/sprites/avatar.bmp
+  image_path: game-data/sprites/avatar.bmp
   position: [ 200, 300 ]
   movement_distance: 2
   turn_speed: 5

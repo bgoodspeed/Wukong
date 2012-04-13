@@ -1,0 +1,7 @@
+menu:
+  menu_id: game_over
+  entries:
+    - display_text: Game Over One
+      action: debug_print
+    - display_text: Game Over Two
+      action: debug_print

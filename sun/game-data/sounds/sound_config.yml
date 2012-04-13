@@ -1,8 +1,8 @@
 sound_manager:
   effects:
-    - filename: test-data/sounds/weapon.wav
+    - filename: game-data/sounds/weapon.wav
       name: shoot
 
   songs:
-    - filename: test-data/music/splash.wav
+    - filename: game-data/music/splash.wav
       name: music

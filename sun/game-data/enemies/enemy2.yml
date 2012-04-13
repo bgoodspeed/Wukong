@@ -1,0 +1,3 @@
+enemy:
+  image_path: game-data/sprites/enemy2.png
+  health: 20

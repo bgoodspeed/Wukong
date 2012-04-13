@@ -1,5 +1,5 @@
 name: emitter
-background_image: test-data/levels/emitter/grass.jpg
+background_image: game-data/levels/emitter/grass.jpg
 
 measurements:
   width: 640
