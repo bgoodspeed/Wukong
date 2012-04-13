@@ -14,9 +14,6 @@ class VectorFollower
   def velocity_scaled_vector
     @vector.scale(@velocity)
   end
-  def scaled_vector
-    @vector.scale(@current_step * @velocity)
-  end
 
   def tick
     @current_step += 1

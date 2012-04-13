@@ -43,6 +43,13 @@ Then /^the current menu entry should have:$/ do |table|
   }
 
 end
+
+Then /^the current mouse menu entry should be nil$/ do
+  mm.current_menu_entry_mouse.should be_nil
+end
+
+
+
 Then /^the current mouse menu entry should have:$/ do |table|
   me = mm.current_menu_entry_mouse
   
