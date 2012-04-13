@@ -9,12 +9,15 @@ module BehaviorTypes
   CHOOSE_GAME_MENU = "CHOOSE_GAME_MENU"
   SAVE_GAME_SLOT = "save_game_slot"
   LOAD_GAME_SLOT = "load_game_slot"
+  TAKE_REWARD = "take_reward"
 end
 
 class ActionManager
   def default_menu_actions
     {
+      #TODO make debug print write to a logfile
       "debug_print" => lambda {|game, arg| puts "DEBUG_PRINT: #{arg}"},
+      BehaviorTypes::TAKE_REWARD => lambda {|game, arg| puts "Take reward: #{arg}"},
       BehaviorTypes::SAVE_GAME_SLOT => lambda {|game, arg| 
         game.clock.set_last_save_time
         game.save_game_slot(arg)}, #TODO could add temp message and maybe exit menu

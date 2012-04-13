@@ -13,6 +13,7 @@ class Player
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
+  include YamlHelper
 
   #TODO make YAML utils and pass attributes
   def self.from_yaml(game, yaml)
@@ -134,20 +135,11 @@ class Player
   def to_s
     "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
   end
-  #TODO make a module
+  
   def to_yaml
-
     overrides = {  }
     overrides[:weapon] = @weapon.orig_filename if @weapon
-    cf = {}
-    ATTRIBUTES.each {|attr|
-      if overrides.has_key?(attr)
-        rv = overrides[attr]
-      else
-        rv = self.send(attr)
-      end
-      cf[attr.to_s] = rv
-      }
+    cf = attr_to_yaml(ATTRIBUTES, overrides)
     {"player" => cf}.to_yaml(:UseHeader => true)
   end
 end

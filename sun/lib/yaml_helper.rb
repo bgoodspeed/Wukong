@@ -8,5 +8,17 @@ module YamlHelper
     }
   end
 
+  def attr_to_yaml(attrs, overrides = {  })
+    cf = {}
+    attrs.each do |attr|
+      if overrides.has_key?(attr)
+        rv = overrides[attr]
+      else
+        rv = self.send(attr)
+      end
+      cf[attr.to_s] = rv
+    end
+    cf
+  end
 
 end
