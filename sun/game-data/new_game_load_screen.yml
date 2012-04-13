@@ -13,3 +13,4 @@ game:
   splash_screen: "game-data/screens/splash_screen.png"
   game_over_menu: "game-data/menus/game_over.yml"
   menu_for_save_game: "game-data/menus/save_game.yml"
+  menu_for_main: "game-data/menus/main.yml"

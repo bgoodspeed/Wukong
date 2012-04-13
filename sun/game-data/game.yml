@@ -7,3 +7,4 @@ game:
   player: "game-data/players/player.yml"
   sound_manager: "game-data/sounds/sound_config.yml"
   heads_up_display: "game-data/hud/hud_config.yml"
+  menu_for_main: "game-data/menus/main.yml"

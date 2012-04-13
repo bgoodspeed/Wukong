@@ -9,3 +9,4 @@ game:
   heads_up_display: "test-data/hud/hud_config.yml"
   new_game_level: "test-data/levels/demo/demo.yml"
   menu_for_load_game: "test-data/menus/load_game.yml"
+  menu_for_main: "test-data/menus/main.yml"
