@@ -74,3 +74,8 @@ When /^I invoke the action "([^"]*)" on collision with set "([^"]*)"$/ do |actio
   
 end
 
+When /^I invoke the action "([^"]*)" with argument "([^"]*)"$/ do |action_name, arg|
+  @game.action_manager.invoke(eval(action_name), eval(arg))
+end
+
+

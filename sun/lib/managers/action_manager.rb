@@ -7,14 +7,16 @@ module BehaviorTypes
   QUEUE_LOAD_GAME_EVENT = "queue_load_game_event"
   QUEUE_SAVE_GAME_EVENT = "queue_save_game_event"
   CHOOSE_GAME_MENU = "CHOOSE_GAME_MENU"
+  SAVE_GAME_SLOT = "save_game_slot"
+  LOAD_GAME_SLOT = "load_game_slot"
 end
 
 class ActionManager
   def default_menu_actions
     {
       "debug_print" => lambda {|game, arg| puts "DEBUG_PRINT: #{arg}"},
-      "save_game_slot" => lambda {|game, arg| game.save_game_slot(arg)}, #TODO could add temp message and maybe exit menu
-      "load_game_slot" => lambda {|game, arg| game.load_game_slot(arg)},
+      BehaviorTypes::SAVE_GAME_SLOT => lambda {|game, arg| game.save_game_slot(arg)}, #TODO could add temp message and maybe exit menu
+      BehaviorTypes::LOAD_GAME_SLOT => lambda {|game, arg| game.load_game_slot(arg)},
       "noop" => lambda {|game, arg| }
     }
   end
