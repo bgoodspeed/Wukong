@@ -52,6 +52,9 @@ Then /^the current mouse menu entry should have:$/ do |table|
     me.action_argument.to_s.should == hash['action_argument'].to_s if hash.has_key?('action_argument')
   }
 end
+Then /^I move up in the menu$/ do
+  mm.move_up
+end
 
 When /^I move down in the menu$/ do
   mm.move_down
