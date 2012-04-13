@@ -55,11 +55,12 @@ module ArrayVectorOperations
     collect {|val| val * factor }
   end
 
+  #HACK 2d specific
   def minus(other)
-    gather_up_as(:-, other)
+    [self[0] - other[0], self[1] - other[1]]
   end
   def plus(other)
-    gather_up_as(:+, other)
+    [self[0] + other[0], self[1] + other[1]]
   end
   def vx
     self[0]
@@ -141,8 +142,8 @@ module PrimitiveIntersectionTests
   end
 
   def circle_line_segment_intersection?(circle, line_segment)
-    return true if circle_point_intersection?(circle, line_segment.p1)
-    return true if circle_point_intersection?(circle, line_segment.p2)
+    #return true if circle_point_intersection?(circle, line_segment.p1)
+    #return true if circle_point_intersection?(circle, line_segment.p2)
 
     seg_v = line_segment.p2.minus(line_segment.p1)
     pt_v = circle.position.minus(line_segment.p1)

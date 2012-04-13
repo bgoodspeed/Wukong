@@ -7,6 +7,7 @@ class ImageManager
     @images = {}
   end
   def register_image(filepath)
+    @game.log.info { "Registering image from #{filepath}"}
     img = Graphics::Image.new(@game.window, filepath, false)
     @images[filepath] = img
     img

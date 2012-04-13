@@ -102,6 +102,7 @@ class MenuManager
     @game.action_manager.menu_actions
   end
   def do_invoke(c)
+    @game.log.info { "Attempting to invoke #{c}"}
     ce = c
     action = ce.action
     action_argument = ce.action_argument
@@ -110,6 +111,7 @@ class MenuManager
     action_result = m.call(@game, action_argument)
     menu_id = current_menu.menu_id
     @breadcrumbs << Breadcrumb.new(menu_id, action, action_argument, action_result)
+    @game.log.info { "Successfully invoked menu entry #{action}(#{action_argument})"}
     action_result
   end
   def current_menu_index
@@ -125,8 +127,10 @@ class MenuManager
   def current_menu_entry_mouse
     rs = @game.hud.highlighted_regions
     if rs.empty?
+      @game.log.info { "nothing found in menu mouse click"}
       return nil
     end
+    @game.log.info { "found #{rs.first} in menu mouse click"}
     current_menu.entries[rs.first]
   end
 

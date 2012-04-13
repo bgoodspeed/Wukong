@@ -8,8 +8,16 @@ class SoundManager
     conf = data['sound_manager']
     obj = SoundManager.new(game)
 
-    conf['effects'].each {|effect| obj.add_effect(effect['filename'], effect['name']) }
-    conf['songs'].each {|effect| obj.add_song(effect['filename'], effect['name']) }
+    conf['effects'].each {|effect|
+      game.log.info("Adding sound effect named #{effect['name']} from file #{effect['filename']}")
+      obj.add_effect(effect['filename'], effect['name'])
+
+      }
+    conf['songs'].each {|effect|
+      game.log.info("Adding song named #{effect['name']} from file #{effect['filename']}")
+      obj.add_song(effect['filename'], effect['name'])
+
+      }
     
     obj
   end

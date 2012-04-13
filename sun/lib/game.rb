@@ -1,6 +1,7 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
+require "logger"
 require 'statemachine'
 
 require 'utility_vector_math'
@@ -68,7 +69,7 @@ class Game
     :temporary_message, :mouse_drawn, :event_manager, :image_manager, 
     :action_manager, :condition_manager, :completion_manager, :active, 
     :new_game_level, :menu_for_load_game, :game_load_path, :splash_manager, 
-    :over, :game_over_menu, :menu_for_save_game
+    :over, :game_over_menu, :menu_for_save_game, :log
 
   alias_method :active?, :active
 
@@ -89,6 +90,11 @@ class Game
   
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
+    #TODO HACKISH
+    log_path = "logs"
+    Dir.mkdir(log_path) unless File.exists?(log_path)
+    @log = Logger.new(File.join(log_path, "game.log"), 10, 1024000)
+    @log.level = Logger::INFO #NOTE: also ::DEBUG 
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
     @action_manager = ActionManager.new(self)
     @image_manager = ImageManager.new(self)
