@@ -1,5 +1,6 @@
 name: demo
 background_image: game-data/levels/demo/grass.jpg
+background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/demo/wayfinding.yml
 reward_level: game-data/levels/reward/reward.yml
 measurements:
