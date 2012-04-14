@@ -125,15 +125,18 @@ class Game
   end
 
   def load_level(level_name)
+    @animation_controller.clear
     @level = @level_loader.load_level(level_name)
     if !@player
       @player = @player_loader.load_player
     end
+    
     @level.add_player(@player)
     if @level.background_music
       @sound_controller.play_song(@level.background_music, true)
     end
     @clock.reset
+
     @input_controller.enable_all
     @level
   end

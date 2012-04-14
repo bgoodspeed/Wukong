@@ -1,12 +1,12 @@
----
-player:
+--- 
+player: 
   step_size: 1
-  position:
-  - 427.862213952781
-  - 344.60206319824215
-  weapon: game-data/equipment/gun.yml
-  direction: 130
-  health: 2
+  position: 
+  - 409.9838624649826
+  - 386.99350580646995
+  weapon_yaml: game-data/equipment/gun.yml
+  direction: 180
+  health: 5
   max_health: 6
   turn_speed: 5
   movement_distance: 2

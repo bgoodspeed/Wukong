@@ -12,3 +12,4 @@ Feature: Animation Details
     When I run the game loop 1 times
     Then the number of frames render should be 1
     And the animation index for the player attack animation should be 1
+    And the animation position for player "weapon" should be 36, 36

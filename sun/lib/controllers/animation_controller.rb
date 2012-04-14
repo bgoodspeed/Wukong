@@ -23,9 +23,14 @@ end
 class AnimationController
   def initialize(game, animation_rate=1)
     @game = game
-    @animations = {}
     @animation_rate=animation_rate
+    clear
+  end
+
+  def clear
     @ticks = 0
+    @animations = {}
+
   end
   def animations_for(entity)
     @animations[entity] = {} if @animations[entity].nil?

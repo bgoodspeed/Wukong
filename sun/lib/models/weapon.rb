@@ -4,7 +4,8 @@
 
 class Weapon
   ATTRIBUTES = [:swing_start , :swing_sweep ,  :swing_frames, :weapon_length,
-    :image_path, :type, :sound_effect_name, :velocity, :equipped_on, :orig_filename]
+    :image_path, :type, :sound_effect_name, :velocity, :equipped_on, 
+    :orig_filename, :animation_name]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -28,6 +29,7 @@ class Weapon
     @velocity = 10
     @type = "swung"
     @game = game
+    @animation_name = "weapon"
     @sound_effect_name = "unset"
   end
 

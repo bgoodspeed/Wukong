@@ -11,12 +11,14 @@ module YamlHelper
   def attr_to_yaml(attrs, overrides = {  })
     cf = {}
     attrs.each do |attr|
+      prop = attr.to_s
       if overrides.has_key?(attr)
-        rv = overrides[attr]
+        rv = overrides[attr][:new_value]
+        prop = overrides[attr][:new_key].to_s
       else
         rv = self.send(attr)
       end
-      cf[attr.to_s] = rv
+      cf[prop] = rv
     end
     cf
   end

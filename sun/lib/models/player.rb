@@ -33,6 +33,7 @@ class Player
     obj
   end
 
+  
   attr_reader :image_file
   def initialize(avatar, game)
     @game = game
@@ -75,7 +76,7 @@ class Player
     @weapon = w
     @weapon.equipped_on = self
     #TODO we don't want to actually load the animation from disk at this point
-    @game.load_animation(self, "weapon", @weapon.image_path, 24, 24, false) #TODO hardcoded values
+    @game.load_animation(self, @weapon.animation_name, @weapon.image_path, 24, 24, false) #TODO hardcoded values
   end
 
   def turn(direction)
@@ -92,8 +93,8 @@ class Player
 
   def animation_position_by_name(name)
     raise "programmer error: unknown animation #{name}" unless name =~ /attack/ or name =~ /weapon/
-    @game.camera.screen_coordinates_for(@position).dup
-    #@position.dup
+    #@game.camera.screen_coordinates_for(@position).dup
+    @position.dup
   end
 
   
@@ -106,7 +107,7 @@ class Player
   
   def to_yaml
     overrides = {  }
-    overrides[:weapon] = @weapon.orig_filename if @weapon
+    overrides[:weapon] = {:new_key => :weapon_yaml, :new_value => @weapon.orig_filename} if @weapon
     cf = attr_to_yaml(ATTRIBUTES, overrides)
     {"player" => cf}.to_yaml(:UseHeader => true)
   end
