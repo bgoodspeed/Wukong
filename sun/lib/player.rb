@@ -13,6 +13,11 @@ class Player
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
+  include YamlHelper
+
+  include MovementUndoable
+  include Health
+  include Collidable
 
   #TODO make YAML utils and pass attributes
   def self.from_yaml(game, yaml)
@@ -38,6 +43,7 @@ class Player
     p = [@avatar.width/2.0, @avatar.height/2.0 ]
     @radius = p.max
     @position = p
+    @collision_type = Primitives::Circle.new(@position, @radius)
     @health = 0
     @direction = 0
     @enemies_killed = 0
@@ -80,6 +86,7 @@ class Player
     dv = distance * @step_size
     mv = [calculate_offset_x(@direction, dv), calculate_offset_y(@direction, dv)]
     @position = @position.plus(mv)
+    @last_move = mv
     @last_distance = distance
   end
 
@@ -89,65 +96,18 @@ class Player
     #@position.dup
   end
 
-  #TODO likely to be duplicated
-  def undo_last_move
-    unless @last_distance.nil?
-      move_forward(-1 * @last_distance)
-      @last_distance = nil
-    end
-  end
+  
 
-  def collision_response_type
-    self.class
-  end
-  #TODO use strings/enums/symbols for collision types not classes, make these first class values
-  def collision_type
-    to_collision.class
-  end
-
-  def to_collision
-    Primitives::Circle.new(@position, @radius)
-  end
-  def collision_radius
-    to_collision.radius
-  end
-  def collision_center
-    to_collision.position
-  end
 
   def enemy_killed
     @enemies_killed += 1
   end
-  #TODO this should be in a module
-  def take_damage(col)
-    #puts "#{self} took damage from #{col}"
-    #TODO this doesn't really make sense but illustrates possible behaviors
-    @health -= 1
-    if dead?
-      @game.add_event(Event.new(self, EventTypes::DEATH))
-    end
-  end
-  def dead?
-    @health <= 0
-  end
 
-  def to_s
-    "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
-  end
-  #TODO make a module
+  
   def to_yaml
-
     overrides = {  }
     overrides[:weapon] = @weapon.orig_filename if @weapon
-    cf = {}
-    ATTRIBUTES.each {|attr|
-      if overrides.has_key?(attr)
-        rv = overrides[attr]
-      else
-        rv = self.send(attr)
-      end
-      cf[attr.to_s] = rv
-      }
+    cf = attr_to_yaml(ATTRIBUTES, overrides)
     {"player" => cf}.to_yaml(:UseHeader => true)
   end
 end

@@ -3,15 +3,18 @@
 
 class Clock
   attr_accessor :throttle
-  attr_reader :frames_rendered, :events
+  attr_reader :frames_rendered, :events, :last_save_time
   def initialize(game, framerate, throttle=false)
     @game = game
     @target_framerate = framerate
+    @last_save_time = nil
     @target_frame_time = (1.0/@target_framerate.to_f)*1000.0
     @throttle = throttle
     reset
   end
-
+  def set_last_save_time
+    @last_save_time = @last_time
+  end
   def reset
     @start_time = @last_time = Graphics::milliseconds
     @frames_rendered = 0

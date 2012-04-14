@@ -48,21 +48,13 @@ class Screen
     @window.close
   end
 
-  def capture_screenshot(name)
-    File.delete(name) if File.exists?(name)
-    @window.screenshot.save(name)
-    #@window.screenshotBG.save(name)
-  end
-
   def show
     @window.show
   end
   def window
     @window
   end
-  def flush
-    @window.flush
-  end
+  
   def draw_quad(*args)
     @window.draw_quad(*args)
   end

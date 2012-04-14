@@ -9,6 +9,9 @@ class Array
   include ArrayVectorOperations
 end
 
+require 'behaviors/movement_undoable'
+require 'behaviors/health'
+require 'behaviors/collidable'
 
 require 'yaml_helper'
 require 'graphics'
@@ -51,6 +54,7 @@ require 'loaders/save_loader'
 
 require 'managers/sound_manager'
 require 'managers/splash_manager'
+
 
 
 require 'forwardable'

@@ -125,7 +125,6 @@ class MenuManager
   def current_menu_entry_mouse
     rs = @game.hud.highlighted_regions
     if rs.empty?
-      puts "nothing to click there #{@game.input_manager.mouse_screen_coords}"
       return nil
     end
     current_menu.entries[rs.first]

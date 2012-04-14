@@ -56,10 +56,6 @@ class SpatialHash
     end
   end
   def insert_circle_type_collider(elem)
-    #TODO fix this logic too ugly
-    if elem.collision_type == VectorFollower
-      insert_data_at(elem, elem.collision_center)
-    end
     #TODO reinstate this raise
     # raise "use a larger cell size to store elements that big #{elem.collision_radius}" unless elem.collision_radius > @cell_size
     hashes = candidate_hashes(elem.collision_radius, elem.collision_center)

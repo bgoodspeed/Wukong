@@ -36,31 +36,25 @@ class GameLoader
 
     game.game_load_path = conf['game_load_path'] if conf['game_load_path']
 
-    #TODO extract this to YAML
-    menu = YamlLoader.from_file(Menu, game, "test-data/menus/main.yml")
-    menu_manager.add_menu(game.main_menu_name, menu)
-    if conf['menu_for_load_game']
-      game.menu_for_load_game = conf['menu_for_load_game']
-      m = YamlLoader.from_file(Menu, game, conf['menu_for_load_game'])
-      menu_manager.add_menu(game.menu_for_load_game, m)
-    end
-    if conf['menu_for_save_game']
-      game.menu_for_save_game = conf['menu_for_save_game']
-      m = YamlLoader.from_file(Menu, game, conf['menu_for_save_game'])
-      menu_manager.add_menu(game.menu_for_save_game, m)
-    end
+    game.main_menu_name = try_add_menu(game, conf['menu_for_main'])
+    game.menu_for_load_game = try_add_menu(game, conf['menu_for_load_game'])
+    game.menu_for_save_game = try_add_menu(game, conf['menu_for_save_game'])
+    game.game_over_menu = try_add_menu(game, conf['game_over_menu'])
     
     if conf['splash_screen']
       game.splash_manager.add_splash(conf['splash_screen'])
       game.splash_manager.splash_mode = true
     end
-    if conf['game_over_menu']
-      game.game_over_menu = conf['game_over_menu']
-      m = YamlLoader.from_file(Menu, game, conf['game_over_menu'])
-      menu_manager.add_menu(game.game_over_menu, m)
-    end
 
     game
+  end
+
+  def self.try_add_menu(game , menu_name)
+    if menu_name
+      m = YamlLoader.from_file(Menu, game, menu_name)
+      game.menu_manager.add_menu(menu_name, m)
+    end
+    menu_name
   end
   
 end

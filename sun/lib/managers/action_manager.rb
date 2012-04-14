@@ -7,14 +7,21 @@ module BehaviorTypes
   QUEUE_LOAD_GAME_EVENT = "queue_load_game_event"
   QUEUE_SAVE_GAME_EVENT = "queue_save_game_event"
   CHOOSE_GAME_MENU = "CHOOSE_GAME_MENU"
+  SAVE_GAME_SLOT = "save_game_slot"
+  LOAD_GAME_SLOT = "load_game_slot"
+  TAKE_REWARD = "take_reward"
 end
 
 class ActionManager
   def default_menu_actions
     {
+      #TODO make debug print write to a logfile
       "debug_print" => lambda {|game, arg| puts "DEBUG_PRINT: #{arg}"},
-      "save_game_slot" => lambda {|game, arg| game.save_game_slot(arg)}, #TODO could add temp message and maybe exit menu
-      "load_game_slot" => lambda {|game, arg| game.load_game_slot(arg)},
+      BehaviorTypes::TAKE_REWARD => lambda {|game, arg| puts "Take reward: #{arg}"},
+      BehaviorTypes::SAVE_GAME_SLOT => lambda {|game, arg| 
+        game.clock.set_last_save_time
+        game.save_game_slot(arg)}, #TODO could add temp message and maybe exit menu
+      BehaviorTypes::LOAD_GAME_SLOT => lambda {|game, arg| game.load_game_slot(arg)},
       "noop" => lambda {|game, arg| }
     }
   end
@@ -75,49 +82,34 @@ class ActionManager
     te = TimedEvent.new("disable_action", action, "enable_action", action, delay)
     game.clock.enqueue_event("timeout_down", te)
   end
+
+  def delaying(key,  &block)
+    lambda {|game, arg|
+      introduce_delay(game, key, game.player.menu_action_delay)
+      yield game,arg
+    }
+  end
+
   def default_menu_behaviors
     {
-      KeyActions::MENU => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MENU, game.player.menu_action_delay)
-        game.exit_menu
-      },
-      KeyActions::DOWN => lambda { |game, arg|
-        introduce_delay(game, KeyActions::DOWN, game.player.menu_action_delay)
-        game.menu_manager.move_down
-      },#TODO: Tung's hacking the up button for gameover menu
-      KeyActions::UP => lambda { |game, arg|
-        introduce_delay(game, KeyActions::UP, game.player.menu_action_delay)
-        game.menu_manager.move_up
-      },
-      KeyActions::MENU_ENTER => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MENU_ENTER, game.player.menu_action_delay)
-        game.menu_manager.invoke_current
-      },
-      KeyActions::MOUSE_CLICK => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MOUSE_CLICK, game.player.menu_action_delay)
-        game.menu_manager.invoke_current_mouse
-      },
+      KeyActions::MENU        => delaying(KeyActions::MENU )        { |game, arg| game.exit_menu },
+      KeyActions::DOWN        => delaying(KeyActions::DOWN )        { |game, arg| game.menu_manager.move_down },
+      KeyActions::UP          => delaying(KeyActions::UP )          { |game, arg| game.menu_manager.move_up },
+      KeyActions::MENU_ENTER  => delaying(KeyActions::MENU_ENTER )  { |game, arg| game.menu_manager.invoke_current },
+      KeyActions::MOUSE_CLICK => delaying(KeyActions::MOUSE_CLICK ) { |game, arg| game.menu_manager.invoke_current_mouse },
     }
   end
   def default_gameplay_behaviors
     {
-      KeyActions::INTERACT => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MENU, game.player.menu_action_delay)
-        game.interact
-      }, 
-      KeyActions::MENU => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MENU, game.player.menu_action_delay)
-        game.enter_menu
-      },
+      KeyActions::INTERACT    => delaying(KeyActions::INTERACT)    {|game,arg| game.interact},
+      KeyActions::MENU        => delaying(KeyActions::MENU)        {|game,arg| game.enter_menu},
+      KeyActions::MOUSE_CLICK => delaying(KeyActions::MOUSE_CLICK) {|game,arg| game.pick_game_element},
+      
       KeyActions::RIGHT => lambda { |game, arg| game.player.turn(game.turn_speed) },
-      KeyActions::LEFT => lambda { |game, arg| game.player.turn(-game.turn_speed) },
-      KeyActions::UP => lambda { |game, arg| game.player.move_forward(game.movement_distance) },
-      KeyActions::DOWN => lambda { |game, arg| game.player.move_forward(-game.movement_distance) },
-      KeyActions::FIRE => lambda { |game, arg| game.player.use_weapon },
-      KeyActions::MOUSE_CLICK => lambda { |game, arg|
-        introduce_delay(game, KeyActions::MOUSE_CLICK, game.player.menu_action_delay)
-        game.pick_game_element
-      }
+      KeyActions::LEFT  => lambda { |game, arg| game.player.turn(-game.turn_speed) },
+      KeyActions::UP    => lambda { |game, arg| game.player.move_forward(game.movement_distance) },
+      KeyActions::DOWN  => lambda { |game, arg| game.player.move_forward(-game.movement_distance) },
+      KeyActions::FIRE  => lambda { |game, arg| game.player.use_weapon },
     }
   end
 

@@ -63,6 +63,10 @@ Feature: Menu
     Then the current menu entry should have:
       | display_text   | action         | action_argument |
       | 2              | choose_slot    | 2               |
+    And I move up in the menu
+    Then the current menu entry should have:
+      | display_text   | action         | action_argument |
+      | 1              | choose_slot    | 1               |
 
   Scenario: Simple Menu Invocation
     Given I load the game on level "trivial" with screen size 640, 480

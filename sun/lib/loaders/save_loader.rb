@@ -7,7 +7,7 @@ class SaveData
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
-
+  include YamlHelper
   def self.from_yaml(game, yaml)
     data = YAML.load(yaml)
     conf = data['savedata']
@@ -16,18 +16,8 @@ class SaveData
     obj
   end
 
-  #TODO make a module
   def to_yaml
-    overrides = {  }
-    cf = {}
-    ATTRIBUTES.each {|attr|
-      if overrides.has_key?(attr)
-        rv = overrides[attr]
-      else
-        rv = self.send(attr)
-      end
-      cf[attr.to_s] = rv
-      }
+    cf = attr_to_yaml(ATTRIBUTES)
     {"savedata" => cf}.to_yaml(:UseHeader => true)
   end
 
