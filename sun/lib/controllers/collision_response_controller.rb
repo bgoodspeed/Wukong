@@ -25,7 +25,7 @@ class Collision
 end
 
 
-class CollisionResponder
+class CollisionResponseController
   extend YamlHelper
   def self.from_yaml(game, yaml)
     data = YAML.load(yaml)
@@ -41,7 +41,7 @@ class CollisionResponder
       }
     }
 
-    obj = CollisionResponder.new(game, cr)
+    obj = CollisionResponseController.new(game, cr)
 
     obj
   end
@@ -78,7 +78,7 @@ class CollisionResponder
       },
     }
   end
-  def initialize(game, config=CollisionResponder.default_config)
+  def initialize(game, config=CollisionResponseController.default_config)
     @game = game
     @config = config
   end

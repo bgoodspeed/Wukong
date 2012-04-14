@@ -4,7 +4,7 @@
 require "logger"
 require 'statemachine'
 
-require 'utility_vector_math'
+require 'utility/utility_vector_math'
 
 class Array
   include ArrayVectorOperations
@@ -14,41 +14,41 @@ require 'behaviors/movement_undoable'
 require 'behaviors/health'
 require 'behaviors/collidable'
 require 'controllers/game_item_controller'
-require 'yaml_helper'
-require 'graphics'
+require 'helpers/yaml_helper'
+require 'utility/graphics'
 require 'loaders/game_loader'
 require 'loaders/yaml_loader'
-require 'zorder'
-require 'utility_drawing'
+require 'models/zorder'
+require 'utility/utility_drawing'
 require 'controllers/event_controller'
-require 'spawn_point'
+require 'models/spawn_point'
 require 'controllers/image_controller'
 require 'controllers/completion_controller'
-require 'mouse_collision_wrapper'
-require 'event_emitter'
-require 'collider'
-require 'spatial_hash'
+require 'models/mouse_collision_wrapper'
+require 'models/event_emitter'
+require 'models/collider'
+require 'models/spatial_hash'
 require 'controllers/menu_controller'
 require 'controllers/condition_controller'
-require 'level'
-require 'screen'
-require 'weapon'
-require 'player'
-require 'enemy'
-require 'clock'
-require 'camera'
-require 'heads_up_display'
+require 'models/level'
+require 'models/screen'
+require 'models/weapon'
+require 'models/player'
+require 'models/enemy'
+require 'models/clock'
+require 'models/camera'
+require 'models/heads_up_display'
 require 'controllers/action_controller'
-require 'collision_responder'
-require 'way_finding'
-require 'artificial_intelligence'
+require 'controllers/collision_response_controller'
+require 'models/way_finding'
+require 'models/artificial_intelligence'
 require 'controllers/input_controller'
 require 'controllers/animation_controller'
-require 'vector_follower'
+require 'models/vector_follower'
 require 'controllers/path_following_controller'
 
-require 'timed_event'
-require 'event_area'
+require 'models/timed_event'
+require 'models/event_area'
 require 'loaders/player_loader'
 require 'loaders/level_loader'
 require 'loaders/save_loader'
@@ -101,7 +101,7 @@ class Game
     @image_controller = ImageController.new(self)
     @player_loader = PlayerLoader.new(self)
     @level_loader = LevelLoader.new(self)
-    @collision_responder = CollisionResponder.new(self)
+    @collision_responder = CollisionResponseController.new(self)
     @animation_controller = AnimationController.new(self)
     @path_following_controller = PathFollowingController.new(self)
     @menu_controller = MenuController.new(self)

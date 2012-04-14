@@ -11,7 +11,7 @@ class GameLoader
     path_controller = PathFollowingController.new(game)
     game.path_following_controller = path_controller
     game.log.info { "Loading collision response: #{conf['collision_response']}"}
-    game.collision_responder = YamlLoader.from_file(CollisionResponder, game, conf['collision_response'])
+    game.collision_responder = YamlLoader.from_file(CollisionResponseController, game, conf['collision_response'])
     game.load_level(conf['level'])
     game.log.info { "Loading input controller: #{conf['input_controller']}"}
     game.input_controller = YamlLoader.from_file(InputController, game, conf['input_controller'])
