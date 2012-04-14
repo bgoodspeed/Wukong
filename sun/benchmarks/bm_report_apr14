@@ -1,0 +1,24 @@
+#########################################################
+# before rendering controller improvements
+#########################################################
+`--> be ruby benchmarks/bm_demo.rb
+             user     system      total        real
+first 10  0.040000   0.000000   0.040000 (  0.045120)
+next 100  0.620000   0.000000   0.620000 (  0.619169)
+last 1000  6.160000   0.080000   6.240000 (  6.227924)
+             user     system      total        real
+unthrottled: first 10  0.050000   0.000000   0.050000 (  0.052178)
+unthrottled: next 100  0.660000   0.000000   0.660000 (  0.655965)
+unthrottled: last 1000  4.540000   0.160000   4.700000 (  4.719269)
+#########################################################
+# after rendering controller improvements
+#########################################################
+`--> be ruby benchmarks/bm_demo.rb
+             user     system      total        real
+first 10  0.020000   0.000000   0.020000 (  0.017638)
+next 100  0.230000   0.000000   0.230000 (  0.233825)
+last 1000  2.970000   0.030000   3.000000 (  2.992452)
+             user     system      total        real
+unthrottled: first 10  0.040000   0.000000   0.040000 (  0.036157)
+unthrottled: next 100  0.300000   0.010000   0.310000 (  0.311235)
+unthrottled: last 1000  3.130000   0.010000   3.140000 (  3.123950)

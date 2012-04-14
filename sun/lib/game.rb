@@ -28,6 +28,7 @@ require 'models/mouse_collision_wrapper'
 require 'models/event_emitter'
 require 'models/collider'
 require 'models/spatial_hash'
+require 'controllers/rendering_controller'
 require 'controllers/menu_controller'
 require 'controllers/condition_controller'
 require 'models/level'
@@ -69,7 +70,8 @@ class Game
     :temporary_message, :mouse_drawn, :event_controller, :image_controller, 
     :action_controller, :condition_controller, :completion_controller, :active, 
     :new_game_level, :menu_for_load_game, :game_load_path, :splash_controller, 
-    :over, :game_over_menu, :menu_for_save_game, :log, :game_item_controller
+    :over, :game_over_menu, :menu_for_save_game, :log, :game_item_controller,
+    :rendering_controller
 
   alias_method :active?, :active
 
@@ -102,6 +104,7 @@ class Game
     @player_loader = PlayerLoader.new(self)
     @level_loader = LevelLoader.new(self)
     @collision_responder = CollisionResponseController.new(self)
+    @rendering_controller = RenderingController.new(self)
     @animation_controller = AnimationController.new(self)
     @path_following_controller = PathFollowingController.new(self)
     @menu_controller = MenuController.new(self)
