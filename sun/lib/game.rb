@@ -10,6 +10,7 @@ class Array
   include ArrayVectorOperations
 end
 
+require 'helpers/init_helper'
 require 'behaviors/movement_undoable'
 require 'behaviors/health'
 require 'behaviors/collidable'
@@ -62,17 +63,21 @@ require 'controllers/splash_controller'
 require 'forwardable'
 class Game
   extend Forwardable
-  
-  attr_accessor :player, :clock, :hud, :animation_controller, :turn_speed,
-    :movement_distance, :path_following_controller, :enemy, :camera,
-    :screen, :level, :sound_controller, :collision_responder, :collisions,
-    :wayfinding, :menu_controller, :main_menu_name, :input_controller,
-    :temporary_message, :mouse_drawn, :event_controller, :image_controller, 
-    :action_controller, :condition_controller, :completion_controller, :active, 
-    :new_game_level, :menu_for_load_game, :game_load_path, :splash_controller, 
-    :over, :game_over_menu, :menu_for_save_game, :log, :game_item_controller,
-    :rendering_controller
+  GAME_CONSTRUCTED = [ :game_item_controller, :animation_controller,
+    :action_controller, :image_controller, :player_loader, :level_loader,
+    :rendering_controller, :path_following_controller, :menu_controller,
+    :condition_controller, :completion_controller, :event_controller,
+    :input_controller, :camera, :splash_controller, :sound_controller, 
+    :save_loader
+  ]
+  attr_accessor :player, :clock, :hud, :screen, :level, :collision_responder, 
+    :collisions, :wayfinding, :main_menu_name, :temporary_message, :mouse_drawn,
+    :active, :new_game_level, :menu_for_load_game, :game_load_path, :over,
+    :game_over_menu, :menu_for_save_game, :log
 
+  ATTRIBUTES = GAME_CONSTRUCTED
+  ATTRIBUTES.each {|attr| attr_accessor attr}
+  
   alias_method :active?, :active
 
   def_delegators :@player, :turn_speed, :movement_distance, :weapon_in_use?
@@ -89,7 +94,9 @@ class Game
   def_delegator:@player, :position, :player_position
   def_delegator:@camera, :position, :camera_position
   def_delegator:@level, :remove_mouse, :remove_mouse_collision
-  
+
+  include InitHelper
+
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
     #TODO HACKISH
@@ -98,21 +105,8 @@ class Game
     @log = Logger.new(File.join(log_path, "game.log"), 10, 1024000)
     @log.level = Logger::INFO #NOTE: also ::DEBUG 
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
-    @game_item_controller = GameItemController.new(self)
-    @action_controller = ActionController.new(self)
-    @image_controller = ImageController.new(self)
-    @player_loader = PlayerLoader.new(self)
-    @level_loader = LevelLoader.new(self)
+    init_game_constructed(GAME_CONSTRUCTED, self)
     @collision_responder = CollisionResponseController.new(self)
-    @rendering_controller = RenderingController.new(self)
-    @animation_controller = AnimationController.new(self)
-    @path_following_controller = PathFollowingController.new(self)
-    @menu_controller = MenuController.new(self)
-    @condition_controller = ConditionController.new(self)
-    @completion_controller = CompletionController.new(self)
-    @input_controller = InputController.new(self)
-    @event_controller = EventController.new(self)
-    @camera = Camera.new(self)
     @mouse_drawn = true
     @main_menu_name = "main menu"
     @game_load_path = "UNSET"
@@ -120,9 +114,6 @@ class Game
     @over = false 
     @clock = Clock.new(self, dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
-    @sound_controller = SoundController.new(self)
-    @splash_controller = SplashController.new(self)
-    @save_loader = SaveLoader.new(self)
     @collisions = []
   end
 

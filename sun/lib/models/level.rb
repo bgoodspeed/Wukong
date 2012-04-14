@@ -22,34 +22,38 @@ end
 
 
 class Level
-  attr_accessor :measurements, :line_segments, :triangles, :circles, 
-    :rectangles, :dynamic_elements, :minimum_x, :minimum_y, :maximum_x, 
-    :maximum_y, :event_emitters, :enemies, :declared_enemies, :spawn_points,
-    :ored_completion_conditions, :anded_completion_conditions, :name, 
-    :event_areas, :reward_level, :orig_filename
+  ARRAY_ATTRIBUTES = [:enemies, :measurements, :line_segments, :triangles,
+    :circles, :rectangles, :dynamic_elements, :enemies, :event_emitters,
+    :spawn_points, :ored_completion_conditions, :anded_completion_conditions,
+    :event_areas,
+    ]
+  HASH_ATTRIBUTES = [
+    :declared_enemies,
+  ]
+  SCALAR_ATTRIBUTES = [
+    :minimum_x, :minimum_y, :maximum_x, :maximum_y, :name, :reward_level,
+    :orig_filename, :cell_size
+  ]
+
+  ATTRIBUTES = ARRAY_ATTRIBUTES + HASH_ATTRIBUTES + SCALAR_ATTRIBUTES
+
+  ATTRIBUTES.each {|attr| attr_accessor attr}
   attr_reader :background_image, :background_music
-  @@CELL_SIZE = 10
+
+  include InitHelper
+
   def initialize(game=nil)
     @space = SpaceWrapper.new
-    @enemies = []
-    @measurements = []
-    @line_segments = []
-    @triangles = []
-    @circles = []
-    @rectangles = []
-    @dynamic_elements = []
-    @event_emitters = []
+    init_arrays(ARRAY_ATTRIBUTES, self)
+    
     @declared_enemies = {}
-    @spawn_points = []
-    @event_areas = []
-    @static_hash = SpatialHash.new(@@CELL_SIZE)
-    @dynamic_hash = SpatialHash.new(@@CELL_SIZE)
+    @cell_size = 10 #TODO this must be in constructor to have 
+    @static_hash = SpatialHash.new(@cell_size)
+    @dynamic_hash = SpatialHash.new(@cell_size)
     @minimum_x = 0
     @minimum_y = 0
     @maximum_x = 0
     @maximum_y = 0
-    @ored_completion_conditions = []
-    @anded_completion_conditions = []
     @game = game
   end
 

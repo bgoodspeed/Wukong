@@ -3,9 +3,6 @@
 
 #TODO this class is getting messy, deals with hud stuff, formatting, drawing fonts, drawing menu stuff and intersection testing with screen elements.
 class HeadsUpDisplay
-  @@X_SPACING = 10
-  @@Y_SPACING = 10
-
   ATTRIBUTES = [:x_spacing, :y_spacing, :menu_mode, :menu_scale, :lines, :menu_width ]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
@@ -27,8 +24,8 @@ class HeadsUpDisplay
     @lines = []
     @old_lines = []
     @font = Graphics::Font.new(game.window, Graphics::default_font_name, 20)
-    @x_spacing = @@X_SPACING
-    @y_spacing = @@Y_SPACING
+    @x_spacing = 10
+    @y_spacing = 10
     @menu_mode = false
     @menu_scale = 2
     @menu_width = 300
