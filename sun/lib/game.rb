@@ -13,7 +13,7 @@ end
 require 'behaviors/movement_undoable'
 require 'behaviors/health'
 require 'behaviors/collidable'
-
+require 'managers/game_item_manager'
 require 'yaml_helper'
 require 'graphics'
 require 'loaders/game_loader'
@@ -69,7 +69,7 @@ class Game
     :temporary_message, :mouse_drawn, :event_manager, :image_manager, 
     :action_manager, :condition_manager, :completion_manager, :active, 
     :new_game_level, :menu_for_load_game, :game_load_path, :splash_manager, 
-    :over, :game_over_menu, :menu_for_save_game, :log
+    :over, :game_over_menu, :menu_for_save_game, :log, :game_item_manager
 
   alias_method :active?, :active
 
@@ -96,6 +96,7 @@ class Game
     @log = Logger.new(File.join(log_path, "game.log"), 10, 1024000)
     @log.level = Logger::INFO #NOTE: also ::DEBUG 
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
+    @game_item_manager = GameItemManager.new(self)
     @action_manager = ActionManager.new(self)
     @image_manager = ImageManager.new(self)
     @player_loader = PlayerLoader.new(self)

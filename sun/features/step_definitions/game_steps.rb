@@ -94,3 +94,7 @@ end
 Given /^I set the property "([^"]*)" to "([^"]*)"$/ do |arg1, arg2|
   @game.send("#{arg1}=", arg2)
 end
+
+Then /^the game property "([^"]*)" should not be nil$/ do |property_string|
+  invoke_property_string_on(@game, property_string).should_not be_nil
+end
