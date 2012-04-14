@@ -1,6 +1,6 @@
 name: reward
 background_image: game-data/levels/load_screen/grass.jpg
-background_music: game-data/music/music.wav
+background_music: game-data/music/crappypiano.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 measurements:
   width: 640
