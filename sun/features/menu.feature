@@ -5,7 +5,7 @@ Feature: Menu
 
   Scenario: Simple Menu
     Given I load the game on level "trivial" with screen size 640, 480
-    And I create a menu manager
+    And I create a menu controller
     And I create a new menu called "menu":
       """
       menu:
@@ -23,7 +23,7 @@ Feature: Menu
 
   Scenario: Simple Menu Selection
     Given I load the game on level "trivial" with screen size 640, 480
-    And I create a menu manager
+    And I create a menu controller
     And I create a new menu called "pick_slot":
       """
       menu:
@@ -44,7 +44,7 @@ Feature: Menu
 
   Scenario: Simple Menu Selection Movement
     Given I load the game on level "trivial" with screen size 640, 480
-    And I create a menu manager
+    And I create a menu controller
     And I create a new menu called "pick_slot":
       """
       menu:
@@ -70,7 +70,7 @@ Feature: Menu
 
   Scenario: Simple Menu Invocation
     Given I load the game on level "trivial" with screen size 640, 480
-    And I create a menu manager
+    And I create a menu controller
     And I register a fake action to return triple the argument called "choose_slot"
     And I create a new menu called "pick_slot":
       """
@@ -92,7 +92,7 @@ Feature: Menu
 
   Scenario: Main Menu
     Given I load the game on level "trivial" with screen size 640, 480
-    And I create a menu manager
+    And I create a menu controller
     And I load the main menu "main.yml"
     When I enter the menu
     Then the current menu entry should have:

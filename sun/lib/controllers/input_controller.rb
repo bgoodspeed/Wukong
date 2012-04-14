@@ -14,7 +14,7 @@ module KeyActions
   MOUSE_CLICK = "MouseClick"
 end
 
-class InputManager
+class InputController
   attr_accessor :keyboard, :gamepad
 
   def self.from_yaml(game, yaml)
@@ -34,7 +34,7 @@ class InputManager
       gp_conf = {}
       gp.each {|k,v| kbd_conf[eval(k)] = eval(v) }
     end
-    obj = InputManager.new(game , kbd_conf, gp_conf)
+    obj = InputController.new(game , kbd_conf, gp_conf)
     
     obj
   end
@@ -64,13 +64,13 @@ class InputManager
 
   attr_reader :keyboard
   #TODO abstract these into yml ?
-  def initialize(game, keyboard_conf = InputManager.default_keyboard_config, gamepad_conf = InputManager.default_gamepad_config, mouse_conf = InputManager.default_mouse_config)
+  def initialize(game, keyboard_conf = InputController.default_keyboard_config, gamepad_conf = InputController.default_gamepad_config, mouse_conf = InputController.default_mouse_config)
     @game = game
     @keys = {}
     @keyboard = keyboard_conf
     @gamepad = gamepad_conf
     @mouse = mouse_conf
-    #TODO could go into a key repeat manager or something like that
+    #TODO could go into a key repeat controller or something like that
     @disabled = {}
   end
 
@@ -103,21 +103,21 @@ class InputManager
 
   def respond_to_keys
     if @game.splash_mode
-      @game.splash_manager.splash_mode = false unless @keys.empty?
+      @game.splash_controller.splash_mode = false unless @keys.empty?
       return
     end
 
-    run_activated @game.action_manager.always_available_behaviors
+    run_activated @game.action_controller.always_available_behaviors
     
     if @game.menu_mode?
-      run_activated @game.action_manager.menu_behaviors
+      run_activated @game.action_controller.menu_behaviors
       if @game.menu_mode?  #TODO ugly, second call because menu behaviors can turn this off
         @game.update_menu_state
       end
       return
     end
 
-    run_activated @game.action_manager.gameplay_behaviors
+    run_activated @game.action_controller.gameplay_behaviors
 
   end
 
@@ -145,6 +145,10 @@ class InputManager
   def clear_keys
     @last_keys = @keys
     @keys = {}
+  end
+
+  def enable_all
+    @disabled = {}
   end
   def enable_action(action)
     @disabled[action] = false

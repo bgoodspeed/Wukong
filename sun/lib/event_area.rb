@@ -15,6 +15,6 @@ class EventArea
   end
 
   def invoke
-    @game.action_manager.invoke(@action)
+    @game.action_controller.invoke(@action)
   end
 end

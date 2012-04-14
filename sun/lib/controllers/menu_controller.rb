@@ -64,7 +64,7 @@ class Breadcrumb
   end
 end
 
-class MenuManager
+class MenuController
   attr_reader :active, :breadcrumbs
 
 
@@ -78,7 +78,7 @@ class MenuManager
     @breadcrumbs = []
   end
   def register_action(name, action)
-    @game.action_manager.menu_actions[name] = action
+    @game.action_controller.menu_actions[name] = action
   end
 
   def add_menu(name, menu)
@@ -99,7 +99,7 @@ class MenuManager
   end
 
   def actions
-    @game.action_manager.menu_actions
+    @game.action_controller.menu_actions
   end
   def do_invoke(c)
     @game.log.info { "Attempting to invoke #{c}"}

@@ -12,8 +12,8 @@ Given /^I tell the enemy to track the player$/ do
 end
 
 
-Given /^I register the enemy in the path following manager using wayfinding$/ do
-  @path_manager.add_tracking(@enemy, @way_finding)
+Given /^I register the enemy in the path following controller using wayfinding$/ do
+  @path_controller.add_tracking(@enemy, @way_finding)
 end
 
 Then /^the enemy should be in the scene$/ do
@@ -41,18 +41,18 @@ Then /^the enemy should be at position (\d+),(\d+)\.(\d+)$/ do |x, arg2, arg3|
   @enemy.position.should be_within_epsilon_of(expected)
 end
 
-Then /^the path following manager should be tracking the enemy$/ do
-  @path_manager.tracking.should be_has_key(@enemy)
+Then /^the path following controller should be tracking the enemy$/ do
+  @path_controller.tracking.should be_has_key(@enemy)
 end
 
 
 Then /^the next wayfinding point for enemy should be (\d+),(\d+)$/ do |arg1, arg2|
   expected =[arg1.to_f, arg2.to_f]
-  @path_manager.tracking_point_for(@enemy).should be_within_epsilon_of(expected)
+  @path_controller.tracking_point_for(@enemy).should be_within_epsilon_of(expected)
 end
 
 def check_wayfind_direction(expected)
-  dir = @path_manager.current_tracking_direction_for(@enemy)
+  dir = @path_controller.current_tracking_direction_for(@enemy)
   newpos = @enemy.position.plus(dir)
 
   newd = newpos.distance_from(@player.position)

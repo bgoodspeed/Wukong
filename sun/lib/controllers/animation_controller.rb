@@ -20,7 +20,7 @@ class Animation
   end
 end
 
-class AnimationManager
+class AnimationController
   def initialize(game, animation_rate=1)
     @game = game
     @animations = {}

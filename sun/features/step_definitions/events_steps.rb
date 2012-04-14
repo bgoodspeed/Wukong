@@ -8,5 +8,5 @@ When /^I trigger the event emitter$/ do
 end
 
 When /^handle events$/ do
-  @game.event_manager.handle_events
+  @game.event_controller.handle_events
 end

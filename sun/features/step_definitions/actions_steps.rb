@@ -31,9 +31,9 @@ When /^I invoke the action "([^"]*)" with argument stubbing "([^"]*)" and expect
   end
 
   if arg4.length > 0
-    @game.action_manager.invoke(eval(action_name), m, @game.action_manager.send(arg4))
+    @game.action_controller.invoke(eval(action_name), m, @game.action_controller.send(arg4))
   else
-    @game.action_manager.invoke(eval(action_name), m)
+    @game.action_controller.invoke(eval(action_name), m)
   end
   
 end
@@ -67,15 +67,15 @@ end
 
 When /^I invoke the action "([^"]*)" on collision with set "([^"]*)"$/ do |action_name, action_set|
   if action_set.length > 0
-    @game.action_manager.invoke(eval(action_name), @collision, @game.action_manager.send(action_set))
+    @game.action_controller.invoke(eval(action_name), @collision, @game.action_controller.send(action_set))
   else
-    @game.action_manager.invoke(eval(action_name), @collision)
+    @game.action_controller.invoke(eval(action_name), @collision)
   end
   
 end
 
 When /^I invoke the action "([^"]*)" with argument "([^"]*)"$/ do |action_name, arg|
-  @game.action_manager.invoke(eval(action_name), eval(arg))
+  @game.action_controller.invoke(eval(action_name), eval(arg))
 end
 
 

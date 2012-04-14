@@ -10,7 +10,7 @@ class GameItem
     @name, @item_type, @item_subtype, @power_level = name, item_type, item_subtype, power_level
   end
 end
-class GameItemManager
+class GameItemController
   attr_accessor :registered
   def initialize(game)
     @game = game

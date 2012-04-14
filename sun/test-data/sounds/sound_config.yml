@@ -1,4 +1,4 @@
-sound_manager:
+sound_controller:
   effects:
     - filename: test-data/sounds/death.wav
       name: death

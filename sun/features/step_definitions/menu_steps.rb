@@ -1,19 +1,19 @@
 Given /^I load the main menu "([^"]*)"$/ do |filename|
   @menu = YamlLoader.from_file(Menu, @game, "test-data/menus/#{filename}")
-  @menu_manager.add_menu(@game.main_menu_name, @menu)
+  @menu_controller.add_menu(@game.main_menu_name, @menu)
 end
 
 
 Given /^I create a new menu called "([^"]*)":$/ do |name, string|
 
   @menu = Menu.from_yaml(@game, string)
-  @menu_manager.add_menu(name, @menu)
+  @menu_controller.add_menu(name, @menu)
   
 end
 
-Given /^I create a menu manager$/ do
-  @menu_manager = MenuManager.new(@game)
-  @game.menu_manager = @menu_manager
+Given /^I create a menu controller$/ do
+  @menu_controller = MenuController.new(@game)
+  @game.menu_controller = @menu_controller
 end
 Given /^I set the main menu name to "([^"]*)"$/ do |name|
   @game.main_menu_name = name
@@ -26,12 +26,12 @@ end
 Then /^the menu named "([^"]*)" should be active$/ do |name|
   menu = mm.menu_named(name)
 
-  @menu_manager.should be_active
-  @menu_manager.current_menu.should == menu
+  @menu_controller.should be_active
+  @menu_controller.current_menu.should == menu
 end
 
 def mm
-  @menu_manager ? @menu_manager : @game.menu_manager
+  @menu_controller ? @menu_controller : @game.menu_controller
 end
 
 Then /^the current menu entry should have:$/ do |table|
@@ -86,7 +86,7 @@ Then /^the game should not be in menu mode$/ do
 end
 
 Then /^the breadcrumb trail should have the following:$/ do |table|
-  trail = @menu_manager.breadcrumbs
+  trail = @menu_controller.breadcrumbs
 
   table.hashes.each_with_index {|hash, idx|
     

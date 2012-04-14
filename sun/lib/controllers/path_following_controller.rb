@@ -2,7 +2,7 @@
 # and open the template in the editor.
 
 
-class PathFollowingManager
+class PathFollowingController
   attr_reader :vector_following, :tracking
   def initialize(game)
     @game = game

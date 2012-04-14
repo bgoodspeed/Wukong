@@ -20,7 +20,7 @@ class HeadsUpDisplay
     obj
   end
 
-  #TODO make a font manager or something
+  #TODO make a font controller or something
   attr_reader :font
   def initialize(game)
     @game = game
@@ -139,7 +139,7 @@ class HeadsUpDisplay
 
   include PrimitiveIntersectionTests
   def highlighted_regions
-    msc = @game.input_manager.mouse_screen_coords
+    msc = @game.input_controller.mouse_screen_coords
     rv = []
     regions.each_with_index {|r, idx| rv << idx if rectangle_point_intersection?(r, msc) }
     rv
@@ -180,7 +180,7 @@ class HeadsUpDisplay
       pos = pos.scale(@menu_scale)
       darken_screen
       draw_cursor
-      highlight_mouse_selection if @game.input_manager.mouse_on_screen
+      highlight_mouse_selection if @game.input_controller.mouse_on_screen
     end
 
     lines.each_with_index do |line, index|

@@ -6,20 +6,20 @@ class CompletionCondition
   end
 end
 
-class CompletionManager
+class CompletionController
   def initialize(game)
     @game = game
   end
 
   def check_conditions_or(conds)
     conds.each do |cond|
-      return true if @game.condition_manager.condition_met?(cond.condition, cond.argument)
+      return true if @game.condition_controller.condition_met?(cond.condition, cond.argument)
     end
     conds.empty? ? true : false
   end
   def check_conditions_and(conds)
     conds.each do |cond|
-      return false unless @game.condition_manager.condition_met?(cond.condition, cond.argument)
+      return false unless @game.condition_controller.condition_met?(cond.condition, cond.argument)
     end
     true
   end

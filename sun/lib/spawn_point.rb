@@ -37,7 +37,7 @@ class SpawnPoint
   end
   def stopped_by_cond?
     return false if @condition.nil?
-    @game.condition_manager.condition_met?(@condition)
+    @game.condition_controller.condition_met?(@condition)
   end
 
   def enqueue_events

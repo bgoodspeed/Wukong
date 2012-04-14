@@ -3,9 +3,9 @@ game:
   height: 480
   collision_response: "test-data/collision_response/collision_response.yml"
   level: "test-data/levels/load_screen/load_screen.yml"
-  input_manager: "test-data/input/input_config.yml"
+  input_controller: "test-data/input/input_config.yml"
   player: "test-data/players/load_screen_player.yml"
-  sound_manager: "test-data/sounds/sound_config.yml"
+  sound_controller: "test-data/sounds/sound_config.yml"
   heads_up_display: "test-data/hud/hud_blank.yml"
   new_game_level: "test-data/levels/demo/demo.yml"
   menu_for_load_game: "test-data/menus/load_game.yml"

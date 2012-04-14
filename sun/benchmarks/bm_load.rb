@@ -9,7 +9,7 @@ class GameBM
     @prof_loops = 1
     @game = YamlLoader.game_from_file(f)
     
-    #@game.sound_manager.play_song("music", true)
+    #@game.sound_controller.play_song("music", true)
   end
 
   def load_level

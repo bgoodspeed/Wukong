@@ -13,23 +13,23 @@ end
 require 'behaviors/movement_undoable'
 require 'behaviors/health'
 require 'behaviors/collidable'
-require 'managers/game_item_manager'
+require 'controllers/game_item_controller'
 require 'yaml_helper'
 require 'graphics'
 require 'loaders/game_loader'
 require 'loaders/yaml_loader'
 require 'zorder'
 require 'utility_drawing'
-require 'managers/event_manager'
+require 'controllers/event_controller'
 require 'spawn_point'
-require 'managers/image_manager'
-require 'managers/completion_manager'
+require 'controllers/image_controller'
+require 'controllers/completion_controller'
 require 'mouse_collision_wrapper'
 require 'event_emitter'
 require 'collider'
 require 'spatial_hash'
-require 'managers/menu_manager'
-require 'managers/condition_manager'
+require 'controllers/menu_controller'
+require 'controllers/condition_controller'
 require 'level'
 require 'screen'
 require 'weapon'
@@ -38,14 +38,14 @@ require 'enemy'
 require 'clock'
 require 'camera'
 require 'heads_up_display'
-require 'managers/action_manager'
+require 'controllers/action_controller'
 require 'collision_responder'
 require 'way_finding'
 require 'artificial_intelligence'
-require 'managers/input_manager'
-require 'managers/animation_manager'
+require 'controllers/input_controller'
+require 'controllers/animation_controller'
 require 'vector_follower'
-require 'managers/path_following_manager'
+require 'controllers/path_following_controller'
 
 require 'timed_event'
 require 'event_area'
@@ -53,8 +53,8 @@ require 'loaders/player_loader'
 require 'loaders/level_loader'
 require 'loaders/save_loader'
 
-require 'managers/sound_manager'
-require 'managers/splash_manager'
+require 'controllers/sound_controller'
+require 'controllers/splash_controller'
 
 
 
@@ -62,28 +62,28 @@ require 'forwardable'
 class Game
   extend Forwardable
   
-  attr_accessor :player, :clock, :hud, :animation_manager, :turn_speed,
-    :movement_distance, :path_following_manager, :enemy, :camera,
-    :screen, :level, :sound_manager, :collision_responder, :collisions,
-    :wayfinding, :menu_manager, :main_menu_name, :input_manager,
-    :temporary_message, :mouse_drawn, :event_manager, :image_manager, 
-    :action_manager, :condition_manager, :completion_manager, :active, 
-    :new_game_level, :menu_for_load_game, :game_load_path, :splash_manager, 
-    :over, :game_over_menu, :menu_for_save_game, :log, :game_item_manager
+  attr_accessor :player, :clock, :hud, :animation_controller, :turn_speed,
+    :movement_distance, :path_following_controller, :enemy, :camera,
+    :screen, :level, :sound_controller, :collision_responder, :collisions,
+    :wayfinding, :menu_controller, :main_menu_name, :input_controller,
+    :temporary_message, :mouse_drawn, :event_controller, :image_controller, 
+    :action_controller, :condition_controller, :completion_controller, :active, 
+    :new_game_level, :menu_for_load_game, :game_load_path, :splash_controller, 
+    :over, :game_over_menu, :menu_for_save_game, :log, :game_item_controller
 
   alias_method :active?, :active
 
   def_delegators :@player, :turn_speed, :movement_distance, :weapon_in_use?
   def_delegators :@level, :add_enemy, :enemies, :dynamic_elements
-  def_delegators :@event_manager, :add_event, :events
-  def_delegators :@menu_manager, :current_menu_index
-  def_delegators :@animation_manager, :load_animation
-  def_delegators :@input_manager, :enable_action, :disable_action, :event_enabled?
-  def_delegators :@sound_manager, :play_effect
-  def_delegators :@splash_manager, :splash_mode
+  def_delegators :@event_controller, :add_event, :events
+  def_delegators :@menu_controller, :current_menu_index
+  def_delegators :@animation_controller, :load_animation
+  def_delegators :@input_controller, :enable_action, :disable_action, :event_enabled?
+  def_delegators :@sound_controller, :play_effect
+  def_delegators :@splash_controller, :splash_mode
   def_delegators :@screen, :window, :show
   def_delegator:@screen, :set_size, :set_screen_size
-  def_delegator:@menu_manager, :active?, :menu_mode?
+  def_delegator:@menu_controller, :active?, :menu_mode?
   def_delegator:@player, :position, :player_position
   def_delegator:@camera, :position, :camera_position
   def_delegator:@level, :remove_mouse, :remove_mouse_collision
@@ -96,19 +96,19 @@ class Game
     @log = Logger.new(File.join(log_path, "game.log"), 10, 1024000)
     @log.level = Logger::INFO #NOTE: also ::DEBUG 
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
-    @game_item_manager = GameItemManager.new(self)
-    @action_manager = ActionManager.new(self)
-    @image_manager = ImageManager.new(self)
+    @game_item_controller = GameItemController.new(self)
+    @action_controller = ActionController.new(self)
+    @image_controller = ImageController.new(self)
     @player_loader = PlayerLoader.new(self)
     @level_loader = LevelLoader.new(self)
     @collision_responder = CollisionResponder.new(self)
-    @animation_manager = AnimationManager.new(self)
-    @path_following_manager = PathFollowingManager.new(self)
-    @menu_manager = MenuManager.new(self)
-    @condition_manager = ConditionManager.new(self)
-    @completion_manager = CompletionManager.new(self)
-    @input_manager = InputManager.new(self)
-    @event_manager = EventManager.new(self)
+    @animation_controller = AnimationController.new(self)
+    @path_following_controller = PathFollowingController.new(self)
+    @menu_controller = MenuController.new(self)
+    @condition_controller = ConditionController.new(self)
+    @completion_controller = CompletionController.new(self)
+    @input_controller = InputController.new(self)
+    @event_controller = EventController.new(self)
     @camera = Camera.new(self)
     @mouse_drawn = true
     @main_menu_name = "main menu"
@@ -117,8 +117,8 @@ class Game
     @over = false 
     @clock = Clock.new(self, dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
-    @sound_manager = SoundManager.new(self)
-    @splash_manager = SplashManager.new(self)
+    @sound_controller = SoundController.new(self)
+    @splash_controller = SplashController.new(self)
     @save_loader = SaveLoader.new(self)
     @collisions = []
   end
@@ -137,9 +137,10 @@ class Game
     end
     @level.add_player(@player)
     if @level.background_music
-      @sound_manager.play_song(@level.background_music, true)
+      @sound_controller.play_song(@level.background_music, true)
     end
     @clock.reset
+    @input_controller.enable_all
     @level
   end
 
@@ -156,13 +157,13 @@ class Game
   end
 
   def add_projectile(start, theta, vel)
-    vf = @path_following_manager.add_projectile(start, theta, vel)
+    vf = @path_following_controller.add_projectile(start, theta, vel)
     @level.add_projectile(vf)
     vf
   end
 
   def remove_projectile(projectile)
-    @path_following_manager.remove_projectile(projectile)
+    @path_following_controller.remove_projectile(projectile)
     @level.remove_projectile(projectile)
     @player.inactivate_weapon
   end
@@ -173,7 +174,7 @@ class Game
 
   def update_menu_state
     @hud.clear
-    @menu_manager.current_menu_lines.each {|line|  @hud.add_line(line)}
+    @menu_controller.current_menu_lines.each {|line|  @hud.add_line(line)}
   end
 
   def deactivate_and_quit
@@ -183,28 +184,28 @@ class Game
 
   def update_game_state
     
-    @event_manager.handle_events
-    @input_manager.respond_to_keys
-    @animation_manager.tick
-    @path_following_manager.tick
+    @event_controller.handle_events
+    @input_controller.respond_to_keys
+    @animation_controller.tick
+    @path_following_controller.tick
     @level.tick
     @collisions = @level.check_for_collisions
     @collision_responder.handle_collisions(@collisions)
   end
 
   def render_one_frame
-    if @splash_manager.splash_mode
-      @splash_manager.draw(@screen)
+    if @splash_controller.splash_mode
+      @splash_controller.draw(@screen)
       return
     end
 
     @level.draw(@screen)
-    @animation_manager.draw(@screen)
+    @animation_controller.draw(@screen)
     @hud.draw(@screen)
 
     #TODO HACK
-    if @input_manager.mouse_on_screen && @mouse_drawn
-      @screen.draw_crosshairs_at(@input_manager.mouse_screen_coords)
+    if @input_controller.mouse_on_screen && @mouse_drawn
+      @screen.draw_crosshairs_at(@input_controller.mouse_screen_coords)
     end
 
   end
@@ -217,8 +218,8 @@ class Game
 
   def update_all
     @clock.tick
-    @input_manager.clear_keys
-    @input_manager.update_key_state
+    @input_controller.clear_keys
+    @input_controller.update_key_state
 
     update_game_state
     remove_mouse_collision
@@ -233,13 +234,13 @@ class Game
     end
   end
   def enter_menu(name=@main_menu_name)
-    @menu_manager.activate(name)
+    @menu_controller.activate(name)
     @hud.menu_mode = true
     @hud.swap_copy
   end
   
   def exit_menu
-    @menu_manager.inactivate
+    @menu_controller.inactivate
     @hud.menu_mode = false
     @hud.swap
   end
@@ -247,7 +248,7 @@ class Game
   #TODO make wiki note that screen coords are top left to bottom right
 
   def pick_game_element
-    @level.add_mouse(@input_manager.mouse_screen_coords)
+    @level.add_mouse(@input_controller.mouse_screen_coords)
   end
 
   def interact

@@ -25,7 +25,7 @@ Feature: Heads Up Display
 
   Scenario: Simple Menu Hud Integration
     Given I load the game on level "trivial" with screen size 640, 480
-    And I create a menu manager
+    And I create a menu controller
     And I register a fake action to return triple the argument called "choose_slot"
     And I create the HUD
     And I create a new menu called "pick_slot":
@@ -62,7 +62,7 @@ Feature: Heads Up Display
     
   Scenario: Simple Menu Hud Integration 2
     Given I load the game on level "trivial" with screen size 640, 480
-    And I create a menu manager
+    And I create a menu controller
     And I register a fake action to return triple the argument called "choose_slot"
     And I create the HUD
     And I create a new menu called "pick_slot":
@@ -137,7 +137,7 @@ Feature: Heads Up Display
   Scenario: HUD Player Menu Highlights
     Given I load the game on level "trivial" with screen size 640, 480
     And I load a player from "player.yml"
-    And I create a menu manager
+    And I create a menu controller
     And I load the main menu "main.yml"
     And I create the HUD from file "hud_config.yml"
     And I set the mouse position to 30, 30 in screen coords
@@ -149,7 +149,7 @@ Feature: Heads Up Display
   Scenario: HUD Player Menu Highlights Second Line
     Given I load the game on level "trivial" with screen size 640, 480
     And I load a player from "player.yml"
-    And I create a menu manager
+    And I create a menu controller
     And I load the main menu "main.yml"
     And I create the HUD from file "hud_config.yml"
     And I set the mouse position to 30, 50 in screen coords

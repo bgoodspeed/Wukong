@@ -1,4 +1,4 @@
-sound_manager:
+sound_controller:
   effects:
     - filename: game-data/sounds/weapon.wav
       name: shoot

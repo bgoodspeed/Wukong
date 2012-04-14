@@ -85,7 +85,7 @@ class CollisionResponder
 
 
   def responses
-    @game.action_manager.collision_responses
+    @game.action_controller.collision_responses
   end
 
   def response(col)

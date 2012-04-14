@@ -38,7 +38,7 @@ class Player
     @game = game
     #TODO move register image calls into loaders/yaml parsers
     @image_file = avatar
-    @avatar = @game.image_manager.register_image(avatar)
+    @avatar = @game.image_controller.register_image(avatar)
     #@avatar.clear :dest_select => transparency_color
     p = [@avatar.width/2.0, @avatar.height/2.0 ]
     @radius = p.max

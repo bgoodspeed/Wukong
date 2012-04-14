@@ -85,7 +85,7 @@ Feature: Game Clock
     Given I load the game on level "trivial" with screen size 640, 480
     And I load a player from "player.yml"
     And I create the HUD from file "hud_config.yml"
-    And I create a menu manager
+    And I create a menu controller
     And I load the main menu "three.yml"
     And I set the game clock to 60 fps
     And the player should be at position 36,36
@@ -109,7 +109,7 @@ Feature: Game Clock
   Scenario: Spawn Events Repeating
     Given I load the game on level "simple" with screen size 640, 480
     And I set the player health to 100
-    And I create a condition manager
+    And I create a condition controller
     And I stub "foo" on game to return "false"
     When I add a fake condition that checks "foo" on game named "COND"
     And I run the game loop 11 times
@@ -118,7 +118,7 @@ Feature: Game Clock
   Scenario: Spawn Events Repeating Till Limit
     Given I load the game on level "simple" with screen size 640, 480
     And I load a player from "player_moved.yml"
-    And I create a condition manager
+    And I create a condition controller
     And I stub "foo" on game to return "false"
     When I add a fake condition that checks "foo" on game named "COND"
     And I run the game loop 25 times

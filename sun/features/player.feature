@@ -33,8 +33,8 @@ Feature: Player Details
 
   Scenario: Player weapon YAML loading
     Given I load the game on level "trivial" with screen size 640, 480
-    And I create an animation manager with a ratio of one animation tick to 1 game ticks
-    And I create a sound manager from file "sound_config.yml"
+    And I create an animation controller with a ratio of one animation tick to 1 game ticks
+    And I create a sound controller from file "sound_config.yml"
     And I load a player from "player_with_weapon.yml"
     When I use the weapon
     When I see the first frame

@@ -8,7 +8,7 @@ class Splash
     @position = [0,0]
   end
 end
-class SplashManager
+class SplashController
   attr_accessor :splash_mode, :splash
   def initialize(game)
     @game = game
@@ -16,11 +16,11 @@ class SplashManager
   end
 
   def add_splash(splash)
-    @game.image_manager.register_image(splash)
+    @game.image_controller.register_image(splash)
     @splash = Splash.new(splash)
   end
 
   def draw(screen)
-    @game.image_manager.draw_image(@splash)
+    @game.image_controller.draw_image(@splash)
   end
 end

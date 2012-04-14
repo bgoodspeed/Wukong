@@ -3,9 +3,9 @@ Feature: Conditions
   As a player
   I want to have conditions by name that are met by the game
 
-  Scenario: Condition Manager
+  Scenario: Condition Controller
     Given I load the game on level "trivial" with screen size 640, 480
-    And I create a condition manager
+    And I create a condition controller
     And I stub "foo" on game to return "true"
     And I stub "bar" on game to return "false"
     When I add a fake condition that checks "foo" on game named "COND1"
@@ -15,7 +15,7 @@ Feature: Conditions
     
   Scenario Outline: Conditions being checked
     Given I load the game on level "trivial" with screen size 640, 480
-    And I create a condition manager
+    And I create a condition controller
     And I stub "<final_prop>" on games "<game_prop>" to return "<final_value>"
     And I update the game state
     Then asking if game condition "<condition>" with arg "<condition_argument>" is met should be "<expected>"

@@ -12,7 +12,7 @@ module BehaviorTypes
   TAKE_REWARD = "take_reward"
 end
 
-class ActionManager
+class ActionController
   def default_menu_actions
     {
       #TODO make debug print write to a logfile
@@ -58,7 +58,7 @@ class ActionManager
       EventTypes::LAMBDA => lambda {|game,e| e.invoke },
       EventTypes::LOAD_LEVEL => lambda { |game, e| game.load_level(e.argument)},
       EventTypes::START_NEW_GAME => lambda { |game, e| game.load_level(e.argument)},
-      EventTypes::PICK => lambda {|game,e| puts "In Action Manager: must implement what to do when #{e.picked}"},
+      EventTypes::PICK => lambda {|game,e| puts "In Action Controller: must implement what to do when #{e.picked}"},
       EventTypes::SPAWN => lambda {|game,e| game.add_enemy(e.argument)}
     }
   end
@@ -93,10 +93,10 @@ class ActionManager
   def default_menu_behaviors
     {
       KeyActions::MENU        => delaying(KeyActions::MENU )        { |game, arg| game.exit_menu },
-      KeyActions::DOWN        => delaying(KeyActions::DOWN )        { |game, arg| game.menu_manager.move_down },
-      KeyActions::UP          => delaying(KeyActions::UP )          { |game, arg| game.menu_manager.move_up },
-      KeyActions::MENU_ENTER  => delaying(KeyActions::MENU_ENTER )  { |game, arg| game.menu_manager.invoke_current },
-      KeyActions::MOUSE_CLICK => delaying(KeyActions::MOUSE_CLICK ) { |game, arg| game.menu_manager.invoke_current_mouse },
+      KeyActions::DOWN        => delaying(KeyActions::DOWN )        { |game, arg| game.menu_controller.move_down },
+      KeyActions::UP          => delaying(KeyActions::UP )          { |game, arg| game.menu_controller.move_up },
+      KeyActions::MENU_ENTER  => delaying(KeyActions::MENU_ENTER )  { |game, arg| game.menu_controller.invoke_current },
+      KeyActions::MOUSE_CLICK => delaying(KeyActions::MOUSE_CLICK ) { |game, arg| game.menu_controller.invoke_current_mouse },
     }
   end
   def default_gameplay_behaviors

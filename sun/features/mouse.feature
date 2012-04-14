@@ -30,7 +30,7 @@ Feature: Mouse
   Scenario: Left Click in Menu
     Given I load the game on level "demo" with screen size 640, 480
     And I set the mouse position to 30, 50 in screen coords
-    And I create a menu manager
+    And I create a menu controller
     And I load the main menu "main.yml"
     And I create the HUD from file "hud_config.yml"   
     When I enter the menu
@@ -41,7 +41,7 @@ Feature: Mouse
   Scenario: Left Click in Menu 2
     Given I load the game on level "demo" with screen size 640, 480
     And I set the mouse position to 30, 40 in screen coords
-    And I create a menu manager
+    And I create a menu controller
     And I load the main menu "noop.yml"
     And I create the HUD from file "hud_config.yml"
     When I enter the menu
@@ -54,7 +54,7 @@ Feature: Mouse
   Scenario: Left Click in Menu Miss
     Given I load the game on level "demo" with screen size 640, 480
     And I set the mouse position to 300, 400 in screen coords
-    And I create a menu manager
+    And I create a menu controller
     And I load the main menu "noop.yml"
     And I create the HUD from file "hud_config.yml"
     When I enter the menu
@@ -66,7 +66,7 @@ Feature: Mouse
     Given I load the game on level "simple" with screen size 640, 480
     And I set the mouse position to 360, 360 in screen coords
     And I load a player from "player.yml"
-    And I create a condition manager
+    And I create a condition controller
     And I stub "foo" on game to return "true"
     When I add a fake condition that checks "foo" on game named "COND"
     When I see the first frame

@@ -22,7 +22,7 @@ class Event
   end
 end
 
-class EventManager
+class EventController
   attr_accessor :events
   def initialize(game)
     @game = game
@@ -31,10 +31,10 @@ class EventManager
   end
 
   def handlers
-    @game.action_manager.event_actions
+    @game.action_controller.event_actions
   end
   def handler_for(ec)
-    @game.action_manager.event_actions[ec]
+    @game.action_controller.event_actions[ec]
   end
   def add_event(e)
     @events << e

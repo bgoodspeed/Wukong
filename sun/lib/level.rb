@@ -56,7 +56,7 @@ class Level
   def background_image=(img)
     @background_image = img
     if @game
-      @background = @game.image_manager.register_image(@background_image)
+      @background = @game.image_controller.register_image(@background_image)
     else
       #TODO should game be required to build a level?
     end
@@ -64,7 +64,7 @@ class Level
   def background_music=(img)
     @background_music = img
     if @game
-      @music = @game.sound_manager.add_song(@background_music, @background_music)
+      @music = @game.sound_controller.add_song(@background_music, @background_music)
     else
       #TODO should game be required to build a level?
     end
@@ -96,8 +96,8 @@ class Level
       #TODO handle level being unbounded
       return false
     end
-    @game.completion_manager.check_conditions_or(@ored_completion_conditions) &&
-      @game.completion_manager.check_conditions_and(@anded_completion_conditions)
+    @game.completion_controller.check_conditions_or(@ored_completion_conditions) &&
+      @game.completion_controller.check_conditions_and(@anded_completion_conditions)
   end
   def add_ored_completion_condition(cc)
     @ored_completion_conditions << cc
@@ -191,15 +191,15 @@ class Level
   include UtilityDrawing
   def draw_function_for(elem)
     #TODO move all drawing logic out of models in case we replace gosu
-    #TODO maybe a gosu image manager
+    #TODO maybe a gosu image controller
     mapping = {Primitives::LineSegment => lambda {|screen, linesegment|
                  p1 = @game.camera.screen_coordinates_for(linesegment.p1)
                  p2 = @game.camera.screen_coordinates_for(linesegment.p2)
                  ls = Primitives::LineSegment.new(p1, p2)
                  draw_line_segment(screen, ls, ZOrder.static.value, Graphics::Color::RED)
                },
-               Player => lambda {|screen, player| @game.image_manager.draw_in_screen_coords(player) },
-               Enemy => lambda {|screen, enemy| @game.image_manager.draw_in_screen_coords(enemy) },
+               Player => lambda {|screen, player| @game.image_controller.draw_in_screen_coords(player) },
+               Enemy => lambda {|screen, enemy| @game.image_controller.draw_in_screen_coords(enemy) },
                EventArea => lambda {|screen, ea|
                  r = ea.rect
                  rect = Primitives::Rectangle.new(@game.camera.screen_coordinates_for(r.p1), @game.camera.screen_coordinates_for(r.p2), @game.camera.screen_coordinates_for(r.p3), @game.camera.screen_coordinates_for(r.p4))

@@ -1,33 +1,33 @@
-Given /^I create the path following manager$/ do
-  @path_manager = PathFollowingManager.new(@game)
-  @game.path_following_manager = @path_manager
+Given /^I create the path following controller$/ do
+  @path_controller = PathFollowingController.new(@game)
+  @game.path_following_controller = @path_controller
 end
 
 Given /^I add a projectile starting at (\d+),(\d+) from angle (\d+) at speed (\d+)$/ do |x, y, theta, v|
-  @projectile = @path_manager.add_projectile([x.to_f, y.to_f], theta.to_f, v.to_f)
+  @projectile = @path_controller.add_projectile([x.to_f, y.to_f], theta.to_f, v.to_f)
 end
 
-When /^I step the path following manager$/ do
-  @path_manager.tick
+When /^I step the path following controller$/ do
+  @path_controller.tick
 end
-When /^I step the path following manager (\d+) times$/ do |arg1|
-  arg1.to_i.times { @path_manager.tick }
+When /^I step the path following controller (\d+) times$/ do |arg1|
+  arg1.to_i.times { @path_controller.tick }
 end
 
 Then /^the projectile should be at (\d+),(\d+)$/ do |x,y|
-  p = @path_manager.vector_following.first
+  p = @path_controller.vector_following.first
 
   p.current_position.should be_near([x.to_f, y.to_f])
 end
 Then /^there should be no projectiles$/ do
-  pm = @path_manager ? @path_manager : @game.path_following_manager
+  pm = @path_controller ? @path_controller : @game.path_following_controller
   projectiles = pm.vector_following
   
   projectiles.should == []
 end
 
 Then /^there should be projectiles at:$/ do |table|
-  projectiles = @path_manager.vector_following
+  projectiles = @path_controller.vector_following
   currents = projectiles.collect{|p| p.current_position}
   table.map_column!("expected_position") {|vs| to_vector(vs)}
 

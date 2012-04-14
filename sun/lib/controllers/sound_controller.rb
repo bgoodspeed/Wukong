@@ -1,12 +1,12 @@
 
-class SoundManager
+class SoundController
   extend YamlHelper
 
   #TODO make YAML utils and pass attributes
   def self.from_yaml(game, yaml)
     data = YAML.load(yaml)
-    conf = data['sound_manager']
-    obj = SoundManager.new(game)
+    conf = data['sound_controller']
+    obj = SoundController.new(game)
 
     conf['effects'].each {|effect|
       game.log.info("Adding sound effect named #{effect['name']} from file #{effect['filename']}")

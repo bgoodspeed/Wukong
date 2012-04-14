@@ -31,8 +31,8 @@ Feature: Player Controls
 
   Scenario: Mapping input to movements and actions firing weapons
     Given I load the game on level "trivial" with screen size 640, 480
-    And I create an animation manager with a ratio of one animation tick to 1 game ticks
-    And I create the path following manager
+    And I create an animation controller with a ratio of one animation tick to 1 game ticks
+    And I create the path following controller
     And I set the player avatar to "avatar.bmp"
     And I set the player step size to 25
     And I set the player weapon with image "weapon.png"
@@ -65,7 +65,7 @@ Feature: Player Controls
   Scenario: Mapping menu to enter menu
     Given I load the game on level "trivial" with screen size 640, 480
     And I create the HUD
-    And I create a menu manager
+    And I create a menu controller
     And I create a new menu called "fake":
       """
       menu:
@@ -88,7 +88,7 @@ Feature: Player Controls
   Scenario: Mapping menu to enter menu
     Given I load the game on level "trivial" with screen size 640, 480
     And I create the HUD
-    And I create a menu manager
+    And I create a menu controller
     And I register a fake action to return triple the argument called "choose_slot"
     And I create a new menu called "fake":
       """
@@ -109,10 +109,10 @@ Feature: Player Controls
       | pick_slot | choose_slot | 7               | 21            |
 
 
-   Scenario: Input manager from Yaml
+   Scenario: Input controller from Yaml
      Given I load the game on level "trivial" with screen size 640, 480
-     And I create an input manager from config file "input_config.yml"
-     Then the input managers mapping should contain:
+     And I create an input controller from config file "input_config.yml"
+     Then the input controllers mapping should contain:
        | api_keysym  | keyaction      |
        | Graphics::KbUp  | KeyActions::UP |
 
@@ -120,7 +120,7 @@ Feature: Player Controls
   Scenario: Mapping menu to exit menu
     Given I load the game on level "trivial" with screen size 640, 480
     And I create the HUD
-    And I create a menu manager
+    And I create a menu controller
     And I register a fake action to return triple the argument called "choose_slot"
     And I create a new menu called "fake":
       """

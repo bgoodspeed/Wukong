@@ -14,7 +14,7 @@ Feature: Spawn Points
 
   Scenario: Spawn Point - Spawning
     Given I load the game on level "simple" with screen size 640, 480
-    And I create a condition manager
+    And I create a condition controller
     And I stub "foo" on game to return "false"
     When I add a fake condition that checks "foo" on game named "COND"
     When the spawn points are updated
@@ -23,7 +23,7 @@ Feature: Spawn Points
 
   Scenario: Spawn Point - Spawning not yet
     Given I load the game on level "simple" with screen size 640, 480
-    And I create a condition manager
+    And I create a condition controller
     And I stub "foo" on game to return "true"
     When I add a fake condition that checks "foo" on game named "COND"
     When the spawn points are updated
@@ -31,7 +31,7 @@ Feature: Spawn Points
 
   Scenario: Spawn Point - Spawning Wired into Game tick
     Given I load the game on level "simple" with screen size 640, 480
-    And I create a condition manager
+    And I create a condition controller
     And I stub "foo" on game to return "false"
     When I add a fake condition that checks "foo" on game named "COND"
     And I run the game loop 1 times

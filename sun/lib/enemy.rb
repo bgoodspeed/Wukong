@@ -24,7 +24,7 @@ class Enemy
   def initialize(enemy_avatar, game)
     @game = game
     @image_file = enemy_avatar
-    @enemy_avatar = @game.image_manager.register_image(enemy_avatar)
+    @enemy_avatar = @game.image_controller.register_image(enemy_avatar)
     p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
     @radius = p.max
     @health = 15
