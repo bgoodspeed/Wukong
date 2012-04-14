@@ -20,3 +20,4 @@ Feature: Events
     And I run the game loop 1 times
     And handle events
     Then there should be 1 enemies
+    And the path following controller should be tracking 1 element

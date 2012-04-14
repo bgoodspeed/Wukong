@@ -11,8 +11,6 @@ Feature: Action
   Examples:
    | action                        | game_prop             | game_value_init | game_value_final | stubs                                           | expects | set                          |
    | EventTypes::DEATH             | player.enemies_killed | 0               | 1                | argument                                        |         |                              |
-   | EventTypes::SPAWN             | enemies.size          | 0               | 1                | argument                                        |         |                              |
-   | EventTypes::SPAWN             | enemies.size          | 0               | 1                | argument                                        |         |                              |
    | KeyActions::DOWN              | player.position       | [320, 240]      | [320.0, 242.0]   |                                                 |         | gameplay_behaviors           |
    | EventTypes::START_NEW_GAME    | level.name            | 'load_screen'   | 'demo'           | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
 

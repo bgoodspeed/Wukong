@@ -46,3 +46,7 @@ end
 Then /^the projectile collision center should be (\d+),(\d+)$/ do |x,y|
   @projectile.collision_center.should be_near [x.to_i, y.to_i]
 end
+
+Then /^the path following controller should be tracking (\d+) elements?$/ do |n|
+  @game.path_following_controller.tracking.size.should == n.to_i
+end

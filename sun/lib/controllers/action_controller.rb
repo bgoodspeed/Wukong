@@ -59,7 +59,12 @@ class ActionController
       EventTypes::LOAD_LEVEL => lambda { |game, e| game.load_level(e.argument)},
       EventTypes::START_NEW_GAME => lambda { |game, e| game.load_level(e.argument)},
       EventTypes::PICK => lambda {|game,e| puts "In Action Controller: must implement what to do when #{e.picked}"},
-      EventTypes::SPAWN => lambda {|game,e| game.add_enemy(e.argument)}
+      EventTypes::SPAWN => lambda {|game,e|
+        enemy = e.argument
+        enemy.tracking_target = game.player
+        game.add_enemy(enemy)
+        game.path_following_controller.add_tracking(enemy, game.wayfinding)
+        }
     }
   end
 
