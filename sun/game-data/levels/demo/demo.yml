@@ -1,5 +1,5 @@
 name: demo
-background_image: game-data/levels/demo/grass.jpg
+background_image: game-data/levels/demo/demo.png
 background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/demo/wayfinding.yml
 reward_level: game-data/levels/reward/reward.yml
@@ -34,20 +34,20 @@ spawn_points:
 line_segments:
   - start_x: 0
     start_y: 0
-    end_x: 640
+    end_x: 1024
     end_y:   0
   - start_x: 0
     start_y: 0
     end_x:   0
-    end_y: 480
-  - start_x: 640
+    end_y: 768
+  - start_x: 1024
     start_y: 0
-    end_x: 640
-    end_y: 480
+    end_x: 1024
+    end_y: 768
   - start_x: 0
-    start_y: 480
-    end_x: 640
-    end_y: 480
+    start_y: 768
+    end_x: 1024
+    end_y: 768
   - start_x: 150
     start_y: 150
     end_x: 400
