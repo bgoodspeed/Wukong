@@ -1,6 +1,6 @@
 sound_controller:
   effects:
-    - filename: game-data/sounds/weapon.wav
+    - filename: game-data/sounds/shoot_long.wav
       name: shoot
 
   songs:

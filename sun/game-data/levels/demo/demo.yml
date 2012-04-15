@@ -23,6 +23,14 @@ spawn_points:
     name: fiftyfifty
     spawn_schedule: 1 enemies every 300 ticks for 900 total ticks
     spawn_argument: [ e1 ]
+  - point: [ 50, 200 ]
+    name: fiftyfifty2
+    spawn_schedule: 1 enemies every 300 ticks for 900 total ticks
+    spawn_argument: [ e2 ]
+  - point: [ 200, 50 ]
+    name: fiftyfifty3
+    spawn_schedule: 1 enemies every 300 ticks for 900 total ticks
+    spawn_argument: [ e3 ]
 line_segments:
   - start_x: 0
     start_y: 0

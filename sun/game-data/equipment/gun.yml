@@ -2,7 +2,7 @@ weapon:
   swing_start: 0
   swing_sweep: 0
   swing_frames: 0
-  image_path: game-data/equipment/weapon.png
+  image_path: game-data/equipment/weapon_black2.png
   type: projectile
-  sound_effect_name: player_weapon_sound
+  sound_effect_name: shoot
   velocity: 10
