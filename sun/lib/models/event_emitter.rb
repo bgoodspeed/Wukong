@@ -8,15 +8,12 @@ class LambdaEvent
     @lambda = lambda
     @argument = arg
   end
-
   def invoke
     @lambda.call(@game, @argument)
   end
-
   def event_type
     EventTypes::LAMBDA
   end
-
 end
 
 
@@ -44,6 +41,7 @@ class EventEmitter
     self.class
   end
 
+  #TODO extract this to a behavior
   def to_collision
     #Primitives::Circle.new(@position, @radius)
     @collision_primitive

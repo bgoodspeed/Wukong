@@ -1,10 +1,10 @@
---- 
-player: 
+---
+player:
   step_size: 1
-  position: 
+  position:
   - 350
   - 200
-  weapon: 
+  weapon: !!null 
   direction: 0
   health: 5
   max_health: 6

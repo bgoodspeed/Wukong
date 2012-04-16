@@ -87,7 +87,15 @@ end
 
 
 Then /^the save file should match "([^"]*)"$/ do |arg1|
-  IO.readlines(@name).join("").should == IO.readlines("test-data/loads/#{arg1}").join("")
+  
+  actual_lines = IO.readlines(@name)
+  expected_lines = IO.readlines("test-data/loads/#{arg1}")
+
+  expected_lines.each do |line1|
+    l1 = line1.strip
+    matched = actual_lines.select {|line2| line2.strip =~ Regexp.new(l1) }
+    matched.should_not be_empty, "Expected #{line1} to be in #{actual_lines}"
+  end
 
 end
 

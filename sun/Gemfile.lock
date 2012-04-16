@@ -19,7 +19,7 @@ GEM
       json (>= 1.4.6)
     gosu (0.7.43)
     gosu (0.7.43-x86-mingw32)
-    hoe (3.0.3)
+    hoe (2.16.0)
       rake (~> 0.8)
     json (1.6.6)
     metaclass (0.0.1)
@@ -52,7 +52,7 @@ DEPENDENCIES
   chunky_png
   cucumber
   gosu
-  hoe
+  hoe (= 2.16.0)
   mocha
   opengl
   rake-compiler

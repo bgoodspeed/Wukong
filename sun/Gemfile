@@ -1,7 +1,7 @@
 source :rubygems
 source "http://rubygems.org"
 
-gem "hoe"
+gem "hoe", "2.16.0"
 gem "opengl"
 gem "gosu"
 #gem "texplay", :platforms => [:mswin, :mingw, :ruby]

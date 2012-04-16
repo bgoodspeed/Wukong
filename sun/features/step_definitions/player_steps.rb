@@ -111,7 +111,16 @@ Then /^the player should have yaml:$/ do |string|
   p.to_yaml.should == string
 end
 Then /^the player should have yaml matching "([^"]*)"$/ do |arg1|
-  p.to_yaml.should == IO.readlines("test-data/players/expected_player.yml").join("")
+
+  yml = p.to_yaml
+  expected_lines = IO.readlines("test-data/players/expected_player.yml")
+
+  expected_lines.each do|line|
+    l = line.strip
+    matched = yml =~ Regexp.new(l)
+    matched.should be_true, "Expected #{l} to be in yml: #{yml}"
+
+  end
 end
 
 
