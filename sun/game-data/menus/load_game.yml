@@ -7,3 +7,12 @@ menu:
     - display_text: Load Game 2
       action: load_game_slot
       action_argument: 2
+    - display_text: Load Game 3
+      action: load_game_slot
+      action_argument: 3
+    - display_text: Load Game 4
+      action: load_game_slot
+      action_argument: 4
+    - display_text: Load Game 5
+      action: load_game_slot
+      action_argument: 5
