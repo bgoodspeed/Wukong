@@ -17,7 +17,7 @@ class GameWindow < Graphics::Window
     @h = height
     @game = game
     #TODO extract this stuff to config file
-    self.caption = "Wukong: purplemonkeydishwasherbubblegum"
+    self.caption = "Wukong: Demo"
   end
 
   def update
