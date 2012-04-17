@@ -54,6 +54,7 @@ class Weapon
   end
   def inactivate
     @in_use = false
+    @game.level.remove_weapon(self)
   end
 
   def in_use?
@@ -61,7 +62,7 @@ class Weapon
   end
 
   def vector_to_weapon_tip
-    [calculate_offset_x(@equipped_on.direction, @weapon_length), calculate_offset_y(@equipped_on.direction, @weapon_length)]
+    [calculate_offset_x(@equipped_on.direction, @weapon_length), calculate_offset_y(@equipped_on.direction, @weapon_length)].scale(@weapon_length)
   end
   include GraphicsApi
   #TODO all this collision stuff is for swung weapons only.. might be confusing?
@@ -79,7 +80,7 @@ class Weapon
     @weapon_length
   end
   def collision_center
-    @equipped_on.position.plus(vector_to_weapon_tip.scale(0.5))
+    @equipped_on.position.plus(vector_to_weapon_tip)
   end
   def collision_response_type
     self.class

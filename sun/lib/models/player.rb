@@ -99,7 +99,9 @@ class Player
     @position.dup
   end
 
-  
+  def stop_weapon(arg=nil)
+    @weapon.inactivate
+  end
 
 
   def enemy_killed

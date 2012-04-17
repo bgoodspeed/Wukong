@@ -12,6 +12,7 @@ class TimedEvent
     @enqueued_at = nil
   end
 
+  #TODO this should call an action not use send
   def enqueued(t, game)
     @enqueued_at = t
     raise "timed event: unknown start action  #{@start_action} rest of #{@end_action}conf#{@start_data} #{@end_data}" unless game.respond_to? @start_action

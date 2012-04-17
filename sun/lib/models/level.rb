@@ -190,6 +190,10 @@ class Level
     @dynamic_elements << enemy
   end
 
+  def remove_weapon(weapon)
+    @dynamic_elements.reject!{|elem| elem == weapon}
+  end
+
   def remove_enemy(enemy)
     @enemy = nil
     @enemies.reject!{|e| e == enemy}

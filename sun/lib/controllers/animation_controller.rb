@@ -57,8 +57,8 @@ class AnimationController
   include UtilityDrawing
   def draw(screen)
     visit do |entity, name, animation|
-      position = position_for(entity, name)
-      
+      world_position = position_for(entity, name)
+      position = @game.camera.screen_coordinates_for(world_position)
       draw_animation_at(screen, position, animation)
     end
   end

@@ -55,6 +55,9 @@ class CollisionResponseController
       EventEmitter => {
         Player => [ResponseTypes::TRIGGER_EVENT1]
       },
+      Weapon => {
+        Primitives::LineSegment => []
+      },
       Primitives::LineSegment => {
         Player => [ResponseTypes::BLOCKING2],
         VectorFollower => [ResponseTypes::REMOVING2],
@@ -64,7 +67,8 @@ class CollisionResponseController
         Enemy => [],
         VectorFollower => [ResponseTypes::DAMAGING1, ResponseTypes::REMOVING2],
         Primitives::LineSegment => [ResponseTypes::BLOCKING1],
-        MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1]
+        MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1],
+        Weapon => [ResponseTypes::DAMAGING1]
       },
       VectorFollower => {
         Player => [],
