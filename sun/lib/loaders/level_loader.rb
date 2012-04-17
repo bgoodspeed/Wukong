@@ -51,6 +51,13 @@ class LevelLoader
       level.add_spawn_point(pt)
     }
 
+    if data["heads_up_display"]
+      @game.log.info { "Building Level HUD: #{data['heads_up_display']}"}
+      hud = YamlLoader.from_file(HeadsUpDisplay, @game, data['heads_up_display'])
+      @game.hud = hud
+
+    end
+
     level.ored_completion_conditions = data["ored_completion_conditions"].to_a.collect {|cc| conf_for(cc) }
     level.anded_completion_conditions = data["anded_completion_conditions"].to_a.collect {|cc| conf_for(cc)}
     data["event_areas"].to_a.each {|ea|

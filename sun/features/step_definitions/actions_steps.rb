@@ -40,7 +40,7 @@ end
 
 Then /^the game property "([^"]*)" should be "([^"]*)"$/ do |property_string, expected|
   actual = invoke_property_string_on(@game, property_string)
-  eval(expected).should == actual
+  actual.should == eval(expected)
 end
 
 

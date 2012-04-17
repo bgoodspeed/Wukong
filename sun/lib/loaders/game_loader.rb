@@ -7,6 +7,9 @@ class GameLoader
     conf = data['game']
 
     game = Game.new({:width => conf['width'], :height => conf['height']})
+    game.log.info { "Building HUD: #{conf['heads_up_display']}"}
+    hud = YamlLoader.from_file(HeadsUpDisplay, game, conf['heads_up_display'])
+    game.hud = hud
 
     path_controller = PathFollowingController.new(game)
     game.path_following_controller = path_controller
@@ -31,9 +34,6 @@ class GameLoader
       path_controller.add_tracking(e, game.wayfinding)
     end
 
-    game.log.info { "Building HUD: #{conf['heads_up_display']}"}
-    hud = YamlLoader.from_file(HeadsUpDisplay, game, conf['heads_up_display'])
-    game.hud = hud
 
     menu_controller = MenuController.new(game)
     game.menu_controller = menu_controller

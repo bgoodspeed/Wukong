@@ -85,6 +85,7 @@ class HeadsUpDisplay
     line
   end
 
+  #TODO this is probably going to be hard to move to c++ as-is, need to get rid of obj.send() calls
   def game_evaluate(token)
     obj = @game
     token.split(".").each {|elem|

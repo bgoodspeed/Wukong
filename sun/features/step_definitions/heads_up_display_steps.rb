@@ -37,3 +37,12 @@ end
 Then /^highlighted region should be line (\d+)$/ do |arg1|
   @hud.highlighted_regions.first.should == arg1.to_i
 end
+
+Given /^I set the temporary message to "([^"]*)"$/ do |arg1|
+  @game.temporary_message = arg1
+end
+
+Then /^the temporary message should be "([^"]*)"$/ do |arg1|
+  "#{@game.temporary_message}".should == "#{arg1}"
+
+end

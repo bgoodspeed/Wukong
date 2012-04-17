@@ -138,7 +138,7 @@ class Game
       @sound_controller.play_song(@level.background_music, true)
     end
     @clock.reset
-
+    @temporary_message = nil
     @input_controller.enable_all
     @level
   end

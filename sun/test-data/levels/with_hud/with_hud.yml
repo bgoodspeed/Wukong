@@ -1,0 +1,46 @@
+name: demo
+background_image: test-data/levels/demo/grass.jpg
+background_music: test-data/music/music.wav
+wayfinding: test-data/levels/demo/wayfinding.yml
+heads_up_display: "test-data/hud/hud_config2.yml"
+reward_level: test-data/levels/foo/foo.yml
+measurements:
+  width: 640
+  height: 480
+declared_enemies:
+  - enemy_yaml: test-data/enemies/enemy.yml
+    name: e1
+  - enemy_yaml: test-data/enemies/enemy2.yml
+    name: e2
+  - enemy_yaml: test-data/enemies/enemy3.yml
+    name: e3
+spawn_points:
+  - point: [ 50, 50 ]
+    name: fiftyfifty
+    spawn_schedule: 2 enemies every 10 ticks for 100 total ticks
+    spawn_argument: [ e1 ]
+  - point: [ 100, 100 ]
+    name: hundredhundred
+    spawn_schedule: 1 enemies every 5 ticks for 0 total ticks until COND
+    spawn_argument: [ e2, e3 ]
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+  - start_x: 150
+    start_y: 150
+    end_x: 400
+    end_y: 150
