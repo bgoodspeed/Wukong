@@ -7,7 +7,7 @@ game:
   player: "game-data/players/load_screen_player.yml"
   sound_controller: "game-data/sounds/sound_config.yml"
   heads_up_display: "game-data/hud/hud_config.yml"
-  new_game_level: "game-data/levels/demo/demo.yml"
+  new_game_level: "game-data/levels/level_1/level_1.yml"
   menu_for_load_game: "game-data/menus/load_game.yml"
   game_load_path: "game-data/loads/"
   splash_screen: "game-data/screens/splash_screen.png"
