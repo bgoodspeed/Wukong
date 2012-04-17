@@ -1,5 +1,5 @@
 name: load_screen
-background_image: game-data/levels/load_screen/load_screen.png
+background_image: game-data/levels/load_screen/load_screen2.png
 background_music: game-data/music/xnckv_mono.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 measurements:
@@ -23,19 +23,19 @@ line_segments:
     end_x: 640
     end_y: 480
 event_areas:
-  - top_left: [ 10, 10 ]
-    bottom_right: [ 280, 180 ]
+  - top_left: [ 42, 290 ]
+    bottom_right: [ 295, 440 ]
     label: Start New Game
     action: queue_start_new_game_event
-  - top_left: [ 360, 10 ]
-    bottom_right: [ 630, 180 ]
+  - top_left: [ 350, 90 ]
+    bottom_right: [ 600, 240 ]
     label: Load Game
     action: queue_load_game_event
-  - top_left: [ 10, 280 ]
-    bottom_right: [ 280, 470 ]
+  - top_left: [ 350, 290 ]
+    bottom_right: [ 600, 440 ]
     label: Settings
     action: queue_settings_event
-  - top_left: [ 360, 280 ]
-    bottom_right: [ 630, 470 ]
+  - top_left: [ 41, 90 ]
+    bottom_right: [ 292, 240 ]
     label: Continue
     action: queue_continue_event

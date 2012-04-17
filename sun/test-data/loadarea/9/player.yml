@@ -4,7 +4,7 @@ player:
   position:
   - 320
   - 240
-  weapon: !!null 
+  weapon: 
   direction: 0
   health: 5
   max_health: 6
