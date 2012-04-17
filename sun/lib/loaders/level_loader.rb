@@ -57,6 +57,9 @@ class LevelLoader
       @game.hud = hud
 
     end
+    level.player_start_position = data["player_start_position"] if data["player_start_position"]
+
+    
 
     level.ored_completion_conditions = data["ored_completion_conditions"].to_a.collect {|cc| conf_for(cc) }
     level.anded_completion_conditions = data["anded_completion_conditions"].to_a.collect {|cc| conf_for(cc)}

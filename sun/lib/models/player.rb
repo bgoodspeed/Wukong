@@ -62,6 +62,9 @@ class Player
   def use_weapon
     #TODO could log this, emit a temp msg to the hud etc
     return unless @weapon
+    #TODO we don't want to actually load the animation from disk at this point
+    @game.load_animation(self, @weapon.animation_name, @weapon.image_path, 24, 24, false) #TODO hardcoded values
+
     @weapon.use
   end
 
@@ -75,8 +78,6 @@ class Player
   def equip_weapon(w)
     @weapon = w
     @weapon.equipped_on = self
-    #TODO we don't want to actually load the animation from disk at this point
-    @game.load_animation(self, @weapon.animation_name, @weapon.image_path, 24, 24, false) #TODO hardcoded values
   end
 
   def turn(direction)

@@ -86,7 +86,12 @@ Feature: Level Description
     Given I load the game "demo"
     Then the game property "menu_for_save_game" should be "'test-data/menus/save_game.yml'"
 
+
   Scenario: Reward Level HUD
     Given I load the game "game_with_level_hud"
     Then the game property "hud.lines.first" should be "'(HUD2)Player HP: 5/6'"
     
+  Scenario: Demo Level starting position
+    Given I load the game "demo_start"
+    Then the game property "level.player_start_position" should be "[320, 240]"
+    Then the game property "player.position" should be "[320, 240]"

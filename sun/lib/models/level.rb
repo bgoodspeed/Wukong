@@ -32,7 +32,7 @@ class Level
   ]
   SCALAR_ATTRIBUTES = [
     :minimum_x, :minimum_y, :maximum_x, :maximum_y, :name, :reward_level,
-    :orig_filename, :cell_size
+    :orig_filename, :cell_size, :player_start_position #TODO this is technically an array,but i don't want it init'd to []
   ]
 
   ATTRIBUTES = ARRAY_ATTRIBUTES + HASH_ATTRIBUTES + SCALAR_ATTRIBUTES
@@ -50,6 +50,7 @@ class Level
     @cell_size = 10 #TODO this must be in constructor to have 
     @static_hash = SpatialHash.new(@cell_size)
     @dynamic_hash = SpatialHash.new(@cell_size)
+    @player_start_position = nil
     @minimum_x = 0
     @minimum_y = 0
     @maximum_x = 0

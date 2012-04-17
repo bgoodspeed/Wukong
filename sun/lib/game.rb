@@ -132,6 +132,10 @@ class Game
     if !@player
       @player = @player_loader.load_player
     end
+    #TODO Hackish and an exact double
+    if @level.player_start_position
+      @player.position = @level.player_start_position
+    end
     
     @level.add_player(@player)
     if @level.background_music
@@ -139,12 +143,17 @@ class Game
     end
     @clock.reset
     @temporary_message = nil
+
     @input_controller.enable_all
     @level
   end
 
   def set_player(player)
     @player = player
+    #TODO Hackish and an exact double
+    if @level.player_start_position
+      @player.position = @level.player_start_position
+    end
     @level.set_player(player)
 
   end
