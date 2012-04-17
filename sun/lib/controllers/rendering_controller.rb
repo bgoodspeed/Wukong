@@ -29,14 +29,29 @@ class RenderingController
                  @game.font_controller.draw_with_font(iw.description, 60, 60, ZOrder.hud.value)
                  
                },
-               Weapon => lambda {|screen, weapon| "NOOP weapon #TODO"},
+               Weapon => lambda {|screen, w|
+                 lsi = w.to_collision
+
+                 ls1 = @game.camera.screen_coordinates_for(lsi.p1)
+                 ls2 = @game.camera.screen_coordinates_for(lsi.p2)
+                 ls = Primitives::LineSegment.new(ls1,ls2)
+                 draw_line_segment(screen, ls)
+
+               },
                #MouseCollisionWrapper => lambda {|screen, enemy| puts "NOOP, could add a highlight?" },
                #TODO ugly, should this be here? not sure about design
                VectorFollower => lambda {|screen, vf|
                  d = 10
                  cp = @game.camera.screen_coordinates_for(vf.current_position)
 
-                 draw_rectangle(screen, Primitives::Rectangle.new(cp, cp.plus([d,0]), cp.plus([d,d]), cp.plus([0,d])))}
+                 draw_rectangle(screen, Primitives::Rectangle.new(cp, cp.plus([d,0]), cp.plus([d,d]), cp.plus([0,d])))
+                 lsi = vf.to_collision
+
+                 ls1 = @game.camera.screen_coordinates_for(lsi.p1)
+                 ls2 = @game.camera.screen_coordinates_for(lsi.p2)
+                 ls = Primitives::LineSegment.new(ls1,ls2)
+                 draw_line_segment(screen, ls)
+               }
     }
     
   end

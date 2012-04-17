@@ -10,7 +10,7 @@ anded_completion_conditions:
   - condition: player_health_at_least
     argument: 1
   - condition: enemies_killed_at_least
-    argument: 3
+    argument: 9
 declared_enemies:
   - enemy_yaml: game-data/enemies/enemy_slow.yml
     name: e1
@@ -52,3 +52,7 @@ line_segments:
     start_y: 150
     end_x: 400
     end_y: 150
+  - start_x: 150
+    start_y: 160
+    end_x: 400
+    end_y: 160

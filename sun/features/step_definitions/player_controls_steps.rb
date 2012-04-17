@@ -31,7 +31,7 @@ end
 When /^I run the game loop (\d+) times and clear the state after run (\d+)$/ do |total_loops, input_loops|
   total_loops.to_i.times do |idx|
     if idx == input_loops.to_i
-      #@game.stubs(:button_down?).returns false
+      @game.input_controller.stubs(:button_down?).returns false
     end
     @game.simulate
   end

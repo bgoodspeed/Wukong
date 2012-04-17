@@ -20,6 +20,9 @@ class Collision
     @dynamic1 = dynamic
     @dynamic2 = dynamic2
   end
+  def collision_priority
+    @dynamic1.collision_priority + @dynamic2.collision_priority
+  end
   alias_method :static, :dynamic1
   alias_method :dynamic, :dynamic2
 end
@@ -52,6 +55,9 @@ class CollisionResponseController
       EventEmitter => {
         Player => [ResponseTypes::TRIGGER_EVENT1]
       },
+      Weapon => {
+        Primitives::LineSegment => []
+      },
       Primitives::LineSegment => {
         Player => [ResponseTypes::BLOCKING2],
         VectorFollower => [ResponseTypes::REMOVING2],
@@ -61,7 +67,8 @@ class CollisionResponseController
         Enemy => [],
         VectorFollower => [ResponseTypes::DAMAGING1, ResponseTypes::REMOVING2],
         Primitives::LineSegment => [ResponseTypes::BLOCKING1],
-        MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1]
+        MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1],
+        Weapon => [ResponseTypes::DAMAGING1]
       },
       VectorFollower => {
         Player => [],

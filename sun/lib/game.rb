@@ -3,7 +3,7 @@
 
 require "logger"
 require 'statemachine'
-
+require 'models/collision_priority'
 require 'utility/utility_vector_math'
 
 class Array
@@ -82,7 +82,7 @@ class Game
   
   alias_method :active?, :active
 
-  def_delegators :@player, :turn_speed, :movement_distance, :weapon_in_use?
+  def_delegators :@player, :turn_speed, :movement_distance, :weapon_in_use?, :stop_weapon
   def_delegators :@level, :add_enemy, :enemies, :dynamic_elements
   def_delegators :@event_controller, :add_event, :events
   def_delegators :@menu_controller, :current_menu_index
@@ -182,9 +182,7 @@ class Game
 
   def update_menu_state
     @hud.clear
-    unless @menu_controller.active
-      raise "wtf why am i here"
-    end
+
     @menu_controller.current_menu_lines.each {|line|  @hud.add_line(line)}
   end
 
@@ -197,6 +195,7 @@ class Game
     
     @event_controller.handle_events
     @input_controller.respond_to_keys
+    return if menu_mode?
     @animation_controller.tick
     @path_following_controller.tick
     @level.tick

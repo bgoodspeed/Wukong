@@ -5,7 +5,7 @@
 class Weapon
   ATTRIBUTES = [:swing_start , :swing_sweep ,  :swing_frames, :weapon_length,
     :image_path, :type, :sound_effect_name, :velocity, :equipped_on, 
-    :orig_filename, :animation_name]
+    :orig_filename, :animation_name, :collision_priority]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -26,6 +26,7 @@ class Weapon
     @swing_frames = 10
     @current_frame = 0
     @weapon_length = 10
+    @collision_priority = CollisionPriority::HIGH
     @velocity = 10
     @type = "swung"
     @game = game
@@ -53,6 +54,7 @@ class Weapon
   end
   def inactivate
     @in_use = false
+    @game.level.remove_weapon(self)
   end
 
   def in_use?
@@ -60,7 +62,7 @@ class Weapon
   end
 
   def vector_to_weapon_tip
-    [calculate_offset_x(@equipped_on.direction, @weapon_length), calculate_offset_y(@equipped_on.direction, @weapon_length)]
+    [calculate_offset_x(@equipped_on.direction, @weapon_length), calculate_offset_y(@equipped_on.direction, @weapon_length)].scale(@weapon_length)
   end
   include GraphicsApi
   #TODO all this collision stuff is for swung weapons only.. might be confusing?
@@ -78,7 +80,7 @@ class Weapon
     @weapon_length
   end
   def collision_center
-    @equipped_on.position.plus(vector_to_weapon_tip.scale(0.5))
+    @equipped_on.position.plus(vector_to_weapon_tip)
   end
   def collision_response_type
     self.class

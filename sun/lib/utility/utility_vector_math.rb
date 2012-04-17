@@ -87,11 +87,12 @@ module Primitives
     def to_collision; self; end
   end
   class LineSegment
-    attr_accessor :p1, :p2, :user_data
-    def initialize(p1, p2)
+    attr_accessor :p1, :p2, :user_data, :collision_priority
+    def initialize(p1, p2, ud=nil, cp=CollisionPriority::HIGH)
       @p1 = p1
       @p2 = p2
-      @user_data = nil #TODO reconsider this design
+      @user_data = ud #TODO reconsider this design
+      @collision_priority = cp
     end
     def sx; @p1.vx; end
     def sy; @p1.vy; end

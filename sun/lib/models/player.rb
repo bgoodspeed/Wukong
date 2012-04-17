@@ -8,7 +8,7 @@ class Player
   MAX_TURN_DEGREES = 360
   attr_reader :radius
   ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, :max_health, 
-    :turn_speed, :movement_distance, :menu_action_delay, :enemies_killed, :image_path
+    :turn_speed, :movement_distance, :menu_action_delay, :enemies_killed, :image_path, :collision_priority
   ]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
@@ -45,6 +45,7 @@ class Player
     @radius = p.max
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
+    @collision_priority = CollisionPriority::MID
     @health = 0
     @direction = 0
     @enemies_killed = 0
@@ -98,7 +99,9 @@ class Player
     @position.dup
   end
 
-  
+  def stop_weapon(arg=nil)
+    @weapon.inactivate
+  end
 
 
   def enemy_killed

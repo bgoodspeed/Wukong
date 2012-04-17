@@ -1,3 +1,4 @@
+@slow
 Feature: Collision Detection
   In order to play the game
   As a player
@@ -102,4 +103,56 @@ Feature: Collision Detection
     And the play count for sound effect "land_mine_boom" should be 1
 
 
+  Scenario: Projectile Collisions Destroyed By Collision With Wall
+    Given I load the game on level "obstacle" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 200,200
+    And I set the player step size to 10
+    And I set the player direction to 0
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy position 200,100
+    And I set the enemy health to 12
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 12 times and clear the state after run 1
+    Then there should be no projectiles
+    And the enemy should have 12 hp
 
+  Scenario: Projectile Collisions Destroyed By Collision With Wall On angle
+    Given I load the game on level "obstacle" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 200,200
+    And I set the player step size to 10
+    And I set the player direction to 45
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy position 300,100
+    And I set the enemy health to 12
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 60 times and clear the state after run 1
+    Then there should be no projectiles
+    And the enemy should have 12 hp
+
+  Scenario: Projectile Collisions Destroyed Enemy On angle
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 200,200
+    And I set the player step size to 10
+    And I set the player direction to 45
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy position 300,100
+    And I set the enemy health to 12
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 55 times and clear the state after run 1
+    Then there should be no projectiles
+    And the enemy should have 11 hp
