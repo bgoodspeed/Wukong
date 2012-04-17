@@ -52,3 +52,7 @@ line_segments:
     start_y: 150
     end_x: 400
     end_y: 150
+  - start_x: 150
+    start_y: 160
+    end_x: 400
+    end_y: 160
