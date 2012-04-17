@@ -114,8 +114,11 @@ class Level
     @event_areas << ea
   end
 
+  def active_event_areas(collision_volume=@game.player.to_collision)
+    @event_areas.select {|ea| ea.intersects?(collision_volume)}
+  end
   def interact(collision_volume)
-    areas = @event_areas.select {|ea| ea.intersects?(collision_volume)}
+    areas = active_event_areas(collision_volume)
 
     if areas.empty?
       #TODO level.rb, no areas to interact with at player position #{collision_volume}"
@@ -201,6 +204,7 @@ class Level
     static_bodies.each {|body| @game.rendering_controller.draw_function_for(body).call(screen, body)}
     dynamic_elements.each {|body| @game.rendering_controller.draw_function_for(body).call(screen, body)}
     event_areas.each {|body| @game.rendering_controller.draw_function_for(body).call(screen, body) }
+    active_event_areas.each {|body| @game.rendering_controller.draw_function_for(body.info_window).call(screen, body) }
   end
 
   def remove_projectile(p)

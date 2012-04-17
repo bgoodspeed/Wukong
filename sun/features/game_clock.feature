@@ -12,21 +12,22 @@ Feature: Game Clock
     Then the elapsed clock time should be between 0 and 25 milliseconds
     And the number of frames render should be 1
 
-  Scenario: Game Clock Time Demo
+  Scenario: Game Clock Time Demo Averaged
     Given I load the game on level "demo" with screen size 640, 480
     And I set the player avatar to "avatar.bmp"
+    And I set the player health to 100
     And I set the game clock to 60 fps
-    When I run the game loop 1 times
-    Then the elapsed clock time should be between 0 and 25 milliseconds
-    And the number of frames render should be 1
+    When I run the game loop 10 times
+    Then the elapsed clock time should be between 0 and 220 milliseconds
+    And the number of frames render should be 10
 
   Scenario: Game Clock Averaged
     Given I load the game on level "trivial" with screen size 640, 480
     And I set the player avatar to "avatar.bmp"
     And I set the game clock to 60 fps
-    When I run the game loop 30 times
-    Then the elapsed clock time should be between 0 and 550 milliseconds
-    And the number of frames render should be 30
+    When I run the game loop 10 times
+    Then the elapsed clock time should be between 0 and 220 milliseconds
+    And the number of frames render should be 10
 
 
   Scenario: Reloading Levels Profiled
