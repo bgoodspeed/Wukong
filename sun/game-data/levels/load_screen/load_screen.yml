@@ -1,5 +1,5 @@
 name: load_screen
-background_image: game-data/levels/load_screen/grass.jpg
+background_image: game-data/levels/load_screen/load_screen.png
 background_music: game-data/music/xnckv_mono.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 measurements:

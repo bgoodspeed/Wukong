@@ -101,12 +101,14 @@ class ActionController
       KeyActions::DOWN        => delaying(KeyActions::DOWN )        { |game, arg| game.menu_controller.move_down },
       KeyActions::UP          => delaying(KeyActions::UP )          { |game, arg| game.menu_controller.move_up },
       KeyActions::MENU_ENTER  => delaying(KeyActions::MENU_ENTER )  { |game, arg| game.menu_controller.invoke_current },
+      KeyActions::INTERACT    => delaying(KeyActions::INTERACT )  { |game, arg| game.menu_controller.invoke_current },
       KeyActions::MOUSE_CLICK => delaying(KeyActions::MOUSE_CLICK ) { |game, arg| game.menu_controller.invoke_current_mouse },
     }
   end
   def default_gameplay_behaviors
     {
       KeyActions::INTERACT    => delaying(KeyActions::INTERACT)    {|game,arg| game.interact},
+      KeyActions::MENU_ENTER  => delaying(KeyActions::MENU_ENTER)  {|game,arg| game.interact},
       KeyActions::MENU        => delaying(KeyActions::MENU)        {|game,arg| game.enter_menu},
       KeyActions::MOUSE_CLICK => delaying(KeyActions::MOUSE_CLICK) {|game,arg| game.pick_game_element},
       
