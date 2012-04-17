@@ -23,9 +23,9 @@ line_segments:
     end_x: 640
     end_y: 480
 event_areas:
-  - top_left: [ 41, 90 ]
-    bottom_right: [ 292, 240 ]
+  - top_left: [ 71, 121 ]
+    bottom_right: [ 263, 211 ]
     action: take_reward
-  - top_left: [ 350, 90 ]
-    bottom_right: [ 600, 240 ]
+  - top_left: [ 379, 121 ]
+    bottom_right: [ 572, 211 ]
     action: queue_save_game_event

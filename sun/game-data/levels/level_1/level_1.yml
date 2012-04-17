@@ -3,6 +3,8 @@ background_image: game-data/levels/level_1/level_1.png
 background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/level_1/wayfinding.yml
 reward_level: game-data/levels/reward/reward.yml
+
+
 measurements:
   width: 640
   height: 480
@@ -11,14 +13,14 @@ anded_completion_conditions:
     argument: 1
   - condition: enemies_killed_at_least
     argument: 3
+
 declared_enemies:
   - enemy_yaml: game-data/enemies/enemy.yml
     name: e1
-
 spawn_points:
-  - point: [ 450, 450 ]
-    name: ant_lvl1
-    spawn_schedule: 1 enemies every 300 ticks for 900 total ticks
+  - point: [ 470, 410 ]
+    name: ant_lvl_1
+    spawn_schedule: 1 enemies every 300 ticks for 3000 total ticks
     spawn_argument: [ e1 ]
 
 line_segments:
@@ -38,6 +40,7 @@ line_segments:
     start_y: 768
     end_x: 1024
     end_y: 768
+    
   - start_x: 300
     start_y: 300
     end_x: 600

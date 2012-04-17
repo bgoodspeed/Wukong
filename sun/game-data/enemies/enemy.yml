@@ -1,5 +1,5 @@
 enemy:
-  image_path: game-data/sprites/enemy1.png
+  image_path: game-data/sprites/ant_level_1.png
   position: [ 100 , 100 ]
-  health: 10
-  velocity: 3
+  health: 5
+  velocity: 2

@@ -23,15 +23,15 @@ line_segments:
     end_x: 640
     end_y: 480
 event_areas:
-  - top_left: [ 42, 290 ]
-    bottom_right: [ 295, 440 ]
+  - top_left: [ 72, 320 ]
+    bottom_right: [ 264, 410 ]
     action: queue_start_new_game_event
-  - top_left: [ 350, 90 ]
-    bottom_right: [ 600, 240 ]
+  - top_left: [ 379, 121 ]
+    bottom_right: [ 572, 211 ]
     action: queue_load_game_event
-  - top_left: [ 350, 290 ]
-    bottom_right: [ 600, 440 ]
+  - top_left: [ 379, 320 ]
+    bottom_right: [ 572, 410 ]
     action: queue_settings_event
-  - top_left: [ 41, 90 ]
-    bottom_right: [ 292, 240 ]
+  - top_left: [ 71, 121 ]
+    bottom_right: [ 263, 211 ]
     action: queue_continue_event
