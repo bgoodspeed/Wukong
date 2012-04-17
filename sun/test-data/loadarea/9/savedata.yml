@@ -1,5 +1,4 @@
 --- 
 savedata: 
   level: test-data/levels/load_screen/load_screen.yml
-  player: !binary |-
-    dGVzdC1kYXRhL2xvYWRhcmVhLzkvcGxheWVyLnltbA==
+  player: test-data/loadarea/9/player.yml
