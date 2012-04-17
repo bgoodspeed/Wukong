@@ -1,5 +1,5 @@
----
-savedata:
+--- 
+savedata: 
   level: test-data/levels/load_screen/load_screen.yml
   player: !binary |-
     dGVzdC1kYXRhL2xvYWRhcmVhLzgvcGxheWVyLnltbA==

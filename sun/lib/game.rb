@@ -32,6 +32,7 @@ require 'models/spatial_hash'
 require 'controllers/rendering_controller'
 require 'controllers/menu_controller'
 require 'controllers/condition_controller'
+require 'controllers/font_controller'
 require 'models/level'
 require 'models/screen'
 require 'models/weapon'
@@ -40,6 +41,7 @@ require 'models/enemy'
 require 'models/clock'
 require 'models/camera'
 require 'models/heads_up_display'
+require 'models/info_window'
 require 'controllers/action_controller'
 require 'controllers/collision_response_controller'
 require 'models/way_finding'
@@ -68,7 +70,7 @@ class Game
     :rendering_controller, :path_following_controller, :menu_controller,
     :condition_controller, :completion_controller, :event_controller,
     :input_controller, :camera, :splash_controller, :sound_controller, 
-    :save_loader
+    :save_loader, :font_controller
   ]
   attr_accessor :player, :clock, :hud, :screen, :level, :collision_responder, 
     :collisions, :wayfinding, :main_menu_name, :temporary_message, :mouse_drawn,
@@ -171,6 +173,9 @@ class Game
 
   def update_menu_state
     @hud.clear
+    unless @menu_controller.active
+      raise "wtf why am i here"
+    end
     @menu_controller.current_menu_lines.each {|line|  @hud.add_line(line)}
   end
 

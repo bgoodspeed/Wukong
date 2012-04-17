@@ -23,7 +23,6 @@ class HeadsUpDisplay
     @game = game
     @lines = []
     @old_lines = []
-    @font = Graphics::Font.new(game.window, Graphics::default_font_name, 20)
     @x_spacing = 10
     @y_spacing = 10
     @menu_mode = false
@@ -98,20 +97,7 @@ class HeadsUpDisplay
     return [] if @lines.nil?
     @lines.collect {|line| format_line(line)}
   end
-
-  def transparent_grey
-    Graphics::Color.argb(0xAA000000)
-  end
-
-  def darken_screen
-    #TODO GOSU specific, not automatically tested
-    @game.window.draw_quad(
-      0,0, transparent_grey,
-      @game.window.width,0, transparent_grey,
-      @game.window.width,@game.window.height, transparent_grey,
-      0,@game.window.height, transparent_grey,
-      ZOrder.hud.value)
-  end
+  include UtilityDrawing
 
   #TODO ugly
   def cursor_position
@@ -183,12 +169,10 @@ class HeadsUpDisplay
     lines.each_with_index do |line, index|
       x = pos[0]
       y = pos[1] * (index+1)
-      @font.draw(line, x,y,ZOrder.hud.value )
+      #TODO should use draw_with_font
+      @game.font_controller.font.draw(line, x,y,ZOrder.hud.value )
       
     end
   end
 
-  def draw_with_font(line, x,y, zo)
-    @font.draw(line, x,y, zo )
-  end
 end

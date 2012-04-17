@@ -2,10 +2,13 @@
 # and open the template in the editor.
 
 class EventArea
-  attr_accessor :rect, :label, :action
-  def initialize(game, rect, label, action)
+  attr_accessor :rect, :label, :action, :info_window, :description
+  def initialize(game, rect, label, action, description="Mystery?")
     @game =game
     @rect, @label, @action = rect, label, action
+    @description = description
+    @info_window = InfoWindow.new(@description)
+    
   end
 
 

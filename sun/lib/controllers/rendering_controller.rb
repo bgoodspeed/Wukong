@@ -18,9 +18,16 @@ class RenderingController
                  rect = Primitives::Rectangle.new(@game.camera.screen_coordinates_for(r.p1), @game.camera.screen_coordinates_for(r.p2), @game.camera.screen_coordinates_for(r.p3), @game.camera.screen_coordinates_for(r.p4))
                  #TODO this is getting messy
                  msg_offset = [15,15]
-                 @game.hud.draw_with_font(ea.label, rect.p1.x + msg_offset.x, rect.p1.y + msg_offset.y, ZOrder.hud.value)
+                 @game.font_controller.draw_with_font(ea.label, rect.p1.x + msg_offset.x, rect.p1.y + msg_offset.y, ZOrder.hud.value)
                  draw_rectangle_as_box(screen, rect,  ZOrder.static.value, color=Graphics::Color::BLACK)
 #                 puts "draw event area at #{ea.rect}, with text #{ea.label} inside"
+               },
+               InfoWindow => lambda {|screen, iw|
+
+                 darken_screen(@game, 50, @game.window.width-50, 50, @game.window.height-50)
+                 #TODO fix this ZOrder stupidity
+                 @game.font_controller.draw_with_font(iw.description, 60, 60, ZOrder.hud.value)
+                 
                },
                Weapon => lambda {|screen, weapon| "NOOP weapon #TODO"},
                #MouseCollisionWrapper => lambda {|screen, enemy| puts "NOOP, could add a highlight?" },

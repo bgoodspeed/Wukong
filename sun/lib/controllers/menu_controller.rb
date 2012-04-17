@@ -65,7 +65,7 @@ class Breadcrumb
 end
 
 class MenuController
-  attr_reader :active, :breadcrumbs
+  attr_reader :active, :breadcrumbs, :active_menu_name
 
 
 
@@ -135,6 +135,7 @@ class MenuController
   end
 
   def current_menu_lines
+    raise "#{@active_menu_name}" unless current_menu
     current_menu.lines
   end
   def move_down
