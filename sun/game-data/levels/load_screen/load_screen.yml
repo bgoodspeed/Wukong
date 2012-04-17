@@ -25,17 +25,13 @@ line_segments:
 event_areas:
   - top_left: [ 42, 290 ]
     bottom_right: [ 295, 440 ]
-    label: Start New Game
     action: queue_start_new_game_event
   - top_left: [ 350, 90 ]
     bottom_right: [ 600, 240 ]
-    label: Load Game
     action: queue_load_game_event
   - top_left: [ 350, 290 ]
     bottom_right: [ 600, 440 ]
-    label: Settings
     action: queue_settings_event
   - top_left: [ 41, 90 ]
     bottom_right: [ 292, 240 ]
-    label: Continue
     action: queue_continue_event

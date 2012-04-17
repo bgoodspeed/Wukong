@@ -1,5 +1,5 @@
 name: reward
-background_image: game-data/levels/load_screen/grass.jpg
+background_image: game-data/levels/reward/level_1_reward.png
 background_music: game-data/music/crappypiano.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 measurements:
@@ -23,11 +23,9 @@ line_segments:
     end_x: 640
     end_y: 480
 event_areas:
-  - top_left: [ 10, 10 ]
-    bottom_right: [ 280, 180 ]
-    label: Reward
+  - top_left: [ 41, 90 ]
+    bottom_right: [ 292, 240 ]
     action: take_reward
-  - top_left: [ 360, 280 ]
-    bottom_right: [ 630, 470 ]
-    label: Save
+  - top_left: [ 350, 90 ]
+    bottom_right: [ 600, 240 ]
     action: queue_save_game_event
