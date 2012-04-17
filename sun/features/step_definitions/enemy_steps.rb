@@ -87,3 +87,8 @@ end
 Then /^there should be (\d+) enemies$/ do |enemies|
   @game.enemies.size.should == enemies.to_i
 end
+
+Then /^the enemy should have (\d+) hp$/ do |arg1|
+  @enemy.health.should == arg1.to_i
+end
+
