@@ -36,7 +36,14 @@ class RenderingController
                  d = 10
                  cp = @game.camera.screen_coordinates_for(vf.current_position)
 
-                 draw_rectangle(screen, Primitives::Rectangle.new(cp, cp.plus([d,0]), cp.plus([d,d]), cp.plus([0,d])))}
+                 draw_rectangle(screen, Primitives::Rectangle.new(cp, cp.plus([d,0]), cp.plus([d,d]), cp.plus([0,d])))
+                 lsi = vf.to_collision
+
+                 ls1 = @game.camera.screen_coordinates_for(lsi.p1)
+                 ls2 = @game.camera.screen_coordinates_for(lsi.p2)
+                 ls = Primitives::LineSegment.new(ls1,ls2)
+                 draw_line_segment(screen, ls)
+               }
     }
     
   end

@@ -2,7 +2,7 @@
 class Enemy
 
   attr_accessor :tracking_target
-  ATTRIBUTES = [:position, :health, :velocity, :name]
+  ATTRIBUTES = [:position, :health, :velocity, :name, :collision_priority]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -32,6 +32,7 @@ class Enemy
     @collision_type = Primitives::Circle.new(@position, @radius)
     @velocity = 5
     @direction = 0
+    @collision_priority = CollisionPriority::LOW
   end
 
 

@@ -20,6 +20,9 @@ class Collision
     @dynamic1 = dynamic
     @dynamic2 = dynamic2
   end
+  def collision_priority
+    @dynamic1.collision_priority + @dynamic2.collision_priority
+  end
   alias_method :static, :dynamic1
   alias_method :dynamic, :dynamic2
 end

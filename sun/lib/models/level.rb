@@ -223,6 +223,6 @@ class Level
     dyns = all.collect {|col| Collision.new(col.first, col.last)}
     stats = cols.collect {|col| Collision.new(col.first, col.last)}
     rv = stats + dyns
-    rv
+    rv.sort {|a,b| a.collision_priority <=> b.collision_priority}
   end
 end

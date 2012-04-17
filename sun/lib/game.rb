@@ -3,7 +3,7 @@
 
 require "logger"
 require 'statemachine'
-
+require 'models/collision_priority'
 require 'utility/utility_vector_math'
 
 class Array

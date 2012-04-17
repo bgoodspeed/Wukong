@@ -2,11 +2,12 @@
 #TODO reconsider this design
 
 class MouseCollisionWrapper
-  attr_reader :position, :radius 
+  attr_reader :position, :radius, :collision_priority
   def initialize(game, pos, r = 5)
     @game = game
     @position = pos
     @radius = r
+    @collision_priority = CollisionPriority::MID
   end
 
   def collision_type

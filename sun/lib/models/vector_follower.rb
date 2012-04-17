@@ -2,12 +2,14 @@
 # and open the template in the editor.
 
 class VectorFollower
-  attr_reader :vector, :velocity
+  attr_reader :vector, :velocity, :collision_priority
   def initialize(start, vector, velocity)
     @start = start
     @vector = vector
     @velocity = velocity
     @current_step = 0
+    #TODO this should be in a behavior module
+    @collision_priority = CollisionPriority::HIGH
   end
 
 
@@ -21,6 +23,8 @@ class VectorFollower
   def current_position
     @start.plus(@vector.scale(@current_step * @velocity))
   end
+
+  #TODO this should be in a collidable module
   def to_collision
     Primitives::LineSegment.new(current_position, current_position.plus(velocity_scaled_vector)  )
   end
