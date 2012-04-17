@@ -1,6 +1,6 @@
 module CollisionPriority
-  LOW  = 1
+  LOW  = 9
   MID  = 4
-  HIGH = 9
+  HIGH = 1
 
 end
