@@ -1,0 +1,5 @@
+enemy:
+  image_path: game-data/sprites/enemy1.png
+  position: [ 100 , 100 ]
+  health: 10
+  velocity: 1
