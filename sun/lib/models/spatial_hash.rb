@@ -52,7 +52,17 @@ class SpatialHash
     lsu = lsv.unit
     steps = (lsv.norm/@cell_size).ceil
     steps.times do |step|
-      insert_data_at(data, lsu.scale(step * @cell_size))
+      b = ls
+      if (b.sx == 300) and
+       (b.sy == 540) and
+       (b.ex == 300) and
+       (b.ey == 300)
+        insert_data_at(data, ls.p2.plus(lsu.scale(step * @cell_size)), true)
+      else
+        insert_data_at(data, ls.p2.plus(lsu.scale(step * @cell_size)))
+      end
+
+      
     end
   end
   def insert_circle_type_collider(elem)
@@ -63,8 +73,9 @@ class SpatialHash
       data_at(hash) << elem
     end
   end
-  def insert_data_at(data, vertex)
-    idx = spatial_hash(cell_index_for(vertex))
+  def insert_data_at(data, vertex, debug=false)
+    ci = cell_index_for(vertex)
+    idx = spatial_hash(ci)
     data_at(idx) << data
   end
   def data_at(idx)
@@ -129,7 +140,6 @@ class SpatialHash
     rv = []
     elems.each do |elem|
       cs = candidates(collision_radius_for(elem), collision_center_for(elem)).flatten.select do|candidate|
-        
         @collider.check_for_collision_by_type(elem, candidate)
       end
       rv += cs.collect {|cand| [elem, cand]}
