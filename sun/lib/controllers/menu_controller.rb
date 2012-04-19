@@ -19,6 +19,13 @@ class Menu
     @menu_id = menu_id
     @entries = []
     @current_index = 0
+
+    @x_spacing = 10
+    @y_spacing = 10
+    @menu_mode = false
+    @menu_scale = 2
+    @menu_width = 300
+
   end
 
   def move_down
@@ -37,6 +44,69 @@ class Menu
   end
   def lines
     @entries.collect{|e| e.display_text}
+  end
+ #TODO ugly
+  def cursor_position
+    pos = [@x_spacing, @y_spacing ]
+    pos = pos.scale(@menu_scale)
+    cwi = @game.current_menu_index
+    pos[1] = pos[1] * (cwi + 1)
+    pos
+  end
+  def draw_cursor
+    pos = cursor_position
+    base_y = pos[1]
+    @game.window.draw_triangle(pos[0] - 20, base_y - 10, Graphics::Color::WHITE,
+                               pos[0] - 5,  base_y, Graphics::Color::WHITE,
+                               pos[0] - 20, base_y + 10, Graphics::Color::WHITE)
+  end
+
+
+  def regions
+    (0 .. lines.size-1).collect {|i| region_for_index(i)}
+  end
+  include UtilityDrawing
+  include PrimitiveIntersectionTests
+  def highlighted_regions
+    msc = @game.input_controller.mouse_screen_coords
+    rv = []
+    regions.each_with_index {|r, idx| rv << idx if rectangle_point_intersection?(r, msc) }
+    rv
+  end
+
+  def highlight_mouse_selection
+    rs = regions
+    regs = highlighted_regions.collect {|hridx| rs[hridx]}
+    regs.each {|rect|  draw_rectangle_as_box(@game.screen, rect, ZOrder.hud.value, Graphics::Color::GREEN) }
+
+
+
+  end
+
+
+
+  def region_for_index(index)
+    pos = [@x_spacing, @y_spacing ]
+    if @game.menu_mode?
+      pos = pos.scale(@menu_scale)
+    end
+    x = pos[0]
+    y = pos[1] * (index+1)
+    step = pos[1]
+    xs = @menu_width
+
+    Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
+  end
+
+
+  def draw_lines(pos)
+    lines.each_with_index do |line, index|
+      x = pos[0]
+      y = pos[1] * (index+1)
+      #TODO should use draw_with_font
+      @game.font_controller.font.draw(line, x,y,ZOrder.hud.value )
+
+    end
   end
 
   def self.from_yaml(game, yaml)
@@ -120,7 +190,7 @@ class MenuController
   end
 
   def current_menu_entry_mouse
-    rs = @game.hud.highlighted_regions
+    rs = current_menu.highlighted_regions
     if rs.empty?
       @game.log.info { "nothing found in menu mouse click"}
       return nil

@@ -22,7 +22,7 @@ end
 
 Then /^the hud cursor position should be (\d+),(\d+)$/ do |arg1, arg2|
   expected = [arg1.to_f, arg2.to_f]
-  @hud.cursor_position.should be_within_epsilon_of(expected)
+  @game.menu_controller.current_menu.cursor_position.should be_within_epsilon_of(expected)
 end
 
 Then /^the hud formatted line (\d+) should be "([^"]*)"$/ do |lineno, arg2|
@@ -32,10 +32,11 @@ Then /^the hud formatted line (\d+) should be "([^"]*)"$/ do |lineno, arg2|
 end
 
 Then /^there should be (\d+) regions to check the mouse against$/ do |arg1|
-  @hud.regions.size.should == arg1.to_i
+
+  @game.menu_controller.current_menu.regions.size.should == arg1.to_i
 end
 Then /^highlighted region should be line (\d+)$/ do |arg1|
-  @hud.highlighted_regions.first.should == arg1.to_i
+  @game.menu_controller.current_menu.highlighted_regions.first.should == arg1.to_i
 end
 
 Given /^I set the temporary message to "([^"]*)"$/ do |arg1|
