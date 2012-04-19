@@ -7,9 +7,10 @@ class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
   attr_reader :radius
-  ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, :max_health, 
+  YAML_ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, :max_health,
     :turn_speed, :movement_distance, :menu_action_delay, :enemies_killed, :image_path, :collision_priority
   ]
+  ATTRIBUTES = YAML_ATTRIBUTES + [:inventory]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -27,15 +28,16 @@ class Player
     if conf['weapon_yaml']
       w = YamlLoader.from_file(Weapon, game, conf['weapon_yaml'])
       w.orig_filename = conf['weapon_yaml']
-      obj.equip_weapon(w)
+      game.inventory_controller.register_item(w.orig_filename, w)
+      obj.equip_weapon(game.inventory_controller.item_named(conf['weapon_yaml']))
     end
-    process_attributes(ATTRIBUTES, obj, conf)
+    process_attributes(YAML_ATTRIBUTES, obj, conf)
     obj
   end
 
   
   attr_reader :image_file
-  def initialize(avatar, game)
+  def initialize(avatar, game, inventory=nil)
     @game = game
     #TODO move register image calls into loaders/yaml parsers
     @image_file = avatar
@@ -56,6 +58,7 @@ class Player
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil
     @weapon = nil
+    @inventory = inventory ? inventory : Inventory.new(game, self)
   end
   def inactivate_weapon
     @weapon.inactivate
@@ -112,7 +115,7 @@ class Player
   def to_yaml
     overrides = {  }
     overrides[:weapon] = {:new_key => :weapon_yaml, :new_value => @weapon.orig_filename} if @weapon
-    cf = attr_to_yaml(ATTRIBUTES, overrides)
+    cf = attr_to_yaml(YAML_ATTRIBUTES, overrides)
     {"player" => cf}.to_yaml(:UseHeader => true)
   end
 end

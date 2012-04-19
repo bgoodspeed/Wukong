@@ -29,6 +29,8 @@ require 'models/mouse_collision_wrapper'
 require 'models/event_emitter'
 require 'models/collider'
 require 'models/spatial_hash'
+require 'models/inventory'
+require 'controllers/inventory_controller'
 require 'controllers/rendering_controller'
 require 'controllers/menu_controller'
 require 'controllers/condition_controller'
@@ -70,7 +72,7 @@ class Game
     :rendering_controller, :path_following_controller, :menu_controller,
     :condition_controller, :completion_controller, :event_controller,
     :input_controller, :camera, :splash_controller, :sound_controller, 
-    :save_loader, :font_controller
+    :save_loader, :font_controller, :inventory_controller
   ]
   attr_accessor :player, :clock, :hud, :screen, :level, :collision_responder, 
     :collisions, :wayfinding, :main_menu_name, :temporary_message, :mouse_drawn,

@@ -1,6 +1,9 @@
 Given /^I set the player weapon with image "([^"]*)"$/ do |weapon_image|
-  @weapon = Weapon.new(@game, "test-data/equipment/#{weapon_image}")
-  @player.equip_weapon @weapon
+  n = "test-data/equipment/#{weapon_image}"
+  @weapon = Weapon.new(@game, n)
+  @game.inventory_controller.register_item(n, @weapon)
+  
+  @player.equip_weapon @game.inventory_controller.item_named(n)
 end
 Given /^I load and equip the weapon defined in "([^"]*)"$/ do |yml_file|
   @weapon = YamlLoader.from_file(Weapon, @game, "test-data/equipment/#{yml_file}")
