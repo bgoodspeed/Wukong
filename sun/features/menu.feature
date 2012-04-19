@@ -90,6 +90,8 @@ Feature: Menu
     When I invoke the current menu action
     Then the menu action result should be 3
     Then the game property "image_controller.images.size" should be "2"
+    Then the game property "menu_controller.current_menu.image_menu?" should be "false"
+
 
   Scenario: Image Menu
     Given I load the game on level "trivial" with screen size 640, 480
@@ -97,4 +99,4 @@ Feature: Menu
     And I load the main menu "image_menu.yml"
     When I enter the menu
     Then the game property "image_controller.images.size" should be "4"
-
+    Then the game property "menu_controller.current_menu.image_menu?" should be "true"

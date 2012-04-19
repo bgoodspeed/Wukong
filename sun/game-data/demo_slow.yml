@@ -12,4 +12,4 @@ game:
   menu_for_save_game: "game-data/menus/save_game.yml"
   game_load_path: "game-data/loads/"
   game_over_menu: "game-data/menus/game_over.yml"
-  menu_for_main: "game-data/menus/main.yml"
+  menu_for_main: "game-data/menus/image_menu.yml"

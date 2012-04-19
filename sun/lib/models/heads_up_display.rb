@@ -110,14 +110,18 @@ class HeadsUpDisplay
   def draw(screen)
     pos = [@x_spacing, @y_spacing ]
 
+    #TODO move all of this into menu controller or something
     if menu_mode?
       darken_screen
 
       menu = @game.menu_controller.current_menu
       menu.draw_cursor
       menu.highlight_mouse_selection if @game.input_controller.mouse_on_screen
-
-      menu.draw_lines([@x_spacing, @y_spacing].scale(@menu_scale))
+      if menu.image_menu?
+        menu.draw_images
+      else
+        menu.draw_lines([@x_spacing, @y_spacing].scale(@menu_scale))
+      end
       return
     end
 
