@@ -2,13 +2,14 @@
 # and open the template in the editor.
 
 class EventArea
-  attr_accessor :rect, :label, :action, :info_window, :description
-  def initialize(game, rect, label, action, description="Mystery?")
+  #TODO use ATTRIBUTES and process with yaml as usual
+  attr_accessor :rect, :label, :action, :info_window, :description, :action_argument
+  def initialize(game, rect, label, action, description=nil, action_argument=nil)
     @game =game
     @rect, @label, @action = rect, label, action
-    @description = description
+    @description = description ? description : "Mystery?"
     @info_window = InfoWindow.new(@description)
-    
+    @action_argument = action_argument
   end
 
 
@@ -18,6 +19,10 @@ class EventArea
   end
 
   def invoke
-    @game.action_controller.invoke(@action)
+    if @action_argument
+      @game.action_controller.invoke(@action, @action_argument)
+    else
+      @game.action_controller.invoke(@action)
+    end
   end
 end

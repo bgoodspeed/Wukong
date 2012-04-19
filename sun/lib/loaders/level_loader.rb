@@ -64,11 +64,11 @@ class LevelLoader
     level.ored_completion_conditions = data["ored_completion_conditions"].to_a.collect {|cc| conf_for(cc) }
     level.anded_completion_conditions = data["anded_completion_conditions"].to_a.collect {|cc| conf_for(cc)}
     data["event_areas"].to_a.each {|ea|
-      log_info { "Adding event areas: #{ea['label']} #{ea['action']}" }
+      log_info { "Adding event areas: #{ea['label']} #{ea['action']}(#{ea['action_argument']})" }
       tl = ea['top_left']
       br = ea['bottom_right']
       rect = Primitives::Rectangle.new(tl, [tl.x, br.y], br, [br.x, tl.y])
-      ea = EventArea.new(@game, rect, ea['label'], ea['action'] )
+      ea = EventArea.new(@game, rect, ea['label'], ea['action'], ea['description'], ea['action_argument'] )
       level.add_event_area(ea)
     }
 

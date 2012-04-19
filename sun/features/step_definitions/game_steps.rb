@@ -74,6 +74,7 @@ Then /^the event areas should be:$/ do |table|
     areas[idx].rect.to_s.should == hash['rectangle_to_s']
     areas[idx].label.should == hash['label']
     areas[idx].action.should == hash['action']
+    "#{areas[idx].action_argument}".should == "#{hash['action_argument']}"
   }
 end
 

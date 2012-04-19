@@ -13,6 +13,7 @@ Feature: Action
    | EventTypes::DEATH             | player.enemies_killed | 0               | 1                | argument                                        |         |                              |
    | KeyActions::DOWN              | player.position       | [320, 240]      | [320.0, 242.0]   |                                                 |         | gameplay_behaviors           |
    | EventTypes::START_NEW_GAME    | level.name            | 'load_screen'   | 'demo'           | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
+   | EventTypes::LOAD_LEVEL        | level.name            | 'load_screen'   | 'demo'           | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
 
   Scenario Outline: Actions being invoked collision response
     Given I load the game on level "trivial" with screen size 640, 480

@@ -31,3 +31,8 @@ event_areas:
     bottom_right: [ 630, 470 ]
     label: Save
     action: queue_save_game_event
+  - top_left: [ 10, 340 ]
+    bottom_right: [ 630, 470 ]
+    label: Load Level
+    action: LOAD_LEVEL
+    action_argument: some/level.yml
