@@ -1,9 +1,9 @@
 player:
   image_path: game-data/sprites/avatar.bmp
-  position: [ 100, 100 ]
+  position: [ 200, 300 ]
   movement_distance: 2
   turn_speed: 5
-  health: 10
-  max_health: 10
+  health: 75
+  max_health: 100
   weapon_yaml: game-data/equipment/gun.yml
   menu_action_delay: 12

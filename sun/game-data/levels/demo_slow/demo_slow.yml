@@ -1,7 +1,7 @@
 name: demo_slow
 background_image: game-data/levels/demo/demo.png
 background_music: game-data/music/drumbeats.wav
-wayfinding: game-data/levels/demo/wayfinding.yml
+wayfinding: game-data/levels/demo_slow/wayfinding.yml
 reward_level: game-data/levels/reward/reward.yml
 measurements:
   width: 640
@@ -19,7 +19,7 @@ declared_enemies:
   - enemy_yaml: game-data/enemies/enemy3_slow.yml
     name: e3
 spawn_points:
-  - point: [ 50, 50 ]
+  - point: [ 60, 50 ]
     name: fiftyfifty
     spawn_schedule: 1 enemies every 300 ticks for 900 total ticks
     spawn_argument: [ e1 ]
@@ -27,7 +27,7 @@ spawn_points:
     name: fiftyfifty2
     spawn_schedule: 1 enemies every 300 ticks for 900 total ticks
     spawn_argument: [ e2 ]
-  - point: [ 200, 50 ]
+  - point: [ 210, 50 ]
     name: fiftyfifty3
     spawn_schedule: 1 enemies every 300 ticks for 900 total ticks
     spawn_argument: [ e3 ]

@@ -1,0 +1,69 @@
+name: level_1
+background_image: test-data/levels/level_1/level_1.png
+background_music: test-data/music/drumbeats.wav
+wayfinding: test-data/levels/level_1/wayfinding.yml
+reward_level: test-data/levels/reward/reward.yml
+player_start_position: [ 100, 100 ]
+
+measurements:
+  width: 640
+  height: 480
+anded_completion_conditions:
+  - condition: player_health_at_least
+    argument: 1
+  - condition: enemies_killed_at_least
+    argument: 3
+
+declared_enemies:
+  - enemy_yaml: test-data/enemies/enemy.yml
+    name: e1
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 1024
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 768
+  - start_x: 1024
+    start_y: 0
+    end_x: 1024
+    end_y: 768
+  - start_x: 0
+    start_y: 768
+    end_x: 1024
+    end_y: 768
+    
+  - start_x: 300
+    start_y: 300
+    end_x: 600
+    end_y: 300
+  - start_x: 600
+    start_y: 300
+    end_x: 600
+    end_y: 340
+  - start_x: 600
+    start_y: 340
+    end_x: 365
+    end_y: 340
+  - start_x: 365
+    start_y: 340
+    end_x: 365
+    end_y: 500
+  - start_x: 365
+    start_y: 500
+    end_x: 600
+    end_y: 500
+  - start_x: 600
+    start_y: 500
+    end_x: 600
+    end_y: 540
+  - start_x: 300
+    start_y: 540
+    end_x: 600
+    end_y: 540
+  - start_x: 300
+    start_y: 540
+    end_x: 300
+    end_y: 300

@@ -156,3 +156,139 @@ Feature: Collision Detection
     And I run the game loop 55 times and clear the state after run 1
     Then there should be no projectiles
     And the enemy should have 11 hp
+
+  Scenario: Shooting bug wall
+    Given I load the game on level "level_1" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 267,394
+    And I set the player direction to 145
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy position 360,500
+    And I set the enemy health to 12
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 60 times and clear the state after run 1
+    Then there should be no projectiles
+    And the enemy should have 12 hp
+
+  Scenario: Shooting bug enemy
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 267,394
+    And I set the player direction to 145
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy position 360,500
+    And I set the enemy health to 12
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 60 times and clear the state after run 1
+    Then there should be no projectiles
+    And the enemy should have 11 hp
+
+  Scenario: Shooting bug wall2
+    Given I load the game on level "level_1" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 236,484
+    And I set the player direction to 25
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy position 340,259
+    And I set the enemy health to 12
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 60 times and clear the state after run 1
+    Then there should be no projectiles
+    And the enemy should have 12 hp
+
+  Scenario: Shooting bug enemy2
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 236,484
+    And I set the player direction to 25
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy position 340,259
+    And I set the enemy health to 12
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 60 times and clear the state after run 1
+    Then there should be no projectiles
+    And the enemy should have 11 hp
+
+  Scenario: Shooting bug wall3
+    Given I load the game on level "level_1" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 257,384
+    And I set the player direction to 70
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy position 423,300
+    And I set the enemy health to 12
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 60 times and clear the state after run 1
+    Then there should be no projectiles
+    And the enemy should have 12 hp
+
+  Scenario: Shooting bug enemy3
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 257,384
+    And I set the player direction to 70
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy position 423,300
+    And I set the enemy health to 12
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 60 times and clear the state after run 1
+    Then there should be no projectiles
+    And the enemy should have 11 hp
+
+  Scenario: Shooting bug wall4
+    Given I load the game on level "level_1" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 224,385
+    And I set the player direction to 70
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy position 450,292
+    And I set the enemy health to 12
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 60 times and clear the state after run 1
+    Then there should be no projectiles
+    And the enemy should have 12 hp
+
+  Scenario: Shooting bug enemy4
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 224,385
+    And I set the player direction to 70
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the enemy position 450,292
+    And I set the enemy health to 12
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 60 times and clear the state after run 1
+    Then there should be no projectiles
+    And the enemy should have 11 hp

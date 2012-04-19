@@ -26,7 +26,9 @@ class GameLoader
     game.set_player(p)
     #TODO this is not right, should come from level/spawning
     #TODO massive hack, get rid of this ASAP
-    if game.level.name !~ /load_screen/
+    #TODO massive hack, now. this is fucking retarded
+
+    if game.level.name !~ /load_screen/ and game.level.name !~ /demo_slow/
       game.log.info { "Adding hackish enemy "}
       e = YamlLoader.from_file(Enemy, game, "game-data/enemies/enemy.yml")
       game.add_enemy(e)
