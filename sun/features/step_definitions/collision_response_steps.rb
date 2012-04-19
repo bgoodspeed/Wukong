@@ -1,11 +1,11 @@
 Given /^I create a collision responder$/ do
   @collision_responder = CollisionResponseController.new(@game)
-  @game.collision_responder = @collision_responder
+  @game.collision_response_controller = @collision_responder
 end
 
 Given /^I create a collision responder from file "([^"]*)"$/ do |file|
   @collision_responder = YamlLoader.from_file(CollisionResponseController, @game, "test-data/collision_response/#{file}")
-  @game.collision_responder = @collision_responder
+  @game.collision_response_controller = @collision_responder
 end
 
 def mock_collision_type(t)

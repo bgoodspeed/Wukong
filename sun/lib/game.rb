@@ -72,10 +72,11 @@ class Game
     :rendering_controller, :path_following_controller, :menu_controller,
     :condition_controller, :completion_controller, :event_controller,
     :input_controller, :camera, :splash_controller, :sound_controller, 
-    :save_loader, :font_controller, :inventory_controller
+    :save_loader, :font_controller, :inventory_controller,
+    :collision_response_controller
   ]
-  attr_accessor :player, :clock, :hud, :screen, :level, :collision_responder, 
-    :collisions, :wayfinding, :main_menu_name, :temporary_message, :mouse_drawn,
+  attr_accessor :player, :clock, :hud, :screen, :level, :collisions,
+    :wayfinding, :main_menu_name, :temporary_message, :mouse_drawn,
     :active, :new_game_level, :menu_for_load_game, :game_load_path, :over,
     :game_over_menu, :menu_for_save_game, :log
 
@@ -110,7 +111,6 @@ class Game
     @log.level = Logger::INFO #NOTE: also ::DEBUG 
     @screen = Screen.new(self, dependencies[:width], dependencies[:height])
     init_game_constructed(GAME_CONSTRUCTED, self)
-    @collision_responder = CollisionResponseController.new(self)
     @mouse_drawn = true
     @main_menu_name = "main menu"
     @game_load_path = "UNSET"
@@ -202,7 +202,7 @@ class Game
     @path_following_controller.tick
     @level.tick
     @collisions = @level.check_for_collisions
-    @collision_responder.handle_collisions(@collisions)
+    @collision_response_controller.handle_collisions(@collisions)
   end
 
   def render_one_frame
