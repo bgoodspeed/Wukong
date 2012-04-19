@@ -54,6 +54,9 @@ class GameLoader
       game.splash_controller.splash_mode = true
     end
 
+    
+    game.inventory_controller = YamlLoader.from_file(InventoryController, game, conf['inventory']) if conf['inventory']
+    
     game
   end
 

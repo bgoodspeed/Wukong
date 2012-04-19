@@ -64,11 +64,12 @@ class Player
     @weapon.inactivate
   end
   def use_weapon
+    @game.log.debug { "Tried to use weapon" }
     #TODO could log this, emit a temp msg to the hud etc
     return unless @weapon
     #TODO we don't want to actually load the animation from disk at this point
     @game.load_animation(self, @weapon.animation_name, @weapon.image_path, 24, 24, false) #TODO hardcoded values
-
+    @game.log.debug { "Used weapon" }
     @weapon.use
   end
 

@@ -14,6 +14,9 @@ Feature: Inventory
 
   Scenario: Game Inventory Controller From Player
     Given I load the game "demo_weapon"
-    Then the game property "inventory_controller.class" should be "InventoryController"
     Then the game property "inventory_controller.items.size" should be "1"
+
+  Scenario: Game Inventory Controller From File
+    Given I load the game "demo_inventory"
+    Then the game property "inventory_controller.items.size" should be "3"
     

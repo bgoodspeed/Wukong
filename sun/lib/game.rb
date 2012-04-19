@@ -129,16 +129,22 @@ class Game
   end
 
   def load_level(level_name)
+    @log.info "Loading level into game #{level_name}"
     @animation_controller.clear
     @level = @level_loader.load_level(level_name)
     if !@player
+      @log.info "Level loading player"
       @player = @player_loader.load_player
     end
     #TODO Hackish and an exact double
     if @level.player_start_position
+      @log.info "Level setting start position"
       @player.position = @level.player_start_position
     end
-    
+    @log.info "Level adding player #{@player} weapon:(#{@player.weapon})"
+    if @player.weapon
+      @player.weapon.inactivate
+    end
     @level.add_player(@player)
     if @level.background_music
       @sound_controller.play_song(@level.background_music, true)
@@ -151,6 +157,7 @@ class Game
   end
 
   def set_player(player)
+    @log.info "Setting player #{player}"
     @player = player
     #TODO Hackish and an exact double
     if @level.player_start_position

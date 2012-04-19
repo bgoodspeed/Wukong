@@ -1,0 +1,5 @@
+inventory:
+  items:
+    - test-data/equipment/weapon.yml
+    - test-data/equipment/weapon_sound.yml
+    - test-data/equipment/weapon_swung.yml
