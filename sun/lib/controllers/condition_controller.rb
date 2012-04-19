@@ -5,7 +5,7 @@ class ConditionController
   def initialize(game)
     @game = game
 
-    @nearness = 5.0 #TODO make this configurable
+    @nearness = 10.0 #TODO make this configurable
 
     @conditions = {
       "COND" => lambda {|game, arg| true}, #TODO this is pretty much equivalent to COND == NEVER rename

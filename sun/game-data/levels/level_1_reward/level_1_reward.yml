@@ -1,5 +1,5 @@
 name: reward
-background_image: game-data/levels/reward/reward.png
+background_image: game-data/levels/level_1_reward/level_1_reward.png
 background_music: game-data/music/crappypiano.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 320, 240 ]
@@ -31,3 +31,7 @@ event_areas:
   - top_left: [ 379, 121 ]
     bottom_right: [ 572, 211 ]
     action: queue_save_game_event
+  - top_left: [ 72, 320 ]
+    bottom_right: [ 264, 410 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/level_2/level_2.yml"

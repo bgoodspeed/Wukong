@@ -2,7 +2,7 @@ name: level_1
 background_image: game-data/levels/level_1/level_1.png
 background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/level_1/wayfinding.yml
-reward_level: game-data/levels/reward/reward.yml
+reward_level: game-data/levels/level_1_reward/level_1_reward.yml
 player_start_position: [ 100, 100 ]
 
 measurements:

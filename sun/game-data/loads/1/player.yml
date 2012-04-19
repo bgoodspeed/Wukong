@@ -2,14 +2,15 @@
 player:
   step_size: 1
   position:
-  - 519.6502830892559
-  - 286.4145386307471
+  - 394.7530749952003
+  - 194.46857426419635
   weapon_yaml: game-data/equipment/gun.yml
-  direction: 335
-  health: 40
+  direction: 55
+  health: 47
   max_health: 50
   turn_speed: 5
   movement_distance: 2
   menu_action_delay: 12
   enemies_killed: 3
   image_path: game-data/sprites/player20120411.png
+  collision_priority: 4
