@@ -45,7 +45,6 @@ class Menu
     if entry.image
       #TODO hackish, this x/y spacing stuff should be defined in the menu entries and summed
       img = @game.image_controller.lookup_image(entry.image)
-      @x_spacing = img.width
       @y_spacing = img.height
     end
     @entries << entry
@@ -91,18 +90,29 @@ class Menu
 
   end
 
+  #TODO this whole menu rendering thing is a hideous mess
 
   def region_for_index(index)
-    pos = [@x_spacing, @y_spacing ]
-    if @game.menu_mode?
-      pos = pos.scale(@menu_scale)
-    end
-    x = pos[0]
-    y = pos[1] * (index+1)
-    step = pos[1]
-    xs = @menu_width
+    if image_menu?
+      pos = [@x_spacing, @y_spacing ]
+      x = pos[0]
+      y = pos[1] * (index)
+      step = pos[1]
+      xs = @menu_width
+      Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
+    else
+      pos = [@x_spacing, @y_spacing ]
+      if @game.menu_mode?
+        pos = pos.scale(@menu_scale)
+      end
+      x = pos[0]
+      y = pos[1] * (index+1)
+      step = pos[1]
+      xs = @menu_width
 
-    Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
+      Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
+
+    end
   end
 
   def draw_images

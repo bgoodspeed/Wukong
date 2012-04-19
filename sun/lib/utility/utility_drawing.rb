@@ -47,7 +47,7 @@ module UtilityDrawing
       maxx,miny, transparent_grey,
       maxx,maxy, transparent_grey,
       minx,maxy, transparent_grey,
-      ZOrder.hud.value)
+      ZOrder.dynamic.value)
   end
 
 end
