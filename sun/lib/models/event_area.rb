@@ -4,6 +4,7 @@
 class EventArea
   #TODO use ATTRIBUTES and process with yaml as usual
   attr_accessor :rect, :label, :action, :info_window, :description, :action_argument
+  alias_method :argument, :action_argument
   def initialize(game, rect, label, action, description=nil, action_argument=nil)
     @game =game
     @rect, @label, @action = rect, label, action
@@ -20,7 +21,7 @@ class EventArea
 
   def invoke
     if @action_argument
-      @game.action_controller.invoke(@action, @action_argument)
+      @game.action_controller.invoke(@action, self)
     else
       @game.action_controller.invoke(@action)
     end

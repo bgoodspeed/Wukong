@@ -56,7 +56,8 @@ class ActionController
         end
         },
       EventTypes::LAMBDA => lambda {|game,e| e.invoke },
-      EventTypes::LOAD_LEVEL => lambda { |game, e| game.load_level(e.argument)},
+      EventTypes::LOAD_LEVEL => lambda { |game, e| 
+        game.load_level(e.argument)},
       EventTypes::START_NEW_GAME => lambda { |game, e| game.load_level(e.argument)},
       EventTypes::PICK => lambda {|game,e| puts "In Action Controller: must implement what to do when #{e.picked}"},
       EventTypes::SPAWN => lambda {|game,e|
