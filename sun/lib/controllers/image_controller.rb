@@ -2,6 +2,7 @@
 # and open the template in the editor.
 
 class ImageController
+  attr_reader :images
   def initialize(game)
     @game = game
     @images = {}

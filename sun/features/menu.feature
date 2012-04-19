@@ -89,13 +89,12 @@ Feature: Menu
       | 1              | choose_slot    | 1               |
     When I invoke the current menu action
     Then the menu action result should be 3
+    Then the game property "image_controller.images.size" should be "2"
 
-  Scenario: Main Menu
+  Scenario: Image Menu
     Given I load the game on level "trivial" with screen size 640, 480
     And I create a menu controller
-    And I load the main menu "main.yml"
+    And I load the main menu "image_menu.yml"
     When I enter the menu
-    Then the current menu entry should have:
-      | display_text   | 
-      | Option One     | 
+    Then the game property "image_controller.images.size" should be "4"
 

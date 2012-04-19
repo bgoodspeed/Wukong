@@ -2,20 +2,14 @@
 # and open the template in the editor.
 
 class MenuEntry
+  attr_accessor :display_text, :action, :action_argument, :image
   def initialize(index, conf)
     @index = index
     @conf = conf
+    @display_text, @action, @action_argument, @image = @conf['display_text'], @conf['action'], @conf['action_argument'], @conf['image']
+
   end
 
-  def display_text
-    @conf['display_text']
-  end
-  def action
-    @conf['action']
-  end
-  def action_argument
-    @conf['action_argument']
-  end
 end
 
 class Menu
@@ -50,6 +44,7 @@ class Menu
     m = data['menu']
     menu = Menu.new(game, m['menu_id'])
     m['entries'].each_with_index do |entry, index|
+      game.image_controller.register_image(entry['image']) if entry['image']
       menu.add_entry(MenuEntry.new(index, entry))
     end
     menu
