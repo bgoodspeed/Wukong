@@ -37,9 +37,9 @@ Feature: Game Clock
     When I run the game loop 1 times
     And the number of frames render should be 1
     And I reload the level "demo"
-    When I run the game loop 1 times
-    And the number of frames render should be 1
-    Then the elapsed clock time should be between 0 and 25 milliseconds
+    When I run the game loop 10 times
+    And the number of frames render should be 10
+    Then the elapsed clock time should be between 0 and 220 milliseconds
     When I run the game loop 30 times
    Then the elapsed clock time should be between 0 and 550 milliseconds
 
