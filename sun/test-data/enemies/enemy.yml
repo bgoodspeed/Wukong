@@ -1,3 +1,4 @@
 enemy:
+  name: Test Enemy
   image_path: test-data/sprites/enemy1.png
   

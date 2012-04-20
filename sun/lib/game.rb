@@ -63,6 +63,7 @@ require 'loaders/save_loader'
 
 require 'controllers/sound_controller'
 require 'controllers/splash_controller'
+require 'controllers/targetting_controller'
 
 
 
@@ -75,7 +76,7 @@ class Game
     :condition_controller, :completion_controller, :event_controller,
     :input_controller, :camera, :splash_controller, :sound_controller, 
     :save_loader, :font_controller, :inventory_controller,
-    :collision_response_controller
+    :collision_response_controller, :targetting_controller
   ]
   attr_accessor :player, :clock, :hud, :screen, :level, :collisions,
     :wayfinding, :main_menu_name, :temporary_message, :mouse_drawn,

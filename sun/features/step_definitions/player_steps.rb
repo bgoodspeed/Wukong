@@ -62,9 +62,13 @@ class Array
   end
 end
 
+def the_player
+  @player ? @player : @game.player
+end
+
 Then /^the player should be at position (\d+),(\d+)$/ do |x, y|
   expected = [x.to_i, y.to_i]
-  @player.position.should be_within_epsilon_of(expected)
+  the_player.position.should be_within_epsilon_of(expected)
 end
 
 
