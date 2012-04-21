@@ -1,0 +1,52 @@
+name: level_1
+background_image: game-data/levels/h_level_1/h_level_1.png
+background_music: game-data/music/drumbeats.wav
+wayfinding: game-data/levels/level_1/wayfinding.yml
+reward_level: game-data/levels/level_1_reward/level_1_reward.yml
+player_start_position: [ 50, 425 ]
+
+measurements:
+  width: 640
+  height: 480
+anded_completion_conditions:
+  - condition: player_health_at_least
+    argument: 1
+  - condition: player_near
+    argument: [ 610, 203 ]
+
+declared_enemies:
+  - enemy_yaml: game-data/enemies/black_square.yml
+    name: e1
+spawn_points:
+  - point: [ 470, 410 ]
+    name: ant_lvl_1
+    spawn_schedule: 1 enemies every 100 ticks for 900 total ticks
+    spawn_argument: [ e1 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+    
+  - start_x: 323
+    start_y: 0
+    end_x: 323
+    end_y: 140
+
+  - start_x: 323
+    start_y: 280
+    end_x: 323
+    end_y: 480
