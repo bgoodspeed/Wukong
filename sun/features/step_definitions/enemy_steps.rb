@@ -24,11 +24,13 @@ Then /^the enemy should be in the scene$/ do
   cs.should be_include(Enemy)
 end
 
-
+def the_first_enemy
+  @enemy ? @enemy : @game.level.enemies.first
+end
 
 Then /^the enemy should be at position (\d+),(\d+)$/ do |x, y|
   expected = [x.to_i, y.to_i]
-  @enemy.position.should be_within_epsilon_of(expected)
+  the_first_enemy.position.should be_within_epsilon_of(expected)
 end
 
 
@@ -38,7 +40,7 @@ Given /^I set the enemy position (\d+),(\d+)$/ do |x, y|
 end
 Then /^the enemy should be at position (\d+),(\d+)\.(\d+)$/ do |x, arg2, arg3|
   expected = [x.to_f, "#{arg2}.#{arg3}".to_f]
-  @enemy.position.should be_within_epsilon_of(expected)
+  the_first_enemy.position.should be_within_epsilon_of(expected)
 end
 
 Then /^the path following controller should be tracking the enemy$/ do
@@ -76,7 +78,7 @@ Then /^the enemy should be at position (\d+)\.(\d+),(\d+)\.(\d+)$/ do |arg1, arg
   expected = ["#{arg1}.#{arg2}".to_f,
               "#{arg3}.#{arg4}".to_f]
 
-  @enemy.position.should be_within_epsilon_of(expected)
+  the_first_enemy.position.should be_within_epsilon_of(expected)
 end
 
 Given /^I tell the enemy velocity to (\d+)$/ do |arg1|

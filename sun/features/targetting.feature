@@ -1,0 +1,25 @@
+Feature: Targetting
+  In order to play strategically
+  As a player
+  I want to be able to enter targetting mode and choose from a list of targets
+
+  Scenario: Targetting Controller Off
+    Given I load the game "new_game_load_screen"
+    Then the game property "targetting_controller.class" should be "TargettingController"
+    Then the game property "targetting_controller.active" should be "false"
+
+  Scenario: Targetting Controller On
+    Given I load the game "new_game_load_screen"
+    When I enter targetting mode
+    Then the game property "targetting_controller.active" should be "true"
+    Then the game property "targetting_controller.target_list.size" should be "0"
+
+  Scenario: Targetting Controller Target List
+    Given I load the game "demo"
+    When I enter targetting mode
+    Then the game property "targetting_controller.active" should be "true"
+    Then the game property "targetting_controller.target_list.size" should be "1"
+    Then the game property "targetting_controller.target_list.first.target.name" should be "'Game Enemy 1'"
+    And the enemy should be at position 100,100
+    And the player should be at position 36,36
+    Then the game property "targetting_controller.target_list.first.vector_to_target" should be "[ 64, 64 ]"
