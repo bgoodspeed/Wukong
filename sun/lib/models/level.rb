@@ -31,7 +31,7 @@ class Level
     :declared_enemies,
   ]
   SCALAR_ATTRIBUTES = [
-    :minimum_x, :minimum_y, :maximum_x, :maximum_y, :name, :reward_level,
+    :minimum_x, :minimum_y, :maximum_x, :maximum_y, :name, :reward_level, :max_enemies,
     :orig_filename, :cell_size, :player_start_position #TODO this is technically an array,but i don't want it init'd to []
   ]
 
@@ -55,6 +55,7 @@ class Level
     @minimum_y = 0
     @maximum_x = 0
     @maximum_y = 0
+    @max_enemies = 10
     @game = game
   end
 
@@ -152,7 +153,7 @@ class Level
   end
   def update_spawn_points
     @spawn_points.each do |sp|
-      if sp.active_by_clock? and !sp.stopped_by_cond?
+      if sp.active_by_clock? and !sp.stopped_by_cond? and @enemies.size < @max_enemies
         sp.enqueue_events
       end
     end

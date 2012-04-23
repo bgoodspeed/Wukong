@@ -161,3 +161,12 @@ index 672c5c7..ebdeaa7 100644
          rv = @collider.check_for_collision_by_type(a,b)
          #puts "decided #{a} and #{b} collide" if rv
          cols << [a,b] if rv
+##############################################################################
+# limiting # of enemies
+#############################################################################
+         user     system      total        real
+withdefaultlimit10 100 loops  1.790000   0.000000   1.790000 (  1.809495)
+         user     system      total        real
+withlimit15 100 loops  1.760000   0.000000   1.760000 (  1.766189)
+         user     system      total        real
+withlimit50 100 loops  1.770000   0.000000   1.770000 (  1.775874)

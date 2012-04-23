@@ -28,11 +28,23 @@ class GameBM
     printer.print(:path => "profile", :profile => p)
 
   end
+
+  def max_enemies
+    @game.level.max_enemies
+  end
+  def max_enemies=(v)
+    @game.level.max_enemies=v
+  end
   def benchmark(s = "")
     Benchmark.bm(7) do |m|
       m.report("#{s}first 1") {   10.times { @game.simulate}}
       m.report("#{s}next 10") {   10.times { @game.simulate}}
       m.report("#{s}last 100") {  100.times { @game.simulate}}
+    end
+  end
+  def benchmark_single(n, s = "")
+    Benchmark.bm(3) do |m|
+      m.report("#{s} #{n} loops") {  n.times { @game.simulate}}
     end
   end
 
