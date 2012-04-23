@@ -23,3 +23,13 @@ Feature: Targetting
     And the enemy should be at position 100,100
     And the player should be at position 36,36
     Then the game property "targetting_controller.target_list.first.vector_to_target" should be "[ 64, 64 ]"
+    Then the game property "targetting_controller.target_list.first.distance_to_target" should be approximately "90.51"
+
+  Scenario: Hit Odd Calculation
+    Given I create an odds calculator
+    Then the hit odds for distance 0 with distance threshold 100 should be 100%
+    Then the hit odds for distance 100 with distance threshold 100 should be 10%
+    Then the hit odds for distance 1 with distance threshold 100 should be 100%
+    Then the hit odds for distance 10 with distance threshold 100 should be 96%
+    Then the hit odds for distance 20 with distance threshold 100 should be 91%
+    Then the hit odds for distance 30 with distance threshold 100 should be 85%

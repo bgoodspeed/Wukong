@@ -1,6 +1,14 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
+class HitOddsCalculator
+  def odds_for_distance_and_threshold(distance, distance_threshold)
+    #n_zero = 0.1/(Math::e ** -
+    #TODO use exponential decay, solving for lambda such that threshold => 10% chance
+    
+    0
+  end
+end
 class Targetable
   attr_accessor :target
   def initialize(game, target)
@@ -10,6 +18,10 @@ class Targetable
 
   def vector_to_target
     @target.position.minus(@game.player.position)
+  end
+
+  def distance_to_target
+    @target.position.distance_from(@game.player.position)
   end
 end
 
