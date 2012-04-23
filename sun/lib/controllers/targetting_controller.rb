@@ -2,12 +2,7 @@
 # and open the template in the editor.
 
 class HitOddsCalculator
-  #NOTE assumes a fixed initial constant
-  # N(t) = N_0 e^(-lambda*t)
-  def initialize(chance_at_fixed_threshold=0.1)
-    @chance_at_fixed_threshold = chance_at_fixed_threshold
-  end
-
+  #NOTE: N(t) = N_0 e^(-lambda*t)
   def decay_at(distance, distance_threshold)
     decay_constant = 4.5/distance_threshold.to_f
     # decay_constant /= 5
@@ -22,6 +17,7 @@ class Targetable
   def initialize(game, target)
     @game = game
     @target = target
+    @odds_calculator = HitOddsCalculator.new
   end
 
   def vector_to_target
@@ -30,6 +26,10 @@ class Targetable
 
   def distance_to_target
     @target.position.distance_from(@game.player.position)
+  end
+
+  def hit_odds_for_target
+    @odds_calculator.odds_for_distance_and_threshold(distance_to_target, @game.player.accuracy)
   end
 end
 

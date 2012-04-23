@@ -20,10 +20,12 @@ Feature: Targetting
     Then the game property "targetting_controller.active" should be "true"
     Then the game property "targetting_controller.target_list.size" should be "1"
     Then the game property "targetting_controller.target_list.first.target.name" should be "'Game Enemy 1'"
+    Then the game property "player.accuracy" should be "100"
     And the enemy should be at position 100,100
     And the player should be at position 36,36
     Then the game property "targetting_controller.target_list.first.vector_to_target" should be "[ 64, 64 ]"
     Then the game property "targetting_controller.target_list.first.distance_to_target" should be approximately "90.51"
+    Then the game property "targetting_controller.target_list.first.hit_odds_for_target" should be approximately "41"
 
   Scenario: Hit Odd Calculation
     Given I create an odds calculator

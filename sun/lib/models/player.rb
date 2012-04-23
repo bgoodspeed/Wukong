@@ -7,8 +7,9 @@ class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
   attr_reader :radius
-  YAML_ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, :max_health,
-    :turn_speed, :movement_distance, :menu_action_delay, :enemies_killed, :image_path, :collision_priority
+  YAML_ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, 
+    :max_health, :turn_speed, :movement_distance, :menu_action_delay,
+    :enemies_killed, :image_path, :collision_priority, :base_accuracy
   ]
   ATTRIBUTES = YAML_ATTRIBUTES + [:inventory, :avatar]
   ATTRIBUTES.each {|attr| attr_accessor attr }
@@ -55,6 +56,7 @@ class Player
     @turn_speed = 90
     @menu_action_delay = 4
     @movement_distance = 1
+    @base_accuracy = 100
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil
     @weapon = nil
@@ -83,6 +85,11 @@ class Player
   def equip_weapon(w)
     @weapon = w
     @weapon.equipped_on = self
+  end
+
+  #TODO need to add in weapon accuracy
+  def accuracy
+    @base_accuracy  
   end
 
   def turn(direction)
