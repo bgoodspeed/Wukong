@@ -107,3 +107,8 @@ end
 Then /^the game property "([^"]*)" should not be nil$/ do |property_string|
   invoke_property_string_on(@game, property_string).should_not be_nil
 end
+
+
+Then /^the game property "([^"]*)" should be approximately "([^"]*)"$/ do |property_string, expected|
+  invoke_property_string_on(@game, property_string).should be_near(expected.to_f)
+end
