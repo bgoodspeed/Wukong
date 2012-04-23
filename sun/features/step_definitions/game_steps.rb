@@ -75,6 +75,8 @@ Then /^the event areas should be:$/ do |table|
     areas[idx].label.should == hash['label']
     areas[idx].action.should == hash['action']
     "#{areas[idx].action_argument}".should == "#{hash['action_argument']}"
+    "#{areas[idx].description_joined}".should == "#{hash['description joined']}" if hash.has_key?('description joined')
+
   }
 end
 

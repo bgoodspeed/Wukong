@@ -8,11 +8,14 @@ class EventArea
   def initialize(game, rect, label, action, description=nil, action_argument=nil)
     @game =game
     @rect, @label, @action = rect, label, action
-    @description = description ? description : "Mystery?"
+    @description = description ? description : ["Mystery?"]
     @info_window = InfoWindow.new(@description)
     @action_argument = action_argument
   end
 
+  def description_joined
+    @description.kind_of?(Array) ? @description.join("") : @description
+  end
 
   include PrimitiveIntersectionTests
   def intersects?(circle)

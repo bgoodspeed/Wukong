@@ -14,5 +14,7 @@ Feature: Info Window
     And I set the player position to 50,50
     When I run the game loop 1 times
     Then there should be 1 active event areas
-    And the event area info window description should be "Mystery?"
+    And the event area info window description should contain "foo bar"
+    And the event area info window description should contain "baz quz"
+    And the event area info window description should contain "afterblank"
     

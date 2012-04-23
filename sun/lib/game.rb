@@ -207,7 +207,7 @@ class Game
     
     @event_controller.handle_events
     @input_controller.respond_to_keys
-    return if menu_mode?
+    return if menu_mode? 
     @animation_controller.tick
     @path_following_controller.tick
     @level.tick
