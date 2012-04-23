@@ -1,5 +1,5 @@
 ---
 savedata:
-  level: game-data/levels/level_2_reward/level_2_reward.yml
+  level: game-data/levels/h_level_1_reward/h_level_1_reward.yml
   player: !binary |-
     Z2FtZS1kYXRhL2xvYWRzLzEvcGxheWVyLnltbA==
