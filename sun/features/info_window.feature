@@ -17,4 +17,5 @@ Feature: Info Window
     And the event area info window description should contain "foo bar"
     And the event area info window description should contain "baz quz"
     And the event area info window description should contain "afterblank"
+
     

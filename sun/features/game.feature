@@ -29,12 +29,13 @@ Feature: Game
     Given I load the game "reward"
     When I see the first frame
     Then I should be at 320,240 in the game space
-    And there should be 3 event areas
+    And there should be 4 event areas
     And the event areas should be:
-        | rectangle_to_s                                        | label          | action                      | action_argument |
-        | Rectangle [10, 10]:[10, 180]:[280, 180]:[280, 10]     | Reward         | take_reward                 |                 |
-        | Rectangle [360, 280]:[360, 470]:[630, 470]:[630, 280] | Save           | queue_save_game_event       |                 |
-        | Rectangle [10, 340]:[10, 470]:[630, 470]:[630, 340]   | Load Level     | LOAD_LEVEL                  | some/level.yml  |
+        | rectangle_to_s                                        | label                 | action                      | action_argument      |
+        | Rectangle [10, 10]:[10, 180]:[280, 180]:[280, 10]     | Reward                | take_reward                 |                      |
+        | Rectangle [400, 10]:[400, 180]:[600, 180]:[600, 10]   | Upgrade Player Avatar | upgrade_player              | foo/bar/player42.yml |
+        | Rectangle [360, 280]:[360, 470]:[630, 470]:[630, 280] | Save                  | queue_save_game_event       |                      |
+        | Rectangle [10, 340]:[10, 470]:[630, 470]:[630, 340]   | Load Level            | LOAD_LEVEL                  | some/level.yml       |
 
   Scenario: New Game Loading Level Invoke Event Area - New Game
     Given I load the game "new_game_load_screen"

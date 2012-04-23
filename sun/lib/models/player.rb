@@ -10,7 +10,7 @@ class Player
   YAML_ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, :max_health,
     :turn_speed, :movement_distance, :menu_action_delay, :enemies_killed, :image_path, :collision_priority
   ]
-  ATTRIBUTES = YAML_ATTRIBUTES + [:inventory]
+  ATTRIBUTES = YAML_ATTRIBUTES + [:inventory, :avatar]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper

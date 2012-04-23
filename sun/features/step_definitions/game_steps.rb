@@ -114,3 +114,13 @@ end
 Then /^the game property "([^"]*)" should be approximately "([^"]*)"$/ do |property_string, expected|
   invoke_property_string_on(@game, property_string).should be_near(expected.to_f)
 end
+
+
+
+Then /^the active event area action should be "([^"]*)"$/ do |arg1|
+  @game.level.active_event_areas.first.action.should == arg1
+end
+
+Then /^the active event area action argument should be "([^"]*)"$/ do |arg1|
+  @game.level.active_event_areas.first.action_argument.should == arg1
+end
