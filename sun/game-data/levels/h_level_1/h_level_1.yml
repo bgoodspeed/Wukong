@@ -46,17 +46,17 @@ line_segments:
     end_x: 320
     end_y: 140
 
-  - start_x: 320
+  - start_x: 318
     start_y: 280
-    end_x: 320
+    end_x: 318
     end_y: 480
 
-  - start_x: 324
+  - start_x: 330
     start_y: 0
-    end_x: 324
+    end_x: 330
     end_y: 140
 
-  - start_x: 324
+  - start_x: 325
     start_y: 280
-    end_x: 324
+    end_x: 325
     end_y: 480
