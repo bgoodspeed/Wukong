@@ -27,9 +27,16 @@ Feature: Targetting
 
   Scenario: Hit Odd Calculation
     Given I create an odds calculator
-    Then the hit odds for distance 0 with distance threshold 100 should be 100%
-    Then the hit odds for distance 100 with distance threshold 100 should be 10%
-    Then the hit odds for distance 1 with distance threshold 100 should be 100%
-    Then the hit odds for distance 10 with distance threshold 100 should be 96%
-    Then the hit odds for distance 20 with distance threshold 100 should be 91%
-    Then the hit odds for distance 30 with distance threshold 100 should be 85%
+    Then the hit odds for distance 0 with distance threshold 100 should be 99%
+    Then the hit odds for distance 1 with distance threshold 100 should be 98%
+    Then the hit odds for distance 10 with distance threshold 100 should be 98%
+    Then the hit odds for distance 20 with distance threshold 100 should be 97%
+    Then the hit odds for distance 30 with distance threshold 100 should be 96%
+    Then the hit odds for distance 40 with distance threshold 100 should be 93%
+    Then the hit odds for distance 50 with distance threshold 100 should be 90%
+    Then the hit odds for distance 60 with distance threshold 100 should be 85%
+    Then the hit odds for distance 70 with distance threshold 100 should be 76%
+    Then the hit odds for distance 80 with distance threshold 100 should be 63%
+    Then the hit odds for distance 90 with distance threshold 100 should be 42%
+    Then the hit odds for distance 100 with distance threshold 100 should be 9%
+

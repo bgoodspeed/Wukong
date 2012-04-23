@@ -2,11 +2,19 @@
 # and open the template in the editor.
 
 class HitOddsCalculator
+  #NOTE assumes a fixed initial constant
+  # N(t) = N_0 e^(-lambda*t)
+  def initialize(chance_at_fixed_threshold=0.1)
+    @chance_at_fixed_threshold = chance_at_fixed_threshold
+  end
+
+  def decay_at(distance, distance_threshold)
+    decay_constant = 4.5/distance_threshold.to_f
+    # decay_constant /= 5
+    (100 - Math::E ** (decay_constant * distance))
+  end
   def odds_for_distance_and_threshold(distance, distance_threshold)
-    #n_zero = 0.1/(Math::e ** -
-    #TODO use exponential decay, solving for lambda such that threshold => 10% chance
-    
-    0
+    (decay_at(distance, distance_threshold)).to_i
   end
 end
 class Targetable
