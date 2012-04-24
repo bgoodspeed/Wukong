@@ -12,15 +12,40 @@ module GameMenu
   EQUIPMENT = "equipment"
 end
 
+class EquipmentMenuItem
+  def initialize(item)
+    @item = item
+  end
+  def display_text
+    @item.display_name
+  end
+  def action
+    BehaviorTypes::EQUIP_ITEM
+  end
+  def action_argument
+    self
+  end
 
+  def argument
+    @item.orig_filename
+  end
+end
 class EquipmentMenu
-  attr_accessor :filter
+  attr_accessor :filter, :current_entry_index, :menu_id
   def initialize(game)
     @game = game
     @filter = nil
+    @current_entry_index = 0
+    @menu_id = "Equipment Menu"
+
+  end
+
+  def current_entry
+    lines[@current_entry_index]
   end
   def lines
-    @game.player.inventory.items_matching(@filter)
+    items = @game.player.inventory.items_matching(@filter)
+    items.collect {|i| EquipmentMenuItem.new(i)}
   end
 end
 

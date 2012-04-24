@@ -3,7 +3,7 @@
 
 class YamlLoader
   def self.from_file(klass, game, f)
-    klass.from_yaml(game, IO.readlines(f).join(""))
+    klass.from_yaml(game, IO.readlines(f).join(""), f)
   end
 
   def self.game_from_file(f)

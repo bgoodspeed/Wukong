@@ -9,8 +9,8 @@ Feature: Loading
     When I simulate "Graphics::KbO"
     When I run the game loop 1 times
     Then the current menu entry should have:
-      | display_text   | action         | argument | 
-      | Load Game 1    | load_game_slot | 1        |
+      | display_text   | action         | action_argument |
+      | Load Game 1    | load_game_slot | 1               |
     And I register a fake action to return triple the argument called "load_game_slot"
     When I invoke the current menu action
     Then the menu action result should be 3

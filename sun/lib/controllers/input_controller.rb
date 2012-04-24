@@ -17,7 +17,7 @@ end
 class InputController
   attr_accessor :keyboard, :gamepad
 
-  def self.from_yaml(game, yaml)
+  def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['input_config']
     kbd = conf['keyboard_config']

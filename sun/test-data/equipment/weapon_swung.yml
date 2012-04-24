@@ -1,4 +1,5 @@
 weapon:
+  display_name: TestWeaponSwung
   swing_start: 0
   swing_sweep: 45
   swing_frames: 30

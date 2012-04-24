@@ -12,6 +12,7 @@ module BehaviorTypes
   TAKE_REWARD = "take_reward"
   UPGRADE_PLAYER = "upgrade_player"
   EQUIPMENT_MENU = "equipment_menu"
+  EQUIP_ITEM = "equip_item"
 end
 
 class ActionController
@@ -20,6 +21,10 @@ class ActionController
       #TODO make debug print write to a logfile
       "debug_print" => lambda {|game, arg| puts "DEBUG_PRINT: #{arg}"},
       BehaviorTypes::TAKE_REWARD => lambda {|game, arg| puts "Take reward: #{arg}"},
+      BehaviorTypes::EQUIP_ITEM => lambda {|game, arg|
+        w = game.inventory_controller.item_named(arg.argument)
+        raise "uh oh no such thing: #{arg}" unless w
+        game.player.equip_weapon(w)},
       BehaviorTypes::SAVE_GAME_SLOT => lambda {|game, arg| 
         game.clock.set_last_save_time
         game.save_game_slot(arg)}, #TODO could add temp message and maybe exit menu
@@ -151,7 +156,7 @@ class ActionController
   end
 
   def invoke(action_name, arg=nil, rs = all_responses)
-    raise "unknown action #{action_name}" unless rs.has_key?(action_name)
+    raise "unknown action #{action_name}\ndefined are: #{rs.keys}" unless rs.has_key?(action_name)
     rs[action_name].call(@game, arg )
   end
 end

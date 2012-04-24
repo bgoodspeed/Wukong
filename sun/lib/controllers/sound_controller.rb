@@ -3,7 +3,7 @@ class SoundController
   extend YamlHelper
 
   #TODO make YAML utils and pass attributes
-  def self.from_yaml(game, yaml)
+  def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['sound_controller']
     obj = SoundController.new(game)
