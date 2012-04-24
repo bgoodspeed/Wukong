@@ -28,10 +28,22 @@ event_areas:
   - top_left: [ 71, 121 ]
     bottom_right: [ 263, 211 ]
     action: take_reward
+    description:
+      - Claim your reward.
   - top_left: [ 379, 121 ]
     bottom_right: [ 572, 211 ]
     action: queue_save_game_event
+    description:
+      - Save your progress.
   - top_left: [ 72, 320 ]
     bottom_right: [ 264, 410 ]
     action: LOAD_LEVEL
+    description:
+      - Ready for level 2!
     action_argument: "game-data/levels/level_2/level_2.yml"
+  - top_left: [ 72, 227 ]
+    bottom_right: [ 264, 303 ]
+    description:
+      - Upgrade your avitar's look.
+    action: upgrade_player
+    action_argument: game-data/sprites/player20120411.png
