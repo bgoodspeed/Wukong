@@ -21,7 +21,11 @@ class ActionController
   def default_menu_actions
     {
       BehaviorTypes::DEBUG_PRINT => lambda {|game, arg| game.log.info "DEBUG_PRINT: #{arg}"},
-      BehaviorTypes::TAKE_REWARD => lambda {|game, arg| game.log.info "TODO Take reward: #{arg}"},
+      BehaviorTypes::TAKE_REWARD => lambda {|game, arg| 
+        game.log.info "Take reward: #{arg}"
+        w = game.inventory_controller.item_named(arg.argument)
+        game.player.inventory.add_item(w)
+      },
       BehaviorTypes::EQUIP_ITEM => lambda {|game, arg|
         w = game.inventory_controller.item_named(arg.argument)
         game.player.equip_weapon(w)},

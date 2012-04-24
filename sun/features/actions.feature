@@ -24,7 +24,8 @@ Feature: Action
     Then the game property "<game_prop>" should be "<game_value_final>"
   Examples:
    | action                        | game_prop                    | game_value_init                        | game_value_final                | stubs                                                        | expects | set                          |
-   | BehaviorTypes::EQUIP_ITEM     | player.inventory.weapon.nil? | true                                   | false                           | argument:test-data/equipment/weapon_swung.yml   |         | menu_actions                 |
+   | BehaviorTypes::EQUIP_ITEM     | player.inventory.weapon.nil? | true                                   | false                           | argument:test-data/equipment/weapon_swung.yml                |         | menu_actions                 |
+   | BehaviorTypes::TAKE_REWARD    | player.inventory.items.size  | 0                                      | 1                               | argument:test-data/equipment/weapon_swung.yml                |         | menu_actions                 |
 
   Scenario Outline: Actions being invoked collision response
     Given I load the game on level "trivial" with screen size 640, 480

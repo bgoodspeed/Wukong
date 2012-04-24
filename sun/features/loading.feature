@@ -34,12 +34,21 @@ Feature: Loading
     Then the save file should match "expected_savedata.yml"
     And the animation position for player "weapon" should be 350, 200
 
-  Scenario: Saving a game saves level, player etc - inventory
+  Scenario: Saving a game saves level, player etc - inventory empty
     Given I load the game "new_game_load_screen"
     And I set the property "game_load_path" to "test-data/loadarea"
     And I set the player position to 350,200
     And I save slot 7
     Then the save file should match "expected_savedata_inventory.yml"
+    And the animation position for player "weapon" should be 350, 200
+
+  Scenario: Saving a game saves level, player etc - inventory non empty
+    Given I load the game "demo_inventory"
+    And I set the property "game_load_path" to "test-data/loadarea"
+    When the player takes reward "test-data/equipment/weapon.yml"
+    And I set the player position to 350,200
+    And I save slot 6
+    Then the save file should match "expected_savedata_inventory2.yml"
     And the animation position for player "weapon" should be 350, 200
 
   Scenario: Loading a game loads player inventory - empty
