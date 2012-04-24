@@ -34,7 +34,7 @@ class Inventory
 
     conf = data['inventory']
     obj = Inventory.new( game, nil) #TODO we don't know who the owner is at this point
-    conf.to_a.each {|hash|
+    conf['items'].to_a.each {|hash|
       raise "bad inventory yaml " unless hash.size == 1
       obj.add_item(hash.keys.first, hash.values.first)
     }
@@ -46,6 +46,15 @@ class Inventory
     @items.each {|item,quantity|
       cf << {item.orig_filename => quantity }
     }
-    {"inventory" => cf}.to_yaml(:UseHeader => true)
+    if @weapon
+      mr = {"weapon" => @weapon.orig_filename}
+    else
+      mr = {}
+    end
+    {"inventory" => {
+        "items" => cf,
+      }.merge(mr)
+    }.to_yaml(:UseHeader => true)
+    
   end
 end

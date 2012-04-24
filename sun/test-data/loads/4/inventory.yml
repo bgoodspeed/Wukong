@@ -1,6 +1,7 @@
 --- 
 inventory:
-  - "test-data/equipment/weapon_swung.yml": 1
-  - "test-data/equipment/weapon_sound.yml": 2
+  items:
+    - "test-data/equipment/weapon_swung.yml": 1
+    - "test-data/equipment/weapon_sound.yml": 2
 
 
