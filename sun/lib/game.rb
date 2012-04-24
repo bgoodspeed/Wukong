@@ -81,7 +81,7 @@ class Game
   attr_accessor :player, :clock, :hud, :screen, :level, :collisions,
     :wayfinding, :main_menu_name, :temporary_message, :mouse_drawn,
     :active, :new_game_level, :menu_for_load_game, :game_load_path, :over,
-    :game_over_menu, :menu_for_save_game, :log
+    :game_over_menu, :menu_for_save_game, :log, :menu_for_equipment
 
   ATTRIBUTES = GAME_CONSTRUCTED
   ATTRIBUTES.each {|attr| attr_accessor attr}
@@ -116,6 +116,7 @@ class Game
     init_game_constructed(GAME_CONSTRUCTED, self)
     @mouse_drawn = true
     @main_menu_name = "main menu"
+    @menu_for_equipment = GameMenu::EQUIPMENT
     @game_load_path = "UNSET"
     @active = true
     @over = false 
@@ -255,8 +256,8 @@ class Game
       # TODO NOOP, could sleep to free up CPU cycles
     end
   end
-  def enter_menu(name=@main_menu_name)
-    @menu_controller.activate(name)
+  def enter_menu(name=@main_menu_name, filter=nil)
+    @menu_controller.activate(name, filter)
     @hud.menu_mode = true
     @hud.swap_copy
   end

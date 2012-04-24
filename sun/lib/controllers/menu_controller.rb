@@ -8,6 +8,22 @@ class Breadcrumb
   end
 end
 
+module GameMenu
+  EQUIPMENT = "equipment"
+end
+
+
+class EquipmentMenu
+  attr_accessor :filter
+  def initialize(game)
+    @game = game
+    @filter = nil
+  end
+  def lines
+    @game.player.inventory.items_matching(@filter)
+  end
+end
+
 class MenuController
   attr_reader :active, :breadcrumbs, :active_menu_name
 
@@ -15,7 +31,9 @@ class MenuController
 
   def initialize(game)
     @game = game
-    @menus = {}
+    @menus = {
+      GameMenu::EQUIPMENT => EquipmentMenu.new(@game)
+    }
     @active = false
     @active_menu_name = nil
     
@@ -89,8 +107,11 @@ class MenuController
   def move_up
     current_menu.move_up
   end
-  def activate(name)
+  def activate(name, filter=nil)
     @active_menu_name = name
+    if !filter.nil?
+      current_menu.filter = filter
+    end
     @active = true
   end
   def inactivate

@@ -98,3 +98,6 @@ Then /^the breadcrumb trail should have the following:$/ do |table|
   
 end
 
+When /^I enter the menu "([^"]*)" with filter "([^"]*)"$/ do |menu, filter|
+  @game.enter_menu(menu, eval(filter))
+end

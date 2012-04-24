@@ -115,6 +115,10 @@ class Player
   end
 
 
+  def take_reward(item)
+    @inventory.add_item(item)
+  end
+
   def enemy_killed
     @enemies_killed += 1
   end
