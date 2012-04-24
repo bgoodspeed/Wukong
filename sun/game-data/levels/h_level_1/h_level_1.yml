@@ -1,4 +1,4 @@
-name: level_1
+name: h_level_1
 background_image: game-data/levels/h_level_1/h_level_1.png
 background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/h_level_1/wayfinding.yml
@@ -18,7 +18,7 @@ declared_enemies:
   - enemy_yaml: game-data/enemies/white_square.yml
     name: e1
 spawn_points:
-  - point: [ 470, 410 ]
+  - point: [ 610, 203 ]
     name: ant_lvl_1
     spawn_schedule: 1 enemies every 100 ticks for 900 total ticks
     spawn_argument: [ e1 ]

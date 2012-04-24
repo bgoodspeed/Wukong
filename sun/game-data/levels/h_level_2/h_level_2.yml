@@ -1,0 +1,92 @@
+name: h_level_2
+background_image: game-data/levels/h_level_2/h_level_2.png
+background_music: game-data/music/drumbeats.wav
+wayfinding: game-data/levels/h_level_1/wayfinding.yml
+reward_level: game-data/levels/h_level_1_reward/h_level_1_reward.yml
+player_start_position: [ 125, 495 ]
+
+measurements:
+  width: 1018
+  height: 622
+anded_completion_conditions:
+  - condition: player_health_at_least
+    argument: 1
+  - condition: player_near
+    argument: [ 815, 205 ]
+
+declared_enemies:
+  - enemy_yaml: game-data/enemies/white_square.yml
+    name: e1
+spawn_points:
+  - point: [ 806, 224 ]
+    name: ant_lvl_1
+    spawn_schedule: 1 enemies every 100 ticks for 300 total ticks
+    spawn_argument: [ e1 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 1018
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 622
+  - start_x: 1018
+    start_y: 0
+    end_x: 1018
+    end_y: 622
+  - start_x: 0
+    start_y: 622
+    end_x: 1018
+    end_y: 622
+    
+  - start_x: 824
+    start_y: 96
+    end_x: 865
+    end_y: 81
+
+  - start_x: 865
+    start_y: 81
+    end_x: 904
+    end_y: 94
+
+  - start_x: 904
+    start_y: 94
+    end_x: 930
+    end_y: 131
+
+  - start_x: 930
+    start_y: 131
+    end_x: 928
+    end_y: 171
+
+  - start_x: 928
+    start_y: 171
+    end_x: 905
+    end_y: 200
+
+  - start_x: 905
+    start_y: 200
+    end_x: 861
+    end_y: 214
+
+  - start_x: 830
+    start_y: 204
+    end_x: 861
+    end_y: 214
+
+  - start_x: 830
+    start_y: 204
+    end_x: 804
+    end_y: 178
+
+  - start_x: 797
+    start_y: 139
+    end_x: 804
+    end_y: 178
+
+  - start_x: 797
+    start_y: 139
+    end_x: 824
+    end_y: 96

@@ -40,10 +40,10 @@ event_areas:
     action: LOAD_LEVEL
     description:
       - Ready for level 2!
-    action_argument: "game-data/levels/level_2/level_2.yml"
+    action_argument: "game-data/levels/h_level_2/h_level_2.yml"
   - top_left: [ 72, 227 ]
     bottom_right: [ 264, 303 ]
     description:
       - Upgrade your avitar's look.
     action: upgrade_player
-    action_argument: game-data/sprites/player20120411.png
+    action_argument: "game-data/sprites/player_grey_scale_circle.png"
