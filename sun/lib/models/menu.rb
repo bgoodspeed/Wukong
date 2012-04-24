@@ -132,7 +132,7 @@ class Menu
     end
   end
 
-  def self.from_yaml(game, yaml)
+  def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     m = data['menu']
     menu = Menu.new(game, m['menu_id'])

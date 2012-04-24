@@ -12,19 +12,28 @@ module BehaviorTypes
   TAKE_REWARD = "take_reward"
   UPGRADE_PLAYER = "upgrade_player"
   EQUIPMENT_MENU = "equipment_menu"
+  EQUIP_ITEM = "equip_item"
+  DEBUG_PRINT = "debug_print"
+  NOOP = "noop"
 end
 
 class ActionController
   def default_menu_actions
     {
-      #TODO make debug print write to a logfile
-      "debug_print" => lambda {|game, arg| puts "DEBUG_PRINT: #{arg}"},
-      BehaviorTypes::TAKE_REWARD => lambda {|game, arg| puts "Take reward: #{arg}"},
+      BehaviorTypes::DEBUG_PRINT => lambda {|game, arg| game.log.info "DEBUG_PRINT: #{arg}"},
+      BehaviorTypes::TAKE_REWARD => lambda {|game, arg| 
+        game.log.info "Take reward: #{arg}"
+        w = game.inventory_controller.item_named(arg.argument)
+        game.player.inventory.add_item(w)
+      },
+      BehaviorTypes::EQUIP_ITEM => lambda {|game, arg|
+        w = game.inventory_controller.item_named(arg.argument)
+        game.player.equip_weapon(w)},
       BehaviorTypes::SAVE_GAME_SLOT => lambda {|game, arg| 
         game.clock.set_last_save_time
         game.save_game_slot(arg)}, #TODO could add temp message and maybe exit menu
       BehaviorTypes::LOAD_GAME_SLOT => lambda {|game, arg| game.load_game_slot(arg)},
-      "noop" => lambda {|game, arg| }
+      BehaviorTypes::NOOP => lambda {|game, arg| }
     }
   end
   def default_collision_responses
@@ -61,7 +70,7 @@ class ActionController
       EventTypes::LOAD_LEVEL => lambda { |game, e| 
         game.load_level(e.argument)},
       EventTypes::START_NEW_GAME => lambda { |game, e| game.load_level(e.argument)},
-      EventTypes::PICK => lambda {|game,e| puts "In Action Controller: must implement what to do when #{e.picked}"},
+      EventTypes::PICK => lambda {|game,e| game.log.warn "TODO: In Action Controller: must implement what to do when #{e.argument}"},
       EventTypes::SPAWN => lambda {|game,e|
         enemy = e.argument
         enemy.tracking_target = game.player
@@ -82,6 +91,7 @@ class ActionController
         end
         game.player.avatar = game.image_controller.lookup_image(arg.argument)
         game.player.image_path = arg.argument
+        game.player.image_file = arg.argument
       },
       BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(game.new_game_level, EventTypes::START_NEW_GAME))},
       #TODO figure out which game to load from menu?
@@ -151,7 +161,7 @@ class ActionController
   end
 
   def invoke(action_name, arg=nil, rs = all_responses)
-    raise "unknown action #{action_name}" unless rs.has_key?(action_name)
+    raise "unknown action #{action_name}\ndefined are: #{rs.keys}" unless rs.has_key?(action_name)
     rs[action_name].call(@game, arg )
   end
 end

@@ -11,7 +11,7 @@ class Enemy
   include Collidable
 
   #TODO make YAML utils and pass attributes
-  def self.from_yaml(game, yaml)
+  def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['enemy']
     obj = Enemy.new(conf['image_path'], game)

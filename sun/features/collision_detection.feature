@@ -28,6 +28,23 @@ Feature: Collision Detection
       | expected_position |
       | 36,46             |
 
+ Scenario: Projectile Collisions not yet Destroyed - Reload
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create the path following controller
+    And I set the player avatar to "avatar.bmp"
+    And I set the player direction to 180
+    And I set the player step size to 10
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
+    And I set the game clock to 60 fps
+    When I simulate "Graphics::KbSpace"
+    And I run the game loop 1 times
+    Then there should be projectiles at:
+      | expected_position |
+      | 36,46             |
+    And I reload the level "demo"
+    Then the weapon should not be in use
+
   Scenario: Projectile Collisions Destroyed By South Wall
     Given I load the game on level "trivial" with screen size 640, 480
     And I create the path following controller

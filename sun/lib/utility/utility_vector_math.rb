@@ -1,12 +1,5 @@
 module ArrayVectorOperations
 
-  def gather_up_as(op, other)
-    rv = []
-    raise "size mismatch" unless self.size == other.size
-    each_with_index {|value, idx| rv[idx] = value.send(op,  other[idx]) }
-
-    rv
-  end
 
   def x
     self[0]
@@ -14,17 +7,9 @@ module ArrayVectorOperations
   def y
     self[1]
   end
-  def foldl(op, base)
-    rv = base
-    each {|v| rv = v.send(op, rv) }
-    rv
-  end
   #HACK this is hard coded to 2d
   def sum2d
     self[0] + self[1]
-  end
-  def sum
-    foldl(:+, 0)
   end
 
   #HACK this is hard coded to 2d

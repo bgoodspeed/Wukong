@@ -52,17 +52,7 @@ class SpatialHash
     lsu = lsv.unit
     steps = (lsv.norm/@cell_size).ceil
     steps.times do |step|
-      b = ls
-      if (b.sx == 300) and
-       (b.sy == 540) and
-       (b.ex == 300) and
-       (b.ey == 300)
-        insert_data_at(data, ls.p2.plus(lsu.scale(step * @cell_size)), true)
-      else
-        insert_data_at(data, ls.p2.plus(lsu.scale(step * @cell_size)))
-      end
-
-      
+      insert_data_at(data, ls.p2.plus(lsu.scale(step * @cell_size)))
     end
   end
   def insert_circle_type_collider(elem)

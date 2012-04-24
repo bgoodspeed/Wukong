@@ -40,6 +40,10 @@ Then /^the current menu entry should have:$/ do |table|
     me.display_text.to_s.should == hash['display_text'].to_s
     me.action.to_s.should == hash['action'].to_s if hash.has_key?('action')
     me.action_argument.to_s.should == hash['action_argument'].to_s if hash.has_key?('action_argument')
+    if hash.has_key?('argument')
+      me.argument.to_s.should == hash['argument'].to_s
+    end
+
   }
 
 end
@@ -57,6 +61,7 @@ Then /^the current mouse menu entry should have:$/ do |table|
     me.display_text.to_s.should == hash['display_text'].to_s
     me.action.to_s.should == hash['action'].to_s if hash.has_key?('action')
     me.action_argument.to_s.should == hash['action_argument'].to_s if hash.has_key?('action_argument')
+    me.argument.to_s.should == hash['argument'].to_s if hash.has_key?('argument')
   }
 end
 Then /^I move up in the menu$/ do

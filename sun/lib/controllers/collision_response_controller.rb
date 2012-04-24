@@ -30,7 +30,7 @@ end
 
 class CollisionResponseController
   extend YamlHelper
-  def self.from_yaml(game, yaml)
+  def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['collision_response']
     cr = {}

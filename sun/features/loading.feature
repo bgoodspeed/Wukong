@@ -9,8 +9,8 @@ Feature: Loading
     When I simulate "Graphics::KbO"
     When I run the game loop 1 times
     Then the current menu entry should have:
-      | display_text   | action         | argument | 
-      | Load Game 1    | load_game_slot | 1        |
+      | display_text   | action         | action_argument |
+      | Load Game 1    | load_game_slot | 1               |
     And I register a fake action to return triple the argument called "load_game_slot"
     When I invoke the current menu action
     Then the menu action result should be 3
@@ -34,6 +34,38 @@ Feature: Loading
     Then the save file should match "expected_savedata.yml"
     And the animation position for player "weapon" should be 350, 200
 
+  Scenario: Saving a game saves level, player etc - inventory empty
+    Given I load the game "new_game_load_screen"
+    And I set the property "game_load_path" to "test-data/loadarea"
+    And I set the player position to 350,200
+    And I save slot 7
+    Then the save file should match "expected_savedata_inventory.yml"
+    And the animation position for player "weapon" should be 350, 200
+
+  Scenario: Saving a game saves level, player etc - inventory non empty
+    Given I load the game "demo_inventory"
+    And I set the property "game_load_path" to "test-data/loadarea"
+    When the player takes reward "test-data/equipment/weapon.yml"
+    And I set the player position to 350,200
+    And I save slot 6
+    Then the save file should match "expected_savedata_inventory2.yml"
+    And the animation position for player "weapon" should be 350, 200
+
+  Scenario: Loading a game loads player inventory - empty
+    Given I load the game "demo_inventory"
+    And I load slot 3
+    Then the game property "player.inventory.items.size" should be "0"
+
+  Scenario: Loading a game loads player inventory - non-empty
+    Given I load the game "demo_inventory"
+    And I load slot 4
+    Then the game property "player.inventory.items.size" should be "2"
+
+  Scenario: Loading a game loads player inventory - non-empty
+    Given I load the game "demo_inventory"
+    And I load slot 6
+    Then the game property "player.inventory.items.size" should be "2"
+    Then the game property "player.inventory.weapon.nil?" should be "false"
     
 
 

@@ -5,8 +5,9 @@
 class Weapon
   ATTRIBUTES = [:swing_start , :swing_sweep ,  :swing_frames, :weapon_length,
     :image_path, :type, :sound_effect_name, :velocity, :equipped_on, 
-    :orig_filename, :animation_name, :collision_priority]
+    :orig_filename, :animation_name, :collision_priority, :display_name]
   ATTRIBUTES.each {|attr| attr_accessor attr }
+  attr_accessor :in_use
   attr_reader :inventory_type
   extend YamlHelper
 
@@ -15,6 +16,7 @@ class Weapon
     data = YAML.load(yaml)
     w = data['weapon']
     weapon = Weapon.new(game, nil)
+    weapon.orig_filename = fn
     process_attributes(ATTRIBUTES, weapon, w)
     weapon
   end
@@ -34,7 +36,7 @@ class Weapon
     @animation_name = "weapon"
     @sound_effect_name = "unset"
   end
-
+  
 
   def use
     unless @in_use

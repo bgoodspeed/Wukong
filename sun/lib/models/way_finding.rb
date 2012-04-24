@@ -24,7 +24,7 @@ class WayFinding
     end
     nearest_point(position, candidates)
   end
-  def self.from_yaml(game, yaml)
+  def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     wf = self.new(game)
     data['layer']['points'].each do |point|
