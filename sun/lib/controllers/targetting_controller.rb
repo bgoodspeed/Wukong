@@ -2,11 +2,14 @@
 # and open the template in the editor.
 
 class HitOddsCalculator
+  #NOTE: N(t) = N_0 e^(-lambda*t)
+  def decay_at(distance, distance_threshold)
+    decay_constant = 4.5/distance_threshold.to_f
+    # decay_constant /= 5
+    (100 - Math::E ** (decay_constant * distance))
+  end
   def odds_for_distance_and_threshold(distance, distance_threshold)
-    #n_zero = 0.1/(Math::e ** -
-    #TODO use exponential decay, solving for lambda such that threshold => 10% chance
-    
-    0
+    (decay_at(distance, distance_threshold)).to_i
   end
 end
 class Targetable
@@ -14,6 +17,7 @@ class Targetable
   def initialize(game, target)
     @game = game
     @target = target
+    @odds_calculator = HitOddsCalculator.new
   end
 
   def vector_to_target
@@ -22,6 +26,10 @@ class Targetable
 
   def distance_to_target
     @target.position.distance_from(@game.player.position)
+  end
+
+  def hit_odds_for_target
+    @odds_calculator.odds_for_distance_and_threshold(distance_to_target, @game.player.accuracy)
   end
 end
 

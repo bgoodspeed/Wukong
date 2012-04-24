@@ -7,5 +7,5 @@ Given /^I create an odds calculator$/ do
 end
 
 Then /^the hit odds for distance (\d+) with distance threshold (\d+) should be (\d+)%$/ do |distance, dt, expected|
-  @odds_calculator.odds_for_distance_and_threshold(distance, dt).should be_near(expected.to_f)
+  @odds_calculator.odds_for_distance_and_threshold(distance.to_i, dt.to_i).to_f.should be_near(expected.to_f)
 end

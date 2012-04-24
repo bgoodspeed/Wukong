@@ -1,0 +1,172 @@
+#########################################################
+# before spatial hash rework
+#########################################################
+`--> be ruby benchmarks/bm_load.rb
+             user     system      total        real
+first 1  0.030000   0.000000   0.030000 (  0.030923)
+next 10  0.020000   0.000000   0.020000 (  0.021532)
+last 100  0.260000   0.010000   0.270000 (  0.264560)
+             user     system      total        real
+afterlevelfirst 1  0.020000   0.000000   0.020000 (  0.025257)
+afterlevelnext 10  0.050000   0.000000   0.050000 (  0.055691)
+afterlevellast 100  1.500000   0.020000   1.520000 (  1.497779)
+#########################################################
+# after checking to see if a/b collide first -- WAY WORSE, wow, deleting
+#########################################################
+`--> be ruby benchmarks/bm_enemies.rb
+             user     system      total        real
+first 1  0.090000   0.000000   0.090000 (  0.092890)
+next 10  0.240000   0.000000   0.240000 (  0.240077)
+last 100 16.310000   0.030000  16.340000 ( 16.293921)
+
+diff --git a/sun/lib/models/collider.rb b/sun/lib/models/collider.rb
+index b434004..e59964a 100644
+--- a/sun/lib/models/collider.rb
++++ b/sun/lib/models/collider.rb
+@@ -1,6 +1,12 @@
+
+ class Collider
+   def initialize
++    @non_collides = {
++      "Player" => {"Player" => false},
++      "Enemy" => {"Enemy" => false}
++    }
++
++
+     @config = {
+       Primitives::Circle => {
+         Primitives::Circle => lambda {|a,b| circle_circle_intersection?(a.to_collision, b.to_collision)},
+@@ -19,4 +25,12 @@ class Collider
+     raise "collider: error unknown secondary type #{b.collision_type} -> #{b}, primary is #{a.collision_type}" unless @config[a.collision_type].has_key?(b.collision_type)
+     @config[a.collision_type][b.collision_type].call(a,b)
+   end
++
++
++
++  def collides?(a,b)
++    return true unless @non_collides.has_key?(a.class.to_s)
++    return true unless @non_collides[a.class.to_s].has_key?(b.class.to_s)
++    @non_collides[a.class.to_s][b.class.to_s]
++  end
+ end
+diff --git a/sun/lib/models/spatial_hash.rb b/sun/lib/models/spatial_hash.rb
+index 672c5c7..8509445 100644
+--- a/sun/lib/models/spatial_hash.rb
++++ b/sun/lib/models/spatial_hash.rb
+@@ -151,8 +151,10 @@ class SpatialHash
+     cols = []
+     @data.each_with_index do |bucket, index|
+       next if bucket.nil?
++
+       ab = filter_ghosts(bucket)
+       ab.each_pair do |a,b|
++        #next unless @collider.collides?(a,b)
+         rv = @collider.check_for_collision_by_type(a,b)
+         #puts "decided #{a} and #{b} collide" if rv
+         cols << [a,b] if rv
+
+##############################################################################
+# putting all collisions into one bucket
+#############################################################################
+`--> be ruby benchmarks/bm_enemies.rb
+             user     system      total        real
+first 1  0.110000   0.000000   0.110000 (  0.110491)
+next 10  0.230000   0.000000   0.230000 (  0.228248)
+last 100 11.620000   0.040000  11.660000 ( 11.740236)
+diff --git a/sun/lib/models/collider.rb b/sun/lib/models/collider.rb
+index b434004..e59964a 100644
+--- a/sun/lib/models/collider.rb
++++ b/sun/lib/models/collider.rb
+@@ -1,6 +1,12 @@
+
+ class Collider
+   def initialize
++    @non_collides = {
++      "Player" => {"Player" => false},
++      "Enemy" => {"Enemy" => false}
++    }
++
++
+     @config = {
+       Primitives::Circle => {
+         Primitives::Circle => lambda {|a,b| circle_circle_intersection?(a.to_collision, b.to_collision)},
+@@ -19,4 +25,12 @@ class Collider
+     raise "collider: error unknown secondary type #{b.collision_type} -> #{b}, primary is #{a.collision_type}" unless @config[a.collision_type].has_key?(b.collision_type)
+     @config[a.collision_type][b.collision_type].call(a,b)
+   end
++
++
++
++  def collides?(a,b)
++    return true unless @non_collides.has_key?(a.class.to_s)
++    return true unless @non_collides[a.class.to_s].has_key?(b.class.to_s)
++    @non_collides[a.class.to_s][b.class.to_s]
++  end
+ end
+diff --git a/sun/lib/models/level.rb b/sun/lib/models/level.rb
+index 757868b..8639bc2 100644
+--- a/sun/lib/models/level.rb
++++ b/sun/lib/models/level.rb
+@@ -219,14 +219,14 @@ class Level
+
+   #TODO get rid of the distinction between static and dynamic
+   def check_for_collisions
+-    cols = @static_hash.dynamic_collisions(@dynamic_elements )
+-    @dynamic_hash.clear
++#    cols = @static_hash.dynamic_collisions(@dynamic_elements )
++#    @dynamic_hash.clear
+
+-    @dynamic_elements.each {|e| @dynamic_hash.insert_circle_type_collider(e)}
+-    all = @dynamic_hash.all_collisions
++    @dynamic_elements.each {|e| @static_hash.insert_circle_type_collider(e)}
++    all = @static_hash.all_collisions
++    @dynamic_elements.each {|e| @static_hash.remove_element(e)}
+     dyns = all.collect {|col| Collision.new(col.first, col.last)}
+-    stats = cols.collect {|col| Collision.new(col.first, col.last)}
+-    rv = stats + dyns
++    rv =  dyns
+     rv.sort {|a,b| a.collision_priority <=> b.collision_priority}
+   end
+ end
+diff --git a/sun/lib/models/spatial_hash.rb b/sun/lib/models/spatial_hash.rb
+index 672c5c7..ebdeaa7 100644
+--- a/sun/lib/models/spatial_hash.rb
++++ b/sun/lib/models/spatial_hash.rb
+@@ -65,6 +65,17 @@ class SpatialHash
+
+     end
+   end
++
++  def remove_element_from(hash, elem)
++    @data[hash] -= [elem]
++  end
++
++  def remove_element(elem)
++    hashes = candidate_hashes(elem.collision_radius, elem.collision_center)
++    hashes.each do |hash|
++      remove_element_from(hash, elem)
++    end
++  end
+   def insert_circle_type_collider(elem)
+     #TODO reinstate this raise
+     # raise "use a larger cell size to store elements that big #{elem.collision_radius}" unless elem.collision_radius > @cell_size
+@@ -151,8 +162,10 @@ class SpatialHash
+     cols = []
+     @data.each_with_index do |bucket, index|
+       next if bucket.nil?
++
+       ab = filter_ghosts(bucket)
+       ab.each_pair do |a,b|
++        next unless @collider.collides?(a,b)
+         rv = @collider.check_for_collision_by_type(a,b)
+         #puts "decided #{a} and #{b} collide" if rv
+         cols << [a,b] if rv
+##############################################################################
+# limiting # of enemies
+#############################################################################
+         user     system      total        real
+withdefaultlimit10 100 loops  1.790000   0.000000   1.790000 (  1.809495)
+         user     system      total        real
+withlimit15 100 loops  1.760000   0.000000   1.760000 (  1.766189)
+         user     system      total        real
+withlimit50 100 loops  1.770000   0.000000   1.770000 (  1.775874)

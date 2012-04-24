@@ -75,6 +75,8 @@ Then /^the event areas should be:$/ do |table|
     areas[idx].label.should == hash['label']
     areas[idx].action.should == hash['action']
     "#{areas[idx].action_argument}".should == "#{hash['action_argument']}"
+    "#{areas[idx].description_joined}".should == "#{hash['description joined']}" if hash.has_key?('description joined')
+
   }
 end
 
@@ -101,7 +103,19 @@ Then /^the save file should match "([^"]*)"$/ do |arg1|
 end
 
 Given /^I set the property "([^"]*)" to "([^"]*)"$/ do |arg1, arg2|
-  @game.send("#{arg1}=", arg2)
+  
+  cmds = arg1.split(".")
+  if cmds.size == 1
+    @game.send("#{arg1}=", arg2)
+  else
+    p = @game
+    allbutlast = cmds[0..cmds.size - 2]
+    raise "uh oh" unless allbutlast.size < cmds.size
+    allbutlast.each {|cmd| p = p.send(cmd)}
+
+    p.send("#{cmds.last}=", eval(arg2))
+  end
+  
 end
 
 Then /^the game property "([^"]*)" should not be nil$/ do |property_string|
@@ -111,4 +125,14 @@ end
 
 Then /^the game property "([^"]*)" should be approximately "([^"]*)"$/ do |property_string, expected|
   invoke_property_string_on(@game, property_string).should be_near(expected.to_f)
+end
+
+
+
+Then /^the active event area action should be "([^"]*)"$/ do |arg1|
+  @game.level.active_event_areas.first.action.should == arg1
+end
+
+Then /^the active event area action argument should be "([^"]*)"$/ do |arg1|
+  @game.level.active_event_areas.first.action_argument.should == arg1
 end

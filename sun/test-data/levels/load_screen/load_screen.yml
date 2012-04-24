@@ -27,6 +27,11 @@ event_areas:
     bottom_right: [ 280, 180 ]
     label: Start New Game
     action: queue_start_new_game_event
+    description:
+      - foo bar
+      - baz quz
+      -
+      - afterblank
   - top_left: [ 360, 10 ]
     bottom_right: [ 630, 180 ]
     label: Load Game

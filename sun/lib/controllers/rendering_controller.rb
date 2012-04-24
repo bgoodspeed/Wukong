@@ -26,7 +26,9 @@ class RenderingController
 
                  darken_screen(@game, 50, @game.window.width-50, 50, @game.window.height-50)
                  #TODO fix this ZOrder stupidity
-                 @game.font_controller.draw_with_font(iw.description, 60, 60, ZOrder.hud.value)
+                 iw.description.each_with_index do |desc, idx|
+                  @game.font_controller.draw_with_font(desc, 60, 60*(idx + 1), ZOrder.hud.value)
+                 end
                  
                },
                Weapon => lambda {|screen, w|

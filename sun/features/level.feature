@@ -95,3 +95,16 @@ Feature: Level Description
     Given I load the game "demo_start"
     Then the game property "level.player_start_position" should be "[320, 240]"
     Then the game property "player.position" should be "[320, 240]"
+
+  Scenario: Player avatar changing
+    Given I load the game "reward"
+    And I set the player position to 500,100
+    When I run the game loop 1 times
+    Then there should be 4 event areas
+    Then there should be 1 active event areas
+    And the active event area action should be "upgrade_player"
+    And the active event area action argument should be "foo/bar/player42.yml"
+
+
+
+    

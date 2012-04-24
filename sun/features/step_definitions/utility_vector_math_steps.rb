@@ -52,6 +52,14 @@ class Float
     !cond
   end
 end
+class Fixnum
+  def near?(other, max_delta=0.005)
+    cond = (self - other).abs > max_delta
+    puts "expected s=#{self} to be within #{max_delta} of o=#{other}" if cond
+
+    !cond
+  end
+end
 
 #class Float
 #  def be_near(delta)
