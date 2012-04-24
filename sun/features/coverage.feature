@@ -80,9 +80,14 @@ Feature: CodeCoverage
     When I remove tracking
     Then the path following controller should be tracking 0
 
-  Scenario: Weapon ticking
+  Scenario: Weapon stopping
     Given I create a player with a mock inventory
     And I activate the weapon
     Then the weapon should active
     When I stop the weapon
+
+  Scenario: Level completion conditions
+    Given I create a level
+    And I add a fake completion condition to both and and or
+    Then expectations should be met
 

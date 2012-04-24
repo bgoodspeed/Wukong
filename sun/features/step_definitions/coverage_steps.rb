@@ -174,3 +174,12 @@ end
 Then /^the weapon should not be active$/ do
   @player.inventory.weapon.in_use.should == true
 end
+
+Given /^I create a level$/ do
+  @level = Level.new
+end
+
+Given /^I add a fake completion condition to both and and or$/ do
+  @level.add_anded_completion_condition("and")
+  @level.add_ored_completion_condition("or")
+end
