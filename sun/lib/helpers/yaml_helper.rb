@@ -12,12 +12,7 @@ module YamlHelper
     cf = {}
     attrs.each do |attr|
       prop = attr.to_s
-      if overrides.has_key?(attr)
-        rv = overrides[attr][:new_value]
-        prop = overrides[attr][:new_key].to_s
-      else
-        rv = self.send(attr)
-      end
+      rv = self.send(attr)
       cf[prop] = rv
     end
     cf

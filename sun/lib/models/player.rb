@@ -123,9 +123,7 @@ class Player
 
   
   def to_yaml
-    overrides = {  }
-    overrides[:weapon] = {:new_key => :weapon_yaml, :new_value => @weapon.orig_filename} if @weapon
-    cf = attr_to_yaml(YAML_ATTRIBUTES, overrides)
+    cf = attr_to_yaml(YAML_ATTRIBUTES)
     {"player" => cf}.to_yaml(:UseHeader => true)
   end
 end

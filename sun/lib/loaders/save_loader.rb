@@ -3,9 +3,8 @@
 
 class SaveData
   
-  ATTRIBUTES = [:level, :player]
-  ALL_ATTRIBUTES = ATTRIBUTES + [:player_inventory]
-  ALL_ATTRIBUTES.each {|attr| attr_accessor attr }
+  ATTRIBUTES = [:level, :player, :player_inventory]
+  ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
   include YamlHelper
@@ -13,12 +12,12 @@ class SaveData
     data = YAML.load(yaml)
     conf = data['savedata']
     obj = SaveData.new
-    process_attributes(ALL_ATTRIBUTES, obj, conf)
+    process_attributes(ATTRIBUTES, obj, conf)
     obj
   end
 
   def to_yaml
-    cf = attr_to_yaml(ALL_ATTRIBUTES)
+    cf = attr_to_yaml(ATTRIBUTES)
     {"savedata" => cf}.to_yaml(:UseHeader => true)
   end
 
