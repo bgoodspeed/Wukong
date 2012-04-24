@@ -38,6 +38,9 @@ class Inventory
       raise "bad inventory yaml " unless hash.size == 1
       obj.add_item(hash.keys.first, hash.values.first)
     }
+    if conf['weapon']
+      obj.weapon = game.inventory_controller.item_named(conf['weapon'])
+    end
     obj
   end
 

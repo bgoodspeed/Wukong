@@ -51,6 +51,12 @@ Feature: Loading
     Given I load the game "demo_inventory"
     And I load slot 4
     Then the game property "player.inventory.items.size" should be "2"
+
+  Scenario: Loading a game loads player inventory - non-empty
+    Given I load the game "demo_inventory"
+    And I load slot 6
+    Then the game property "player.inventory.items.size" should be "2"
+    Then the game property "player.inventory.weapon.nil?" should be "false"
     
 
 
