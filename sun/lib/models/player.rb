@@ -7,7 +7,7 @@ class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
   attr_reader :radius
-  YAML_ATTRIBUTES = [:step_size, :position, :weapon, :direction, :health, 
+  YAML_ATTRIBUTES = [:step_size, :position, :direction, :health, 
     :max_health, :turn_speed, :movement_distance, :menu_action_delay,
     :enemies_killed, :image_path, :collision_priority, :base_accuracy
   ]
@@ -59,32 +59,30 @@ class Player
     @base_accuracy = 100
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil
-    @weapon = nil
     @inventory = inventory ? inventory : Inventory.new(game, self)
   end
   def inactivate_weapon
-    @weapon.inactivate
+    @inventory.weapon.inactivate
   end
   def use_weapon
     @game.log.debug { "Tried to use weapon" }
     #TODO could log this, emit a temp msg to the hud etc
-    return unless @weapon
+    return unless @inventory.weapon
     #TODO we don't want to actually load the animation from disk at this point
-    @game.load_animation(self, @weapon.animation_name, @weapon.image_path, 24, 24, false) #TODO hardcoded values
+    @game.load_animation(self, @inventory.weapon.animation_name, @inventory.weapon.image_path, 24, 24, false) #TODO hardcoded values
     @game.log.debug { "Used weapon" }
-    @weapon.use
+    @inventory.weapon.use
   end
 
   def tick_weapon
-    @weapon.tick
+    @inventory.weapon.tick
   end
   def weapon_in_use?
-    
-    !@weapon.nil? and @weapon.in_use?
+    !@inventory.weapon.nil? and @inventory.weapon.in_use?
   end
   def equip_weapon(w)
-    @weapon = w
-    @weapon.equipped_on = self
+    @inventory.weapon = w
+    @inventory.weapon.equipped_on = self
   end
 
   #TODO need to add in weapon accuracy

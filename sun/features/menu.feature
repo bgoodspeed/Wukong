@@ -124,6 +124,6 @@ Feature: Menu
     When the player takes reward "test-data/equipment/weapon_swung.yml"
     Then the game property "player.inventory.items.size" should be "1"
     Then the game property "menu_controller.current_menu.lines.size" should be "1"
-    Then the game property "player.weapon.nil?" should be "true"
+    Then the game property "player.inventory.weapon.nil?" should be "true"
     When I invoke the current menu action
-    Then the game property "player.weapon.display_name" should be "'TestWeaponSwung'"
+    Then the game property "player.inventory.weapon.display_name" should be "'TestWeaponSwung'"

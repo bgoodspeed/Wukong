@@ -23,8 +23,8 @@ Feature: Action
     When I invoke the action "<action>" with argument stubbing "<stubs>" and expecting "<expects>" and set "<set>"
     Then the game property "<game_prop>" should be "<game_value_final>"
   Examples:
-   | action                        | game_prop                  | game_value_init                        | game_value_final                | stubs                                                        | expects | set                          |
-   | BehaviorTypes::EQUIP_ITEM     | player.weapon.nil?         | true                                   | false                           | argument:test-data/equipment/weapon_swung.yml   |         | menu_actions                 |
+   | action                        | game_prop                    | game_value_init                        | game_value_final                | stubs                                                        | expects | set                          |
+   | BehaviorTypes::EQUIP_ITEM     | player.inventory.weapon.nil? | true                                   | false                           | argument:test-data/equipment/weapon_swung.yml   |         | menu_actions                 |
 
   Scenario Outline: Actions being invoked collision response
     Given I load the game on level "trivial" with screen size 640, 480

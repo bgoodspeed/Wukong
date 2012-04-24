@@ -145,9 +145,9 @@ class Game
       @log.info "Level setting start position"
       @player.position = @level.player_start_position
     end
-    @log.info "Level adding player #{@player} weapon:(#{@player.weapon})"
-    if @player.weapon
-      @player.weapon.inactivate
+    @log.info "Level adding player #{@player} weapon:(#{@player.inventory.weapon})"
+    if @player.inventory.weapon
+      @player.inventory.weapon.inactivate
     end
     @level.add_player(@player)
     if @level.background_music

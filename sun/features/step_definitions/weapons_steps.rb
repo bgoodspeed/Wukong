@@ -42,6 +42,6 @@ Given /^I set the player weapon sound effect to "([^"]*)"$/ do |sound_file|
 end
 
 Then /^the weapon sound should be played$/ do
-  @sound_controller.play_count_for(@game.player.weapon.sound_effect_name).should == 1
+  @sound_controller.play_count_for(@game.player.inventory.weapon.sound_effect_name).should == 1
 end
 

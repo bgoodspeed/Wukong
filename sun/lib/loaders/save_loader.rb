@@ -4,7 +4,8 @@
 class SaveData
   
   ATTRIBUTES = [:level, :player]
-  ATTRIBUTES.each {|attr| attr_accessor attr }
+  ALL_ATTRIBUTES = ATTRIBUTES + [:player_inventory]
+  ALL_ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
   include YamlHelper
@@ -12,12 +13,12 @@ class SaveData
     data = YAML.load(yaml)
     conf = data['savedata']
     obj = SaveData.new
-    process_attributes(ATTRIBUTES, obj, conf)
+    process_attributes(ALL_ATTRIBUTES, obj, conf)
     obj
   end
 
   def to_yaml
-    cf = attr_to_yaml(ATTRIBUTES)
+    cf = attr_to_yaml(ALL_ATTRIBUTES)
     {"savedata" => cf}.to_yaml(:UseHeader => true)
   end
 
@@ -39,6 +40,8 @@ class SaveLoader
     name = slot_name(slot)
     sd = YamlLoader.from_file(SaveData, @game, name)
     p = YamlLoader.from_file(Player, @game, sd.player)
+    i = YamlLoader.from_file(Inventory, @game, sd.player_inventory) if sd.player_inventory
+    p.inventory = i
     @game.load_level(sd.level)
     @game.set_player(p)
   end
@@ -50,6 +53,13 @@ class SaveLoader
     end
     n
   end
+  def save_player_inventory_to_slot(p)
+    n = File.join(p, "inventory.yml")
+    File.open(n, "w") do |f|
+      f.write(@game.player.inventory.to_yaml)
+    end
+    n
+  end
   def save_slot(slot)
     p = slot_path(slot)
     Dir.mkdir p unless File.exists?(p)
@@ -57,6 +67,7 @@ class SaveLoader
     File.open(n, "w") do |f|
       sd = SaveData.new
       sd.player = save_player_to_slot(p)
+      sd.player_inventory = save_player_inventory_to_slot(p)
       sd.level = @game.level.orig_filename
       f.write(sd.to_yaml)
     end
