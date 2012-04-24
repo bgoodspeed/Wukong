@@ -51,6 +51,19 @@ Feature: Mouse
       | display_text   |
       | Option One     |
 
+  Scenario: Left Click in Image Menu 
+    Given I load the game on level "demo" with screen size 640, 480
+    And I set the mouse position to 30, 40 in screen coords
+    And I create a menu controller
+    And I load the main menu "image_menu.yml"
+    And I create the HUD from file "hud_config.yml"
+    When I enter the menu
+    When I press "MouseClick"
+    And I update the game state
+    Then the current mouse menu entry should have:
+      | display_text   |
+      | Jelly 1        |
+
   Scenario: Left Click in Menu Miss
     Given I load the game on level "demo" with screen size 640, 480
     And I set the mouse position to 300, 400 in screen coords
