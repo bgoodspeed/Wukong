@@ -94,3 +94,6 @@ Then /^the enemy should have (\d+) hp$/ do |arg1|
   @enemy.health.should == arg1.to_i
 end
 
+Then /^the enemy should have hud message "([^"]*)"$/ do |arg1|
+  @enemy.hud_message.should == arg1
+end

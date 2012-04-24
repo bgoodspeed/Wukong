@@ -138,3 +138,15 @@ When /^the player takes reward "([^"]*)"$/ do |arg1|
   raise "Unknown reward #{item}" unless item
   p.take_reward(item)
 end
+
+When /^the player equips the weapon "([^"]*)"$/ do |arg1|
+  p.equip_weapon(@game.inventory_controller.item_named(arg1))
+end
+
+Then /^the player inventory weapon should not be nil$/ do
+  p.inventory.weapon.should_not be_nil
+end
+
+Then /^the player inventory yaml should match "([^"]*)"$/ do |arg1|
+  p.inventory.to_yaml.should =~ Regexp.new(arg1)
+end

@@ -9,14 +9,15 @@ Feature: Action
     When I invoke the action "<action>" with argument stubbing "<stubs>" and expecting "<expects>" and set "<set>"
     Then the game property "<game_prop>" should be "<game_value_final>"
   Examples:
-   | action                        | game_prop                  | game_value_init                        | game_value_final                | stubs                                           | expects | set                          |
-   | EventTypes::DEATH             | player.enemies_killed      | 0                                      | 1                               | argument                                        |         |                              |
-   | KeyActions::DOWN              | player.position            | [320, 240]                             | [320.0, 242.0]                  |                                                 |         | gameplay_behaviors           |
-   | EventTypes::START_NEW_GAME    | level.name                 | 'load_screen'                          | 'demo'                          | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
-   | EventTypes::LOAD_LEVEL        | level.name                 | 'load_screen'                          | 'demo'                          | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
-   | BehaviorTypes::UPGRADE_PLAYER | player.image_path          | 'test-data/sprites/player20120411.png' | 'test-data/sprites/avatar2.bmp' | argument:test-data/sprites/avatar2.bmp          |         | always_available_behaviors   |
-   | BehaviorTypes::EQUIPMENT_MENU | menu_mode?                 | false                                  | true                            | argument:SOMEEQUIPMENTTYPE                      |         | always_available_behaviors   |
-
+   | action                               | game_prop                  | game_value_init                        | game_value_final                | stubs                                           | expects | set                          |
+   | EventTypes::DEATH                    | player.enemies_killed      | 0                                      | 1                               | argument                                        |         |                              |
+   | KeyActions::DOWN                     | player.position            | [320, 240]                             | [320.0, 242.0]                  |                                                 |         | gameplay_behaviors           |
+   | EventTypes::START_NEW_GAME           | level.name                 | 'load_screen'                          | 'demo'                          | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
+   | EventTypes::LOAD_LEVEL               | level.name                 | 'load_screen'                          | 'demo'                          | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
+   | BehaviorTypes::UPGRADE_PLAYER        | player.image_path          | 'test-data/sprites/player20120411.png' | 'test-data/sprites/avatar2.bmp' | argument:test-data/sprites/avatar2.bmp          |         | always_available_behaviors   |
+   | BehaviorTypes::EQUIPMENT_MENU        | menu_mode?                 | false                                  | true                            | argument:SOMEEQUIPMENTTYPE                      |         | always_available_behaviors   |
+   | EventTypes::PICK                     | nil?                       | false                                  | false                           | argument:SOMEEQUIPMENTTYPE                      |         |                              |
+   | BehaviorTypes::QUEUE_SAVE_GAME_EVENT | menu_mode?                 | false                                  | true                            |                                                 |         | always_available_behaviors   |
   Scenario Outline: Actions being invoked event and keys with inventory
     Given I load the game "demo_inventory"
     Then the game property "<game_prop>" should be "<game_value_init>"

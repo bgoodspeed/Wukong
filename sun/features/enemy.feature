@@ -9,6 +9,7 @@ Feature: Enemy Built
     When I see the first frame
     Then the enemy should be in the scene
     And the enemy should be at position 35,35.5
+    And the enemy should have hud message "Enemy : 15HP"
 
   Scenario: Enemy Chasing Player
     Given I load the game on level "trivial" with screen size 640, 480
