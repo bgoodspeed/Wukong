@@ -15,7 +15,7 @@ anded_completion_conditions:
     argument: [ 610, 203 ]
 
 declared_enemies:
-  - enemy_yaml: game-data/enemies/black_square.yml
+  - enemy_yaml: game-data/enemies/white_square.yml
     name: e1
 spawn_points:
   - point: [ 470, 410 ]

@@ -27,12 +27,21 @@ event_areas:
   - top_left: [ 72, 320 ]
     bottom_right: [ 264, 410 ]
     action: queue_start_new_game_event
+    description:
+      - ...had it all...ack...and whit...
+      - ...answe...find...questio...
   - top_left: [ 379, 121 ]
     bottom_right: [ 572, 211 ]
     action: queue_load_game_event
+    description:
+      - Load previous saved games.
   - top_left: [ 379, 320 ]
     bottom_right: [ 572, 410 ]
     action: queue_settings_event
+    description:
+      - See and edit game settings.
   - top_left: [ 71, 121 ]
     bottom_right: [ 263, 211 ]
     action: queue_continue_event
+    description:
+      - Continue with most recently saved game.

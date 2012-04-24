@@ -1,5 +1,5 @@
 player:
-  image_path: game-data/sprites/player20120411.png
+  image_path: game-data/sprites/player_white_circle.png
   movement_distance: 2
   turn_speed: 5
   health: 50
