@@ -7,6 +7,7 @@ class Weapon
     :image_path, :type, :sound_effect_name, :velocity, :equipped_on, 
     :orig_filename, :animation_name, :collision_priority, :display_name]
   ATTRIBUTES.each {|attr| attr_accessor attr }
+  attr_accessor :in_use
   attr_reader :inventory_type
   extend YamlHelper
 
@@ -35,7 +36,7 @@ class Weapon
     @animation_name = "weapon"
     @sound_effect_name = "unset"
   end
-
+  
 
   def use
     unless @in_use

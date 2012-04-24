@@ -68,9 +68,21 @@ Feature: CodeCoverage
     Then the last should match the fragment "type"
     Then the last should match the fragment "arg"
 
-  Scenario: Path following controller deletion
+  Scenario: Clock current elapsed time
+    Given I create a game clock
+    And I tick the game clock
+    Then the elapsed time should be less than 22 ms
+
+  Scenario: Removing Tracking
     Given I create a path following controller
-    And I add tracking
+    When I add tracking
     Then the path following controller should be tracking 1
-    And I remove tracking
+    When I remove tracking
     Then the path following controller should be tracking 0
+
+  Scenario: Weapon ticking
+    Given I create a player with a mock inventory
+    And I activate the weapon
+    Then the weapon should active
+    When I stop the weapon
+

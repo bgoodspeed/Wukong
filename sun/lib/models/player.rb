@@ -74,9 +74,7 @@ class Player
     @inventory.weapon.use
   end
 
-  def tick_weapon
-    @inventory.weapon.tick
-  end
+
   def weapon_in_use?
     !@inventory.weapon.nil? and @inventory.weapon.in_use?
   end
@@ -109,7 +107,7 @@ class Player
   end
 
   def stop_weapon(arg=nil)
-    @weapon.inactivate
+    @inventory.weapon.inactivate
   end
 
 

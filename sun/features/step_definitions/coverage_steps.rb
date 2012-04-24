@@ -1,7 +1,14 @@
 
 
 def mock_game
-  Mocha::Mock.new("game mock")
+  m = Mocha::Mock.new("game mock")
+  m.stubs(:level).returns m
+  m.stubs(:image_controller).returns m
+  m.stubs(:register_image).returns m
+  m.stubs(:width).returns 66
+  m.stubs(:height).returns 44
+  m.stubs(:remove_weapon)
+  m
 end
 Given /^I create a GameWindow mocking game$/ do
   @game_mock = mock_game
@@ -122,4 +129,48 @@ end
 
 Then /^I remove tracking$/ do
   @path_following_controller.remove_tracking(@tracking_target, "bar")
+end
+
+Given /^I create a game clock$/ do
+  @clock = Clock.new(nil, 60)
+end
+
+Given /^I tick the game clock$/ do
+  @clock.tick
+end
+
+Then /^the elapsed time should be less than (\d+) ms$/ do |arg1|
+  @clock.elapsed_time_ms.should be_<(arg1.to_i)
+end
+
+def mock_inventory
+  m = Mocha::Mock.new("mock inventory")
+  m.stubs(:weapon).returns @weapon
+  m
+end
+Given /^I create a player with a mock inventory$/ do
+  @mock_game = mock_game
+  @weapon = Weapon.new(@mock_game, "foo")
+  Inventory.stubs(:new).returns mock_inventory
+  @player = Player.new("foo", @mock_game)
+end
+
+Given /^I activate the weapon$/ do
+  @player.inventory.weapon.in_use = true
+end
+
+When /^I tick the weapon$/ do
+  @player.tick_weapon
+end
+
+Then /^the weapon should active$/ do
+  @player.inventory.weapon.in_use.should == true
+end
+
+When /^I stop the weapon$/ do
+  @player.stop_weapon
+end
+
+Then /^the weapon should not be active$/ do
+  @player.inventory.weapon.in_use.should == true
 end

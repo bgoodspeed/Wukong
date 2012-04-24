@@ -233,12 +233,6 @@ class Game
 
   end
 
-  def capture_screenshot(name)
-    @screen.draw
-    @screen.flush
-    @screen.capture_screenshot(name)
-  end
-
   def update_all
     @clock.tick
     @input_controller.clear_keys
