@@ -46,6 +46,7 @@ class GameLoader
     game.main_menu_name = try_add_menu(game, conf['menu_for_main'])
     game.menu_for_load_game = try_add_menu(game, conf['menu_for_load_game'])
     game.menu_for_save_game = try_add_menu(game, conf['menu_for_save_game'])
+    game.menu_for_equipment = conf['menu_for_equipment'] if conf['menu_for_equipment']
     game.game_over_menu = try_add_menu(game, conf['game_over_menu'])
     
     if conf['splash_screen']

@@ -110,9 +110,7 @@ Given /^I set the property "([^"]*)" to "([^"]*)"$/ do |arg1, arg2|
   else
     p = @game
     allbutlast = cmds[0..cmds.size - 2]
-    raise "uh oh" unless allbutlast.size < cmds.size
     allbutlast.each {|cmd| p = p.send(cmd)}
-
     p.send("#{cmds.last}=", eval(arg2))
   end
   

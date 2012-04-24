@@ -15,6 +15,7 @@ Feature: Action
    | EventTypes::START_NEW_GAME    | level.name            | 'load_screen'                          | 'demo'                          | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
    | EventTypes::LOAD_LEVEL        | level.name            | 'load_screen'                          | 'demo'                          | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
    | BehaviorTypes::UPGRADE_PLAYER | player.image_path     | 'test-data/sprites/player20120411.png' | 'test-data/sprites/avatar2.bmp' | argument:test-data/sprites/avatar2.bmp          |         | always_available_behaviors   |
+   | BehaviorTypes::EQUIPMENT_MENU | menu_mode?            | false                                  | true                            | argument:SOMEEQUIPMENTTYPE                      |         | always_available_behaviors   |
 
   Scenario Outline: Actions being invoked collision response
     Given I load the game on level "trivial" with screen size 640, 480

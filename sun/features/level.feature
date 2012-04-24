@@ -105,6 +105,12 @@ Feature: Level Description
     And the active event area action should be "upgrade_player"
     And the active event area action argument should be "foo/bar/player42.yml"
 
-
-
+  Scenario: Equip Level
+    Given I load the game on level "equip" with screen size 640, 480
+    When the level is examined
+    Then there should be 1 event areas
+    When I set the player position to 100,100
+    Then there should be 1 active event areas
+    And the active event area action should be "equipment_menu"
+    And the active event area action argument should be "weapon"
     

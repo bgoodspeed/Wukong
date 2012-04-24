@@ -100,3 +100,10 @@ Feature: Menu
     When I enter the menu
     Then the game property "image_controller.images.size" should be "4"
     Then the game property "menu_controller.current_menu.image_menu?" should be "true"
+
+  Scenario: Equipment Menu - Empty
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a menu controller
+    When I enter the menu "equipment" with filter "nil"
+    Then the game property "player.inventory.items.size" should be "0"
+    Then the game property "menu_controller.current_menu.lines.size" should be "0"

@@ -11,6 +11,7 @@ module BehaviorTypes
   LOAD_GAME_SLOT = "load_game_slot"
   TAKE_REWARD = "take_reward"
   UPGRADE_PLAYER = "upgrade_player"
+  EQUIPMENT_MENU = "equipment_menu"
 end
 
 class ActionController
@@ -85,6 +86,7 @@ class ActionController
       BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(game.new_game_level, EventTypes::START_NEW_GAME))},
       #TODO figure out which game to load from menu?
       BehaviorTypes::QUEUE_SAVE_GAME_EVENT => lambda {|game, arg| game.enter_menu(game.menu_for_save_game) },
+      BehaviorTypes::EQUIPMENT_MENU => lambda {|game, arg| game.enter_menu(game.menu_for_equipment, arg.argument) },
       BehaviorTypes::QUEUE_LOAD_GAME_EVENT => lambda {|game, arg| game.enter_menu(game.menu_for_load_game) },
 #      BehaviorTypes::CHOOSE_GAME_MENU => lambda {|game, arg| puts "todo activate a menu based on '#{arg}'"}
      

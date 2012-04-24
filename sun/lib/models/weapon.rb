@@ -7,7 +7,7 @@ class Weapon
     :image_path, :type, :sound_effect_name, :velocity, :equipped_on, 
     :orig_filename, :animation_name, :collision_priority]
   ATTRIBUTES.each {|attr| attr_accessor attr }
-
+  attr_reader :inventory_type
   extend YamlHelper
 
   #TODO make YAML utils and pass attributes
@@ -30,6 +30,7 @@ class Weapon
     @velocity = 10
     @type = "swung"
     @game = game
+    @inventory_type = InventoryTypes::WEAPON
     @animation_name = "weapon"
     @sound_effect_name = "unset"
   end

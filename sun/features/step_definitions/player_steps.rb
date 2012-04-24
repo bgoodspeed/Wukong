@@ -129,3 +129,12 @@ end
 
 
 
+Then /^the player inventory filtered by "([^"]*)" should have size (\d+)$/ do |filter, arg2|
+  p.inventory.items_matching(eval(filter)).size.should == arg2.to_i
+end
+
+When /^the player takes reward "([^"]*)"$/ do |arg1|
+  item = @game.inventory_controller.item_named(arg1)
+  raise "Unknown reward #{item}" unless item
+  p.take_reward(item)
+end
