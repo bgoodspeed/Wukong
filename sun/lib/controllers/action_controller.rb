@@ -87,6 +87,7 @@ class ActionController
         end
         game.player.avatar = game.image_controller.lookup_image(arg.argument)
         game.player.image_path = arg.argument
+        game.player.image_file = arg.argument
       },
       BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(game.new_game_level, EventTypes::START_NEW_GAME))},
       #TODO figure out which game to load from menu?

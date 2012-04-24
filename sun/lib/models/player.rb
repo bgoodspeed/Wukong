@@ -37,7 +37,7 @@ class Player
   end
 
   
-  attr_reader :image_file
+  attr_accessor :image_file
   def initialize(avatar, game, inventory=nil)
     @game = game
     #TODO move register image calls into loaders/yaml parsers
