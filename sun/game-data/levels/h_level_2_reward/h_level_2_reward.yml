@@ -1,5 +1,5 @@
 name: reward
-background_image: game-data/levels/h_level_1_reward/h_level_1_reward.png
+background_image: game-data/levels/h_level_2_reward/h_level_2_reward.png
 background_music: game-data/music/crappypiano.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 320, 240 ]
@@ -29,9 +29,7 @@ event_areas:
     bottom_right: [ 263, 211 ]
     action: take_reward
     description:
-      - Avatar upgrade!
-    action: upgrade_player
-    action_argument: "game-data/sprites/player_grey_scale_circle.png"
+      - Claim your reward.
   - top_left: [ 379, 121 ]
     bottom_right: [ 572, 211 ]
     action: queue_save_game_event

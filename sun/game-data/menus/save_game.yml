@@ -7,3 +7,12 @@ menu:
     - display_text: Save Game 2
       action: save_game_slot
       action_argument: 2
+    - display_text: Save Game 3
+      action: save_game_slot
+      action_argument: 3
+    - display_text: Save Game 4
+      action: save_game_slot
+      action_argument: 4
+    - display_text: Save Game 5
+      action: save_game_slot
+      action_argument: 5

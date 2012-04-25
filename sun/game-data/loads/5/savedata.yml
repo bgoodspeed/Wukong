@@ -2,6 +2,6 @@
 savedata:
   level: game-data/levels/h_level_2_reward/h_level_2_reward.yml
   player: !binary |-
-    Z2FtZS1kYXRhL2xvYWRzLzIvcGxheWVyLnltbA==
+    Z2FtZS1kYXRhL2xvYWRzLzUvcGxheWVyLnltbA==
   player_inventory: !binary |-
-    Z2FtZS1kYXRhL2xvYWRzLzIvaW52ZW50b3J5LnltbA==
+    Z2FtZS1kYXRhL2xvYWRzLzUvaW52ZW50b3J5LnltbA==

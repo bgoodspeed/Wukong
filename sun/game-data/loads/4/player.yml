@@ -2,15 +2,15 @@
 player:
   step_size: 1
   position:
-  - 393.6082650236829
-  - 148.80094575895544
-  direction: 95
-  health: 15
+  - 405.20397500229706
+  - 190.76957271088483
+  direction: 35
+  health: 5
   max_health: 50
   turn_speed: 5
   movement_distance: 2
   menu_action_delay: 12
-  enemies_killed: 7
-  image_path: game-data/sprites/player_grey_scale_circle.png
+  enemies_killed: 9
+  image_path: game-data/sprites/player_white_circle.png
   collision_priority: 4
   base_accuracy: 100
