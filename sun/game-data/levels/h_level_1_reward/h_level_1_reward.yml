@@ -43,3 +43,8 @@ event_areas:
     description:
       - Ready for level 2!
     action_argument: "game-data/levels/h_level_2/h_level_2.yml"
+  - top_left: [ 378, 319 ]
+    bottom_right: [ 571, 409 ]
+    action: queue_load_game_event
+    description:
+      - Load previous saved games.
