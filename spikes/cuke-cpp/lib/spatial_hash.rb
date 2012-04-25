@@ -28,10 +28,10 @@ include PrimitiveIntersectionTests
 class SpatialHash
   attr_reader :data
   attr_accessor :x_prime, :y_prime, :base_table_size
-  def initialize(cell_size)
+  def initialize(cell_size, xp=73856093, yp=19349663)
     @cell_size = cell_size
-    @x_prime = 73856093
-    @y_prime = 19349663
+    @x_prime = xp
+    @y_prime = yp
     @base_table_size = 100
     @collider = Collider.new
     @data = []
@@ -118,21 +118,11 @@ class SpatialHash
     a == b
   end
 
-  #TODO this is duplicative and crappy
-  def collision_radius_for(elem)
-    raise "collision radius needed for #{elem}" unless elem.respond_to?(:collision_radius)
-    elem.collision_radius
-  end
-  def collision_center_for(elem)
-    raise "collision centerneeded for #{elem}" unless elem.respond_to?(:collision_center)
-    elem.collision_center
-  end
-
   #TODO this can be done all at once rather than N passes (just iterate over the space buckets)
   def dynamic_collisions(elems)
     rv = []
     elems.each do |elem|
-      cs = candidates(collision_radius_for(elem), collision_center_for(elem)).flatten.select do|candidate|
+      cs = candidates(elem.collision_radius, elem.collision_center).flatten.select do|candidate|
         
         @collider.check_for_collision_by_type(elem, candidate)
       end

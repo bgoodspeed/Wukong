@@ -47,7 +47,7 @@ class Level
     init_arrays(ARRAY_ATTRIBUTES, self)
     
     @declared_enemies = {}
-    @cell_size = 10 #TODO this must be in constructor to have 
+    @cell_size = 100 #TODO this must be in constructor to have
     @static_hash = SpatialHash.new(@cell_size)
     @dynamic_hash = SpatialHash.new(@cell_size)
     @player_start_position = nil
