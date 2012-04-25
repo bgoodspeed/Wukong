@@ -97,6 +97,7 @@ class SpatialHash
     end
     cands = data.select {|d| !(d.nil? or d.empty?)}
     cands.flatten!
+    
     filter_ghosts(cands)
   end
 

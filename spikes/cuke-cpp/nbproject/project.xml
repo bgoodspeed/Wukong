@@ -6,11 +6,11 @@
             <name>CukeCPP</name>
             <source-roots>
                 <root id="src.ext.dir"/>
-                <root id="src.dir"/>
+                <root id="src.lib.dir"/>
             </source-roots>
             <test-roots>
                 <root id="test.features.dir"/>
-                <root id="test.src.dir"/>
+                <root id="test.test.dir"/>
             </test-roots>
         </data>
     </configuration>
