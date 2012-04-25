@@ -35,3 +35,44 @@ withdefaultlimit10 100 loops  1.180000   0.020000   1.200000 (  1.209077)
 withlimit15 100 loops  1.180000   0.020000   1.200000 (  1.213318)
          user     system      total        real
 withlimit50 100 loops  1.090000   0.010000   1.100000 (  1.116625)
+###########################################################
+# after inlining all the math for circle lineseg
+#########################################################
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+first 1  0.020000   0.000000   0.020000 (  0.029657)
+next 10  0.030000   0.000000   0.030000 (  0.029557)
+last 100  0.380000   0.000000   0.380000 (  0.380944)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+afterlevelfirst 1  0.060000   0.000000   0.060000 (  0.064375)
+afterlevelnext 10  0.060000   0.000000   0.060000 (  0.055956)
+afterlevellast 100  1.430000   0.000000   1.430000 (  1.420450)
+         user     system      total        real
+withdefaultlimit10 100 loops  1.630000   0.010000   1.640000 (  1.635765)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit15 100 loops  1.630000   0.000000   1.630000 (  1.620962)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit50 100 loops  1.620000   0.010000   1.630000 (  1.632356)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+first 1  0.010000   0.000000   0.010000 (  0.012378)
+next 10  0.010000   0.000000   0.010000 (  0.012367)
+last 100  0.160000   0.000000   0.160000 (  0.160756)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+afterlevelfirst 1  0.020000   0.000000   0.020000 (  0.026803)
+afterlevelnext 10  0.020000   0.000000   0.020000 (  0.023088)
+afterlevellast 100  0.600000   0.000000   0.600000 (  0.595484)
+         user     system      total        real
+withdefaultlimit10 100 loops  1.640000   0.020000   1.660000 (  1.648524)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit15 100 loops  1.630000   0.000000   1.630000 (  1.630792)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit50 100 loops  1.640000   0.010000   1.650000 (  1.650942)
+PROFILE: interrupts/evictions/bytes = 0/0/32
