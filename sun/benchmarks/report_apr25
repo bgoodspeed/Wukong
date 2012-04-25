@@ -1,0 +1,37 @@
+#########################################################
+# before rendering rework
+#########################################################
+`--> be ruby benchmarks/bm_load.rb && be ruby benchmarks/bm_enemies.rb
+             user     system      total        real
+first 1  0.030000   0.000000   0.030000 (  0.037722)
+next 10  0.040000   0.000000   0.040000 (  0.035384)
+last 100  0.470000   0.000000   0.470000 (  0.463649)
+             user     system      total        real
+afterlevelfirst 1  0.040000   0.000000   0.040000 (  0.040902)
+afterlevelnext 10  0.090000   0.000000   0.090000 (  0.089559)
+afterlevellast 100  1.640000   0.010000   1.650000 (  1.637011)
+         user     system      total        real
+withdefaultlimit10 100 loops  0.750000   0.010000   0.760000 (  0.765289)
+         user     system      total        real
+withlimit15 100 loops  1.320000   0.060000   1.380000 (  1.386967)
+         user     system      total        real
+withlimit50 100 loops  0.760000   0.000000   0.760000 (  0.754144)
+
+#########################################################
+# after rendering rework
+#########################################################
+`--> be ruby benchmarks/bm_load.rb && be ruby benchmarks/bm_enemies.rb
+             user     system      total        real
+first 1  0.010000   0.000000   0.010000 (  0.014004)
+next 10  0.020000   0.000000   0.020000 (  0.024337)
+last 100  0.170000   0.010000   0.180000 (  0.176473)
+             user     system      total        real
+afterlevelfirst 1  0.030000   0.000000   0.030000 (  0.028296)
+afterlevelnext 10  0.020000   0.000000   0.020000 (  0.034440)
+afterlevellast 100  0.670000   0.000000   0.670000 (  0.661076)
+         user     system      total        real
+withdefaultlimit10 100 loops  1.180000   0.020000   1.200000 (  1.209077)
+         user     system      total        real
+withlimit15 100 loops  1.180000   0.020000   1.200000 (  1.213318)
+         user     system      total        real
+withlimit50 100 loops  1.090000   0.010000   1.100000 (  1.116625)
