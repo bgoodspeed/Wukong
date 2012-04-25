@@ -149,7 +149,6 @@ class SpatialHash
       end
       
     end
-    #TODO this should not be needed?
     cols.uniq
   end
 end
