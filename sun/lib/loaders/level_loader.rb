@@ -68,7 +68,7 @@ class LevelLoader
       tl = ea['top_left']
       br = ea['bottom_right']
       rect = Primitives::Rectangle.new(tl, [tl.x, br.y], br, [br.x, tl.y])
-      ea = EventArea.new(@game, rect, ea['label'], ea['action'], ea['description'], ea['action_argument'] )
+      ea = EventArea.new(@game, rect, ea['label'], ea['action'], ea['description'], ea['action_argument'] , ea['info_window_position'])
       level.add_event_area(ea)
     }
 
