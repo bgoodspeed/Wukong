@@ -1,0 +1,48 @@
+name: reward
+background_image: game-data/levels/h_level_3_reward/h_level_3_reward.png
+background_music: game-data/music/crappypiano.wav
+wayfinding: game-data/levels/load_screen/wayfinding.yml
+player_start_position: [ 320, 240 ]
+
+measurements:
+  width: 640
+  height: 480
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+event_areas:
+  - top_left: [ 71, 121 ]
+    bottom_right: [ 263, 211 ]
+    action: take_reward
+    description:
+      - Claim your reward.
+  - top_left: [ 379, 121 ]
+    bottom_right: [ 572, 211 ]
+    action: queue_save_game_event
+    description:
+      - Save your progress.
+  - top_left: [ 72, 320 ]
+    bottom_right: [ 264, 410 ]
+    action: LOAD_LEVEL
+    description:
+      - Level 4, what do you get?
+    action_argument: "game-data/levels/h_level_3/h_level_3.yml"
+  - top_left: [ 378, 319 ]
+    bottom_right: [ 571, 409 ]
+    action: queue_load_game_event
+    description:
+      - Load previous saved games.

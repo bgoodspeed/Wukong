@@ -2,9 +2,9 @@
 player:
   step_size: 1
   position:
-  - 448.5650261119326
-  - 205.82230416541842
-  direction: 50
+  - 399.4621088271715
+  - 187.92516088369737
+  direction: 80
   health: 45
   max_health: 50
   turn_speed: 5

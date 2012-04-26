@@ -2,7 +2,7 @@ name: h_level_3
 background_image: game-data/levels/h_level_3/h_level_3.png
 background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/h_level_3/wayfinding.yml
-reward_level: game-data/levels/h_level_2_reward/h_level_2_reward.yml
+reward_level: game-data/levels/h_level_3_reward/h_level_3_reward.yml
 player_start_position: [ 35, 888 ]
 
 measurements:
@@ -40,3 +40,122 @@ line_segments:
     start_y: 986
     end_x: 782
     end_y: 986
+
+  - start_x: 40
+    start_y: 747
+    end_x: 81
+    end_y: 732
+  - start_x: 81
+    start_y: 732
+    end_x: 120
+    end_y: 745
+  - start_x: 120
+    start_y: 745
+    end_x: 146
+    end_y: 782
+  - start_x: 146
+    start_y: 782
+    end_x: 144
+    end_y: 822
+  - start_x: 144
+    start_y: 822
+    end_x: 121
+    end_y: 851
+  - start_x: 121
+    start_y: 851
+    end_x: 77
+    end_y: 865
+  - start_x: 56
+    start_y: 855
+    end_x: 77
+    end_y: 865
+  - start_x: 56
+    start_y: 855
+    end_x: 20
+    end_y: 829
+  - start_x: 20
+    start_y: 790
+    end_x: 20
+    end_y: 829
+  - start_x: 20
+    start_y: 790
+    end_x: 40
+    end_y: 747
+
+  - start_x: 353
+    start_y: 899
+    end_x: 383
+    end_y: 887
+  - start_x: 382
+    start_y: 876
+    end_x: 383
+    end_y: 887
+  - start_x: 382
+    start_y: 876
+    end_x: 398
+    end_y: 868
+  - start_x: 400
+    start_y: 877
+    end_x: 398
+    end_y: 868
+  - start_x: 400
+    start_y: 877
+    end_x: 435
+    end_y: 865
+  - start_x: 439
+    start_y: 845
+    end_x: 435
+    end_y: 865
+  - start_x: 439
+    start_y: 845
+    end_x: 448
+    end_y: 841
+  - start_x: 457
+    start_y: 849
+    end_x: 448
+    end_y: 841
+  - start_x: 457
+    start_y: 849
+    end_x: 478
+    end_y: 841
+  - start_x: 500
+    start_y: 884
+    end_x: 478
+    end_y: 841
+  - start_x: 500
+    start_y: 884
+    end_x: 466
+    end_y: 905
+  - start_x: 461
+    start_y: 895
+    end_x: 466
+    end_y: 905
+  - start_x: 461
+    start_y: 895
+    end_x: 379
+    end_y: 942
+  - start_x: 353
+    start_y: 899
+    end_x: 379
+    end_y: 942
+
+  - start_x: 0
+    start_y: 130
+    end_x: 36
+    end_y: 121
+  - start_x: 48
+    start_y: 125
+    end_x: 36
+    end_y: 121
+  - start_x: 48
+    start_y: 125
+    end_x: 54
+    end_y: 138
+  - start_x: 49
+    start_y: 146
+    end_x: 54
+    end_y: 138
+  - start_x: 49
+    start_y: 146
+    end_x: 0
+    end_y: 160
