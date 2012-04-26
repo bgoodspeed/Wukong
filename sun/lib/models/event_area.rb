@@ -3,18 +3,20 @@
 
 class EventArea
   #TODO use ATTRIBUTES and process with yaml as usual
-  attr_accessor :rect, :label, :action, :info_window, :description, :action_argument
+  attr_accessor :rect, :label, :action, :info_window, :action_argument
   alias_method :argument, :action_argument
   def initialize(game, rect, label, action, description=nil, action_argument=nil, info_window_position=nil)
     @game =game
     @rect, @label, @action = rect, label, action
-    @description = description ? description : ["Mystery?"]
-    @info_window = InfoWindow.new(@description, info_window_position)
+    @info_window = InfoWindow.new(description ? description : ["Mystery?"], info_window_position)
     @action_argument = action_argument
   end
 
   def description_joined
-    @description.kind_of?(Array) ? @description.join("") : @description
+    @info_window.description.kind_of?(Array) ? @info_window.description.join("") : @info_window.description
+  end
+  def description
+    @info_window.description
   end
 
   include PrimitiveIntersectionTests
