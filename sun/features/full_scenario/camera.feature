@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Camera Description
   In order to move around
   As a player

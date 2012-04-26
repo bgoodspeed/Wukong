@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Player Details
   In order to play the game
   As a player

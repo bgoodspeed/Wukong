@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Sounds effects and music
   In order to play the game
   As a player

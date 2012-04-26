@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Heads Up Display
   In order to see information about the game
   As a player

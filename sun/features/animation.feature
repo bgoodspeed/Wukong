@@ -1,3 +1,4 @@
+
 Feature: Animation Details
   In order to play the game
   As a player

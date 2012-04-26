@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Spawn Points
   In order to play a level
   As a player

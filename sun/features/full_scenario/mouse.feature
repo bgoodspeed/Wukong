@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Mouse
   In order to play a level
   As a player

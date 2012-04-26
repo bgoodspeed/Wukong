@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Events
   In order to make the game respond
   As a player

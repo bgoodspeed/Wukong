@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Death Events
   In order to have challenges
   As a player
