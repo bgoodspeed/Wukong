@@ -183,3 +183,23 @@ Given /^I add a fake completion condition to both and and or$/ do
   @level.add_anded_completion_condition("and")
   @level.add_ored_completion_condition("or")
 end
+
+Given /^I require the dll or shared object "([^"]*)"$/ do |arg1|
+  #WINDOWS
+  #TODO need to determine if this ungodly magic voodoo will cause it require the DLL on windows
+  require 'utility/ripmunk'
+end
+
+
+
+When /^I create a sample class which includes the module$/ do
+  class Sample
+    include PrimitiveOpsCpp
+  end
+
+  @sample = Sample.new
+end
+
+Then /^the method "([^"]*)" should be defined on the sample$/ do |arg1|
+  @sample.should be_respond_to(arg1)
+end

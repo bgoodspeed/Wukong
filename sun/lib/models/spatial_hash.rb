@@ -97,39 +97,14 @@ class SpatialHash
     end
     cands = data.select {|d| !(d.nil? or d.empty?)}
     cands.flatten!
-    filter_ghosts(cands)
-  end
-
-  def filter_ghosts(cands)
-    rv = []
-    cands.each {|cand|
-      matches = rv.select {|r| game_equal?(r, cand)}
-      if matches.empty?
-        rv << cand
-      end
-    }
-    rv
-  end
-  
-  def game_equal?(a, b)
-    a == b
-  end
-
-  #TODO this is duplicative and crappy
-  def collision_radius_for(elem)
-    raise "collision radius needed for #{elem}" unless elem.respond_to?(:collision_radius)
-    elem.collision_radius
-  end
-  def collision_center_for(elem)
-    raise "collision centerneeded for #{elem}" unless elem.respond_to?(:collision_center)
-    elem.collision_center
+    cands.uniq
   end
 
   #TODO this can be done all at once rather than N passes (just iterate over the space buckets)
   def dynamic_collisions(elems)
     rv = []
     elems.each do |elem|
-      cs = candidates(collision_radius_for(elem), collision_center_for(elem)).flatten.select do|candidate|
+      cs = candidates(elem.collision_radius, elem.collision_center).flatten.select do|candidate|
         @collider.check_for_collision_by_type(elem, candidate)
       end
       rv += cs.collect {|cand| [elem, cand]}
@@ -141,7 +116,7 @@ class SpatialHash
     cols = []
     @data.each_with_index do |bucket, index|
       next if bucket.nil?
-      ab = filter_ghosts(bucket)
+      ab = bucket.uniq
       ab.each_pair do |a,b|
         rv = @collider.check_for_collision_by_type(a,b)
         #puts "decided #{a} and #{b} collide" if rv
@@ -149,7 +124,6 @@ class SpatialHash
       end
       
     end
-    #TODO this should not be needed?
     cols.uniq
   end
 end

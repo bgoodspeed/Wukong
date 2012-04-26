@@ -127,28 +127,58 @@ module PrimitiveIntersectionTests
     dist <= rad_sum
   end
 
-  def circle_line_segment_intersection?(circle, line_segment)
-    #return true if circle_point_intersection?(circle, line_segment.p1)
-    #return true if circle_point_intersection?(circle, line_segment.p2)
+  def primitive_circle_line_segment_intersection?(cx,cy,cr, ls1x, ls1y, ls2x, ls2y)
+    seg_vx = ls2x - ls1x
+    seg_vy = ls2y - ls1y
 
-    seg_v = line_segment.p2.minus(line_segment.p1)
-    pt_v = circle.position.minus(line_segment.p1)
-    seg_vu = seg_v.unit
-    proj_len = pt_v.dot(seg_vu)
-    proj = seg_vu.scale(proj_len)
+    pt_vx = cx - ls1x
+    pt_vy = cy - ls1y
 
+    seg_v_norm = Math::sqrt(seg_vx * seg_vx + seg_vy * seg_vy)
+    seg_vux = seg_vx.to_f/seg_v_norm
+    seg_vuy = seg_vy.to_f/seg_v_norm
+
+    proj_len = pt_vx * seg_vux + pt_vy * seg_vuy
+    projx = seg_vux * proj_len
+    projy = seg_vuy * proj_len
+
+    closestx = nil
+    closesty = nil
     if proj_len < 0
-      closest = line_segment.p1
-    elsif proj_len > seg_v.norm
-      closest = line_segment.p2
+      closestx = ls1x
+      closesty = ls1y
+    elsif proj_len > seg_v_norm
+      closestx = ls2x
+      closesty = ls2y
     else
-      closest = line_segment.p1.plus(proj)
+      closestx = ls1x + projx
+      closesty = ls1y + projy
     end
 
-    dist_v = circle.position.minus(closest)
+    dist_vx = cx - closestx
+    dist_vy = cy - closesty
 
-    dist_v.norm <= circle.radius
+    (dist_vx * dist_vx + dist_vy * dist_vy) <= cr * cr
+
   end
+
+  begin
+    require 'utility/ripmunk'
+    include PrimitiveOpsCpp
+    puts "included cpp version"
+    def circle_line_segment_intersection?(circle, line_segment)
+#      (primitive_circle_line_segment_intersection_cpp(circle.position[0], circle.position[1], circle.radius, line_segment.p1.x, line_segment.p1.y, line_segment.p2.x, line_segment.p2.y) != 0)
+      primitive_circle_line_segment_intersection?(circle.position[0], circle.position[1], circle.radius, line_segment.p1.x, line_segment.p1.y, line_segment.p2.x, line_segment.p2.y)
+    end
+
+  rescue
+    puts "failed to include cpp version"
+    def circle_line_segment_intersection?(circle, line_segment)
+      primitive_circle_line_segment_intersection?(circle.position[0], circle.position[1], circle.radius, line_segment.p1.x, line_segment.p1.y, line_segment.p2.x, line_segment.p2.y)
+    end
+
+  end
+ 
 
   def circle_point_intersection?(circle, point)
     circle_circle_intersection?(circle, Primitives::Circle.new(point, 0.0))

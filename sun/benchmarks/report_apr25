@@ -1,0 +1,115 @@
+#########################################################
+# cell size tuning: 10
+#########################################################
+`--> be ruby benchmarks/bm_load.rb && be ruby benchmarks/bm_enemies.rb
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+first 1  0.010000   0.010000   0.020000 (  0.012326)
+next 10  0.010000   0.000000   0.010000 (  0.012174)
+last 100  0.350000   0.000000   0.350000 (  0.347082)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+afterlevelfirst 1  0.020000   0.000000   0.020000 (  0.028428)
+afterlevelnext 10  0.020000   0.000000   0.020000 (  0.023535)
+afterlevellast 100  0.610000   0.000000   0.610000 (  0.615186)
+         user     system      total        real
+withdefaultlimit10 100 loops  0.690000   0.010000   0.700000 (  0.691867)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit15 100 loops  0.670000   0.000000   0.670000 (  0.684868)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit50 100 loops  0.670000   0.000000   0.670000 (  0.671250)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+
+#########################################################
+# cell size tuning: 100
+#########################################################
+`--> be ruby benchmarks/bm_load.rb && be ruby benchmarks/bm_enemies.rb
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+first 1  0.020000   0.000000   0.020000 (  0.021773)
+next 10  0.010000   0.000000   0.010000 (  0.009861)
+last 100  0.120000   0.000000   0.120000 (  0.126936)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+afterlevelfirst 1  0.020000   0.000000   0.020000 (  0.021700)
+afterlevelnext 10  0.020000   0.000000   0.020000 (  0.013601)
+afterlevellast 100  0.300000   0.000000   0.300000 (  0.315293)
+         user     system      total        real
+withdefaultlimit10 100 loops  0.440000   0.000000   0.440000 (  0.428877)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit15 100 loops  0.340000   0.000000   0.340000 (  0.342266)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit50 100 loops  0.350000   0.000000   0.350000 (  0.351151)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+#########################################################
+# cell size tuning: 3
+#########################################################
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+first 1  0.000000   0.000000   0.000000 (  0.012534)
+next 10  0.020000   0.000000   0.020000 (  0.023679)
+last 100  0.160000   0.000000   0.160000 (  0.166913)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+afterlevelfirst 1  0.090000   0.010000   0.100000 (  0.096529)
+afterlevelnext 10  0.090000   0.010000   0.100000 (  0.106741)
+afterlevellast 100  0.850000   0.010000   0.860000 (  0.850673)
+         user     system      total        real
+withdefaultlimit10 100 loops  0.790000   0.010000   0.800000 (  0.788380)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit15 100 loops  0.720000   0.020000   0.740000 (  0.735159)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit50 100 loops  0.740000   0.010000   0.750000 (  0.735455)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+#########################################################
+# cell size tuning: 50
+#########################################################
+
+`--> be ruby benchmarks/bm_load.rb && be ruby benchmarks/bm_enemies.rb
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+first 1  0.010000   0.000000   0.010000 (  0.010559)
+next 10  0.000000   0.000000   0.000000 (  0.010530)
+last 100  0.140000   0.000000   0.140000 (  0.144722)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+afterlevelfirst 1  0.020000   0.000000   0.020000 (  0.022784)
+afterlevelnext 10  0.010000   0.000000   0.010000 (  0.015513)
+afterlevellast 100  0.350000   0.000000   0.350000 (  0.360232)
+         user     system      total        real
+withdefaultlimit10 100 loops  1.070000   0.020000   1.090000 (  1.077136)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit15 100 loops  0.390000   0.010000   0.400000 (  0.403687)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit50 100 loops  0.410000   0.000000   0.410000 (  0.418274)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+#########################################################
+# cell size tuning: 80
+#########################################################
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+first 1  0.010000   0.000000   0.010000 (  0.010212)
+next 10  0.010000   0.000000   0.010000 (  0.010051)
+last 100  0.120000   0.000000   0.120000 (  0.129651)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+             user     system      total        real
+afterlevelfirst 1  0.000000   0.000000   0.000000 (  0.010011)
+afterlevelnext 10  0.020000   0.000000   0.020000 (  0.024951)
+afterlevellast 100  0.330000   0.000000   0.330000 (  0.332927)
+         user     system      total        real
+withdefaultlimit10 100 loops  0.490000   0.020000   0.510000 (  0.514430)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit15 100 loops  0.370000   0.000000   0.370000 (  0.365407)
+PROFILE: interrupts/evictions/bytes = 0/0/32
+         user     system      total        real
+withlimit50 100 loops  0.370000   0.010000   0.380000 (  0.377458)
+PROFILE: interrupts/evictions/bytes = 0/0/32

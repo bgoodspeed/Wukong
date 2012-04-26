@@ -5,6 +5,8 @@ Given /^we import vector math on arrays$/ do
   end
 end
 
+
+
 def to_vector(vs)
   return vs if vs.kind_of? Array
   vs.split(",").collect {|v| v.to_f }

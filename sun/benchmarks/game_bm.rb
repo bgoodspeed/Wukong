@@ -16,6 +16,17 @@ class GameBM
     @game.load_level(@game.new_game_level)
   end
   def profile(s="")
+    profile_rbprof(s)
+    profile_pertools("#{s}_perftools")
+  end
+  def profile_pertools(s="")
+    require 'perftools'
+    PerfTools::CpuProfiler.start("profile/bm_perftools_#{@bm}_#{@prof_loops}_#{s}") do
+      @prof_loops.times { @game.simulate }
+    end
+
+  end
+  def profile_rbprof(s="")
     require 'ruby-prof'
     RubyProf.start
     @prof_loops.times { @game.simulate }
