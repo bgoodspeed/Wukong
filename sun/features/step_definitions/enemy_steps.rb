@@ -97,3 +97,15 @@ end
 Then /^the enemy should have hud message "([^"]*)"$/ do |arg1|
   @enemy.hud_message.should == arg1
 end
+
+Given /^I create an enemy in isolation$/ do
+  @enemy = Enemy.new(nil, mock_game)
+end
+
+When /^I tick tracking with vector "([^"]*)"$/ do |arg1|
+  @enemy.tick_tracking(eval(arg1))
+end
+
+Then /^the enemy direction should be (\d+)$/ do |arg1|
+  @enemy.direction.should be_near(arg1.to_f)
+end

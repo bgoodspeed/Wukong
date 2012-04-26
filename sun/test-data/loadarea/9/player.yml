@@ -1,7 +1,7 @@
----
-player:
+--- 
+player: 
   step_size: 1
-  position:
+  position: 
   - 320
   - 240
   direction: 0

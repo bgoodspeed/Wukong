@@ -68,24 +68,23 @@ class Weapon
     [calculate_offset_x(@equipped_on.direction, @weapon_length), calculate_offset_y(@equipped_on.direction, @weapon_length)].scale(@weapon_length)
   end
   include GraphicsApi
+  include Collidable
   #TODO all this collision stuff is for swung weapons only.. might be confusing?
   def to_collision
     mv = vector_to_weapon_tip
-
     p = @equipped_on.position
     Primitives::LineSegment.new(p, p.plus(mv))
   end
 
-  def collision_type
-    to_collision.class
-  end
   def collision_radius
     @weapon_length
   end
   def collision_center
     @equipped_on.position.plus(vector_to_weapon_tip)
   end
-  def collision_response_type
-    self.class
-  end
+
+
+
+
+
 end
