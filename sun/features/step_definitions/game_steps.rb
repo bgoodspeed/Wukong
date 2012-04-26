@@ -134,3 +134,4 @@ end
 Then /^the active event area action argument should be "([^"]*)"$/ do |arg1|
   @game.level.active_event_areas.first.action_argument.should == arg1
 end
+

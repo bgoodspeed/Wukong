@@ -36,6 +36,9 @@ event_areas:
     bottom_right: [ 630, 180 ]
     label: Load Game
     action: queue_load_game_event
+    info_window_position: [ 1, 2 ]
+    description:
+      - monkeys
   - top_left: [ 10, 280 ]
     bottom_right: [ 280, 470 ]
     label: Settings

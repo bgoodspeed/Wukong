@@ -21,7 +21,7 @@ Feature: Game
     And the event areas should be:
         | rectangle_to_s                                        | label          | action                      | description joined       |
         | Rectangle [10, 10]:[10, 180]:[280, 180]:[280, 10]     | Start New Game | queue_start_new_game_event  | foo barbaz quzafterblank |
-        | Rectangle [360, 10]:[360, 180]:[630, 180]:[630, 10]   | Load Game      | queue_load_game_event       | Mystery?                 |
+        | Rectangle [360, 10]:[360, 180]:[630, 180]:[630, 10]   | Load Game      | queue_load_game_event       | monkeys                  |
         | Rectangle [10, 280]:[10, 470]:[280, 470]:[280, 280]   | Settings       | queue_settings_event        | Mystery?                 |
         | Rectangle [360, 280]:[360, 470]:[630, 470]:[630, 280] | Continue       | queue_continue_event        | Mystery?                 |
 
