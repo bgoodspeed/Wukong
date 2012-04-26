@@ -159,3 +159,180 @@ line_segments:
     start_y: 146
     end_x: 0
     end_y: 160
+
+  - start_x: 0
+    start_y: 202
+    end_x: 48
+    end_y: 194
+  - start_x: 47
+    start_y: 208
+    end_x: 48
+    end_y: 194
+  - start_x: 47
+    start_y: 208
+    end_x: 36
+    end_y: 225
+  - start_x: 18
+    start_y: 227
+    end_x: 36
+    end_y: 225
+  - start_x: 18
+    start_y: 227
+    end_x: 18
+    end_y: 243
+  - start_x: 0
+    start_y: 241
+    end_x: 18
+    end_y: 243
+
+  - start_x: 18
+    start_y: 0
+    end_x: 72
+    end_y: 45
+  - start_x: 241
+    start_y: 0
+    end_x: 72
+    end_y: 45
+
+  - start_x: 111
+    start_y: 183
+    end_x: 201
+    end_y: 179
+  - start_x: 277
+    start_y: 185
+    end_x: 201
+    end_y: 179
+  - start_x: 277
+    start_y: 185
+    end_x: 275
+    end_y: 214
+  - start_x: 256
+    start_y: 219
+    end_x: 275
+    end_y: 214
+  - start_x: 256
+    start_y: 219
+    end_x: 211
+    end_y: 207
+  - start_x: 161
+    start_y: 213
+    end_x: 211
+    end_y: 207
+  - start_x: 161
+    start_y: 213
+    end_x: 113
+    end_y: 209
+  - start_x: 111
+    start_y: 183
+    end_x: 113
+    end_y: 209
+
+  - start_x: 338
+    start_y: 194
+    end_x: 396
+    end_y: 206
+  - start_x: 375
+    start_y: 240
+    end_x: 396
+    end_y: 206
+  - start_x: 375
+    start_y: 240
+    end_x: 352
+    end_y: 237
+  - start_x: 331
+    start_y: 224
+    end_x: 352
+    end_y: 237
+
+  - start_x: 506
+    start_y: 247
+    end_x: 517
+    end_y: 242
+  - start_x: 611
+    start_y: 291
+    end_x: 517
+    end_y: 242
+  - start_x: 611
+    start_y: 291
+    end_x: 603
+    end_y: 317
+  - start_x: 563
+    start_y: 308
+    end_x: 603
+    end_y: 317
+  - start_x: 563
+    start_y: 308
+    end_x: 545
+    end_y: 286
+  - start_x: 516
+    start_y: 278
+    end_x: 545
+    end_y: 286
+  - start_x: 516
+    start_y: 278
+    end_x: 506
+    end_y: 247
+
+  - start_x: 779
+    start_y: 469
+    end_x: 713
+    end_y: 428
+  - start_x: 698
+    start_y: 403
+    end_x: 713
+    end_y: 428
+  - start_x: 698
+    start_y: 403
+    end_x: 688
+    end_y: 369
+  - start_x: 711
+    start_y: 356
+    end_x: 688
+    end_y: 369
+  - start_x: 711
+    start_y: 356
+    end_x: 779
+    end_y: 413
+
+  - start_x: 539
+    start_y: 0
+    end_x: 654
+    end_y: 101
+  - start_x: 658
+    start_y: 119
+    end_x: 654
+    end_y: 101
+  - start_x: 658
+    start_y: 119
+    end_x: 674
+    end_y: 127
+  - start_x: 696
+    start_y: 123
+    end_x: 674
+    end_y: 127
+  - start_x: 696
+    start_y: 123
+    end_x: 739
+    end_y: 159
+  - start_x: 781
+    start_y: 117
+    end_x: 739
+    end_y: 159
+
+  - start_x: 781
+    start_y: 131
+    end_x: 765
+    end_y: 150
+  - start_x: 781
+    start_y: 177
+    end_x: 765
+    end_y: 150
+
+  - start_x: 781
+    start_y: 205
+    end_x: 769
+    end_y: 223
+  - start_x: 781
+    start_y: 247
+    end_x: 769
+    end_y: 223
