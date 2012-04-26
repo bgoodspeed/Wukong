@@ -39,8 +39,8 @@ event_areas:
     bottom_right: [ 264, 410 ]
     action: LOAD_LEVEL
     description:
-      - Ready for level 2!
-    action_argument: "game-data/levels/h_level_2/h_level_2.yml"
+      - Level 3, view the world with new eyes!
+    action_argument: "game-data/levels/h_level_3/h_level_3.yml"
   - top_left: [ 378, 319 ]
     bottom_right: [ 571, 409 ]
     action: queue_load_game_event

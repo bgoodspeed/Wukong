@@ -1,0 +1,42 @@
+name: h_level_3
+background_image: game-data/levels/h_level_3/h_level_3.png
+background_music: game-data/music/drumbeats.wav
+wayfinding: game-data/levels/h_level_3/wayfinding.yml
+reward_level: game-data/levels/h_level_2_reward/h_level_2_reward.yml
+player_start_position: [ 35, 888 ]
+
+measurements:
+  width: 782
+  height: 986
+anded_completion_conditions:
+  - condition: player_health_at_least
+    argument: 1
+  - condition: player_near
+    argument: [ 597, 105 ]
+
+declared_enemies:
+  - enemy_yaml: game-data/enemies/white_square.yml
+    name: e1
+spawn_points:
+  - point: [ 597, 105 ]
+    name: ant_lvl_1
+    spawn_schedule: 1 enemies every 100 ticks for 300 total ticks
+    spawn_argument: [ e1 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 782
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 986
+  - start_x: 782
+    start_y: 0
+    end_x: 782
+    end_y: 986
+  - start_x: 0
+    start_y: 986
+    end_x: 782
+    end_y: 986
