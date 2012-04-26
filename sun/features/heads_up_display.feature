@@ -157,3 +157,5 @@ Feature: Heads Up Display
     When I see the first frame
     Then there should be 2 regions to check the mouse against
     And highlighted region should be line 1
+
+  

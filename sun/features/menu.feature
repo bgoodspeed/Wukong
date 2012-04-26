@@ -136,3 +136,11 @@ Feature: Menu
     Then the game property "player.inventory.weapon.nil?" should be "true"
     When I invoke the current menu action
     Then the game property "player.inventory.weapon.display_name" should be "'TestWeaponSwung'"
+
+ Scenario: Menu Configuration
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a menu controller
+    And I load the main menu "positioned_menu.yml"
+    When I enter the menu
+    Then the menu's "x_spacing" should be "15"
+    

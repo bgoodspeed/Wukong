@@ -55,7 +55,9 @@ class GameLoader
       game.splash_controller.splash_mode = true
     end
 
-    
+    if conf['font_config']
+      game.font_controller = FontController.new(game, conf['font_config']['font_name'], conf['font_config']['font_size'])
+    end
     game.inventory_controller = YamlLoader.from_file(InventoryController, game, conf['inventory']) if conf['inventory']
     
     game
