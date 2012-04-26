@@ -64,3 +64,23 @@ Feature: Enemy Built
     And I add an enemy from "enemy.yml"
     When I see the first frame
     Then there should be 3 enemies
+
+  Scenario: Enemy tracking North
+    Given I create an enemy in isolation
+    When I tick tracking with vector "[0,1]"
+    Then the enemy direction should be 0
+
+  Scenario: Enemy tracking East
+    Given I create an enemy in isolation
+    When I tick tracking with vector "[1,0]"
+    Then the enemy direction should be 90
+
+  Scenario: Enemy tracking South
+    Given I create an enemy in isolation
+    When I tick tracking with vector "[0,-1]"
+    Then the enemy direction should be 180
+
+  Scenario: Enemy tracking West
+    Given I create an enemy in isolation
+    When I tick tracking with vector "[-1,0]"
+    Then the enemy direction should be 270

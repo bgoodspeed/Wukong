@@ -31,7 +31,7 @@ class Enemy
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
     @velocity = 5
-    @direction = 0
+    @direction = 0.0
     @collision_priority = CollisionPriority::LOW
   end
 
@@ -47,8 +47,20 @@ class Enemy
 
 
 
+  def angle_for(vector)
+    if vector[0] == 0.0
+      return 0.0 if vector[1] > 0
+      return 180.0
+    end
+    if vector[1] == 0.0
+      return 90.0 if vector[0] > 0
+      return 270.0
+    end
+    Math::atan(vector[1].to_f/vector[0].to_f)
+  end
   def tick_tracking(vector)
     @last_move = vector.scale(@velocity)
+    @direction = angle_for(vector)
     @position = @position.plus(@last_move)
   end
 

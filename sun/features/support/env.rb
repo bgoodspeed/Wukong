@@ -17,6 +17,17 @@ SimpleCov.start 'only_lib_code'
 require 'game'
 require 'models/spatial_hash'
 
+def mock_game
+  m = Mocha::Mock.new("game mock")
+  m.stubs(:level).returns m
+  m.stubs(:image_controller).returns m
+  m.stubs(:register_image).returns m
+  m.stubs(:width).returns 66
+  m.stubs(:height).returns 44
+  m.stubs(:remove_weapon)
+  m
+end
+
 def invoke_property_string_on(e, property_string)
   properties = property_string.split(".")
   v = e
