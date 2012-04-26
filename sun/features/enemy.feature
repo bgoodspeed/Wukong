@@ -84,3 +84,8 @@ Feature: Enemy Built
     Given I create an enemy in isolation
     When I tick tracking with vector "[-1,0]"
     Then the enemy direction should be 270
+
+  Scenario: Enemy tracking arbitrary
+    Given I create an enemy in isolation
+    When I tick tracking with vector "[1,1]"
+    Then the enemy direction should be 45
