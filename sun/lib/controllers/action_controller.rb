@@ -67,7 +67,9 @@ class ActionController
         end
         },
       EventTypes::LAMBDA => lambda {|game,e| e.invoke },
-      EventTypes::LOAD_LEVEL => lambda { |game, e| 
+      EventTypes::BACK_TO_LEVEL => lambda { |game, e| game.load_level(game.old_level_name)},
+      EventTypes::LOAD_LEVEL => lambda { |game, e|
+        game.old_level_name = game.level.orig_filename
         game.load_level(e.argument)},
       EventTypes::START_NEW_GAME => lambda { |game, e| game.load_level(e.argument)},
       EventTypes::PICK => lambda {|game,e| game.log.warn "TODO: In Action Controller: must implement what to do when #{e.argument}"},

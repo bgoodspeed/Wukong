@@ -1,0 +1,8 @@
+player:
+  image_path: game-data/sprites/avatar.bmp
+  position: [ 100, 100 ]
+  movement_distance: 2
+  turn_speed: 5
+  health: 10
+  max_health: 10
+  menu_action_delay: 12

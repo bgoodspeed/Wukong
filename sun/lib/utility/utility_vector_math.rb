@@ -163,16 +163,17 @@ module PrimitiveIntersectionTests
   end
 
   begin
-    require 'utility/ripmunk'
-    include PrimitiveOpsCpp
-    puts "included cpp version"
+    ##TODO windows
+#    require 'utility/ripmunk'
+#    include PrimitiveOpsCpp
+#    puts "included cpp version"
     def circle_line_segment_intersection?(circle, line_segment)
 #      (primitive_circle_line_segment_intersection_cpp(circle.position[0], circle.position[1], circle.radius, line_segment.p1.x, line_segment.p1.y, line_segment.p2.x, line_segment.p2.y) != 0)
       primitive_circle_line_segment_intersection?(circle.position[0], circle.position[1], circle.radius, line_segment.p1.x, line_segment.p1.y, line_segment.p2.x, line_segment.p2.y)
     end
 
   rescue
-    puts "failed to include cpp version"
+ #   puts "failed to include cpp version"
     def circle_line_segment_intersection?(circle, line_segment)
       primitive_circle_line_segment_intersection?(circle.position[0], circle.position[1], circle.radius, line_segment.p1.x, line_segment.p1.y, line_segment.p2.x, line_segment.p2.y)
     end

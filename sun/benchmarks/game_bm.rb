@@ -17,7 +17,7 @@ class GameBM
   end
   def profile(s="")
     profile_rbprof(s)
-    profile_pertools("#{s}_perftools")
+#    profile_pertools("#{s}_perftools")
   end
   def profile_pertools(s="")
     require 'perftools'

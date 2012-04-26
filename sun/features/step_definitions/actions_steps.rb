@@ -87,3 +87,7 @@ Then /^the last saved time should not be nil$/ do
   @game.clock.last_save_time.should_not be_nil
 end
 
+
+When /^I invoke the action "([^"]*)"$/ do |action_name|
+  @game.action_controller.invoke(eval(action_name))
+end

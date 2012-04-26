@@ -31,3 +31,9 @@ event_areas:
     description:
       - Change your equipment
       - See all your weapons
+  - top_left: [ 10, 250 ]
+    bottom_right: [ 400, 500 ]
+    label: Back
+    action: back_to_level
+    description:
+      - Something

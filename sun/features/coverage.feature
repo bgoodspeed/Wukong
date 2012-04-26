@@ -92,7 +92,7 @@ Feature: CodeCoverage
     Then expectations should be met
 
 
-  Scenario: Using CPP code from shared object
-    Given I require the dll or shared object "ripmunk"
-    When I create a sample class which includes the module
-    Then the method "primitive_circle_line_segment_intersection_cpp" should be defined on the sample
+#  Scenario: Using CPP code from shared object
+#    Given I require the dll or shared object "ripmunk"
+#    When I create a sample class which includes the module
+#    Then the method "primitive_circle_line_segment_intersection_cpp" should be defined on the sample

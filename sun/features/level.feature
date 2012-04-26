@@ -108,9 +108,17 @@ Feature: Level Description
   Scenario: Equip Level
     Given I load the game on level "equip" with screen size 640, 480
     When the level is examined
-    Then there should be 1 event areas
+    Then there should be 2 event areas
     When I set the player position to 100,100
     Then there should be 1 active event areas
     And the active event area action should be "equipment_menu"
     And the active event area action argument should be "weapon"
+
+  Scenario: Equip Level - Back Button
+    Given I load the game on level "equip" with screen size 640, 480
+    When the level is examined
+    Then there should be 2 event areas
+    When I set the player position to 100,400
+    Then there should be 1 active event areas
+    And the active event area action should be "back_to_level"
     

@@ -9,6 +9,7 @@ module EventTypes
   LOAD_GAME = "LOAD_GAME"
   SAVE_GAME = "SAVE_GAME"
   LOAD_LEVEL = "LOAD_LEVEL"
+  BACK_TO_LEVEL = "BACK_TO_LEVEL"
 end
 
 class Event
