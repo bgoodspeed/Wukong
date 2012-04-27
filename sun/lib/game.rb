@@ -134,6 +134,7 @@ class Game
     @save_loader.save_slot(slot)
   end
 
+  #TODO this should be in a loader
   def load_level(level_name)
     @log.info "Loading level into game #{level_name}"
     @animation_controller.clear
@@ -226,7 +227,12 @@ class Game
 
     @level.draw(@screen)
     @animation_controller.draw(@screen)
-    @hud.draw(@screen)
+    
+    if menu_mode?
+      @menu_controller.draw(@screen)
+    else
+      @hud.draw(@screen)
+    end
 
     #TODO HACK
     if @input_controller.mouse_on_screen && @mouse_drawn

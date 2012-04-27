@@ -7,7 +7,7 @@ class HeadsUpDisplay
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
-
+  include UtilityDrawing
   #TODO make YAML utils and pass attributes
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
@@ -106,24 +106,11 @@ class HeadsUpDisplay
   end
 
 
-  include UtilityDrawing
+  
   def draw(screen)
     pos = [@x_spacing, @y_spacing ]
 
-    #TODO move all of this into menu controller or something
-    if menu_mode?
-      darken_screen
-
-      menu = @game.menu_controller.current_menu
-      menu.draw_cursor
-      menu.highlight_mouse_selection if @game.input_controller.mouse_on_screen
-      if menu.image_menu?
-        menu.draw_images
-      else
-        menu.draw_lines([@x_spacing, @y_spacing].scale(@menu_scale))
-      end
-      return
-    end
+ 
 
     lines.each_with_index do |line, index|
       x = pos[0]

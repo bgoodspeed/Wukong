@@ -52,7 +52,7 @@ end
 class MenuController
   attr_reader :active, :breadcrumbs, :active_menu_name
 
-
+  include UtilityDrawing
 
   def initialize(game)
     @game = game
@@ -142,6 +142,19 @@ class MenuController
   def inactivate
     @active = false
     @active_menu_name = nil
+  end
+
+  def draw(screen)
+    darken_screen
+
+    menu = current_menu
+    menu.draw_cursor
+    menu.highlight_mouse_selection if @game.input_controller.mouse_on_screen
+    if menu.image_menu?
+      menu.draw_images
+    else
+      menu.draw_lines([menu.x_spacing, menu.y_spacing].scale(menu.menu_scale))
+    end
   end
 
   alias_method :active?, :active
