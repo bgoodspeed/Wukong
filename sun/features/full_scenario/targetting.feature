@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Targetting
   In order to play strategically
   As a player

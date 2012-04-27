@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Loading
   In order to have continue my progress
   As a player

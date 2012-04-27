@@ -1,4 +1,5 @@
 @slow
+@needs_full_gosu
 Feature: Collision Detection
   In order to play the game
   As a player

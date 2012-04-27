@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Game
   In order to play the game
   As a player
@@ -50,5 +51,9 @@ Feature: Game
     When I simulate "Graphics::KbO"
     When I run the game loop 1 times
     And there should be no events queued
+
+  Scenario: New font settings
+    Given I load the game "demo_font_config"
+    Then the game property "font_controller.font_size" should be "18"
 
 

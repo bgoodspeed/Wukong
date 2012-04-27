@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Info Window
   In order to explain goals
   As a player

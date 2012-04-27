@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Splash
   In order to understand the game
   As a player

@@ -50,7 +50,9 @@ Before do |scenario|
     require 'ruby-prof'
     RubyProf.start
   end
-
+  need_gosu = scenario.source_tags.select {|tag| tag.name =~ /needs_full_gosu/}
+  $can_stub_gosu = need_gosu.empty?
+  
 end
 
 #TODO look into timing each scenario and reporting slow ones that are not already tagged

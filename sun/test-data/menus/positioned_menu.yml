@@ -1,0 +1,6 @@
+menu:
+  menu_id: positioned_menu
+  x_spacing: 15
+  entries:
+    - display_text: PM 1
+      action: somefakething

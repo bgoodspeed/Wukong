@@ -106,3 +106,7 @@ end
 When /^I enter the menu "([^"]*)" with filter "([^"]*)"$/ do |menu, filter|
   @game.enter_menu(menu, eval(filter))
 end
+
+Then /^the menu's "([^"]*)" should be "([^"]*)"$/ do |arg1, arg2|
+  mm.current_menu.send(arg1).should == eval(arg2)
+end

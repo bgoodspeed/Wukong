@@ -1,3 +1,4 @@
+@needs_full_gosu
 Feature: Heads Up Display
   In order to see information about the game
   As a player
@@ -157,3 +158,5 @@ Feature: Heads Up Display
     When I see the first frame
     Then there should be 2 regions to check the mouse against
     And highlighted region should be line 1
+
+  
