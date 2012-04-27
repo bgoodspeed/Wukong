@@ -64,6 +64,7 @@ require 'loaders/save_loader'
 require 'controllers/sound_controller'
 require 'controllers/splash_controller'
 require 'controllers/targetting_controller'
+require 'controllers/level_controller'
 
 
 
@@ -75,7 +76,7 @@ class Game
     :rendering_controller, :path_following_controller, :menu_controller,
     :condition_controller, :completion_controller, :event_controller,
     :input_controller, :camera, :splash_controller, :sound_controller, 
-    :save_loader, :font_controller, :inventory_controller,
+    :save_loader, :font_controller, :inventory_controller, :level_controller,
     :collision_response_controller, :targetting_controller
   ]
   attr_accessor :player, :clock, :hud, :screen, :level, :collisions,
@@ -92,17 +93,20 @@ class Game
   def_delegators :@player, :turn_speed, :movement_distance, :weapon_in_use?, :stop_weapon
   def_delegators :@level, :add_enemy, :enemies, :dynamic_elements
   def_delegators :@event_controller, :add_event, :events
+  def_delegators :@level_controller, :load_level
   def_delegators :@menu_controller, :current_menu_index
   def_delegators :@animation_controller, :load_animation
   def_delegators :@input_controller, :enable_action, :disable_action, :event_enabled?
   def_delegators :@sound_controller, :play_effect
   def_delegators :@splash_controller, :splash_mode
   def_delegators :@screen, :window, :show
-  def_delegator:@screen, :set_size, :set_screen_size
-  def_delegator:@menu_controller, :active?, :menu_mode?
-  def_delegator:@player, :position, :player_position
-  def_delegator:@camera, :position, :camera_position
-  def_delegator:@level, :remove_mouse, :remove_mouse_collision
+  def_delegator :@screen, :set_size, :set_screen_size
+  def_delegator :@menu_controller, :active?, :menu_mode?
+  def_delegator :@player, :position, :player_position
+  def_delegator :@camera, :position, :camera_position
+  def_delegator :@level, :remove_mouse, :remove_mouse_collision
+  def_delegator :@save_loader, :load_slot, :load_game_slot
+  def_delegator :@save_loader, :save_slot, :save_game_slot
 
   include InitHelper
 
@@ -125,42 +129,6 @@ class Game
     @clock = Clock.new(self, dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
     @collisions = []
-  end
-
-  def load_game_slot(slot)
-    @save_loader.load_slot(slot)
-  end
-  def save_game_slot(slot)
-    @save_loader.save_slot(slot)
-  end
-
-  #TODO this should be in a loader
-  def load_level(level_name)
-    @log.info "Loading level into game #{level_name}"
-    @animation_controller.clear
-    @level = @level_loader.load_level(level_name)
-    if !@player
-      @log.info "Level loading player"
-      @player = @player_loader.load_player
-    end
-    #TODO Hackish and an exact double
-    if @level.player_start_position
-      @log.info "Level setting start position"
-      @player.position = @level.player_start_position
-    end
-    @log.info "Level adding player #{@player} weapon:(#{@player.inventory.weapon})"
-    if @player.inventory.weapon
-      @player.inventory.weapon.inactivate
-    end
-    @level.add_player(@player)
-    if @level.background_music
-      @sound_controller.play_song(@level.background_music, true)
-    end
-    @clock.reset
-    @temporary_message = nil
-
-    @input_controller.enable_all
-    @level
   end
 
   def set_player(player)

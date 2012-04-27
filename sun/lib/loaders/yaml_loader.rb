@@ -22,23 +22,19 @@ class InputController
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['input_config']
-    kbd = conf['keyboard_config']
-    kbd_conf = nil
+    kbd_conf = evaluated_config(conf, 'keyboard_config')
+    gp_conf = evaluated_config(conf, 'gamepad_config')
 
-    if kbd
-      kbd_conf = {}
-      kbd.each {|k,v|
-        kbd_conf[eval(k)] = eval(v) }
-    end
-    gp = conf['gamepad_config']
-    gp_conf = nil
-    if gp
-      gp_conf = {}
-      gp.each {|k,v| kbd_conf[eval(k)] = eval(v) }
-    end
     obj = self.new(game , kbd_conf, gp_conf)
 
     obj
+  end
+
+  def self.evaluated_config(conf, name)
+    return nil unless conf.has_key? name
+    rv = {}
+    conf[name].each {|k,v| rv[eval(k)] = eval(v)}
+    rv
   end
 end
 class CollisionResponseController
