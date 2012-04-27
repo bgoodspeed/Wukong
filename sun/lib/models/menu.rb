@@ -119,17 +119,6 @@ class Menu
     @entries.each_with_index do |entry, index|
       @game.image_controller.lookup_image(entry.image).draw( @x_spacing, index * @y_spacing, ZOrder.dynamic.value)
     end
-
-  end
-
-  def draw_lines(pos)
-    lines.each_with_index do |line, index|
-      x = pos[0]
-      y = pos[1] * (index+1)
-      #TODO should use draw_with_font
-      @game.font_controller.font.draw(line, x,y,ZOrder.hud.value )
-
-    end
   end
 
   def self.from_yaml(game, yaml, f=nil)

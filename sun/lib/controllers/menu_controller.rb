@@ -153,7 +153,7 @@ class MenuController
     if menu.image_menu?
       menu.draw_images
     else
-      menu.draw_lines([menu.x_spacing, menu.y_spacing].scale(menu.menu_scale))
+      @game.font_controller.draw_lines([menu.x_spacing, menu.y_spacing].scale(menu.menu_scale), menu.lines)
     end
   end
 

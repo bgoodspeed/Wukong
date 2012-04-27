@@ -15,5 +15,11 @@ class FontController
   def draw_with_font(line, x,y, zo)
     @font.draw(line, x,y, zo )
   end
-
+  def draw_lines(pos, lines_to_draw)
+    lines_to_draw.each_with_index do |line, index|
+      x = pos[0]
+      y = pos[1] * (index+1)
+      draw_with_font(line, x,y,ZOrder.hud.value )
+    end
+  end
 end

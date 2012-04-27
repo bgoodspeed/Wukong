@@ -106,19 +106,8 @@ class HeadsUpDisplay
   end
 
 
-  
   def draw(screen)
-    pos = [@x_spacing, @y_spacing ]
-
- 
-
-    lines.each_with_index do |line, index|
-      x = pos[0]
-      y = pos[1] * (index+1)
-      #TODO should use draw_with_font
-      @game.font_controller.font.draw(line, x,y,ZOrder.hud.value )
-      
-    end
+    @game.font_controller.draw_lines([@x_spacing, @y_spacing ], lines)
   end
 
 end
