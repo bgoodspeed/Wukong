@@ -78,9 +78,7 @@ class MenuController
   def invoke_current_mouse
     ce = current_menu_entry_mouse
     return if ce.nil?
-
-    @game.action_controller.menu_invoke(current_menu, current_menu_entry, @breadcrumbs)
-
+    @game.action_controller.menu_invoke(current_menu, ce, @breadcrumbs)
   end
 
   def invoke_current
