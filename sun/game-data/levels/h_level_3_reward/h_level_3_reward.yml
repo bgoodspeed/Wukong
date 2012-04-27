@@ -46,3 +46,9 @@ event_areas:
     action: queue_load_game_event
     description:
       - Load previous saved games.
+  - top_left: [ 406, 238 ]
+    bottom_right: [ 548, 285 ]
+    action: LOAD_LEVEL
+    description:
+      - Change gears?????
+    action_argument: "game-data/levels/h_level_3_equip/h_level_3_equip.yml"

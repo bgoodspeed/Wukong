@@ -1,0 +1,39 @@
+name: h_level_3_equip
+background_image: game-data/levels/h_level_3_equip/h_level_3_equip.png
+background_music: game-data/music/crappypiano.wav
+wayfinding: game-data/levels/load_screen/wayfinding.yml
+player_start_position: [ 100, 300 ]
+
+measurements:
+  width: 640
+  height: 480
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+event_areas:
+  - top_left: [ 486, 326 ]
+    bottom_right: [ 600, 423 ]
+    action: LOAD_LEVEL
+    description:
+      - not ready
+    action_argument: "game-data/levels/h_level_3_equip/h_level_3_equip.yml"
+  - top_left: [ 32, 378 ]
+    bottom_right: [ 170, 432 ]
+    action: LOAD_LEVEL
+    description:
+      - back to reward level.
+    action_argument: "game-data/levels/h_level_3_reward/h_level_3_reward.yml"
