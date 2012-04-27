@@ -2,24 +2,6 @@
 # and open the template in the editor.
 
 
-require 'chipmunk'
-class SpaceWrapper
-
-  def initialize
-    @space = CP::Space.new
-  end
-  def add_segment(segment)
-    body = CP::Body.new_static
-    v1 = CP::Vec2.new(segment.sx, segment.sy)
-    v2 = CP::Vec2.new(segment.ex, segment.ey)
-
-    shape = CP::StaticShape::Segment.new(body, v1, v2, 1.0)
-    @space.add_shape(shape)
-    #shape = CP::SegmentShape.new(body, v1, v2, 1.0)
-  end
-
-end
-
 
 class Level
   ARRAY_ATTRIBUTES = [:enemies, :measurements, :line_segments, :triangles,
@@ -43,7 +25,6 @@ class Level
   include InitHelper
 
   def initialize(game=nil)
-    @space = SpaceWrapper.new
     init_arrays(ARRAY_ATTRIBUTES, self)
     
     @declared_enemies = {}
@@ -135,7 +116,6 @@ class Level
     segment = Primitives::LineSegment.new([sx,sy],[ex,ey])
     @line_segments << segment
     @static_hash.add_line_segment(segment, segment)
-    @space.add_segment(segment)
   end
   def add_projectile(p)
     @dynamic_elements << p
@@ -218,6 +198,9 @@ class Level
   end
 
 
+  def collect_collisions(s)
+    s.collect {|col| Collision.new(col.first, col.last)}
+  end
   #TODO get rid of the distinction between static and dynamic
   def check_for_collisions
     cols = @static_hash.dynamic_collisions(@dynamic_elements )
@@ -225,9 +208,7 @@ class Level
     
     @dynamic_elements.each {|e| @dynamic_hash.insert_circle_type_collider(e)}
     all = @dynamic_hash.all_collisions
-    dyns = all.collect {|col| Collision.new(col.first, col.last)}
-    stats = cols.collect {|col| Collision.new(col.first, col.last)}
-    rv = stats + dyns
+    rv = collect_collisions(all) + collect_collisions(cols)
     rv.sort {|a,b| a.collision_priority <=> b.collision_priority}
   end
 end
