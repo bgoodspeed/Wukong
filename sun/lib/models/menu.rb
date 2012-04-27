@@ -90,28 +90,15 @@ class Menu
 
   end
 
+  def make_rectangle(x,y,step, xs)
+    Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
+  end
   #TODO this whole menu rendering thing is a hideous mess
-
   def region_for_index(index)
     if image_menu?
-      pos = [@x_spacing, @y_spacing ]
-      x = pos[0]
-      y = pos[1] * (index)
-      step = pos[1]
-      xs = @menu_width
-      Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
+      make_rectangle(@x_spacing , @y_spacing * (index),@y_spacing, @menu_width)
     else
-      pos = [@x_spacing, @y_spacing ]
-      if @game.menu_mode?
-        pos = pos.scale(@menu_scale)
-      end
-      x = pos[0]
-      y = pos[1] * (index+1)
-      step = pos[1]
-      xs = @menu_width
-
-      Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
-
+      make_rectangle(@x_spacing * @menu_scale,@x_spacing*@menu_scale * (index + 1),@y_spacing*@menu_scale, @menu_width)
     end
   end
 
