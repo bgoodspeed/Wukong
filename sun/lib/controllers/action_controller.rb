@@ -166,4 +166,18 @@ class ActionController
     raise "unknown action #{action_name}\ndefined are: #{rs.keys}" unless rs.has_key?(action_name)
     rs[action_name].call(@game, arg )
   end
+
+ def menu_invoke(menu, c, breadcrumbs)
+    @game.log.info { "Attempting to invoke #{c}"}
+    ce = c
+    action = ce.action
+    action_argument = ce.action_argument
+
+    m = @menu_actions[action]
+    action_result = m.call(@game, action_argument)
+    menu_id = menu.menu_id
+    breadcrumbs << Breadcrumb.new(menu_id, action, action_argument, action_result)
+    @game.log.info { "Successfully invoked menu entry #{action}(#{action_argument})"}
+    action_result
+  end
 end

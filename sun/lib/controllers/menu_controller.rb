@@ -78,29 +78,15 @@ class MenuController
   def invoke_current_mouse
     ce = current_menu_entry_mouse
     return if ce.nil?
-    do_invoke(ce)
+
+    @game.action_controller.menu_invoke(current_menu, current_menu_entry, @breadcrumbs)
+
   end
 
   def invoke_current
-    do_invoke(current_menu_entry)
+    @game.action_controller.menu_invoke(current_menu, current_menu_entry, @breadcrumbs)
   end
 
-  def actions
-    @game.action_controller.menu_actions
-  end
-  def do_invoke(c)
-    @game.log.info { "Attempting to invoke #{c}"}
-    ce = c
-    action = ce.action
-    action_argument = ce.action_argument
-    
-    m = actions[action]
-    action_result = m.call(@game, action_argument)
-    menu_id = current_menu.menu_id
-    @breadcrumbs << Breadcrumb.new(menu_id, action, action_argument, action_result)
-    @game.log.info { "Successfully invoked menu entry #{action}(#{action_argument})"}
-    action_result
-  end
   def current_menu_index
     current_menu.current_index
   end
