@@ -8,13 +8,7 @@ class SaveData
 
   extend YamlHelper
   include YamlHelper
-  def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-    conf = data['savedata']
-    obj = SaveData.new
-    process_attributes(ATTRIBUTES, obj, conf)
-    obj
-  end
+
 
   def to_yaml
     cf = attr_to_yaml(ATTRIBUTES)

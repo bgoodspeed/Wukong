@@ -21,20 +21,6 @@ class Player
   include Health
   include Collidable
 
-  #TODO make YAML utils and pass attributes
-  def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-    conf = data['player']
-    obj = Player.new(conf['image_path'], game)
-    if conf['weapon_yaml']
-      w = YamlLoader.from_file(Weapon, game, conf['weapon_yaml'])
-      w.orig_filename = conf['weapon_yaml']
-      game.inventory_controller.register_item(w.orig_filename, w)
-      obj.equip_weapon(game.inventory_controller.item_named(conf['weapon_yaml']))
-    end
-    process_attributes(YAML_ATTRIBUTES, obj, conf)
-    obj
-  end
 
   
   attr_accessor :image_file

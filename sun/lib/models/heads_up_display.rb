@@ -8,14 +8,7 @@ class HeadsUpDisplay
 
   extend YamlHelper
   include UtilityDrawing
-  #TODO make YAML utils and pass attributes
-  def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-    conf = data['heads_up_display']
-    obj = HeadsUpDisplay.new(game)
-    process_attributes(ATTRIBUTES, obj, conf)
-    obj
-  end
+
 
   #TODO make a font controller or something
   attr_reader :font

@@ -108,20 +108,7 @@ class Menu
     end
   end
 
-  def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-    m = data['menu']
-    menu = Menu.new(game, m['menu_id'])
-    menu.menu_scale = m['menu_scale'] if m.has_key?('menu_scale')
-    menu.menu_width = m['menu_width'] if m.has_key?('menu_width')
-    menu.x_spacing = m['x_spacing'] if m.has_key?('x_spacing')
-    menu.y_spacing = m['y_spacing'] if m.has_key?('y_spacing')
-    m['entries'].each_with_index do |entry, index|
-      game.image_controller.register_image(entry['image']) if entry['image']
-      menu.add_entry(MenuEntry.new(index, entry))
-    end
-    menu
-  end
+
 
 end
 

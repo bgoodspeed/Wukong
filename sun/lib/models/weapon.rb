@@ -8,16 +8,6 @@ class Weapon
   attr_reader :inventory_type
   extend YamlHelper
 
-  #TODO make YAML utils and pass attributes
-  def self.from_yaml(game, yaml, fn="unknown")
-    data = YAML.load(yaml)
-    w = data['weapon']
-    weapon = Weapon.new(game, nil)
-    weapon.orig_filename = fn
-    process_attributes(ATTRIBUTES, weapon, w)
-    weapon
-  end
-
   def initialize(game, image)
     @image_path = image
     @swing_start = 0
