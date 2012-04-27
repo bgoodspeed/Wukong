@@ -17,16 +17,6 @@ class ArtificialIntelligence
     self.new(statemachine)
   end
 end
-class HeadsUpDisplay
-  extend YamlHelper
-  def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-    conf = data['heads_up_display']
-    obj = HeadsUpDisplay.new(game)
-    process_attributes(ATTRIBUTES, obj, conf)
-    obj
-  end
-end
 class InputController
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
@@ -46,7 +36,7 @@ class InputController
       gp_conf = {}
       gp.each {|k,v| kbd_conf[eval(k)] = eval(v) }
     end
-    obj = InputController.new(game , kbd_conf, gp_conf)
+    obj = self.new(game , kbd_conf, gp_conf)
 
     obj
   end
@@ -67,19 +57,8 @@ class CollisionResponseController
       }
     }
 
-    obj = CollisionResponseController.new(game, cr)
+    obj = self.new(game, cr)
 
-    obj
-  end
-end
-
-class Enemy
-  extend YamlHelper
-  def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-    conf = data['enemy']
-    obj = Enemy.new(conf['image_path'], game)
-    process_attributes(ATTRIBUTES, obj, conf)
     obj
   end
 end
@@ -90,7 +69,7 @@ class Inventory
     data = YAML.load(yaml)
 
     conf = data['inventory']
-    obj = Inventory.new( game, nil) #TODO we don't know who the owner is at this point
+    obj = self.new( game, nil) #TODO we don't know who the owner is at this point
     conf['items'].to_a.each {|hash|
       raise "bad inventory yaml " unless hash.size == 1
       obj.add_item(hash.keys.first, hash.values.first)
@@ -106,7 +85,7 @@ class InventoryController
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['inventory']
-    obj = InventoryController.new(game)
+    obj = self.new(game)
     conf['items'].to_a.each do |item|
       obj.register_item(item, YamlLoader.from_file(Weapon, game, item ))
     end
@@ -114,21 +93,33 @@ class InventoryController
   end
 
 end
+class HeadsUpDisplay
+  extend YamlHelper
+  def self.from_yaml(game, yaml, f=nil)
+    process_attributes(ATTRIBUTES, self.new(game), YAML.load(yaml)['heads_up_display'])
+  end
+end
 
-class Menu
+class Enemy
+  extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
-    m = data['menu']
-    menu = Menu.new(game, m['menu_id'])
-    menu.menu_scale = m['menu_scale'] if m.has_key?('menu_scale')
-    menu.menu_width = m['menu_width'] if m.has_key?('menu_width')
-    menu.x_spacing = m['x_spacing'] if m.has_key?('x_spacing')
-    menu.y_spacing = m['y_spacing'] if m.has_key?('y_spacing')
-    m['entries'].each_with_index do |entry, index|
+    conf = data['enemy']
+    process_attributes(ATTRIBUTES, self.new(conf['image_path'], game), conf)
+  end
+end
+
+class Menu
+  extend YamlHelper
+  def self.from_yaml(game, yaml, f=nil)
+    data = YAML.load(yaml)
+    conf = data['menu']
+    obj = process_attributes(ATTRIBUTES, self.new(game, conf['menu_id']), conf)
+    conf['entries'].each_with_index do |entry, index|
       game.image_controller.register_image(entry['image']) if entry['image']
-      menu.add_entry(MenuEntry.new(index, entry))
+      obj.add_entry(MenuEntry.new(index, entry))
     end
-    menu
+    obj
   end
 end
 
@@ -138,7 +129,7 @@ class Player
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['player']
-    obj = Player.new(conf['image_path'], game)
+    obj = self.new(conf['image_path'], game)
     if conf['weapon_yaml']
       w = YamlLoader.from_file(Weapon, game, conf['weapon_yaml'])
       w.orig_filename = conf['weapon_yaml']
@@ -146,7 +137,6 @@ class Player
       obj.equip_weapon(game.inventory_controller.item_named(conf['weapon_yaml']))
     end
     process_attributes(YAML_ATTRIBUTES, obj, conf)
-    obj
   end
 end
 
@@ -154,11 +144,7 @@ class SaveData
   extend YamlHelper
   include YamlHelper
   def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-    conf = data['savedata']
-    obj = SaveData.new
-    process_attributes(ATTRIBUTES, obj, conf)
-    obj
+    process_attributes(ATTRIBUTES, self.new, YAML.load(yaml)['savedata'])
   end
 end
 
@@ -168,11 +154,10 @@ class Weapon
   #TODO make YAML utils and pass attributes
   def self.from_yaml(game, yaml, fn="unknown")
     data = YAML.load(yaml)
-    w = data['weapon']
-    weapon = Weapon.new(game, nil)
-    weapon.orig_filename = fn
-    process_attributes(ATTRIBUTES, weapon, w)
-    weapon
+    conf = data['weapon']
+    obj = self.new(game, nil)
+    obj.orig_filename = fn
+    process_attributes(ATTRIBUTES, obj, conf)
   end
 
 end

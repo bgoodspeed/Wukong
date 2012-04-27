@@ -6,6 +6,7 @@ module YamlHelper
       v = finalizers[attr].call(v) if finalizers.has_key? attr
       instance.send("#{attr}=", v)
     }
+    instance
   end
 
   def attr_to_yaml(attrs, overrides = {  })

@@ -12,7 +12,9 @@ end
 
 class Menu
   attr_reader :current_index, :menu_id, :entries
-  attr_accessor :x_spacing, :y_spacing, :menu_scale, :menu_width
+
+  ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width]
+  ATTRIBUTES.each {|attr| attr_accessor attr}
   def initialize(game, menu_id)
     @game = game
     @menu_id = menu_id
