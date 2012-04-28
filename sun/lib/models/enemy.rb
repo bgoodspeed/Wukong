@@ -10,14 +10,6 @@ class Enemy
   include Health
   include Collidable
 
-  #TODO make YAML utils and pass attributes
-  def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-    conf = data['enemy']
-    obj = Enemy.new(conf['image_path'], game)
-    process_attributes(ATTRIBUTES, obj, conf)
-    obj
-  end
 
 
   attr_reader :image_file, :direction

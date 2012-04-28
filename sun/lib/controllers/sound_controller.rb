@@ -8,20 +8,19 @@ class SoundController
     conf = data['sound_controller']
     obj = SoundController.new(game)
 
-    conf['effects'].each {|effect|
-      game.log.info("Adding sound effect named #{effect['name']} from file #{effect['filename']}")
-      obj.add_effect(effect['filename'], effect['name'])
-
-      }
-    conf['songs'].each {|effect|
-      game.log.info("Adding song named #{effect['name']} from file #{effect['filename']}")
-      obj.add_song(effect['filename'], effect['name'])
-
-      }
+    process_sound_array(game, obj, conf, 'effects', 'sound effect', "add_effect")
+    process_sound_array(game, obj, conf, 'songs', 'song', "add_song")
     
     obj
   end
 
+  def self.process_sound_array(game, obj, conf, conf_name, type, add_method)
+    conf[conf_name].each {|effect|
+      game.log.info("Adding #{type} named #{effect['name']} from file #{effect['filename']}")
+      obj.send(add_method, effect['filename'], effect['name'])
+    }
+    
+  end
 
   def initialize(game)
     @game = game

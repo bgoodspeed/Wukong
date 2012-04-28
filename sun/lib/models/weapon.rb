@@ -1,6 +1,3 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-
 
 class Weapon
   ATTRIBUTES = [:swing_start , :swing_sweep ,  :swing_frames, :weapon_length,
@@ -10,16 +7,6 @@ class Weapon
   attr_accessor :in_use
   attr_reader :inventory_type
   extend YamlHelper
-
-  #TODO make YAML utils and pass attributes
-  def self.from_yaml(game, yaml, fn="unknown")
-    data = YAML.load(yaml)
-    w = data['weapon']
-    weapon = Weapon.new(game, nil)
-    weapon.orig_filename = fn
-    process_attributes(ATTRIBUTES, weapon, w)
-    weapon
-  end
 
   def initialize(game, image)
     @image_path = image

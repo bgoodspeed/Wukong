@@ -28,21 +28,6 @@ class Inventory
     @items[item] += n
   end
 
-  #TODO make YAML utils and pass attributes
-  def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-
-    conf = data['inventory']
-    obj = Inventory.new( game, nil) #TODO we don't know who the owner is at this point
-    conf['items'].to_a.each {|hash|
-      raise "bad inventory yaml " unless hash.size == 1
-      obj.add_item(hash.keys.first, hash.values.first)
-    }
-    if conf['weapon']
-      obj.weapon = game.inventory_controller.item_named(conf['weapon'])
-    end
-    obj
-  end
 
   def to_yaml
     cf = []

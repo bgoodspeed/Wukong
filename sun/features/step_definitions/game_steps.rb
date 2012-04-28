@@ -30,6 +30,7 @@ end
 
 def stub_out_gosu
   GameWindow.stubs(:new).returns(stub_window)
+  GameWindow.stubs(:initialize).returns(stub_window)
   Graphics::Font.stubs(:new).returns(stub_font)
   Graphics::Image.stubs(:new).returns(stub_image)
   Graphics::Image.stubs(:load_tiles).returns(stub_image)

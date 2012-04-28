@@ -2,67 +2,105 @@
 # and open the template in the editor.
 
 class GameLoader
+  extend YamlHelper
+  def self.menus
+    [['main_menu_name', 'menu_for_main'],
+     ['menu_for_load_game', 'menu_for_load_game'],
+     ['menu_for_save_game', 'menu_for_save_game'],
+     ['game_over_menu', 'game_over_menu']]
+  end
+  def self.process_menu(game, conf, m)
+    game.send("#{m[0]}=", try_add_menu(game, conf[m[1]]))
+  end
+  def self.game_constructed_deps
+    [
+      ['path_following_controller', PathFollowingController],
+      ['menu_controller', MenuController],
+    ]
+  end
+
+  def self.process_game_constructed_dep(game, d)
+    game.send("#{d[0]}=", d[1].new(game))
+  end
+
+  def self.sub_yaml_deps_pre_level
+    [
+      ['input_controller', InputController, 'input_controller'],
+      ['collision_response_controller', CollisionResponseController, 'collision_response'],
+      ['sound_controller', SoundController, 'sound_controller'],
+      ['inventory_controller', InventoryController, 'inventory'],
+      ['hud', HeadsUpDisplay, 'heads_up_display']
+    ]
+  end
+
+  def self.sub_yaml_deps_post_level
+    [
+      ['player', Player, 'player', 'set_player'],
+      
+    ]
+  end
+  def self.process_yaml_dep(game, conf, cf)
+    game.log.info { "Loading #{cf} from #{conf}"}
+    return unless conf[cf[2]]
+    if cf.size > 3
+      game.send(cf[3], YamlLoader.from_file(cf[1], game, conf[cf[2]]))
+    else
+      game.send("#{cf[0]}=", YamlLoader.from_file(cf[1], game, conf[cf[2]]))
+    end
+  end
+
+  def self.attributes
+    [
+      'new_game_level', 'game_load_path', 'menu_for_equipment'
+    ]
+  end
   def self.game_from_yaml(yaml)
     data = YAML.load(yaml)
     conf = data['game']
 
     game = Game.new({:width => conf['width'], :height => conf['height']})
     game.log.info { "Building HUD: #{conf['heads_up_display']}"}
-    hud = YamlLoader.from_file(HeadsUpDisplay, game, conf['heads_up_display'])
-    game.hud = hud
+    game_constructed_deps.each {|d| process_game_constructed_dep(game,  d)}
 
-    path_controller = PathFollowingController.new(game)
-    game.path_following_controller = path_controller
-    game.log.info { "Loading collision response: #{conf['collision_response']}"}
-    game.collision_response_controller = YamlLoader.from_file(CollisionResponseController, game, conf['collision_response'])
+    
+    
+
+    process_attributes(attributes, game, conf)
+    menus.each {|m| process_menu(game, conf, m)}
+    sub_yaml_deps_pre_level.each {|a| process_yaml_dep(game, conf, a)}
     game.load_level(conf['level'])
-    game.log.info { "Loading input controller: #{conf['input_controller']}"}
-    game.input_controller = YamlLoader.from_file(InputController, game, conf['input_controller'])
-    game.new_game_level = conf['new_game_level']
-    game.log.info { "Loading player: #{conf['player']}"}
-    p = YamlLoader.from_file(Player, game, conf['player'])
-    game.log.info { "Building sound controller: #{conf['sound_controller']}"}
-    game.sound_controller = YamlLoader.from_file(SoundController, game, conf['sound_controller'])
-    game.set_player(p)
+    sub_yaml_deps_post_level.each {|a| process_yaml_dep(game, conf, a)}
     #TODO this is not right, should come from level/spawning
     #TODO massive hack, get rid of this ASAP
     #TODO massive hack, now. this is fucking retarded
-
     if game.level.name !~ /load_screen/ and game.level.name !~ /demo_slow/
       game.log.info { "Adding hackish enemy "}
       e = YamlLoader.from_file(Enemy, game, "game-data/enemies/enemy.yml")
       game.add_enemy(e)
-      e.tracking_target = p
-      path_controller.add_tracking(e, game.wayfinding)
+      e.tracking_target = game.player
+      game.path_following_controller.add_tracking(e, game.wayfinding)
     end
 
+    try_add_splash_screen(game, conf)
+    try_add_font_config(game, conf)
 
-    menu_controller = MenuController.new(game)
-    game.menu_controller = menu_controller
-
-    game.game_load_path = conf['game_load_path'] if conf['game_load_path']
-    game.log.info { "Setting game load path : #{conf['game_load_path']}"}
-
-    game.main_menu_name = try_add_menu(game, conf['menu_for_main'])
-    game.menu_for_load_game = try_add_menu(game, conf['menu_for_load_game'])
-    game.menu_for_save_game = try_add_menu(game, conf['menu_for_save_game'])
-    game.menu_for_equipment = conf['menu_for_equipment'] if conf['menu_for_equipment']
-    game.game_over_menu = try_add_menu(game, conf['game_over_menu'])
     
+    game
+  end
+
+  def self.try_add_font_config(game, conf)
+    if conf['font_config']
+      game.font_controller = FontController.new(game, conf['font_config']['font_name'], conf['font_config']['font_size'])
+    end
+  end
+  def self.try_add_splash_screen(game, conf)
     if conf['splash_screen']
       game.log.info { "Adding splash #{conf['splash_screen']}"}
       game.splash_controller.add_splash(conf['splash_screen'])
       game.splash_controller.splash_mode = true
     end
 
-    if conf['font_config']
-      game.font_controller = FontController.new(game, conf['font_config']['font_name'], conf['font_config']['font_size'])
-    end
-    game.inventory_controller = YamlLoader.from_file(InventoryController, game, conf['inventory']) if conf['inventory']
-    
-    game
   end
-
   def self.try_add_menu(game , menu_name)
     if menu_name
       game.log.info { "Adding menu #{menu_name}"}

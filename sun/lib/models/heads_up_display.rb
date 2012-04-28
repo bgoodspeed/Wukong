@@ -7,15 +7,8 @@ class HeadsUpDisplay
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
+  include UtilityDrawing
 
-  #TODO make YAML utils and pass attributes
-  def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-    conf = data['heads_up_display']
-    obj = HeadsUpDisplay.new(game)
-    process_attributes(ATTRIBUTES, obj, conf)
-    obj
-  end
 
   #TODO make a font controller or something
   attr_reader :font
@@ -106,32 +99,8 @@ class HeadsUpDisplay
   end
 
 
-  include UtilityDrawing
   def draw(screen)
-    pos = [@x_spacing, @y_spacing ]
-
-    #TODO move all of this into menu controller or something
-    if menu_mode?
-      darken_screen
-
-      menu = @game.menu_controller.current_menu
-      menu.draw_cursor
-      menu.highlight_mouse_selection if @game.input_controller.mouse_on_screen
-      if menu.image_menu?
-        menu.draw_images
-      else
-        menu.draw_lines([@x_spacing, @y_spacing].scale(@menu_scale))
-      end
-      return
-    end
-
-    lines.each_with_index do |line, index|
-      x = pos[0]
-      y = pos[1] * (index+1)
-      #TODO should use draw_with_font
-      @game.font_controller.font.draw(line, x,y,ZOrder.hud.value )
-      
-    end
+    @game.font_controller.draw_lines([@x_spacing, @y_spacing ], lines)
   end
 
 end

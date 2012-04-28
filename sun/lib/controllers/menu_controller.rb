@@ -52,7 +52,7 @@ end
 class MenuController
   attr_reader :active, :breadcrumbs, :active_menu_name
 
-
+  include UtilityDrawing
 
   def initialize(game)
     @game = game
@@ -78,29 +78,13 @@ class MenuController
   def invoke_current_mouse
     ce = current_menu_entry_mouse
     return if ce.nil?
-    do_invoke(ce)
+    @game.action_controller.menu_invoke(current_menu, ce, @breadcrumbs)
   end
 
   def invoke_current
-    do_invoke(current_menu_entry)
+    @game.action_controller.menu_invoke(current_menu, current_menu_entry, @breadcrumbs)
   end
 
-  def actions
-    @game.action_controller.menu_actions
-  end
-  def do_invoke(c)
-    @game.log.info { "Attempting to invoke #{c}"}
-    ce = c
-    action = ce.action
-    action_argument = ce.action_argument
-    
-    m = actions[action]
-    action_result = m.call(@game, action_argument)
-    menu_id = current_menu.menu_id
-    @breadcrumbs << Breadcrumb.new(menu_id, action, action_argument, action_result)
-    @game.log.info { "Successfully invoked menu entry #{action}(#{action_argument})"}
-    action_result
-  end
   def current_menu_index
     current_menu.current_index
   end
@@ -142,6 +126,19 @@ class MenuController
   def inactivate
     @active = false
     @active_menu_name = nil
+  end
+
+  def draw(screen)
+    darken_screen
+
+    menu = current_menu
+    menu.draw_cursor
+    menu.highlight_mouse_selection if @game.input_controller.mouse_on_screen
+    if menu.image_menu?
+      menu.draw_images
+    else
+      @game.font_controller.draw_lines([menu.x_spacing, menu.y_spacing].scale(menu.menu_scale), menu.lines)
+    end
   end
 
   alias_method :active?, :active

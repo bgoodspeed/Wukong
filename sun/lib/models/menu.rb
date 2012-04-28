@@ -12,7 +12,9 @@ end
 
 class Menu
   attr_reader :current_index, :menu_id, :entries
-  attr_accessor :x_spacing, :y_spacing, :menu_scale, :menu_width
+
+  ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width]
+  ATTRIBUTES.each {|attr| attr_accessor attr}
   def initialize(game, menu_id)
     @game = game
     @menu_id = menu_id
@@ -90,28 +92,15 @@ class Menu
 
   end
 
+  def make_rectangle(x,y,step, xs)
+    Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
+  end
   #TODO this whole menu rendering thing is a hideous mess
-
   def region_for_index(index)
     if image_menu?
-      pos = [@x_spacing, @y_spacing ]
-      x = pos[0]
-      y = pos[1] * (index)
-      step = pos[1]
-      xs = @menu_width
-      Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
+      make_rectangle(@x_spacing , @y_spacing * (index),@y_spacing, @menu_width)
     else
-      pos = [@x_spacing, @y_spacing ]
-      if @game.menu_mode?
-        pos = pos.scale(@menu_scale)
-      end
-      x = pos[0]
-      y = pos[1] * (index+1)
-      step = pos[1]
-      xs = @menu_width
-
-      Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
-
+      make_rectangle(@x_spacing * @menu_scale,@x_spacing*@menu_scale * (index + 1),@y_spacing*@menu_scale, @menu_width)
     end
   end
 
@@ -119,33 +108,9 @@ class Menu
     @entries.each_with_index do |entry, index|
       @game.image_controller.lookup_image(entry.image).draw( @x_spacing, index * @y_spacing, ZOrder.dynamic.value)
     end
-
   end
 
-  def draw_lines(pos)
-    lines.each_with_index do |line, index|
-      x = pos[0]
-      y = pos[1] * (index+1)
-      #TODO should use draw_with_font
-      @game.font_controller.font.draw(line, x,y,ZOrder.hud.value )
 
-    end
-  end
-
-  def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-    m = data['menu']
-    menu = Menu.new(game, m['menu_id'])
-    menu.menu_scale = m['menu_scale'] if m.has_key?('menu_scale')
-    menu.menu_width = m['menu_width'] if m.has_key?('menu_width')
-    menu.x_spacing = m['x_spacing'] if m.has_key?('x_spacing')
-    menu.y_spacing = m['y_spacing'] if m.has_key?('y_spacing')
-    m['entries'].each_with_index do |entry, index|
-      game.image_controller.register_image(entry['image']) if entry['image']
-      menu.add_entry(MenuEntry.new(index, entry))
-    end
-    menu
-  end
 
 end
 

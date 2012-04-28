@@ -17,27 +17,6 @@ end
 class InputController
   attr_accessor :keyboard, :gamepad
 
-  def self.from_yaml(game, yaml, f=nil)
-    data = YAML.load(yaml)
-    conf = data['input_config']
-    kbd = conf['keyboard_config']
-    kbd_conf = nil
-
-    if kbd
-      kbd_conf = {}
-      kbd.each {|k,v| 
-        kbd_conf[eval(k)] = eval(v) }
-    end
-    gp = conf['gamepad_config']
-    gp_conf = nil
-    if gp
-      gp_conf = {}
-      gp.each {|k,v| kbd_conf[eval(k)] = eval(v) }
-    end
-    obj = InputController.new(game , kbd_conf, gp_conf)
-    
-    obj
-  end
 
   def self.default_keyboard_config
     { Graphics::KbLeft => KeyActions::LEFT,
