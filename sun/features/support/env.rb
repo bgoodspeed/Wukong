@@ -21,10 +21,12 @@ def mock_game
   m = Mocha::Mock.new("game mock")
   m.stubs(:level).returns m
   m.stubs(:image_controller).returns m
+  m.stubs(:animation_controller).returns m
   m.stubs(:register_image).returns m
   m.stubs(:width).returns 66
   m.stubs(:height).returns 44
   m.stubs(:remove_weapon)
+  m.stubs(:stop_animation)
   m
 end
 
@@ -51,7 +53,8 @@ Before do |scenario|
     RubyProf.start
   end
   need_gosu = scenario.source_tags.select {|tag| tag.name =~ /needs_full_gosu/}
-  $can_stub_gosu = need_gosu.empty?
+  #$can_stub_gosu = need_gosu.empty?
+  $can_stub_gosu = false
   
 end
 

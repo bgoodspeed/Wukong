@@ -54,8 +54,7 @@ class Player
     @game.log.debug { "Tried to use weapon" }
     #TODO could log this, emit a temp msg to the hud etc
     return unless @inventory.weapon
-    #TODO we don't want to actually load the animation from disk at this point
-    @game.load_animation(self, @inventory.weapon.animation_name, @inventory.weapon.image_path, 24, 24, false) #TODO hardcoded values
+    @game.animation_controller.play_animation(self, @inventory.weapon.animation_name) #TODO hardcoded values
     @game.log.debug { "Used weapon" }
     @inventory.weapon.use
   end
@@ -67,6 +66,7 @@ class Player
   def equip_weapon(w)
     @inventory.weapon = w
     @inventory.weapon.equipped_on = self
+    @game.animation_controller.register_animation(self, @inventory.weapon.animation_name, @inventory.weapon.image_path, 24, 24, false) #TODO hardcoded values
   end
 
   #TODO need to add in weapon accuracy
@@ -93,6 +93,8 @@ class Player
   end
 
   def stop_weapon(arg=nil)
+    #TODO should player control this animation stuff? or weapon? probably weapon
+    @game.animation_controller.stop_animation(self, @inventory.weapon.animation_name) 
     @inventory.weapon.inactivate
   end
 
