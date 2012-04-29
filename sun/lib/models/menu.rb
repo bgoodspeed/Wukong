@@ -1,11 +1,11 @@
 
 class MenuEntry
-  attr_accessor :display_text, :action, :action_argument, :image
+  attr_accessor :display_text, :action, :action_argument, :image, :position
   def initialize(index, conf)
     @index = index
     @conf = conf
     @display_text, @action, @action_argument, @image = @conf['display_text'], @conf['action'], @conf['action_argument'], @conf['image']
-
+    @position = conf['position']
   end
 
 end
@@ -56,6 +56,7 @@ class Menu
   end
  #TODO ugly
   def cursor_position
+    return current_entry.position if current_entry.position
     pos = [@x_spacing, @y_spacing ]
     pos = pos.scale(@menu_scale)
     cwi = @game.current_menu_index

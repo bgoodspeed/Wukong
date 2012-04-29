@@ -1,0 +1,6 @@
+menu:
+  menu_id: fully_positioned_menu
+  entries:
+    - display_text: PM 1
+      action: somefakething
+      position: [ 50, 50 ]

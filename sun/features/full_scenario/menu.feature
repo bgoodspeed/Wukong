@@ -144,4 +144,12 @@ Feature: Menu
     And I load the main menu "positioned_menu.yml"
     When I enter the menu
     Then the menu's "x_spacing" should be "15"
+    And the cursor position should be near 30,20
+
+ Scenario: Menu Configuration Fully Specified
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a menu controller
+    And I load the main menu "fully_positioned_menu.yml"
+    When I enter the menu
+    Then the cursor position should be near 50,50
     
