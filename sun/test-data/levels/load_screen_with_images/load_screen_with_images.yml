@@ -1,0 +1,52 @@
+name: load_screen
+background_image: test-data/levels/load_screen_with_images/grass.jpg
+background_music: test-data/music/music.wav
+wayfinding: test-data/levels/load_screen_with_images/wayfinding.yml
+measurements:
+  width: 640
+  height: 480
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+event_areas:
+  - top_left: [ 10, 10 ]
+    bottom_right: [ 280, 180 ]
+    label: Start New Game
+    action: queue_start_new_game_event
+    description:
+      - foo bar
+      - baz quz
+      -
+      - afterblank
+  - top_left: [ 360, 10 ]
+    bottom_right: [ 630, 180 ]
+    label: Load Game
+    action: queue_load_game_event
+    info_window_position: [ 1, 2 ]
+    description:
+      - monkeys
+    images:
+      - position: [ 10, 10 ]
+        image_name: test-data/sprites/treasurebox.gif
+  - top_left: [ 10, 280 ]
+    bottom_right: [ 280, 470 ]
+    label: Settings
+    action: queue_settings_event
+  - top_left: [ 360, 280 ]
+    bottom_right: [ 630, 470 ]
+    label: Continue
+    action: queue_continue_event

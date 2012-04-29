@@ -47,6 +47,11 @@ module Views
       iw.description.each_with_index do |desc, idx|
         game.font_controller.draw_with_font(desc, 60, 60*(idx + 1), ZOrder.hud.value)
       end
+
+      #TODO it seems we're actually being passed the event area, should be just the info window
+      iw.info_window.images.each do |iwi|
+        game.image_controller.draw_image(iwi)
+      end
     end
   end
   class WeaponView < BaseView

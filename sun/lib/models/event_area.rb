@@ -1,6 +1,5 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
 class EventArea
   #TODO use ATTRIBUTES and process with yaml as usual
   attr_accessor :rect, :label, :action, :info_window, :action_argument

@@ -31,6 +31,8 @@ end
 def stub_out_gosu
   GameWindow.stubs(:new).returns(stub_window)
   GameWindow.stubs(:initialize).returns(stub_window)
+  Graphics::Window.stubs(:new).returns(stub_window)
+  Graphics::Window.stubs(:initialize).returns(stub_window)
   Graphics::Font.stubs(:new).returns(stub_font)
   Graphics::Image.stubs(:new).returns(stub_image)
   Graphics::Image.stubs(:load_tiles).returns(stub_image)
@@ -135,3 +137,7 @@ Then /^the active event area action argument should be "([^"]*)"$/ do |arg1|
   @game.level.active_event_areas.first.action_argument.should == arg1
 end
 
+
+Then /^the event area info window images size should be "([^"]*)"$/ do |arg1|
+  @game.level.active_event_areas.first.info_window.images.size.should == arg1.to_i
+end

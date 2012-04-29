@@ -20,12 +20,27 @@ Feature: Info Window
     And the event area info window description should contain "baz quz"
     And the event area info window description should contain "afterblank"
 
-  Scenario: Player in area
+  Scenario: Player in area 2
     Given I load the game "new_game_load_screen"
     And I set the player position to 400,100
     When I run the game loop 1 times
     Then there should be 1 active event areas
     And the event area info window description should contain "monkeys"
     And the event area info window position should be "[1,2]"
+
+  Scenario: Images in info windows Unspecified
+    Given I load the game "new_game_load_screen"
+    And I set the player position to 400,100
+    When I run the game loop 1 times
+    Then there should be 1 active event areas
+    And the event area info window images size should be "0"
+
+  Scenario: Images in info windows Specified
+    Given I load the game "with_images"
+    And I set the player position to 400,100
+    When I run the game loop 1 times
+    Then there should be 1 active event areas
+    And the event area info window images size should be "1"
+
 
     
