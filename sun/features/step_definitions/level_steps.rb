@@ -134,3 +134,7 @@ Then /^the reward level is "([^"]*)"$/ do |arg1|
   @game.level.reward_level.should == "test-data/levels/#{arg1}/#{arg1}.yml"
 end
 
+
+Then /^there should be (\d+) animations$/ do |arg1|
+  @game.level.animations.size.should == arg1.to_i
+end

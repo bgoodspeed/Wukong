@@ -86,12 +86,13 @@ Feature: Level Description
   Scenario: Reward Level Save Menu
     Given I load the game "demo"
     Then the game property "menu_for_save_game" should be "'test-data/menus/save_game.yml'"
-
+    
 
   Scenario: Reward Level HUD
     Given I load the game "game_with_level_hud"
     Then the game property "hud.lines.first" should be "'(HUD2)Player HP: 5/6'"
-    
+    Then there should be 0 animations
+
   Scenario: Demo Level starting position
     Given I load the game "demo_start"
     Then the game property "level.player_start_position" should be "[320, 240]"
@@ -122,4 +123,11 @@ Feature: Level Description
     When I set the player position to 100,400
     Then there should be 1 active event areas
     And the active event area action should be "back_to_level"
+
+  Scenario: Animations in level
+    Given I load the game "with_images"
+    When the level is examined
+    Then there should be 2 animations
+
+
     

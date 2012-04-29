@@ -50,3 +50,15 @@ event_areas:
     bottom_right: [ 630, 470 ]
     label: Continue
     action: queue_continue_event
+
+animations:
+  - animation_name: levelanim1
+    animation_file: test-data/animations/ball4-280x70.png
+    animation_width: 70
+    animation_height: 70
+    animation_position: [ 100 , 100 ]
+  - animation_name: levelanim2
+    animation_file: test-data/animations/ball4-280x70.png
+    animation_width: 70
+    animation_height: 70
+    animation_position: [ 1000 , 1000 ]

@@ -39,3 +39,17 @@ Feature: Animation Details
     When I stop the player animation
     And the player attack animation should not be active
 
+  Scenario: Animation In Level One active
+    Given I load the game "with_images"
+    When I set the player position to 100,100
+    When I run the game loop 1 times
+    And the level animation "levelanim1" should be active
+    And the level animation "levelanim2" should not be active
+
+  Scenario: Animation In Level None active
+    Given I load the game "with_images"
+    When I set the player position to 600,440
+    When I run the game loop 1 times
+    And the level animation "levelanim1" should not be active
+    And the level animation "levelanim2" should not be active
+

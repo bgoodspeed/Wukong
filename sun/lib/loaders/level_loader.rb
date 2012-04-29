@@ -51,6 +51,12 @@ class LevelLoader
       level.add_spawn_point(pt)
     }
 
+    data["animations"].to_a.each {|anim|
+      la = LevelAnimation.new(@game, anim)
+      #TODO maybe entity should be level?
+      @game.animation_controller.register_animation(la, la.animation_name, la.animation_file)
+      level.animations << la
+    }
     if data["heads_up_display"]
       @game.log.info { "Building Level HUD: #{data['heads_up_display']}"}
       hud = YamlLoader.from_file(HeadsUpDisplay, @game, data['heads_up_display'])

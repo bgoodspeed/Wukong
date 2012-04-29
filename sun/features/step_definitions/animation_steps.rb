@@ -30,3 +30,14 @@ When /^the player attack animation should not be active$/ do
   @animation_controller.animation_index_by_entity_and_name(@player, "attack").active.should == false
 end
 
+When /^the level animation "([^"]*)" should be active$/ do |arg1|
+  anims = @game.level.animations.select {|la| la.animation_name =~ Regexp.new(arg1)}
+  anims.should_not be_empty
+  @game.animation_controller.animation_index_by_entity_and_name(anims.first, arg1).active.should == true
+end
+
+When /^the level animation "([^"]*)" should not be active$/ do |arg1|
+  anims = @game.level.animations.select {|la| la.animation_name =~ Regexp.new(arg1)}
+  anims.should_not be_empty
+  @game.animation_controller.animation_index_by_entity_and_name(anims.first, arg1).active.should == false
+end

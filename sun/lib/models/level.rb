@@ -1,13 +1,27 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
+class LevelAnimation
+  attr_reader :animation_name, :animation_file, :animation_width, :animation_height, :animation_position
+  def initialize(game, conf)
+    @game = game
+    @animation_name = conf['animation_name']
+    @animation_file = conf['animation_file']
+    @animation_width = conf['animation_width']
+    @animation_height = conf['animation_height']
+    @animation_position = conf['animation_position']
+  end
 
+  def animation_position_by_name(name)
+    @animation_position
+  end
+end
 
 class Level
   ARRAY_ATTRIBUTES = [:enemies, :measurements, :line_segments, :triangles,
     :circles, :rectangles, :dynamic_elements, :enemies, :event_emitters,
     :spawn_points, :ored_completion_conditions, :anded_completion_conditions,
-    :event_areas,
+    :event_areas, :animations
     ]
   HASH_ATTRIBUTES = [
     :declared_enemies,
@@ -36,6 +50,7 @@ class Level
     @minimum_y = 0
     @maximum_x = 0
     @maximum_y = 0
+    @animation_distance_threshold = 100
     @max_enemies = 10
     @game = game
   end
@@ -153,7 +168,19 @@ class Level
     @dynamic_elements << player
   end
 
+  def update_animations
+    @animations.each do |anim|
+      if @player.position.distance_from(anim.animation_position) < @animation_distance_threshold
+        @game.animation_controller.play_animation(anim, anim.animation_name)
+      else
+        @game.animation_controller.stop_animation(anim, anim.animation_name)
+      end
+
+    end
+  end
+
   def tick
+    update_animations
     update_spawn_points
     if completed?
       raise "need to set reward level for completable levels: #{self} #{@name}" unless @reward_level
