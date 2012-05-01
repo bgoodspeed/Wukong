@@ -101,7 +101,7 @@ class Enemy
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['enemy']
-    process_attributes(ATTRIBUTES, self.new(conf['image_path'], game), conf)
+    process_attributes(ATTRIBUTES, self.new(game, conf ), conf)
   end
 end
 

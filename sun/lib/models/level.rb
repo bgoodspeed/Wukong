@@ -91,7 +91,7 @@ class Level
   end
 
   def declared_enemy(n)
-    @declared_enemies[n].dup
+    @declared_enemies[n]
   end
   def add_declared_enemy(n,e)
     @declared_enemies[n] = e

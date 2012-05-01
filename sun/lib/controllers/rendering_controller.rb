@@ -26,7 +26,12 @@ module Views
 
   class EnemyView < BaseView
     def call(screen, enemy)
-      game.image_controller.draw_in_screen_coords(enemy)
+      if enemy.animated
+        game.animation_controller.draw_one_rotated(screen, enemy, enemy.animation_name)
+      else
+        game.image_controller.draw_in_screen_coords(enemy)
+      end
+      
     end
   end
   class EventAreaView < BaseView

@@ -12,17 +12,28 @@ class Enemy
 
 
 
-  attr_reader :image_file, :direction
-  def initialize(enemy_avatar, game)
+  attr_reader :image_file, :direction, :animated, :animation_name
+  def initialize( game, conf)
     @game = game
+    enemy_avatar = conf['image_path']
     @image_file = enemy_avatar
+    @animation_name = "enemy_animation"
     #TODO move image registration out of constructor into loader
-    @enemy_avatar = @game.image_controller.register_image(enemy_avatar)
+    if conf.has_key?('animation_width')
+      @enemy_avatar = @game.animation_controller.register_animation(self, @animation_name,
+        enemy_avatar, conf['animation_width'], conf['animation_width'], false,
+        false, conf['animation_rate'])
+      @animated = true
+    else
+      @enemy_avatar = @game.image_controller.register_image(enemy_avatar)
+      @animated = false
+    end
     p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
     @radius = p.max
-    @health = 15
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
+    
+    @health = 15
     @velocity = 5
     @direction = 0.0
     @collision_priority = CollisionPriority::LOW
@@ -50,5 +61,8 @@ class Enemy
     @position = @position.plus(@last_move)
   end
 
+  def animation_position_by_name(name)
+    @position.dup
+  end
 
 end

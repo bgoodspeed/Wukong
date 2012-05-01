@@ -66,6 +66,13 @@ Feature: Enemy Built
     When I see the first frame
     Then there should be 3 enemies
 
+  Scenario: Animated Enemy
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I add an enemy from "enemy_animated.yml"
+    When I see the first frame
+    Then there should be 1 enemies
+    And there should be be 1 animations registered
+
   Scenario: Enemy tracking North
     Given I create an enemy in isolation
     When I tick tracking with vector "[0,1]"

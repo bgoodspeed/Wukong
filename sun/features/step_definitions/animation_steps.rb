@@ -41,3 +41,7 @@ When /^the level animation "([^"]*)" should not be active$/ do |arg1|
   anims.should_not be_empty
   @game.animation_controller.animation_index_by_entity_and_name(anims.first, arg1).active.should == false
 end
+
+Then /^there should be be (\d+) animations registered$/ do |arg1|
+  @game.animation_controller.animations.size.should == arg1.to_i
+end
