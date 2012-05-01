@@ -38,11 +38,19 @@ class Level
 
   include InitHelper
 
-  def initialize(game=nil)
+  def self.default_config
+    {
+      'cell_size' => 100,
+      'animation_distance_threshold' => 800,
+      'max_enemies' => 10
+    }
+  end
+
+  def initialize(game=nil, in_conf={})
     init_arrays(ARRAY_ATTRIBUTES, self)
-    
+    conf = self.class.default_config.merge(in_conf)
     @declared_enemies = {}
-    @cell_size = 100 #TODO this must be in constructor to have
+    @cell_size = conf['cell_size']
     @static_hash = SpatialHash.new(@cell_size)
     @dynamic_hash = SpatialHash.new(@cell_size)
     @player_start_position = nil
@@ -50,8 +58,8 @@ class Level
     @minimum_y = 0
     @maximum_x = 0
     @maximum_y = 0
-    @animation_distance_threshold = 100
-    @max_enemies = 10
+    @animation_distance_threshold = conf['animation_distance_threshold']
+    @max_enemies = conf['max_enemies']
     @game = game
   end
 

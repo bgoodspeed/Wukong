@@ -48,7 +48,7 @@ Feature: Animation Details
 
   Scenario: Animation In Level None active
     Given I load the game "with_images"
-    When I set the player position to 600,440
+    When I set the player position to 2600,2440
     When I run the game loop 1 times
     And the level animation "levelanim1" should not be active
     And the level animation "levelanim2" should not be active

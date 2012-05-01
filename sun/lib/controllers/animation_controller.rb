@@ -4,10 +4,12 @@
 class Animation
   attr_accessor:active
   attr_reader :animation_index
-  def initialize(gosu_anim, active=true)
+  def initialize(gosu_anim, active=true, animation_rate=1)
     @gosu_anim = gosu_anim
     @animation_index = 0
     @active = active
+    @ticks = 0
+    @animation_rate = animation_rate
   end
 
   def frames
@@ -17,7 +19,11 @@ class Animation
     @gosu_anim[@animation_index % frames]
   end
   def tick
-    @animation_index =  (@animation_index + 1 ) % frames
+    @ticks += 1
+    if (@ticks >= @animation_rate)
+      @ticks = 0
+      @animation_index =  (@animation_index + 1 ) % frames
+    end
   end
 end
 
@@ -29,9 +35,7 @@ class AnimationController
   end
 
   def clear
-    @ticks = 0
     @animations = {}
-
   end
   def animations_for(entity)
     @animations[entity] = {} if @animations[entity].nil?
@@ -67,11 +71,7 @@ class AnimationController
   end
 
   def tick
-    @ticks += 1
-    if (@ticks >= @animation_rate)
-      @ticks = 0
-      tick_animations
-    end
+    tick_animations
   end
 
   def play_animation(entity, name)
@@ -87,11 +87,12 @@ class AnimationController
     register_animation(entity, name, animation,w, h, tiles, true)
     play_animation(entity, name)
   end
+  
   def register_animation(entity, name, animation,w=25, h=25, tiles=false, active=false)
     gi = Graphics::Image::load_tiles(@game.window, animation, w,h,tiles)
-
     animations_for(entity)[name] = Animation.new(gi, active)
   end
+  
   def animation_index_by_entity_and_name(entity, name)
     animations_for(entity)[name]
   end
