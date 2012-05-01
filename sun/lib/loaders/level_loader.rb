@@ -54,7 +54,10 @@ class LevelLoader
     data["animations"].to_a.each {|anim|
       la = LevelAnimation.new(@game, anim)
       #TODO maybe entity should be level?
-      @game.animation_controller.register_animation(la, la.animation_name, la.animation_file, la.animation_width, la.animation_height)
+      #TODO wtf is the tiles boolean (hardcoded to false currently)
+      @game.animation_controller.register_animation(la, la.animation_name,
+        la.animation_file, la.animation_width, la.animation_height, false,
+        la.animation_active, la.animation_rate)
       level.animations << la
     }
     if data["heads_up_display"]

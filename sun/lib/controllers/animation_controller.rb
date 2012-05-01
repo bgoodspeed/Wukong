@@ -83,14 +83,14 @@ class AnimationController
 
   #TODO load_animation should go away, replaced with register, play and stop
   #TODO hardcoded sizes
-  def load_animation(entity, name, animation,w=25, h=25, tiles=false)
-    register_animation(entity, name, animation,w, h, tiles, true)
+  def load_animation(entity, name, animation,w=25, h=25, tiles=false, active=false,rate=1)
+    register_animation(entity, name, animation,w, h, tiles, true, rate)
     play_animation(entity, name)
   end
   
-  def register_animation(entity, name, animation,w=25, h=25, tiles=false, active=false)
+  def register_animation(entity, name, animation,w=25, h=25, tiles=false, active=false, rate=1)
     gi = Graphics::Image::load_tiles(@game.window, animation, w,h,tiles)
-    animations_for(entity)[name] = Animation.new(gi, active)
+    animations_for(entity)[name] = Animation.new(gi, active, rate)
   end
   
   def animation_index_by_entity_and_name(entity, name)

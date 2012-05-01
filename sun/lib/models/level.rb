@@ -2,7 +2,8 @@
 # and open the template in the editor.
 
 class LevelAnimation
-  attr_reader :animation_name, :animation_file, :animation_width, :animation_height, :animation_position
+  attr_reader :animation_name, :animation_file, :animation_width, 
+    :animation_height, :animation_position, :animation_active, :animation_rate
   def initialize(game, conf)
     @game = game
     @animation_name = conf['animation_name']
@@ -10,6 +11,8 @@ class LevelAnimation
     @animation_width = conf['animation_width']
     @animation_height = conf['animation_height']
     @animation_position = conf['animation_position']
+    @animation_active = conf['animation_active']
+    @animation_rate = conf['animation_rate']
   end
 
   def animation_position_by_name(name)
