@@ -41,7 +41,9 @@ class Enemy
     @direction = 0.0
     @collision_priority = CollisionPriority::LOW
   end
-
+  def animation_path_for(name)
+    @animation_path
+  end
   #TODO hackish
   def hud_message
     "Enemy : #{@health}HP"

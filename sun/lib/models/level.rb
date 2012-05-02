@@ -16,6 +16,9 @@ class LevelAnimation
     @animation_rate = conf['animation_rate']
   end
 
+  def animation_path_for(name)
+    @animation_file
+  end
   def animation_position_by_name(name)
     @animation_position
   end
@@ -195,7 +198,7 @@ class Level
     update_animations
     update_spawn_points
     if @game.player.is_moving
-      @game.animation_controller.animations_for(@game.player)[@game.player.animation_name].needs_update = true
+      @game.animation_controller.animations_for(@game.player, @game.player.animation_name)[@game.player.animation_name].needs_update = true
     end
     if completed?
       raise "need to set reward level for completable levels: #{self} #{@name}" unless @reward_level

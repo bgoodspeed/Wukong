@@ -1,6 +1,8 @@
 
 Given /^I set the player avatar to "([^"]*)"$/ do |avatar_image|
-  @player = Player.new("test-data/sprites/#{avatar_image}", @game)
+  
+  @player = Player.new("test-data/sprites/#{avatar_image}", @game, nil, "test-data/animations/hack.png")
+
   @game.set_player @player
 end
 Given /^I load a player from "([^"]*)"$/ do |file|

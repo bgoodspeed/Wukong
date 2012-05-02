@@ -6,6 +6,8 @@ Given /^I create an animation controller with a ratio of one animation tick to (
 end
 
 Given /^I set the player attack animation to "([^"]*)"$/ do |attack_animation|
+  #TODO HACK :(
+  @player.animation_paths_by_name["attack"] = "test-data/animations/#{attack_animation}"
   @animation_controller.load_animation(@player, "attack", "test-data/animations/#{attack_animation}")
   
 end

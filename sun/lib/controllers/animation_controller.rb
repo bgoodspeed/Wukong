@@ -44,10 +44,10 @@ class AnimationController
     @animations = {}
     @equivalent = {}
   end
-  def animations_for(entity)
+  def animations_for(entity, name=nil)
 
-    return @animations[entity.animation_path] if @animations.has_key?(entity.animation_path)
-    eq = @equivalent.has_key?(entity.animation_path) ? @equivalent[entity.animation_path] : entity.animation_path
+    return @animations[entity.animation_path_for(name)] if @animations.has_key?(entity.animation_path_for(name))
+    eq = @equivalent.has_key?(entity.animation_path_for(name)) ? @equivalent[entity.animation_path_for(name)] : entity.animation_path_for(name)
     
     @animations[eq] = {} if @animations[eq].nil?
     @animations[eq]
@@ -83,15 +83,14 @@ class AnimationController
     end
   end
   def draw_one_rotated(screen, entity, name)
-    animation = animations_for(entity)[name]
-  
+    animation = animations_for(entity, name)[name]
     world_position = position_for(entity, name)
     position = @game.camera.screen_coordinates_for(world_position)
     draw_animation_rotated_at(screen, position, entity.direction, animation)
 
   end
   def draw_one(screen, entity, name)
-    animation = animations_for(entity)[name]
+    animation = animations_for(entity, name)[name]
     world_position = position_for(entity, name)
     position = @game.camera.screen_coordinates_for(world_position)
     draw_animation_at(screen, position, animation)
@@ -102,10 +101,10 @@ class AnimationController
   end
 
   def play_animation(entity, name)
-    animations_for(entity)[name].active = true
+    animations_for(entity, name)[name].active = true
   end
   def stop_animation(entity, name)
-    animations_for(entity)[name].active = false
+    animations_for(entity, name)[name].active = false
   end
 
   #TODO load_animation should go away, replaced with register, play and stop
@@ -117,10 +116,10 @@ class AnimationController
   
   def register_animation(entity, name, animation,w=25, h=25, tiles=false, active=false, rate=1)
     gi = Graphics::Image::load_tiles(@game.window, animation, w,h,tiles)
-    animations_for(entity)[name] = Animation.new(gi, entity, active, rate)
+    animations_for(entity, name)[name] = Animation.new(gi, entity, active, rate)
   end
   
   def animation_index_by_entity_and_name(entity, name)
-    animations_for(entity)[name]
+    animations_for(entity, name)[name]
   end
 end
