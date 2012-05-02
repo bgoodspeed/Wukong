@@ -71,7 +71,7 @@ Feature: Enemy Built
     And I add an enemy from "enemy_animated.yml"
     When I see the first frame
     Then there should be 1 enemies
-    And there should be be 1 animations registered
+    And there should be be 2 animations registered
 
   Scenario: Enemy tracking North
     Given I create an enemy in isolation

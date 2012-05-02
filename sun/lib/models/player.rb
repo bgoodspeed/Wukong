@@ -11,7 +11,7 @@ class Player
     :max_health, :turn_speed, :movement_distance, :menu_action_delay,
     :enemies_killed, :image_path, :collision_priority, :base_accuracy
   ]
-  ATTRIBUTES = YAML_ATTRIBUTES + [:inventory, :avatar]
+  ATTRIBUTES = YAML_ATTRIBUTES + [:inventory, :avatar, :is_moving, :animation_name]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -35,6 +35,14 @@ class Player
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
     @collision_priority = CollisionPriority::MID
+
+    #TODO this needs to come from YAML, also make this class take a conf param
+    @animation_name = "main_player_anim"
+    conf = { 'animation_width' => @avatar.width, 'animation_height' => @avatar.height, 'animation_rate' => 10}
+    @player_avatar = @game.animation_controller.register_animation(self, @animation_name,
+        avatar, conf['animation_width'], conf['animation_width'], false,
+        false, conf['animation_rate'])
+
     @health = 0
     @direction = 0
     @enemies_killed = 0
@@ -42,6 +50,9 @@ class Player
     @turn_speed = 90
     @menu_action_delay = 4
     @movement_distance = 1
+    @animation_name = "main_player_anim"
+    
+    @is_moving = false
     @base_accuracy = 100
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil

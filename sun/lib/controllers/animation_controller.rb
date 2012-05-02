@@ -2,8 +2,8 @@
 # and open the template in the editor.
 
 class Animation
-  attr_accessor:active
-  attr_reader :animation_index, :width, :height, :needs_update
+  attr_accessor:active, :needs_update
+  attr_reader :animation_index, :width, :height 
   def initialize(gosu_anim, active=true, animation_rate=nil, needs_update=true)
     @gosu_anim = gosu_anim
     @width = gosu_anim.first.width
@@ -23,6 +23,7 @@ class Animation
   end
   def tick
     @ticks += 1
+    @needs_update = false
     if (@ticks >= @animation_rate)
       @ticks = 0
       @animation_index =  (@animation_index + 1 ) % frames
