@@ -3,9 +3,10 @@
 
 class Animation
   attr_accessor:active, :needs_update
-  attr_reader :animation_index, :width, :height 
-  def initialize(gosu_anim, active=true, animation_rate=nil, needs_update=true)
+  attr_reader :animation_index, :width, :height, :entity
+  def initialize(gosu_anim, entity, active=true, animation_rate=nil, needs_update=true)
     @gosu_anim = gosu_anim
+    @entity = entity
     @width = gosu_anim.first.width
     @height = gosu_anim.first.height
     @animation_index = 0
@@ -44,7 +45,10 @@ class AnimationController
     @equivalent = {}
   end
   def animations_for(entity)
-    eq = @equivalent.has_key?(entity) ? @equivalent[entity] : entity
+
+    return @animations[entity.animation_path] if @animations.has_key?(entity.animation_path)
+    eq = @equivalent.has_key?(entity.animation_path) ? @equivalent[entity.animation_path] : entity.animation_path
+    
     @animations[eq] = {} if @animations[eq].nil?
     @animations[eq]
   end
@@ -73,13 +77,14 @@ class AnimationController
   end
   include UtilityDrawing
   def draw(screen)
-    visit do |entity, name, animation|
+    visit do |path, name, animation|
       next unless animation.active
-      draw_one(screen, entity, name)
+      draw_one(screen, animation.entity, name)
     end
   end
   def draw_one_rotated(screen, entity, name)
     animation = animations_for(entity)[name]
+  
     world_position = position_for(entity, name)
     position = @game.camera.screen_coordinates_for(world_position)
     draw_animation_rotated_at(screen, position, entity.direction, animation)
@@ -112,7 +117,7 @@ class AnimationController
   
   def register_animation(entity, name, animation,w=25, h=25, tiles=false, active=false, rate=1)
     gi = Graphics::Image::load_tiles(@game.window, animation, w,h,tiles)
-    animations_for(entity)[name] = Animation.new(gi, active, rate)
+    animations_for(entity)[name] = Animation.new(gi, entity, active, rate)
   end
   
   def animation_index_by_entity_and_name(entity, name)

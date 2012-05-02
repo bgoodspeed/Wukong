@@ -6,7 +6,7 @@ class LevelController
     @game = game
   end
 
-  #TODO this should be in a loader
+  #TODO this should be in a loader but it's really not loading the level from disk here
   def load_level(level_name)
     @game.log.info "Loading level into game #{level_name}"
     @game.animation_controller.clear

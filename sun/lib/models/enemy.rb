@@ -11,23 +11,26 @@ class Enemy
   include Collidable
 
 
-
-  attr_reader :image_file, :direction, :animated, :animation_name
-  def initialize( game, conf)
+  def self.defaults
+    {
+      'animation_width' => 50,
+      'animation_height' => 50,
+      'animation_rate' => 10,
+    }
+  end
+  attr_reader :image_file, :direction, :animation_name, :animation_path
+  def initialize( game, conf_in)
+    conf = self.class.defaults.merge(conf_in)
     @game = game
     enemy_avatar = conf['image_path']
     @image_file = enemy_avatar
     @animation_name = "enemy_animation"
     #TODO move image registration out of constructor into loader
-    if conf.has_key?('animation_width')
-      @enemy_avatar = @game.animation_controller.register_animation(self, @animation_name,
-        enemy_avatar, conf['animation_width'], conf['animation_width'], false,
-        false, conf['animation_rate'])
-      @animated = true
-    else
-      @enemy_avatar = @game.image_controller.register_image(enemy_avatar)
-      @animated = false
-    end
+    @animation_path = conf.has_key?('animation_path') ? conf['animation_path'] : conf['image_path']
+    @enemy_animation = @game.animation_controller.register_animation(self, @animation_name,
+      @animation_path, conf['animation_width'], conf['animation_width'], false,
+      false, conf['animation_rate'])
+    @enemy_avatar = @game.image_controller.register_image(enemy_avatar)
     p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
     @radius = p.max
     @position = p

@@ -49,6 +49,7 @@ class SpawnPoint
         orig_enemy = @game.level.declared_enemy(enemy_name)
         enemy = orig_enemy.dup
         enemy.position = @point
+        #TODO get rid of this, shouldn't be needed
         @game.animation_controller.add_entity_equivalance(enemy, orig_enemy)
         @game.add_event(Event.new(enemy, EventTypes::SPAWN))
       end

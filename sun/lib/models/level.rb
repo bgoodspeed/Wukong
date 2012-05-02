@@ -4,6 +4,7 @@
 class LevelAnimation
   attr_reader :animation_name, :animation_file, :animation_width, 
     :animation_height, :animation_position, :animation_active, :animation_rate
+  alias_method :animation_path, :animation_file
   def initialize(game, conf)
     @game = game
     @animation_name = conf['animation_name']

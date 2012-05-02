@@ -23,7 +23,7 @@ class Player
 
 
   
-  attr_accessor :image_file
+  attr_accessor :image_file, :animation_path
   def initialize(avatar, game, inventory=nil)
     @game = game
     #TODO move register image calls into loaders/yaml parsers
@@ -39,8 +39,9 @@ class Player
     #TODO this needs to come from YAML, also make this class take a conf param
     @animation_name = "main_player_anim"
     conf = { 'animation_width' => @avatar.width, 'animation_height' => @avatar.height, 'animation_rate' => 10}
+    @animation_path = avatar #TODO hackity hack
     @player_avatar = @game.animation_controller.register_animation(self, @animation_name,
-        avatar, conf['animation_width'], conf['animation_width'], false,
+        @animation_path, conf['animation_width'], conf['animation_width'], false,
         false, conf['animation_rate'])
 
     @health = 0
