@@ -1,5 +1,8 @@
 enemy:
   image_path: game-data/sprites/white_square.png
+  animation_width: 30
+  animation_height: 30
+  animation_rate: 10
   position: [ 100 , 100 ]
   health: 5
   velocity: 2

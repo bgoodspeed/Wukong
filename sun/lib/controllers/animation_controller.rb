@@ -116,6 +116,7 @@ class AnimationController
   
   def register_animation(entity, name, animation,w=25, h=25, tiles=false, active=false, rate=1)
     gi = Graphics::Image::load_tiles(@game.window, animation, w,h,tiles)
+    raise "Error registering animation #{animation} with w=#{w} h=#{h}" unless gi and !gi.first.nil?
     animations_for(entity, name)[name] = Animation.new(gi, entity, active, rate)
   end
   
