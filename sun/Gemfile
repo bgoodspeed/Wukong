@@ -18,3 +18,10 @@ gem "mocha"
 gem "rspec-expectations"
 gem "cucumber"
 gem "ruby-prof"
+
+
+gem 'linecache19'
+gem 'ruby-debug-base19'
+gem 'ruby-debug-base19x'
+gem 'ruby-debug19', :require => 'ruby-debug'
+gem 'ruby-debug-ide'

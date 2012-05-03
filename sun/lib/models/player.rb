@@ -25,7 +25,7 @@ class Player
   include Collidable
 
   def self.defaults
-    { 'animation_name' => 'main_player_anim', 'animation_width' => 25, 'animation_height' => 25, 'animation_rate' => 10}
+    { 'animation_name' => 'main_player_anim', 'animation_width' => 30, 'animation_height' => 30, 'animation_rate' => 10}
   end
 
   def initialize(avatar, game, inventory=nil, anim=nil, in_conf={})
