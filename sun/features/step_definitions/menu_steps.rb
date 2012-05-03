@@ -43,7 +43,9 @@ Then /^the current menu entry should have:$/ do |table|
     if hash.has_key?('argument')
       me.argument.to_s.should == hash['argument'].to_s
     end
-
+    if hash.has_key?('formatted_display_text')
+      me.formatted_display_text.to_s.should == hash['formatted_display_text'].to_s
+    end
   }
 
 end

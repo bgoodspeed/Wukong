@@ -113,7 +113,7 @@ class Menu
     obj = process_attributes(ATTRIBUTES, self.new(game, conf['menu_id']), conf)
     conf['entries'].each_with_index do |entry, index|
       game.image_controller.register_image(entry['image']) if entry['image']
-      obj.add_entry(MenuEntry.new(index, entry))
+      obj.add_entry(MenuEntry.new(game, index, entry))
     end
     obj
   end

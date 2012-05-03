@@ -1,13 +1,18 @@
 
 class MenuEntry
   attr_accessor :display_text, :action, :action_argument, :image, :position
-  def initialize(index, conf)
+  def initialize(game, index, conf)
+    @game = game
     @index = index
     @conf = conf
     @display_text, @action, @action_argument, @image = @conf['display_text'], @conf['action'], @conf['action_argument'], @conf['image']
     @position = conf['position']
   end
-
+  include GameLineFormattable
+  def formatted_display_text
+    format_line(@display_text, self)
+  end
+  
 end
 
 class Menu
@@ -15,6 +20,7 @@ class Menu
 
   ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width]
   ATTRIBUTES.each {|attr| attr_accessor attr}
+
   def initialize(game, menu_id)
     @game = game
     @menu_id = menu_id
@@ -52,7 +58,7 @@ class Menu
     @entries << entry
   end
   def lines
-    @entries.collect{|e| e.display_text}
+    @entries.collect{|e| e.formatted_display_text}
   end
  #TODO ugly
   def cursor_position

@@ -152,4 +152,6 @@ Feature: Menu
     And I load the main menu "fully_positioned_menu.yml"
     When I enter the menu
     Then the cursor position should be near 50,50
+
+
     
