@@ -35,3 +35,4 @@ event_areas:
     bottom_right: [ 264, 410 ]
     action: LOAD_LEVEL
     action_argument: "game-data/levels/level_2/level_2.yml"
+    
