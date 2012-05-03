@@ -12,11 +12,11 @@ anded_completion_conditions:
   - condition: enemies_killed_at_least
     argument: 9
 declared_enemies:
-  - enemy_yaml: game-data/enemies/enemy_slow.yml
+  - enemy_yaml: game-data/enemies/enemy_slow_anim.yml
     name: e1
-  - enemy_yaml: game-data/enemies/enemy2_slow.yml
+  - enemy_yaml: game-data/enemies/enemy2_slow_anim.yml
     name: e2
-  - enemy_yaml: game-data/enemies/enemy3_slow.yml
+  - enemy_yaml: game-data/enemies/enemy3_slow_anim.yml
     name: e3
 spawn_points:
   - point: [ 60, 50 ]

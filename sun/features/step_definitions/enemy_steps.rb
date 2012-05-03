@@ -1,5 +1,6 @@
 Given /^I set the enemy avatar to "([^"]*)"$/ do |enemy_avatar|
-  @enemy = Enemy.new("test-data/sprites/#{enemy_avatar}", @game)
+  conf = { 'image_path' => "test-data/sprites/#{enemy_avatar}"}
+  @enemy = Enemy.new(@game, conf )
   @game.add_enemy @enemy
 end
 Given /^I add an enemy from "([^"]*)"$/ do |file|
@@ -99,7 +100,7 @@ Then /^the enemy should have hud message "([^"]*)"$/ do |arg1|
 end
 
 Given /^I create an enemy in isolation$/ do
-  @enemy = Enemy.new(nil, mock_game)
+  @enemy = Enemy.new(mock_game, {})
 end
 
 When /^I tick tracking with vector "([^"]*)"$/ do |arg1|

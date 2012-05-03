@@ -14,6 +14,7 @@ require 'helpers/init_helper'
 require 'behaviors/movement_undoable'
 require 'behaviors/health'
 require 'behaviors/collidable'
+require 'behaviors/game_line_formattable'
 require 'controllers/game_item_controller'
 require 'helpers/yaml_helper'
 require 'utility/graphics'
@@ -246,6 +247,13 @@ class Game
 
   def interact
     @level.interact(@player.to_collision)
+  end
+
+  def last_save_time_for_slot(slot)
+    d = File.join(@game_load_path, slot.to_s)
+    return "(empty)" unless Dir.exists?(d)
+    t = File.mtime(File.join(d, "savedata.yml"))
+    "(#{t})"
   end
 
   def noop(arg=nil)

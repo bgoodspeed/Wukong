@@ -25,6 +25,7 @@ class Weapon
   end
   
 
+
   def use
     unless @in_use
       @current_frame = 0

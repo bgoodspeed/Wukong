@@ -1,0 +1,7 @@
+enemy:
+  name: Animated Enemy
+  image_path: test-data/sprites/enemy1_anim.png
+  animation_width: 50
+  animation_height: 50
+  animation_rate: 1
+  

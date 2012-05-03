@@ -137,8 +137,12 @@ class ActionController
       
       KeyActions::RIGHT => lambda { |game, arg| game.player.turn(game.turn_speed) },
       KeyActions::LEFT  => lambda { |game, arg| game.player.turn(-game.turn_speed) },
-      KeyActions::UP    => lambda { |game, arg| game.player.move_forward(game.movement_distance) },
-      KeyActions::DOWN  => lambda { |game, arg| game.player.move_forward(-game.movement_distance) },
+      KeyActions::UP    => lambda { |game, arg| 
+        game.player.is_moving = true
+        game.player.move_forward(game.movement_distance) },
+      KeyActions::DOWN  => lambda { |game, arg| 
+        game.player.is_moving = true
+        game.player.move_forward(-game.movement_distance) },
       KeyActions::FIRE  => lambda { |game, arg| game.player.use_weapon },
     }
   end

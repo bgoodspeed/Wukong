@@ -1,0 +1,8 @@
+enemy:
+  image_path: game-data/sprites/enemy1_anim.png
+  animation_width: 50
+  animation_height: 50
+  animation_rate: 10
+  position: [ 500 , 400 ]
+  health: 30
+  velocity: 0.6

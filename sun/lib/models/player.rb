@@ -11,7 +11,10 @@ class Player
     :max_health, :turn_speed, :movement_distance, :menu_action_delay,
     :enemies_killed, :image_path, :collision_priority, :base_accuracy
   ]
-  ATTRIBUTES = YAML_ATTRIBUTES + [:inventory, :avatar]
+  NON_YAML_ATTRIBUTES = [:inventory, :avatar, :is_moving, :animation_name,
+    :image_file, :animation_path, :animation_paths_by_name, :main_animation_name
+  ]
+  ATTRIBUTES = YAML_ATTRIBUTES + NON_YAML_ATTRIBUTES
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -21,10 +24,12 @@ class Player
   include Health
   include Collidable
 
+  def self.defaults
+    { 'animation_name' => 'main_player_anim', 'animation_width' => 25, 'animation_height' => 25, 'animation_rate' => 10}
+  end
 
-  
-  attr_accessor :image_file
-  def initialize(avatar, game, inventory=nil)
+  def initialize(avatar, game, inventory=nil, anim=nil, in_conf={})
+    conf = self.class.defaults.merge(in_conf)
     @game = game
     #TODO move register image calls into loaders/yaml parsers
     @image_file = avatar
@@ -35,6 +40,17 @@ class Player
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
     @collision_priority = CollisionPriority::MID
+
+    @main_animation_name = conf['animation_name']
+    @animation_name = conf['animation_name']
+    @animation_path = anim ? anim : avatar #TODO hackity hack
+    @animation_paths_by_name = {
+      @animation_name.to_s => @animation_path
+    }
+    @player_animation = @game.animation_controller.register_animation(self, @animation_name,
+        @animation_path, conf['animation_width'], conf['animation_width'], false,
+        false, conf['animation_rate'])
+
     @health = 0
     @direction = 0
     @enemies_killed = 0
@@ -42,6 +58,8 @@ class Player
     @turn_speed = 90
     @menu_action_delay = 4
     @movement_distance = 1
+    
+    @is_moving = false
     @base_accuracy = 100
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil
@@ -59,6 +77,9 @@ class Player
     @inventory.weapon.use
   end
 
+  def animation_path_for(name)
+    @animation_paths_by_name[name]
+  end
 
   def weapon_in_use?
     !@inventory.weapon.nil? and @inventory.weapon.in_use?
@@ -66,6 +87,7 @@ class Player
   def equip_weapon(w)
     @inventory.weapon = w
     @inventory.weapon.equipped_on = self
+    @animation_paths_by_name[@inventory.weapon.animation_name] = @inventory.weapon.image_path
     @game.animation_controller.register_animation(self, @inventory.weapon.animation_name, @inventory.weapon.image_path, 24, 24, false) #TODO hardcoded values
   end
 
@@ -87,14 +109,13 @@ class Player
   end
 
   def animation_position_by_name(name)
-    raise "programmer error: unknown animation #{name}" unless name =~ /attack/ or name =~ /weapon/
     #@game.camera.screen_coordinates_for(@position).dup
     @position.dup
   end
 
   def stop_weapon(arg=nil)
     #TODO should player control this animation stuff? or weapon? probably weapon
-    @game.animation_controller.stop_animation(self, @inventory.weapon.animation_name) 
+    @game.animation_controller.stop_animation(self, @inventory.weapon.animation_name)
     @inventory.weapon.inactivate
   end
 

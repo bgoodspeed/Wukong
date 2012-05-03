@@ -11,23 +11,39 @@ class Enemy
   include Collidable
 
 
-
-  attr_reader :image_file, :direction
-  def initialize(enemy_avatar, game)
+  def self.defaults
+    {
+      'animation_width' => 50,
+      'animation_height' => 50,
+      'animation_rate' => 10,
+    }
+  end
+  attr_reader :image_file, :direction, :animation_name, :animation_path
+  def initialize( game, conf_in)
+    conf = self.class.defaults.merge(conf_in)
     @game = game
+    enemy_avatar = conf['image_path']
     @image_file = enemy_avatar
+    @animation_name = "enemy_animation"
     #TODO move image registration out of constructor into loader
+    @animation_path = conf.has_key?('animation_path') ? conf['animation_path'] : conf['image_path']
+    @enemy_animation = @game.animation_controller.register_animation(self, @animation_name,
+      @animation_path, conf['animation_width'], conf['animation_width'], false,
+      false, conf['animation_rate'])
     @enemy_avatar = @game.image_controller.register_image(enemy_avatar)
     p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
     @radius = p.max
-    @health = 15
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
+    
+    @health = 15
     @velocity = 5
     @direction = 0.0
     @collision_priority = CollisionPriority::LOW
   end
-
+  def animation_path_for(name)
+    @animation_path
+  end
   #TODO hackish
   def hud_message
     "Enemy : #{@health}HP"
@@ -50,5 +66,8 @@ class Enemy
     @position = @position.plus(@last_move)
   end
 
+  def animation_position_by_name(name)
+    @position.dup
+  end
 
 end

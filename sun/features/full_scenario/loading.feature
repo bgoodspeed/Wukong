@@ -68,7 +68,25 @@ Feature: Loading
     Then the game property "player.inventory.items.size" should be "2"
     Then the game property "player.inventory.weapon.nil?" should be "false"
     
+ Scenario: Menu Save Slot Filtering Unsaved
+    Given I load the game "demo_inventory"
+    And I create a menu controller
+    And I load the main menu "save_game.yml"
+    When I enter the menu
+    When I stub the last saved time for slot 1 to be "nil"
+    Then the current menu entry should have:
+      | display_text                               | formatted_display_text        | action         | action_argument |
+      | Save Game 1 {{last_save_time_for_slot}}    | Save Game 1 (empty)           | save_game_slot | 1               |
 
+ Scenario: Menu Save Slot Filtering Saved
+    Given I load the game "demo_inventory"
+    And I create a menu controller
+    And I load the main menu "save_game.yml"
+    When I enter the menu
+    When I stub the last saved time for slot 1 to be "'foobar'"
+    Then the current menu entry should have:
+      | display_text                               | formatted_display_text        | action         | action_argument |
+      | Save Game 1 {{last_save_time_for_slot}}    | Save Game 1 (foobar)          | save_game_slot | 1               |
 
 
 

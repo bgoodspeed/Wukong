@@ -3,8 +3,8 @@ menu:
   entries:
     - display_text: Jelly 1
       action: debug_print
-      image: game-data/menus/button1.png
+      image: test-data/menus/button1.png
     - display_text: Jelly 2
       action: debug_print
-      image: game-data/menus/button2.png
+      image: test-data/menus/button2.png
       

@@ -101,7 +101,7 @@ class Enemy
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['enemy']
-    process_attributes(ATTRIBUTES, self.new(conf['image_path'], game), conf)
+    process_attributes(ATTRIBUTES, self.new(game, conf ), conf)
   end
 end
 
@@ -113,7 +113,7 @@ class Menu
     obj = process_attributes(ATTRIBUTES, self.new(game, conf['menu_id']), conf)
     conf['entries'].each_with_index do |entry, index|
       game.image_controller.register_image(entry['image']) if entry['image']
-      obj.add_entry(MenuEntry.new(index, entry))
+      obj.add_entry(MenuEntry.new(game, index, entry))
     end
     obj
   end
@@ -125,7 +125,7 @@ class Player
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['player']
-    obj = self.new(conf['image_path'], game)
+    obj = self.new(conf['image_path'], game, nil, nil, conf)
     if conf['weapon_yaml']
       w = YamlLoader.from_file(Weapon, game, conf['weapon_yaml'])
       w.orig_filename = conf['weapon_yaml']

@@ -2,12 +2,18 @@
 # and open the template in the editor.
 
 class Animation
-  attr_accessor:active
-  attr_reader :animation_index
-  def initialize(gosu_anim, active=true)
+  attr_accessor:active, :needs_update
+  attr_reader :animation_index, :width, :height, :entity
+  def initialize(gosu_anim, entity, active=true, animation_rate=nil, needs_update=true)
     @gosu_anim = gosu_anim
+    @entity = entity
+    @width = gosu_anim.first.width
+    @height = gosu_anim.first.height
     @animation_index = 0
     @active = active
+    @ticks = 0
+    @animation_rate = animation_rate ? animation_rate : 1
+    @needs_update = needs_update
   end
 
   def frames
@@ -17,11 +23,17 @@ class Animation
     @gosu_anim[@animation_index % frames]
   end
   def tick
-    @animation_index =  (@animation_index + 1 ) % frames
+    @ticks += 1
+    @needs_update = false
+    if (@ticks >= @animation_rate)
+      @ticks = 0
+      @animation_index =  (@animation_index + 1 ) % frames
+    end
   end
 end
 
 class AnimationController
+  attr_reader :animations
   def initialize(game, animation_rate=1)
     @game = game
     @animation_rate=animation_rate
@@ -29,13 +41,20 @@ class AnimationController
   end
 
   def clear
-    @ticks = 0
     @animations = {}
-
+    @equivalent = {}
   end
-  def animations_for(entity)
-    @animations[entity] = {} if @animations[entity].nil?
-    @animations[entity]
+  def animations_for(entity, name=nil)
+
+    return @animations[entity.animation_path_for(name)] if @animations.has_key?(entity.animation_path_for(name))
+    eq = @equivalent.has_key?(entity.animation_path_for(name)) ? @equivalent[entity.animation_path_for(name)] : entity.animation_path_for(name)
+    
+    @animations[eq] = {} if @animations[eq].nil?
+    @animations[eq]
+  end
+
+  def add_entity_equivalance(e1, e2)
+    @equivalent[e1] = e2
   end
 
   def visit
@@ -48,7 +67,7 @@ class AnimationController
   end
   def tick_animations
     visit do |entity, name, animation|
-      next unless animation.active
+      next unless animation.active or animation.needs_update
       animation.tick
     end
   end
@@ -58,41 +77,50 @@ class AnimationController
   end
   include UtilityDrawing
   def draw(screen)
-    visit do |entity, name, animation|
+    visit do |path, name, animation|
       next unless animation.active
-      world_position = position_for(entity, name)
-      position = @game.camera.screen_coordinates_for(world_position)
-      draw_animation_at(screen, position, animation)
+      draw_one(screen, animation.entity, name)
     end
   end
+  def draw_one_rotated(screen, entity, name)
+    animation = animations_for(entity, name)[name]
+    world_position = position_for(entity, name)
+    position = @game.camera.screen_coordinates_for(world_position)
+    draw_animation_rotated_at(screen, position, entity.direction, animation)
 
+  end
+  def draw_one(screen, entity, name)
+    animation = animations_for(entity, name)[name]
+    world_position = position_for(entity, name)
+    position = @game.camera.screen_coordinates_for(world_position)
+    draw_animation_at(screen, position, animation)
+    
+  end
   def tick
-    @ticks += 1
-    if (@ticks >= @animation_rate)
-      @ticks = 0
-      tick_animations
-    end
+    tick_animations
   end
 
   def play_animation(entity, name)
-    animations_for(entity)[name].active = true
+    animations_for(entity, name)[name].active = true
   end
   def stop_animation(entity, name)
-    animations_for(entity)[name].active = false
+    animations_for(entity, name)[name].active = false
   end
 
   #TODO load_animation should go away, replaced with register, play and stop
   #TODO hardcoded sizes
-  def load_animation(entity, name, animation,w=25, h=25, tiles=false)
-    register_animation(entity, name, animation,w, h, tiles, true)
+  def load_animation(entity, name, animation,w=25, h=25, tiles=false, active=false,rate=1)
+    register_animation(entity, name, animation,w, h, tiles, true, rate)
     play_animation(entity, name)
   end
-  def register_animation(entity, name, animation,w=25, h=25, tiles=false, active=false)
+  
+  def register_animation(entity, name, animation,w=25, h=25, tiles=false, active=false, rate=1)
     gi = Graphics::Image::load_tiles(@game.window, animation, w,h,tiles)
-
-    animations_for(entity)[name] = Animation.new(gi, active)
+    raise "Error registering animation #{animation} with w=#{w} h=#{h}" unless gi and !gi.first.nil?
+    animations_for(entity, name)[name] = Animation.new(gi, entity, active, rate)
   end
+  
   def animation_index_by_entity_and_name(entity, name)
-    animations_for(entity)[name]
+    animations_for(entity, name)[name]
   end
 end

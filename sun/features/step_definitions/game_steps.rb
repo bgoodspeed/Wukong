@@ -141,3 +141,12 @@ end
 Then /^the event area info window images size should be "([^"]*)"$/ do |arg1|
   @game.level.active_event_areas.first.info_window.images.size.should == arg1.to_i
 end
+
+When /^I stub the last saved time for slot (\d+) to be "([^"]*)"$/ do |arg1, arg2|
+  # @game.stubs(:last_save_time_current).returns eval(arg2)
+  t = eval(arg2)
+  Dir.stubs(:exists?).with("test-data/loads/#{arg1}").returns(!t.nil?)
+  File.stubs(:mtime).with("test-data/loads/#{arg1}/savedata.yml").returns t
+  
+  #@game.stubs(:last_save_time_for_slot).with(arg1.to_i).returns eval(arg2)
+end

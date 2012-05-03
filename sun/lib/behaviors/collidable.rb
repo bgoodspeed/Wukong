@@ -21,7 +21,7 @@ module Collidable
     @collision_type
   end
   def to_s
-    "#{self.class} #{collision_type} r=#{collision_radius} c=#{collision_center}"
+    "#{self.class}(#{self.object_id}) #{collision_type} r=#{collision_radius} c=#{collision_center}"
   end
 
 

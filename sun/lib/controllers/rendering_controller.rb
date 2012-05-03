@@ -20,13 +20,14 @@ module Views
 
   class PlayerView < BaseView
     def call(screen, player)
-      game.image_controller.draw_in_screen_coords(player)
+      game.animation_controller.draw_one_rotated(screen, player, player.main_animation_name)
     end
   end
 
   class EnemyView < BaseView
     def call(screen, enemy)
-      game.image_controller.draw_in_screen_coords(enemy)
+      game.animation_controller.draw_one_rotated(screen, enemy, enemy.animation_name)
+      
     end
   end
   class EventAreaView < BaseView

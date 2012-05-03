@@ -46,8 +46,11 @@ class SpawnPoint
     @last_spawn_time = t
     @spawn_argument.each do |enemy_name|
       @enemy_quantity.times do
-        enemy = @game.level.declared_enemy(enemy_name)
+        orig_enemy = @game.level.declared_enemy(enemy_name)
+        enemy = orig_enemy.dup
         enemy.position = @point
+        #TODO get rid of this, shouldn't be needed
+        @game.animation_controller.add_entity_equivalance(enemy, orig_enemy)
         @game.add_event(Event.new(enemy, EventTypes::SPAWN))
       end
     end

@@ -2,7 +2,9 @@
 # and open the template in the editor.
 
 class LevelAnimation
-  attr_reader :animation_name, :animation_file, :animation_width, :animation_height, :animation_position
+  attr_reader :animation_name, :animation_file, :animation_width, 
+    :animation_height, :animation_position, :animation_active, :animation_rate
+  alias_method :animation_path, :animation_file
   def initialize(game, conf)
     @game = game
     @animation_name = conf['animation_name']
@@ -10,8 +12,13 @@ class LevelAnimation
     @animation_width = conf['animation_width']
     @animation_height = conf['animation_height']
     @animation_position = conf['animation_position']
+    @animation_active = conf['animation_active']
+    @animation_rate = conf['animation_rate']
   end
 
+  def animation_path_for(name)
+    @animation_file
+  end
   def animation_position_by_name(name)
     @animation_position
   end
@@ -38,11 +45,19 @@ class Level
 
   include InitHelper
 
-  def initialize(game=nil)
+  def self.default_config
+    {
+      'cell_size' => 100,
+      'animation_distance_threshold' => 800,
+      'max_enemies' => 10
+    }
+  end
+
+  def initialize(game=nil, in_conf={})
     init_arrays(ARRAY_ATTRIBUTES, self)
-    
+    conf = self.class.default_config.merge(in_conf)
     @declared_enemies = {}
-    @cell_size = 100 #TODO this must be in constructor to have
+    @cell_size = conf['cell_size']
     @static_hash = SpatialHash.new(@cell_size)
     @dynamic_hash = SpatialHash.new(@cell_size)
     @player_start_position = nil
@@ -50,8 +65,8 @@ class Level
     @minimum_y = 0
     @maximum_x = 0
     @maximum_y = 0
-    @animation_distance_threshold = 100
-    @max_enemies = 10
+    @animation_distance_threshold = conf['animation_distance_threshold']
+    @max_enemies = conf['max_enemies']
     @game = game
   end
 
@@ -80,7 +95,7 @@ class Level
   end
 
   def declared_enemy(n)
-    @declared_enemies[n].dup
+    @declared_enemies[n]
   end
   def add_declared_enemy(n,e)
     @declared_enemies[n] = e
@@ -182,6 +197,9 @@ class Level
   def tick
     update_animations
     update_spawn_points
+    if @game.player.is_moving
+      @game.animation_controller.animations_for(@game.player, @game.player.animation_name)[@game.player.animation_name].needs_update = true
+    end
     if completed?
       raise "need to set reward level for completable levels: #{self} #{@name}" unless @reward_level
       e = Event.new( @reward_level, EventTypes::LOAD_LEVEL)
