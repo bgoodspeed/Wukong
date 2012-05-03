@@ -24,8 +24,12 @@ class Player
   include Health
   include Collidable
 
+  def self.defaults
+    { 'animation_name' => 'main_player_anim', 'animation_width' => 25, 'animation_height' => 25, 'animation_rate' => 10}
+  end
 
-  def initialize(avatar, game, inventory=nil, anim=nil)
+  def initialize(avatar, game, inventory=nil, anim=nil, in_conf={})
+    conf = self.class.defaults.merge(in_conf)
     @game = game
     #TODO move register image calls into loaders/yaml parsers
     @image_file = avatar
@@ -37,10 +41,8 @@ class Player
     @collision_type = Primitives::Circle.new(@position, @radius)
     @collision_priority = CollisionPriority::MID
 
-    #TODO this needs to come from YAML, also make this class take a conf param
-    @main_animation_name = "main_player_anim"
-    @animation_name = "main_player_anim"
-    conf = { 'animation_width' => 25, 'animation_height' => 25, 'animation_rate' => 10}
+    @main_animation_name = conf['animation_name']
+    @animation_name = conf['animation_name']
     @animation_path = anim ? anim : avatar #TODO hackity hack
     @animation_paths_by_name = {
       @animation_name.to_s => @animation_path
