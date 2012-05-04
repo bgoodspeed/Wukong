@@ -1,8 +1,8 @@
 name: h_level_intro
-background_image: game-data/levels/h_level_1/h_level_1.png
+background_image: game-data/levels/h_level_intro/h_level_intro.png
 background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/h_level_1/wayfinding.yml
-reward_level: game-data/levels/h_level_1_reward/h_level_1_reward.yml
+reward_level: game-data/levels/h_level_1/h_level_1.yml
 player_start_position: [ 50, 425 ]
 
 measurements:
@@ -26,20 +26,20 @@ spawn_points:
 line_segments:
   - start_x: 0
     start_y: 0
-    end_x: 800
+    end_x: 3400
     end_y:   0
   - start_x: 0
     start_y: 0
     end_x:   0
-    end_y: 600
-  - start_x: 800
+    end_y: 2400
+  - start_x: 3400
     start_y: 0
-    end_x: 800
-    end_y: 600
+    end_x: 3400
+    end_y: 2400
   - start_x: 0
-    start_y: 600
-    end_x: 800
-    end_y: 600
+    start_y: 2400
+    end_x: 3400
+    end_y: 2400
     
   - start_x: 320
     start_y: 0
