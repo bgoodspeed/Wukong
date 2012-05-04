@@ -88,12 +88,13 @@ class ActionController
       KeyActions::QUIT => lambda {|game, arg| game.deactivate_and_quit },
 
       BehaviorTypes::UPGRADE_PLAYER => lambda {|game, arg|
-        if !game.image_controller.lookup_image(arg.argument)
-          game.image_controller.register_image(arg.argument)
-        end
-        game.player.avatar = game.image_controller.lookup_image(arg.argument)
+        #NOTE this assumes the new animation is the same size and rate of the old.
+        orig_animation = @game.player.player_animation
+        animation = game.animation_controller.register_animation(game.player, game.player.animation_name,
+            arg.argument, orig_animation.width, orig_animation.height, false, false,orig_animation.animation_rate)
         game.player.image_path = arg.argument
         game.player.image_file = arg.argument
+
       },
       BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(game.new_game_level, EventTypes::START_NEW_GAME))},
       #TODO figure out which game to load from menu?

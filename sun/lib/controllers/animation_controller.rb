@@ -3,7 +3,7 @@
 
 class Animation
   attr_accessor:active, :needs_update
-  attr_reader :animation_index, :width, :height, :entity
+  attr_reader :animation_index, :width, :height, :entity, :animation_rate
   def initialize(gosu_anim, entity, active=true, animation_rate=nil, needs_update=true)
     @gosu_anim = gosu_anim
     @entity = entity

@@ -28,6 +28,8 @@ class Player
     { 'animation_name' => 'main_player_anim', 'animation_width' => 30, 'animation_height' => 30, 'animation_rate' => 10}
   end
 
+  attr_reader :player_animation
+
   def initialize(avatar, game, inventory=nil, anim=nil, in_conf={})
     conf = self.class.defaults.merge(in_conf)
     @game = game
@@ -48,7 +50,7 @@ class Player
       @animation_name.to_s => @animation_path
     }
     @player_animation = @game.animation_controller.register_animation(self, @animation_name,
-        @animation_path, conf['animation_width'], conf['animation_width'], false,
+        @animation_path, conf['animation_width'], conf['animation_height'], false,
         false, conf['animation_rate'])
 
     @health = 0
