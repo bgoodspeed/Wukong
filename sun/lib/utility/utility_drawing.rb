@@ -20,7 +20,7 @@ module UtilityDrawing
   end
   def draw_animation_rotated_at(screen, position, direction, animation)
     img = animation.image
-    img.draw_rot(position.vx - img.width/2.0 , position.vy  - img.height/2.0, ZOrder.dynamic.value, direction)
+    img.draw_rot(position.vx, position.vy  , ZOrder.dynamic.value, direction)
   end
 
   def draw_rectangle_as_box(screen, r,  zorder = ZOrder.dynamic.value, color=Graphics::Color::BLACK)
