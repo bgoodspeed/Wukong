@@ -47,3 +47,29 @@ end
 Then /^there should be be (\d+) animations registered$/ do |arg1|
   @game.animation_controller.animations.size.should == arg1.to_i
 end
+
+Then /^the player main animation should not be active$/ do
+  @game.animation_controller.animation_index_by_entity_and_name(@player, @player.main_animation_name).active.should == false
+end
+
+Then /^the player main animation should be active$/ do
+  @game.animation_controller.animation_index_by_entity_and_name(@player, @player.main_animation_name).active.should == true
+end
+
+
+Then /^the player main animation should be on frame (\d+)$/ do |arg1|
+  @game.animation_controller.animation_index_by_entity_and_name(@player, @player.main_animation_name).animation_index.should == arg1.to_i
+end
+
+Then /^the player main animation should be on tick (\d+)$/ do |arg1|
+  @game.animation_controller.animation_index_by_entity_and_name(@player, @player.main_animation_name).ticks.should == arg1.to_i
+end
+
+Then /^the player main animation should not need an update$/ do
+  @game.animation_controller.animation_index_by_entity_and_name(@game.player, @game.player.main_animation_name).needs_update.should == false
+end
+
+Then /^the player main animation should need an update$/ do
+  @game.animation_controller.animation_index_by_entity_and_name(@game.player, @game.player.main_animation_name).needs_update.should == true
+end
+

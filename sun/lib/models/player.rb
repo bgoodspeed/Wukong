@@ -63,11 +63,19 @@ class Player
     @player_animation = @game.animation_controller.register_animation(self, conf['animation_name'], @animation_path,
                              conf['animation_width'], conf['animation_height'], false,false, conf['animation_rate'])
 
-    @is_moving = false
+    self.is_moving=(false)
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil
     @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
     process_attributes(YAML_ATTRIBUTES, self, conf)
+  end
+
+  def is_moving=(v)
+    if v
+      @game.animation_controller.play_animation(self, @main_animation_name)
+    else
+      @game.animation_controller.stop_animation(self, @main_animation_name)
+    end
   end
   def inactivate_weapon
     @inventory.weapon.inactivate

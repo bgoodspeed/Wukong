@@ -177,7 +177,7 @@ class Game
   end
 
   def update_game_state
-    
+    @animation_controller.animation_index_by_entity_and_name(@player, @player.main_animation_name).needs_update = false
     @event_controller.handle_events
     @input_controller.respond_to_keys
     return if menu_mode? 
