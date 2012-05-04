@@ -25,17 +25,30 @@ class Player
   include Collidable
 
   def self.defaults
-    { 'animation_name' => 'main_player_anim', 'animation_width' => 30, 'animation_height' => 30, 'animation_rate' => 10}
+    {
+      'animation_name' => 'main_player_anim',
+      'animation_width' => 30,
+      'animation_height' => 30,
+      'animation_rate' => 10,
+      'health' => 0,
+      'direction' => 0,
+      'step_size' => 1,
+      'turn_speed' => 90,
+      'menu_action_delay' => 4,
+      'enemies_killed' => 0,
+      'movement_distance' => 1,
+      'base_accuracy' => 100
+    }
   end
 
   attr_reader :player_animation
 
-  def initialize(avatar, game, inventory=nil, anim=nil, in_conf={})
+  def initialize(game, in_conf={})
     conf = self.class.defaults.merge(in_conf)
     @game = game
     #TODO move register image calls into loaders/yaml parsers
-    @image_file = avatar
-    @avatar = @game.image_controller.register_image(avatar)
+    @image_file = conf['image_path']
+    @avatar = @game.image_controller.register_image(conf['image_path'])
     #@avatar.clear :dest_select => transparency_color
     p = [@avatar.width/2.0, @avatar.height/2.0 ]
     @radius = p.min
@@ -45,7 +58,7 @@ class Player
 
     @main_animation_name = conf['animation_name']
     @animation_name = conf['animation_name']
-    @animation_path = anim ? anim : avatar #TODO hackity hack
+    @animation_path = conf.has_key?('animation_path') ? conf['animation_path'] : avatar #TODO hackity hack
     @animation_paths_by_name = {
       @animation_name.to_s => @animation_path
     }
@@ -53,19 +66,20 @@ class Player
         @animation_path, conf['animation_width'], conf['animation_height'], false,
         false, conf['animation_rate'])
 
-    @health = 0
-    @direction = 0
-    @enemies_killed = 0
-    @step_size = 1
-    @turn_speed = 90
-    @menu_action_delay = 4
-    @movement_distance = 1
-    
+    @health = conf['health']
+    @direction = conf['direction']
+    @enemies_killed = conf['enemies_killed']
+    @step_size = conf['step_size']
+    @turn_speed = conf['turn_speed']
+    @menu_action_delay = conf['menu_action_delay']
+    @movement_distance = conf['movement_distance']
+    @base_accuracy = conf['base_accuracy']
+
     @is_moving = false
-    @base_accuracy = 100
+
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil
-    @inventory = inventory ? inventory : Inventory.new(game, self)
+    @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
   end
   def inactivate_weapon
     @inventory.weapon.inactivate

@@ -125,7 +125,7 @@ class Player
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['player']
-    obj = self.new(conf['image_path'], game, nil, nil, conf)
+    obj = self.new(game, conf)
     if conf['weapon_yaml']
       w = YamlLoader.from_file(Weapon, game, conf['weapon_yaml'])
       w.orig_filename = conf['weapon_yaml']

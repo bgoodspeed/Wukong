@@ -8,11 +8,11 @@ class PlayerLoader
 
   def config
     {
-      'avatar' => "game-data/sprites/avatar.bmp"
+      'image_path' => "game-data/sprites/avatar.bmp"
     }
   end
 
   def load_player
-    Player.new(config['avatar'], @game)
+    Player.new(@game, config )
   end
 end

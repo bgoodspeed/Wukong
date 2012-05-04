@@ -13,9 +13,14 @@ class Enemy
 
   def self.defaults
     {
+      'animation_name' => "enemy_animation",
       'animation_width' => 50,
       'animation_height' => 50,
       'animation_rate' => 10,
+      'health' => 15,
+      'velocity' => 5,
+      'direction' => 0.0,
+      'collision_priority' => CollisionPriority::LOW
     }
   end
   attr_reader :image_file, :direction, :animation_name, :animation_path
@@ -24,7 +29,7 @@ class Enemy
     @game = game
     enemy_avatar = conf['image_path']
     @image_file = enemy_avatar
-    @animation_name = "enemy_animation"
+    @animation_name = conf['animation_name']
     #TODO move image registration out of constructor into loader
     @animation_path = conf.has_key?('animation_path') ? conf['animation_path'] : conf['image_path']
     @enemy_animation = @game.animation_controller.register_animation(self, @animation_name,
@@ -36,10 +41,10 @@ class Enemy
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
     
-    @health = 15
-    @velocity = 5
-    @direction = 0.0
-    @collision_priority = CollisionPriority::LOW
+    @health = conf['health']
+    @velocity = conf['velocity']
+    @direction = conf['direction']
+    @collision_priority = conf['collision_priority']
   end
   def animation_path_for(name)
     @animation_path

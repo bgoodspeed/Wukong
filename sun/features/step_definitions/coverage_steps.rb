@@ -142,7 +142,8 @@ Given /^I create a player with a mock inventory$/ do
   @mock_game = mock_game
   @weapon = Weapon.new(@mock_game, "foo")
   Inventory.stubs(:new).returns mock_inventory
-  @player = Player.new("foo", @mock_game)
+  conf = {'image_path' => "foo"}
+  @player = Player.new(@mock_game, conf )
 end
 
 Given /^I activate the weapon$/ do
