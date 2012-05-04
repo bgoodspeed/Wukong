@@ -83,6 +83,7 @@ class InventoryController
     conf = data['inventory']
     obj = self.new(game)
     conf['items'].to_a.each do |item|
+      #TODO only knows about weapons...
       obj.register_item(item, YamlLoader.from_file(Weapon, game, item ))
     end
     obj
@@ -101,7 +102,7 @@ class Enemy
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['enemy']
-    process_attributes(ATTRIBUTES, self.new(game, conf ), conf)
+    self.new(game, conf )
   end
 end
 
@@ -132,7 +133,7 @@ class Player
       game.inventory_controller.register_item(w.orig_filename, w)
       obj.equip_weapon(game.inventory_controller.item_named(conf['weapon_yaml']))
     end
-    process_attributes(YAML_ATTRIBUTES, obj, conf)
+    obj
   end
 end
 

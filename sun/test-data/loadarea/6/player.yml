@@ -14,3 +14,7 @@ player:
   image_path: test-data/sprites/avatar.bmp
   collision_priority: 4
   base_accuracy: 100
+  image_file: !!null 
+  animation_path: test-data/sprites/avatar.bmp
+  main_animation_name: main_player_anim
+  animation_name: main_player_anim

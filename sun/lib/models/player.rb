@@ -9,10 +9,11 @@ class Player
   attr_reader :radius
   YAML_ATTRIBUTES = [:step_size, :position, :direction, :health, 
     :max_health, :turn_speed, :movement_distance, :menu_action_delay,
-    :enemies_killed, :image_path, :collision_priority, :base_accuracy
+    :enemies_killed, :image_path, :collision_priority, :base_accuracy,
+    :image_file, :animation_path,  :main_animation_name, :animation_name
   ]
-  NON_YAML_ATTRIBUTES = [:inventory, :avatar, :is_moving, :animation_name,
-    :image_file, :animation_path, :animation_paths_by_name, :main_animation_name
+  NON_YAML_ATTRIBUTES = [:inventory, :avatar, :is_moving, :animation_name,:animation_paths_by_name,
+
   ]
   ATTRIBUTES = YAML_ATTRIBUTES + NON_YAML_ATTRIBUTES
   ATTRIBUTES.each {|attr| attr_accessor attr }
@@ -37,7 +38,8 @@ class Player
       'menu_action_delay' => 4,
       'enemies_killed' => 0,
       'movement_distance' => 1,
-      'base_accuracy' => 100
+      'base_accuracy' => 100,
+      'collision_priority' => CollisionPriority::MID
     }
   end
 
@@ -47,39 +49,25 @@ class Player
     conf = self.class.defaults.merge(in_conf)
     @game = game
     #TODO move register image calls into loaders/yaml parsers
-    @image_file = conf['image_path']
     @avatar = @game.image_controller.register_image(conf['image_path'])
-    #@avatar.clear :dest_select => transparency_color
     p = [@avatar.width/2.0, @avatar.height/2.0 ]
     @radius = p.min
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
-    @collision_priority = CollisionPriority::MID
 
     @main_animation_name = conf['animation_name']
-    @animation_name = conf['animation_name']
-    @animation_path = conf.has_key?('animation_path') ? conf['animation_path'] : avatar #TODO hackity hack
+    @animation_path = conf.has_key?('animation_path') ? conf['animation_path'] : conf['image_path'] #TODO hackity hack
     @animation_paths_by_name = {
       @animation_name.to_s => @animation_path
     }
-    @player_animation = @game.animation_controller.register_animation(self, @animation_name,
-        @animation_path, conf['animation_width'], conf['animation_height'], false,
-        false, conf['animation_rate'])
-
-    @health = conf['health']
-    @direction = conf['direction']
-    @enemies_killed = conf['enemies_killed']
-    @step_size = conf['step_size']
-    @turn_speed = conf['turn_speed']
-    @menu_action_delay = conf['menu_action_delay']
-    @movement_distance = conf['movement_distance']
-    @base_accuracy = conf['base_accuracy']
+    @player_animation = @game.animation_controller.register_animation(self, conf['animation_name'], @animation_path,
+                             conf['animation_width'], conf['animation_height'], false,false, conf['animation_rate'])
 
     @is_moving = false
-
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil
     @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
+    process_attributes(YAML_ATTRIBUTES, self, conf)
   end
   def inactivate_weapon
     @inventory.weapon.inactivate

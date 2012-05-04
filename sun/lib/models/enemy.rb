@@ -2,14 +2,16 @@
 class Enemy
 
   attr_accessor :tracking_target
-  ATTRIBUTES = [:position, :health, :velocity, :name, :collision_priority]
+  ATTRIBUTES = [:position, :health, :velocity, :name, :collision_priority,
+                :image_file, :direction, :animation_name, :animation_path
+  ]
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
   include MovementUndoable
   include Health
   include Collidable
-
+  include YamlHelper
 
   def self.defaults
     {
@@ -23,28 +25,20 @@ class Enemy
       'collision_priority' => CollisionPriority::LOW
     }
   end
-  attr_reader :image_file, :direction, :animation_name, :animation_path
   def initialize( game, conf_in)
     conf = self.class.defaults.merge(conf_in)
     @game = game
-    enemy_avatar = conf['image_path']
-    @image_file = enemy_avatar
-    @animation_name = conf['animation_name']
+    @image_file = conf['image_path']
     #TODO move image registration out of constructor into loader
     @animation_path = conf.has_key?('animation_path') ? conf['animation_path'] : conf['image_path']
-    @enemy_animation = @game.animation_controller.register_animation(self, @animation_name,
-      @animation_path, conf['animation_width'], conf['animation_width'], false,
-      false, conf['animation_rate'])
-    @enemy_avatar = @game.image_controller.register_image(enemy_avatar)
+    @enemy_animation = @game.animation_controller.register_animation(self, conf['animation_name'],
+      @animation_path, conf['animation_width'], conf['animation_width'], false, false, conf['animation_rate'])
+    @enemy_avatar = @game.image_controller.register_image(conf['image_path'])
     p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
     @radius = p.max
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
-    
-    @health = conf['health']
-    @velocity = conf['velocity']
-    @direction = conf['direction']
-    @collision_priority = conf['collision_priority']
+    process_attributes(ATTRIBUTES, self, conf)
   end
   def animation_path_for(name)
     @animation_path
