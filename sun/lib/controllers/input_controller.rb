@@ -60,7 +60,9 @@ class InputController
 
 
   def mouse_screen_coords
-    [@game.window.mouse_x, @game.window.mouse_y ]
+    x,y = @game.window.mouse_x, @game.window.mouse_y
+    @game.log.info "Mouse click at #{x},#{y}"
+    [x,y]
   end
 
   def mouse_on_screen
