@@ -5,25 +5,25 @@ wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 320, 240 ]
 
 measurements:
-  width: 640
-  height: 480
+  width: 800
+  height: 600
 line_segments:
   - start_x: 0
     start_y: 0
-    end_x: 640
+    end_x: 800
     end_y:   0
   - start_x: 0
     start_y: 0
     end_x:   0
-    end_y: 480
-  - start_x: 640
+    end_y: 600
+  - start_x: 800
     start_y: 0
-    end_x: 640
-    end_y: 480
+    end_x: 800
+    end_y: 600
   - start_x: 0
-    start_y: 480
-    end_x: 640
-    end_y: 480
+    start_y: 600
+    end_x: 800
+    end_y: 600
 event_areas:
   - top_left: [ 71, 121 ]
     bottom_right: [ 263, 211 ]
