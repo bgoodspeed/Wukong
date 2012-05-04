@@ -51,7 +51,7 @@ When /^I update the key state$/ do
 end
 
 Then /^the player weapon should be in use$/ do
-  @game.should be_weapon_in_use
+  @game.input_controller.disabled.should be_has_key(KeyActions::FIRE)
 end
 
 Then /^the game should call quit$/ do

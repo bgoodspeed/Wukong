@@ -2,18 +2,14 @@
 # and open the template in the editor.
 
 class LevelAnimation
-  attr_reader :animation_name, :animation_file, :animation_width, 
-    :animation_height, :animation_position, :animation_active, :animation_rate
+  include YamlHelper
+  ATTRIBUTES = [:animation_name, :animation_file, :animation_width,
+                :animation_height, :animation_position, :animation_active, :animation_rate]
+  ATTRIBUTES.each {|attr| attr_accessor(attr)}
   alias_method :animation_path, :animation_file
   def initialize(game, conf)
     @game = game
-    @animation_name = conf['animation_name']
-    @animation_file = conf['animation_file']
-    @animation_width = conf['animation_width']
-    @animation_height = conf['animation_height']
-    @animation_position = conf['animation_position']
-    @animation_active = conf['animation_active']
-    @animation_rate = conf['animation_rate']
+    process_attributes(ATTRIBUTES, self, conf)
   end
 
   def animation_path_for(name)
@@ -197,9 +193,6 @@ class Level
   def tick
     update_animations
     update_spawn_points
-    if @game.player.is_moving
-      @game.animation_controller.animations_for(@game.player, @game.player.animation_name)[@game.player.animation_name].needs_update = true
-    end
     if completed?
       raise "need to set reward level for completable levels: #{self} #{@name}" unless @reward_level
       e = Event.new( @reward_level, EventTypes::LOAD_LEVEL)

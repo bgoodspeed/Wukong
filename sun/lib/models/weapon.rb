@@ -27,21 +27,18 @@ class Weapon
 
 
   def use
-    unless @in_use
-      @current_frame = 0
-      p = @game.player
-      if @type == "swung"
-        te = TimedEvent.new("noop", nil, "stop_weapon", @equipped_on, @swing_frames)
-        @game.clock.enqueue_event("stop_swing", te)
-        @game.level.add_weapon(self)
+    @current_frame = 0
+    p = @game.player
+    if @type == "swung"
+      te = TimedEvent.new("noop", nil, "stop_weapon", @equipped_on, @swing_frames)
+      @game.clock.enqueue_event("stop_swing", te)
+      @game.level.add_weapon(self)
 
-      else
-        @game.add_projectile(p.position, p.direction, @velocity)
-      end
-      
-      @game.play_effect(@sound_effect_name)
+    else
+      @game.add_projectile(p.position, p.direction, @velocity)
     end
-    @in_use = true
+
+    @game.play_effect(@sound_effect_name)
   end
   def inactivate
     @in_use = false

@@ -41,7 +41,7 @@ class InputController
     { Graphics::MsLeft => KeyActions::MOUSE_CLICK,}
   end
 
-  attr_reader :keyboard
+  attr_reader :keyboard, :disabled
   #TODO abstract these into yml ?
   def initialize(game, keyboard_conf = InputController.default_keyboard_config, gamepad_conf = InputController.default_gamepad_config, mouse_conf = InputController.default_mouse_config)
     @game = game

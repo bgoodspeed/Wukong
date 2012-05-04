@@ -145,7 +145,7 @@ class ActionController
       KeyActions::DOWN  => lambda { |game, arg|
         game.animation_controller.animation_index_by_entity_and_name(game.player, game.player.main_animation_name).needs_update = true
         game.player.move_forward(-game.movement_distance) },
-      KeyActions::FIRE  => lambda { |game, arg| game.player.use_weapon },
+      KeyActions::FIRE  => delaying(KeyActions::FIRE) {|game,arg| game.player.use_weapon},
     }
   end
 
