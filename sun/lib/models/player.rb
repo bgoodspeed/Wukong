@@ -38,7 +38,7 @@ class Player
     @avatar = @game.image_controller.register_image(avatar)
     #@avatar.clear :dest_select => transparency_color
     p = [@avatar.width/2.0, @avatar.height/2.0 ]
-    @radius = p.max
+    @radius = p.min
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
     @collision_priority = CollisionPriority::MID

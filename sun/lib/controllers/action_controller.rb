@@ -89,6 +89,7 @@ class ActionController
 
       BehaviorTypes::UPGRADE_PLAYER => lambda {|game, arg|
         #NOTE this assumes the new animation is the same size and rate of the old.
+        game.log.info "Upgrading player"
         orig_animation = @game.player.player_animation
         animation = game.animation_controller.register_animation(game.player, game.player.animation_name,
             arg.argument, orig_animation.width, orig_animation.height, false, false,orig_animation.animation_rate)
