@@ -3,11 +3,11 @@ background_image: game-data/levels/h_level_1/h_level_1.png
 background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/h_level_1/wayfinding.yml
 reward_level: game-data/levels/h_level_1_reward/h_level_1_reward.yml
-player_start_position: [ 60, 420 ]
+player_start_position: [ 100, 320 ]
 
 measurements:
-  width: 640
-  height: 480
+  width: 800
+  height: 600
 anded_completion_conditions:
   - condition: player_health_at_least
     argument: 1
@@ -26,20 +26,20 @@ spawn_points:
 line_segments:
   - start_x: 0
     start_y: 0
-    end_x: 640
+    end_x: 800
     end_y:   0
   - start_x: 0
     start_y: 0
     end_x:   0
-    end_y: 480
-  - start_x: 640
+    end_y: 600
+  - start_x: 800
     start_y: 0
-    end_x: 640
-    end_y: 480
+    end_x: 800
+    end_y: 600
   - start_x: 0
-    start_y: 480
-    end_x: 640
-    end_y: 480
+    start_y: 600
+    end_x: 800
+    end_y: 600
     
   - start_x: 320
     start_y: 0
@@ -49,7 +49,7 @@ line_segments:
   - start_x: 318
     start_y: 280
     end_x: 318
-    end_y: 480
+    end_y: 600
 
   - start_x: 330
     start_y: 0
@@ -59,4 +59,4 @@ line_segments:
   - start_x: 325
     start_y: 280
     end_x: 325
-    end_y: 480
+    end_y: 600

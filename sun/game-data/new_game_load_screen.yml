@@ -1,6 +1,6 @@
 game:
-  width: 640
-  height: 480
+  width: 800
+  height: 600
   collision_response: "game-data/collision_response/collision_response.yml"
   level: "game-data/levels/load_screen/load_screen.yml"
   input_controller: "game-data/input/input_config.yml"
