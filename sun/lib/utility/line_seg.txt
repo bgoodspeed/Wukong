@@ -1,0 +1,292 @@
+there were 7788924 pixels
+in 72 colors
+************************************************************
+line_segments:
+  - start_x: 112
+    start_y: 1
+    end_x: 121
+    end_y: 37
+  - start_x: 275
+    start_y: 1
+    end_x: 249
+    end_y: 6
+  - start_x: 1458
+    start_y: 1
+    end_x: 1443
+    end_y: 25
+  - start_x: 1665
+    start_y: 1
+    end_x: 1739
+    end_y: 128
+  - start_x: 1886
+    start_y: 1
+    end_x: 1888
+    end_y: 17
+  - start_x: 248
+    start_y: 7
+    end_x: 236
+    end_y: 19
+  - start_x: 2892
+    start_y: 12
+    end_x: 2883
+    end_y: 17
+  - start_x: 2893
+    start_y: 12
+    end_x: 2915
+    end_y: 15
+  - start_x: 2916
+    start_y: 16
+    end_x: 2952
+    end_y: 87
+  - start_x: 1889
+    start_y: 18
+    end_x: 1941
+    end_y: 91
+  - start_x: 2882
+    start_y: 18
+    end_x: 2878
+    end_y: 25
+  - start_x: 235
+    start_y: 20
+    end_x: 230
+    end_y: 32
+  - start_x: 1442
+    start_y: 26
+    end_x: 1413
+    end_y: 64
+  - start_x: 2877
+    start_y: 26
+    end_x: 2877
+    end_y: 41
+  - start_x: 229
+    start_y: 33
+    end_x: 185
+    end_y: 47
+  - start_x: 122
+    start_y: 37
+    end_x: 153
+    end_y: 37
+  - start_x: 154
+    start_y: 37
+    end_x: 184
+    end_y: 47
+  - start_x: 2877
+    start_y: 42
+    end_x: 2900
+    end_y: 143
+  - start_x: 1412
+    start_y: 65
+    end_x: 1412
+    end_y: 86
+  - start_x: 3038
+    start_y: 74
+    end_x: 2966
+    end_y: 92
+  - start_x: 1413
+    start_y: 87
+    end_x: 1422
+    end_y: 107
+  - start_x: 2953
+    start_y: 88
+    end_x: 2965
+    end_y: 92
+  - start_x: 1941
+    start_y: 92
+    end_x: 1942
+    end_y: 122
+  - start_x: 1423
+    start_y: 108
+    end_x: 1464
+    end_y: 145
+  - start_x: 1943
+    start_y: 123
+    end_x: 2009
+    end_y: 175
+  - start_x: 1739
+    start_y: 129
+    end_x: 1724
+    end_y: 166
+  - start_x: 2275
+    start_y: 132
+    end_x: 2249
+    end_y: 152
+  - start_x: 2276
+    start_y: 132
+    end_x: 2293
+    end_y: 150
+  - start_x: 1556
+    start_y: 143
+    end_x: 1498
+    end_y: 147
+  - start_x: 1557
+    start_y: 144
+    end_x: 1586
+    end_y: 179
+  - start_x: 2900
+    start_y: 144
+    end_x: 2959
+    end_y: 302
+  - start_x: 1465
+    start_y: 146
+    end_x: 1486
+    end_y: 153
+  - start_x: 1497
+    start_y: 147
+    end_x: 1487
+    end_y: 153
+  - start_x: 2294
+    start_y: 151
+    end_x: 2284
+    end_y: 190
+  - start_x: 2248
+    start_y: 153
+    end_x: 2133
+    end_y: 186
+  - start_x: 1723
+    start_y: 167
+    end_x: 1683
+    end_y: 180
+  - start_x: 2010
+    start_y: 175
+    end_x: 2041
+    end_y: 175
+  - start_x: 2042
+    start_y: 176
+    end_x: 2092
+    end_y: 205
+  - start_x: 1587
+    start_y: 179
+    end_x: 1616
+    end_y: 187
+  - start_x: 1682
+    start_y: 180
+    end_x: 1638
+    end_y: 181
+  - start_x: 1637
+    start_y: 181
+    end_x: 1617
+    end_y: 187
+  - start_x: 2132
+    start_y: 187
+    end_x: 2100
+    end_y: 204
+  - start_x: 2285
+    start_y: 191
+    end_x: 2302
+    end_y: 223
+  - start_x: 2093
+    start_y: 205
+    end_x: 2099
+    end_y: 205
+  - start_x: 2302
+    start_y: 224
+    end_x: 2306
+    end_y: 270
+  - start_x: 2694
+    start_y: 230
+    end_x: 2649
+    end_y: 246
+  - start_x: 2695
+    start_y: 231
+    end_x: 2723
+    end_y: 250
+  - start_x: 2648
+    start_y: 247
+    end_x: 2637
+    end_y: 285
+  - start_x: 2724
+    start_y: 251
+    end_x: 2745
+    end_y: 321
+  - start_x: 2306
+    start_y: 271
+    end_x: 2319
+    end_y: 294
+  - start_x: 2637
+    start_y: 287
+    end_x: 2711
+    end_y: 481
+  - start_x: 2319
+    start_y: 295
+    end_x: 2341
+    end_y: 381
+  - start_x: 2959
+    start_y: 303
+    end_x: 2985
+    end_y: 398
+  - start_x: 2745
+    start_y: 323
+    end_x: 2760
+    end_y: 396
+  - start_x: 2341
+    start_y: 383
+    end_x: 2439
+    end_y: 435
+  - start_x: 2760
+    start_y: 397
+    end_x: 2824
+    end_y: 505
+  - start_x: 2985
+    start_y: 399
+    end_x: 3001
+    end_y: 449
+  - start_x: 2439
+    start_y: 436
+    end_x: 2487
+    end_y: 524
+  - start_x: 3001
+    start_y: 450
+    end_x: 2998
+    end_y: 486
+  - start_x: 2710
+    start_y: 482
+    end_x: 2696
+    end_y: 512
+  - start_x: 2998
+    start_y: 487
+    end_x: 2977
+    end_y: 517
+  - start_x: 2824
+    start_y: 506
+    end_x: 2824
+    end_y: 513
+  - start_x: 2626
+    start_y: 509
+    end_x: 2611
+    end_y: 510
+  - start_x: 2627
+    start_y: 509
+    end_x: 2659
+    end_y: 516
+  - start_x: 2610
+    start_y: 510
+    end_x: 2549
+    end_y: 534
+  - start_x: 2695
+    start_y: 513
+    end_x: 2660
+    end_y: 516
+  - start_x: 2824
+    start_y: 514
+    end_x: 2835
+    end_y: 533
+  - start_x: 2976
+    start_y: 517
+    end_x: 2882
+    end_y: 542
+  - start_x: 2488
+    start_y: 525
+    end_x: 2512
+    end_y: 542
+  - start_x: 2856
+    start_y: 532
+    end_x: 2836
+    end_y: 533
+  - start_x: 2857
+    start_y: 532
+    end_x: 2881
+    end_y: 542
+  - start_x: 2548
+    start_y: 534
+    end_x: 2513
+    end_y: 542

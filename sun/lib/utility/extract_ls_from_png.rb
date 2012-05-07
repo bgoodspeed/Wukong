@@ -5,7 +5,7 @@ module PNGExtractor
   MAGIC_COLOR = 4294967295
   def is_clear_color?(pixel)
     rv = (pixel == MAGIC_COLOR)
-    puts "decided #{pixel} is clear? #{rv}"
+    #puts "decided #{pixel} is clear? #{rv}"
     rv
 
   end
