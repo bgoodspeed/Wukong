@@ -2,11 +2,20 @@ module PNGExtractor
   require 'chunky_png'
 
 
+  MAGIC_COLOR = 4294967295
+  def is_clear_color?(pixel)
+    rv = (pixel == MAGIC_COLOR)
+    puts "decided #{pixel} is clear? #{rv}"
+    rv
+
+  end
+
   def extract_linesegments(pic)
     image = ChunkyPNG::Image.from_file(pic)
     data = {}
     image.height.times do |y|
       image.row(y).each_with_index do |pixel, x|
+        next if is_clear_color?(pixel)
         unless data.has_key?(pixel)
           data[pixel] = []
         end
