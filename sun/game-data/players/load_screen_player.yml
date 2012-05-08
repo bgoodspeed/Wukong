@@ -4,7 +4,7 @@ player:
   animation_height: 16
   movement_distance: 2
   turn_speed: 5
-  health: 50
+  health: 1000
   max_health: 50
   position: [ 320, 240 ]
   menu_action_delay: 12

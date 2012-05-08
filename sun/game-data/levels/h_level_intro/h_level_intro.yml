@@ -17,11 +17,17 @@ anded_completion_conditions:
 declared_enemies:
   - enemy_yaml: game-data/enemies/horned_pig_anim.yml
     name: e1
+  - enemy_yaml: game-data/enemies/horned_pig_anim.yml
+    name: e2
 spawn_points:
-  - point: [ 1800, 2000 ]
-    name: ant_lvl_1
-    spawn_schedule: 1 enemies every 100 ticks for 200 total ticks
+  - point: [ 1771, 1491 ]
+    name: large_piggy_1
+    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e1 ]
+  - point: [ 1523, 1307 ]
+    name: large_piggy_2
+    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_argument: [ e2 ]
 
 line_segments:
   - start_x: 0
