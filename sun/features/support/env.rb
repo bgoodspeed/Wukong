@@ -24,9 +24,11 @@ def mock_game
   m.stubs(:animation_controller).returns m
   m.stubs(:register_image).returns m
   m.stubs(:register_animation).returns m
+  m.stubs(:animation_index_by_entity_and_name).returns m
   m.stubs(:width).returns 66
   m.stubs(:height).returns 44
   m.stubs(:remove_weapon)
+  m.stubs(:needs_update=)
   m.stubs(:stop_animation)
   m
 end
