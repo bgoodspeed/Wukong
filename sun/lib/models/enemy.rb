@@ -31,6 +31,7 @@ class Enemy
     @image_file = conf['image_path']
     #TODO move image registration out of constructor into loader
     @animation_path = conf.has_key?('animation_path') ? conf['animation_path'] : conf['image_path']
+    raise "bad anim name: #{conf['animation_name']}" unless conf['animation_name']
     @enemy_animation = @game.animation_controller.register_animation(self, conf['animation_name'],
       @animation_path, conf['animation_width'], conf['animation_height'], false, false, conf['animation_rate'])
     @enemy_avatar = @game.image_controller.register_image(conf['image_path'])
@@ -69,6 +70,7 @@ class Enemy
     (Math::atan(vector[1].to_f/vector[0].to_f) * 180.0)/Math::PI
   end
   def tick_tracking(vector)
+    @game.animation_controller.animation_index_by_entity_and_name(self, animation_name).needs_update = true
     @last_move = vector.scale(@velocity)
     @direction = angle_for(vector)
     @position = @position.plus(@last_move)

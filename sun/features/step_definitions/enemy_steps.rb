@@ -110,3 +110,13 @@ end
 Then /^the enemy direction should be (\d+)$/ do |arg1|
   @enemy.direction.should be_near(arg1.to_f)
 end
+
+Then /^the animation for the enemy should not be active$/ do
+  @game.animation_controller.animation_index_by_entity_and_name(the_first_enemy, the_first_enemy.animation_name).active.should == false
+
+end
+
+
+Then /^the animation for the enemy should need an update$/ do
+  @game.animation_controller.animation_index_by_entity_and_name(the_first_enemy, the_first_enemy.animation_name).needs_update.should == true
+end

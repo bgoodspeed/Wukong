@@ -97,3 +97,11 @@ Feature: Enemy Built
     Given I create an enemy in isolation
     When I tick tracking with vector "[1,1]"
     Then the enemy direction should be 45
+
+  Scenario: Animated Enemy Needs Update
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I add an enemy from "enemy_animated.yml"
+    When I see the first frame
+    Then there should be 1 enemies
+    And the animation for the enemy should not be active
+    And the animation for the enemy should need an update
