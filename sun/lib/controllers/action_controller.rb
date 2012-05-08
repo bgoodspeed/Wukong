@@ -47,8 +47,9 @@ class ActionController
       ResponseTypes::TRIGGER_EVENT1 => lambda {|game, col| col.dynamic1.trigger},
       ResponseTypes::TRIGGER_EVENT2 => lambda {|game, col| col.dynamic2.trigger},
       ResponseTypes::MOUSE_PICK1 => lambda {|game, col|
-        @game.remove_mouse_collision #TODO could also add a timed event here add a highlight around that enemy?
-        @game.add_event(Event.new(col.dynamic1, EventTypes::PICK))},
+        game.log.info { "Mouse click on #{col.dynamic1}" }
+        game.remove_mouse_collision #TODO could also add a timed event here add a highlight around that enemy?
+        game.add_event(Event.new(col.dynamic1, EventTypes::PICK))},
       ResponseTypes::TEMPORARY_MESSAGE1  => lambda {|game, col| game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", col.dynamic1.hud_message,"temporary_message=", nil, 60 )) }
     }
   end
@@ -135,7 +136,11 @@ class ActionController
       KeyActions::INTERACT    => delaying(KeyActions::INTERACT)    {|game,arg| game.interact},
       KeyActions::MENU_ENTER  => delaying(KeyActions::MENU_ENTER)  {|game,arg| game.interact},
       KeyActions::MENU        => delaying(KeyActions::MENU)        {|game,arg| game.enter_menu},
-      KeyActions::MOUSE_CLICK => delaying(KeyActions::MOUSE_CLICK) {|game,arg| game.pick_game_element},
+      KeyActions::MOUSE_CLICK => delaying(KeyActions::MOUSE_CLICK) {|game,arg|
+        msc = game.input_controller.mouse_screen_coords
+        @game.log.info "Mouse click at #{msc[0]},#{msc[1]}"
+
+        game.pick_game_element},
       
       KeyActions::RIGHT => lambda { |game, arg| game.player.turn(game.turn_speed) },
       KeyActions::LEFT  => lambda { |game, arg| game.player.turn(-game.turn_speed) },
