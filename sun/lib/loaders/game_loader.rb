@@ -70,16 +70,6 @@ class GameLoader
     sub_yaml_deps_pre_level.each {|a| process_yaml_dep(game, conf, a)}
     game.load_level(conf['level'])
     sub_yaml_deps_post_level.each {|a| process_yaml_dep(game, conf, a)}
-    #TODO this is not right, should come from level/spawning
-    #TODO massive hack, get rid of this ASAP
-    #TODO massive hack, now. this is fucking retarded
-    if game.level.name !~ /load_screen/ and game.level.name !~ /demo_slow/
-      game.log.info { "Adding hackish enemy "}
-      e = YamlLoader.from_file(Enemy, game, "game-data/enemies/enemy.yml")
-      game.add_enemy(e)
-      e.tracking_target = game.player
-      game.path_following_controller.add_tracking(e, game.wayfinding)
-    end
 
     try_add_splash_screen(game, conf)
     try_add_font_config(game, conf)

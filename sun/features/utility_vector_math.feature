@@ -69,7 +69,7 @@ Feature: Vector Math
       | 2.1,0:1  | 0,0:1    | false       |
       | 10,10:1  | 2,2:5    | false       |
 
-  Scenario: Circle Line Segment Intersection
+  Scenario: Circle Point Intersection
     Given we import vector math on arrays
     Then I should be able to test intersection of the following circles and points
       | circle    | point  | intersects? | 
@@ -99,6 +99,7 @@ Feature: Vector Math
       | 2730,280:2  | 2722,250:2741,314 | true       |
       | 2730,280:32 | 2721,250:2742,314 | true       |
       | 2728,265:8  | 2728,250:2748,311 | true       |
+      | 2737,281:8  | 2724,251:2745,316 | true       |
 
   Scenario: Circle Rectangle Intersection
     Given we import vector math on arrays
