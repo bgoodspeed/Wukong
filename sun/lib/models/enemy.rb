@@ -32,7 +32,7 @@ class Enemy
     #TODO move image registration out of constructor into loader
     @animation_path = conf.has_key?('animation_path') ? conf['animation_path'] : conf['image_path']
     @enemy_animation = @game.animation_controller.register_animation(self, conf['animation_name'],
-      @animation_path, conf['animation_width'], conf['animation_width'], false, false, conf['animation_rate'])
+      @animation_path, conf['animation_width'], conf['animation_height'], false, false, conf['animation_rate'])
     @enemy_avatar = @game.image_controller.register_image(conf['image_path'])
     p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
     @radius = p.max
