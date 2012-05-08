@@ -71,7 +71,7 @@ Feature: Collision Detection
     And I set the player weapon type to "projectile"
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbSpace"
-    And I run the game loop 22 times and clear the state after run 1
+    And I run the game loop 23 times and clear the state after run 1
     Then there should be no projectiles
 
   Scenario: Player collisions with Enemy damages both
@@ -87,7 +87,7 @@ Feature: Collision Detection
     And I set the enemy health to 5
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbUp"
-    And I run the game loop 17 times
+    And I run the game loop 18 times
     And the player health should be 9
     And the enemy health should be 4
 
@@ -104,7 +104,7 @@ Feature: Collision Detection
     And I set the enemy health to 5
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbUp"
-    And I run the game loop 17 times
+    And I run the game loop 18 times
     And the player health should be 9
     And the enemy health should be 4
 
@@ -197,15 +197,15 @@ Feature: Collision Detection
     And I create the path following controller
     And I set the player avatar to "avatar.bmp"
     And I set the player position to 267,394
-    And I set the player direction to 145
+    And I set the player direction to 135
     And I set the enemy avatar to "enemy_avatar.bmp"
-    And I set the enemy position 360,500
+    And I set the enemy position 365,500
     And I set the enemy health to 12
     And I set the player weapon with image "weapon.png"
     And I set the player weapon type to "projectile"
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbSpace"
-    And I run the game loop 60 times and clear the state after run 1
+    And I run the game loop 80 times and clear the state after run 1
     Then there should be no projectiles
     And the enemy should have 11 hp
 

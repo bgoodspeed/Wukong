@@ -25,7 +25,7 @@ class Enemy
       'collision_priority' => CollisionPriority::LOW
     }
   end
-  def initialize( game, conf_in)
+  def initialize(game, conf_in)
     conf = self.class.defaults.merge(conf_in)
     @game = game
     @image_file = conf['image_path']
@@ -34,10 +34,19 @@ class Enemy
     @enemy_animation = @game.animation_controller.register_animation(self, conf['animation_name'],
       @animation_path, conf['animation_width'], conf['animation_height'], false, false, conf['animation_rate'])
     @enemy_avatar = @game.image_controller.register_image(conf['image_path'])
-    p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
+    if conf.has_key?('animation_width')
+      p = [conf['animation_width']/2.0, conf['animation_height']/2.0 ]
+
+    else
+      p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
+    end
+
+
     @radius = p.max
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
+
+    @game.animation_controller.animation_index_by_entity_and_name(self, conf['animation_name']).needs_update = true
     process_attributes(ATTRIBUTES, self, conf)
   end
   def animation_path_for(name)

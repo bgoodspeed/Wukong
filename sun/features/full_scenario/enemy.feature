@@ -9,7 +9,7 @@ Feature: Enemy Built
     And I set the enemy avatar to "enemy_avatar.bmp"
     When I see the first frame
     Then the enemy should be in the scene
-    And the enemy should be at position 35,35.5
+    And the enemy should be at position 25,25.0
     And the enemy should have hud message "Enemy : 15HP"
 
   Scenario: Enemy Chasing Player
@@ -28,8 +28,8 @@ Feature: Enemy Built
     And the player should be at position 300,300
     And the path following controller should be tracking the enemy
     And the next wayfinding point for enemy should be 50,50
-    And the next wayfinding direction for enemy should be 0.71899, 0.69502
-    And the enemy should be at position 38.59494,38.97511
+    And the next wayfinding direction for enemy should be 0.7071, 0.7071
+    And the enemy should be at position 28.5355,28.5355
 
   Scenario: Enemy Chasing Player B
     Given I load the game on level "trivial" with screen size 640, 480

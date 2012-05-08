@@ -51,6 +51,7 @@ class SpawnPoint
         enemy.position = @point
         #TODO get rid of this, shouldn't be needed
         @game.animation_controller.add_entity_equivalance(enemy, orig_enemy)
+        @game.animation_controller.animation_index_by_entity_and_name(enemy, enemy.animation_name).needs_update = true
         @game.add_event(Event.new(enemy, EventTypes::SPAWN))
       end
     end
