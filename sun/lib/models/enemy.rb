@@ -34,11 +34,11 @@ class Enemy
     @enemy_animation = @game.animation_controller.register_animation(self, conf['animation_name'],
       @animation_path, conf['animation_width'], conf['animation_height'], false, false, conf['animation_rate'])
     @enemy_avatar = @game.image_controller.register_image(conf['image_path'])
-#    if conf.has_key?('animation_width')
-#      p = [conf['animation_width']/2.0, conf['animation_height']/2.0 ]
-#    else
+    if conf.has_key?('animation_width')
+      p = [conf['animation_width']/2.0, conf['animation_height']/2.0 ]
+    else
       p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
-#    end
+    end
 
 
     @radius = p.max
