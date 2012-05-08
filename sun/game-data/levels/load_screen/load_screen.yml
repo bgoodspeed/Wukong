@@ -1,7 +1,8 @@
 name: load_screen
-background_image: game-data/levels/load_screen/load_screen.png
+background_image: game-data/levels/load_screen/load_screen_blue.png
 background_music: game-data/music/xnckv_mono.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
+player_start_position: [ 400, 320 ]
 
 measurements:
   width: 800
@@ -24,24 +25,24 @@ line_segments:
     end_x: 800
     end_y: 600
 event_areas:
-  - top_left: [ 72, 320 ]
-    bottom_right: [ 264, 410 ]
+  - top_left: [ 89, 466 ]
+    bottom_right: [ 243, 522 ]
     action: queue_start_new_game_event
     description:
       - ...had it all...ack...and whit...
       - ...answe...find...questio...
-  - top_left: [ 379, 121 ]
-    bottom_right: [ 572, 211 ]
+  - top_left: [ 565, 78 ]
+    bottom_right: [ 719, 135 ]
     action: queue_load_game_event
     description:
       - Load previous saved games.
-  - top_left: [ 379, 320 ]
-    bottom_right: [ 572, 410 ]
+  - top_left: [ 561, 467 ]
+    bottom_right: [ 718, 523 ]
     action: queue_settings_event
     description:
       - See and edit game settings.
-  - top_left: [ 71, 121 ]
-    bottom_right: [ 263, 211 ]
+  - top_left: [ 87, 76 ]
+    bottom_right: [ 246, 133 ]
     action: queue_continue_event
     description:
       - Continue with most recently saved game.
