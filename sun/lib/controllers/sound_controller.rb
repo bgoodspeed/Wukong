@@ -24,6 +24,7 @@ class SoundController
 
   def initialize(game)
     @game = game
+    @effect_instances_by_name = {}
     @effects_by_name = {}
     @song_by_name = {}
     @effect_play_count = Hash.new(0)
@@ -35,12 +36,24 @@ class SoundController
     @effects_by_name[name] = Graphics::Sample.new(@game.window, file_name)
   end
 
+
+  def play_singleton_effect(name)
+    if @effects_by_name.has_key?(name)
+
+      return if @effect_instances_by_name.has_key?(name) and @effect_instances_by_name[name].playing?
+
+      @effect_instances_by_name[name] = @effects_by_name[name].play
+      @effect_play_count[name] += 1
+    else
+      @game.log.error { "ERROR: No such sound effect #{name}" }
+    end
+  end
   def play_effect(name)
     if @effects_by_name.has_key?(name)
       @effects_by_name[name].play
       @effect_play_count[name] += 1
     else
-      # TODO: no sound file #{name}, add a log file.
+      @game.log.error { "ERROR: No such sound effect #{name}" }
     end
   end
 
@@ -53,7 +66,7 @@ class SoundController
       @song_by_name[sound_name].play(loops)
       @play_count_for_song[sound_name] += 1
     else
-      # TODO: no sound file #{name}, add a log file.
+      @game.log.error { "ERROR: No such song #{sound_name}" }
     end
   end
 

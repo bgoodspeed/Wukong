@@ -18,3 +18,4 @@ player:
   animation_path: test-data/sprites/avatar.bmp
   main_animation_name: main_player_anim
   animation_name: main_player_anim
+  footsteps_effect_name: footsteps

@@ -10,7 +10,7 @@ class Player
   YAML_ATTRIBUTES = [:step_size, :position, :direction, :health, 
     :max_health, :turn_speed, :movement_distance, :menu_action_delay,
     :enemies_killed, :image_path, :collision_priority, :base_accuracy,
-    :image_file, :animation_path,  :main_animation_name, :animation_name
+    :image_file, :animation_path,  :main_animation_name, :animation_name, :footsteps_effect_name
   ]
   NON_YAML_ATTRIBUTES = [:inventory, :avatar, :is_moving, :animation_name,:animation_paths_by_name,
 
@@ -27,6 +27,7 @@ class Player
 
   def self.defaults
     {
+       'footsteps_effect_name' => "footsteps",
       'animation_name' => 'main_player_anim',
       'animation_width' => 30,
       'animation_height' => 30,

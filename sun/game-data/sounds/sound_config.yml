@@ -2,6 +2,8 @@ sound_controller:
   effects:
     - filename: game-data/sounds/shoot_long.wav
       name: shoot
+    - filename: game-data/sounds/shoot_short.wav
+      name: footsteps
 
   songs:
     - filename: game-data/music/splash.wav

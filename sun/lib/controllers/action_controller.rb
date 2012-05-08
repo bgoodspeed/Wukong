@@ -147,6 +147,7 @@ class ActionController
       KeyActions::LEFT  => lambda { |game, arg| game.player.turn(-game.turn_speed) },
       KeyActions::UP    => lambda { |game, arg| 
         game.animation_controller.animation_index_by_entity_and_name(game.player, game.player.main_animation_name).needs_update = true
+        game.sound_controller.play_singleton_effect(game.player.footsteps_effect_name)
         game.player.move_forward(game.movement_distance) },
       KeyActions::DOWN  => lambda { |game, arg|
         game.animation_controller.animation_index_by_entity_and_name(game.player, game.player.main_animation_name).needs_update = true
