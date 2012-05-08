@@ -12,6 +12,10 @@ module Graphics
   def self.milliseconds
     Gosu::milliseconds
   end
+  def self.angle(*args)
+    Gosu::angle(*args)
+  end
+
   def self.offset_x(*args)
     Gosu::offset_x(*args)
   end

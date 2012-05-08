@@ -2,7 +2,7 @@
 class Enemy
 
   attr_accessor :tracking_target
-  ATTRIBUTES = [:position, :health, :velocity, :name, :collision_priority,
+  ATTRIBUTES = [:position, :health, :velocity, :name, :collision_priority, :base_direction,
                 :image_file, :direction, :animation_name, :animation_path
   ]
   ATTRIBUTES.each {|attr| attr_accessor attr }
@@ -22,6 +22,7 @@ class Enemy
       'health' => 15,
       'velocity' => 5,
       'direction' => 0.0,
+      'base_direction' => 0.0,
       'collision_priority' => CollisionPriority::LOW
     }
   end
@@ -67,12 +68,17 @@ class Enemy
       return 90.0 if vector[0] > 0
       return 270.0
     end
-    (Math::atan(vector[1].to_f/vector[0].to_f) * 180.0)/Math::PI
+
+    rv = (Math::atan(vector[1].to_f/vector[0].to_f) * 180.0)/Math::PI
+    if vector[0] < 0
+      rv -= 180
+    end
+    rv
   end
   def tick_tracking(vector)
     @game.animation_controller.animation_index_by_entity_and_name(self, animation_name).needs_update = true
     @last_move = vector.scale(@velocity)
-    @direction = angle_for(vector)
+    @direction = (@base_direction + angle_for(vector)) % 360.0
     @position = @position.plus(@last_move)
   end
 

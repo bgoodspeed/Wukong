@@ -95,10 +95,25 @@ Feature: Enemy Built
     When I tick tracking with vector "[-1,0]"
     Then the enemy direction should be 270
 
-  Scenario: Enemy tracking arbitrary
+  Scenario: Enemy tracking NE
     Given I create an enemy in isolation
     When I tick tracking with vector "[1,1]"
     Then the enemy direction should be 45
+
+  Scenario: Enemy tracking SE
+    Given I create an enemy in isolation
+    When I tick tracking with vector "[1,-1]"
+    Then the enemy direction should be 315
+
+  Scenario: Enemy tracking SW
+    Given I create an enemy in isolation
+    When I tick tracking with vector "[-1,-1]"
+    Then the enemy direction should be 225
+
+  Scenario: Enemy tracking NW
+    Given I create an enemy in isolation
+    When I tick tracking with vector "[-1,1]"
+    Then the enemy direction should be 135
 
   Scenario: Animated Enemy Needs Update
     Given I load the game on level "trivial" with screen size 640, 480
