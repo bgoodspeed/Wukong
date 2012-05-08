@@ -30,6 +30,7 @@ Feature: Enemy Built
     And the next wayfinding point for enemy should be 50,50
     And the next wayfinding direction for enemy should be 0.7071, 0.7071
     And the enemy should be at position 28.5355,28.5355
+    Then the enemy direction should be 45
 
   Scenario: Enemy Chasing Player B
     Given I load the game on level "trivial" with screen size 640, 480
@@ -48,6 +49,7 @@ Feature: Enemy Built
     And the player should be at position 300,300
     And the path following controller should be tracking the enemy
     And the enemy should be at position 299.9998,299.9818
+    Then the enemy direction should be 89.311
 
   Scenario: Multiple Enemies
     Given I load the game on level "trivial" with screen size 640, 480
