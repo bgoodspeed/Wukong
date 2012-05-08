@@ -26,6 +26,7 @@ class Enemy
       'collision_priority' => CollisionPriority::LOW
     }
   end
+  attr_reader :radius
   def initialize(game, conf_in)
     conf = self.class.defaults.merge(conf_in)
     @game = game

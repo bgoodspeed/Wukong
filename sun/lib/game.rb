@@ -182,6 +182,7 @@ class Game
     @input_controller.respond_to_keys
     return if menu_mode? 
     @animation_controller.tick
+    @rendering_controller.tick
     @path_following_controller.tick
     @level.tick
     @collisions = @level.check_for_collisions
@@ -196,7 +197,7 @@ class Game
 
     @level.draw(@screen)
     @animation_controller.draw(@screen)
-    
+    @rendering_controller.draw_temporary_renderings
     if menu_mode?
       @menu_controller.draw(@screen)
     else

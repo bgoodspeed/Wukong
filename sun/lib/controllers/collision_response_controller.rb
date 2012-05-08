@@ -10,6 +10,8 @@ module ResponseTypes
   REMOVING2 = :removing2
   DAMAGING1 = :damaging1
   DAMAGING2 = :damaging2
+  SHOW_DAMAGE1 = :show_damage1
+  SHOW_DAMAGE2 = :show_damage2
   MOUSE_PICK1 = :mouse_pick1
   TEMPORARY_MESSAGE1 = :temporary_message1
 end
@@ -47,20 +49,22 @@ class CollisionResponseController
       },
       Enemy => {
         Enemy => [],
-        VectorFollower => [ResponseTypes::DAMAGING1, ResponseTypes::REMOVING2],
+        VectorFollower => [ResponseTypes::DAMAGING1, ResponseTypes::REMOVING2, ResponseTypes::SHOW_DAMAGE1],
         Primitives::LineSegment => [ResponseTypes::BLOCKING1],
         MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1],
         Weapon => [ResponseTypes::DAMAGING1]
       },
       VectorFollower => {
         Player => [],
-        Enemy => [ResponseTypes::DAMAGING2, ResponseTypes::REMOVING1],
+        Enemy => [ResponseTypes::DAMAGING2, ResponseTypes::REMOVING1, ResponseTypes::SHOW_DAMAGE2],
         Primitives::LineSegment => [ResponseTypes::REMOVING1]
       },
       Player => {
         Primitives::LineSegment => [ResponseTypes::BLOCKING1],
         VectorFollower => [], #TODO unrealistic
-        Enemy => [ResponseTypes::DAMAGING1, ResponseTypes::DAMAGING2, ResponseTypes::BLOCKING1],
+        Enemy => [ResponseTypes::DAMAGING1, ResponseTypes::DAMAGING2, ResponseTypes::BLOCKING1, ResponseTypes::SHOW_DAMAGE1,
+                  ResponseTypes::SHOW_DAMAGE2
+        ],
         EventEmitter => [ResponseTypes::TRIGGER_EVENT2],
         MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1],
         Weapon => [], #TODO unrealistic

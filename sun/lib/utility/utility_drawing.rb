@@ -42,15 +42,18 @@ module UtilityDrawing
   def transparent_grey
     Graphics::Color.argb(0xAA000000)
   end
+  def transparent_red
+    Graphics::Color.argb(0x22FF0000)
+  end
 
-  def darken_screen(g = @game, minx=0, maxx=@game.window.width, miny=0, maxy=@game.window.height)
+  def darken_screen(g = @game, minx=0, maxx=@game.window.width, miny=0, maxy=@game.window.height, color=transparent_grey, zo=ZOrder.dynamic.value)
     #TODO GOSU specific, not automatically tested
     g.window.draw_quad(
-      minx,miny, transparent_grey,
-      maxx,miny, transparent_grey,
-      maxx,maxy, transparent_grey,
-      minx,maxy, transparent_grey,
-      ZOrder.dynamic.value)
+      minx,miny, color,
+      maxx,miny, color,
+      maxx,maxy, color,
+      minx,maxy, color,
+      zo)
   end
 
 end

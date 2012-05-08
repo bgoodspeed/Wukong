@@ -79,13 +79,44 @@ module Views
       draw_line_segment(screen, ls)
     end
   end
+  class TemporaryRenderingView < BaseView
+    def call(screen, tr)
+      pos = game.camera.screen_coordinates_for(tr.position)
+      w = tr.radius
+      darken_screen(game, pos[0] - w, pos[0] + w, pos[1] - w, pos[1] + w, transparent_red, ZOrder.hud.value)
+    end
+  end
 
+end
+
+module RenderingTypes
+  DAMAGE = "RENDER_DAMAGE"
+end
+
+class TemporaryRendering
+  attr_reader :entity, :type, :time_to_live
+  def initialize(entity, type, time_to_live)
+    @entity, @type, @time_to_live = entity, type, time_to_live
+  end
+
+  def tick
+    @time_to_live -= 1
+  end
+  def dead?
+    @time_to_live <= 0
+  end
+  def position
+    @entity.position
+  end
+  def radius
+    @entity.radius
+  end
 
 end
 
 
 class RenderingController
-
+  attr_reader :temporary_renderings
   def initialize(game)
     @game = game
     @mapping = {Primitives::LineSegment => Views::LineSegmentView.new(@game),
@@ -95,15 +126,31 @@ class RenderingController
                InfoWindow => Views::InfoWindowView.new(@game),
                Weapon => Views::WeaponView.new(@game),
                #MouseCollisionWrapper => lambda {|screen, enemy| puts "NOOP, could add a highlight?" },
-               #TODO ugly, should this be here? not sure about design
-               VectorFollower => Views::VectorFollowerView.new(@game)
+               VectorFollower => Views::VectorFollowerView.new(@game),
+              RenderingTypes::DAMAGE => Views::TemporaryRenderingView.new(@game)
     }
-    
+
+    @temporary_renderings = []
   end
 
-    include UtilityDrawing
+  def add_consumable_rendering(entity, type, duration)
+    @temporary_renderings << TemporaryRendering.new(entity, type, duration)
+  end
+
+  def tick
+    @temporary_renderings.each {|tr|tr.tick}
+    @temporary_renderings.reject!{|tr| tr.dead?}
+  end
+
+  def draw_temporary_renderings
+    @temporary_renderings.each {|tr|
+      raise "Unknown rendering type #{tr.type}" unless @mapping.has_key?(tr.type)
+      @mapping[tr.type].call(@game, tr)
+    }
+  end
+
+  include UtilityDrawing
   def draw_function_for(elem)
-    #TODO move all drawing logic out of models in case we replace gosu
     raise "Unknown draw function for #{elem.class}" unless @mapping.has_key?(elem.class)
     @mapping[elem.class]
   end

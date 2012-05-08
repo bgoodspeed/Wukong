@@ -38,8 +38,13 @@ class ActionController
   end
   def default_collision_responses
     {
-      ResponseTypes::DAMAGING1 => lambda {|game, col| col.dynamic1.take_damage(col.dynamic2)},
-      ResponseTypes::DAMAGING2 => lambda {|game, col| col.dynamic2.take_damage(col.dynamic1)},
+      ResponseTypes::DAMAGING1 => lambda {|game, col| col.dynamic1.take_damage(col.dynamic2) },
+      ResponseTypes::DAMAGING2 => lambda {|game, col| col.dynamic2.take_damage(col.dynamic1) },
+      ResponseTypes::SHOW_DAMAGE1 => lambda {|game, col|
+        game.rendering_controller.add_consumable_rendering(col.dynamic1, RenderingTypes::DAMAGE, 10) },
+      ResponseTypes::SHOW_DAMAGE2 => lambda {|game, col|
+        game.rendering_controller.add_consumable_rendering(col.dynamic2, RenderingTypes::DAMAGE, 10) },
+
       ResponseTypes::REMOVING1 => lambda {|game, col| game.remove_projectile(col.dynamic1)},
       ResponseTypes::REMOVING2 => lambda {|game, col| game.remove_projectile(col.dynamic2)},
       ResponseTypes::BLOCKING1 => lambda {|game, col| col.dynamic1.undo_last_move},
@@ -151,6 +156,7 @@ class ActionController
         game.player.move_forward(game.movement_distance) },
       KeyActions::DOWN  => lambda { |game, arg|
         game.animation_controller.animation_index_by_entity_and_name(game.player, game.player.main_animation_name).needs_update = true
+        game.sound_controller.play_singleton_effect(game.player.footsteps_effect_name)
         game.player.move_forward(-game.movement_distance) },
       #TODO need a way to let the weapon determine the length of the delay
       KeyActions::FIRE  => delaying(KeyActions::FIRE) {|game,arg| game.player.use_weapon},
