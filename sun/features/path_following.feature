@@ -25,4 +25,7 @@ Feature: Path Following Details
       | 0,5               |
       | 10,0              |
 
-  
+  Scenario: Path Following
+    Given I load the game "demo"
+
+

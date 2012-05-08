@@ -3,16 +3,25 @@
 
 
 class PathFollowingController
+  attr_accessor :distance_threshold
   attr_reader :vector_following, :tracking
   def initialize(game)
     @game = game
     @vector_following = []
     @tracking = {}
+    @distance_threshold = 500 #TODO make this configurable
   end
 
   def tick
     @vector_following.each {|vf| vf.tick}
-    @tracking.each {|h, wf| h.tick_tracking(current_tracking_direction_for(h))}
+    @tracking.each {|h, wf|
+      if h.position.distance_from(@game.player.position) > 500
+
+      else
+        h.tick_tracking(current_tracking_direction_for(h))
+      end
+
+    }
   end
   def remove_projectile(p)
     @vector_following -= [p]

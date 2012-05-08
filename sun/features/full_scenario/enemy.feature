@@ -51,6 +51,25 @@ Feature: Enemy Built
     And the enemy should be at position 299.9998,299.9818
     Then the enemy direction should be 89.311
 
+  Scenario: Enemy Too Far Away
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I load wayfinding layer "trivial"
+    And I create the path following controller
+    And I set the enemy avatar to "enemy_avatar.bmp"
+    And I set the player avatar to "avatar.bmp"
+    And I set the player position to 3000,3000
+    And I tell the enemy to track the player
+    And I tell the enemy velocity to 5
+    And I register the enemy in the path following controller using wayfinding
+    When I see the first frame
+    And I step the path following controller
+    Then the enemy should be in the scene
+    And the path following controller should be tracking the enemy
+    And the next wayfinding point for enemy should be 50,50
+    And the next wayfinding direction for enemy should be 0.7071, 0.7071
+    And the enemy should be at position 25,25
+    Then the enemy direction should be 0
+
   Scenario: Multiple Enemies
     Given I load the game on level "trivial" with screen size 640, 480
     And I set the enemy avatar to "enemy_avatar.bmp"
