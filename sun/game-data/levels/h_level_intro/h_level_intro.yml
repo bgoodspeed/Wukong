@@ -15,12 +15,12 @@ anded_completion_conditions:
     argument: [ 3365, 203 ]
 
 declared_enemies:
-  - enemy_yaml: game-data/enemies/white_square.yml
+  - enemy_yaml: game-data/enemies/horned_pig_anim.yml
     name: e1
 spawn_points:
-  - point: [ 610, 203 ]
+  - point: [ 1800, 2000 ]
     name: ant_lvl_1
-    spawn_schedule: 1 enemies every 100 ticks for 900 total ticks
+    spawn_schedule: 1 enemies every 100 ticks for 200 total ticks
     spawn_argument: [ e1 ]
 
 line_segments:
