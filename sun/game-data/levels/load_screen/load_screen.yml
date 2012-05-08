@@ -29,8 +29,7 @@ event_areas:
     bottom_right: [ 243, 522 ]
     action: queue_start_new_game_event
     description:
-      - ...had it all...ack...and whit...
-      - ...answe...find...questio...
+      - ...had it all...ack...and whit...answe...find...questio...
   - top_left: [ 565, 78 ]
     bottom_right: [ 719, 135 ]
     action: queue_load_game_event

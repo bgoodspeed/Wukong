@@ -1,10 +1,10 @@
 enemy:
   name: Game Enemy Horned Piggy
   image_path: game-data/sprites/horned_pig_animation.png
-  animation_width: 105
+  animation_width: 106
   animation_height: 132
-  animation_rate: 10
+  animation_rate: 20
   position: [ 1800 , 1100 ]
   base_direction: 90
   health: 5
-  velocity: 1
+  velocity: 0.5
