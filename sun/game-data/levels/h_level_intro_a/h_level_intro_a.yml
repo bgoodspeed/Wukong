@@ -2,7 +2,7 @@ name: h_level_intro_a
 background_image: game-data/levels/h_level_intro_a/h_level_intro_a.png
 background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/h_level_1/wayfinding.yml
-reward_level: game-data/levels/h_level_intro/h_level_intro.yml
+reward_level: game-data/levels/h_level_intro_b/h_level_intro_b.yml
 player_start_position: [ 100, 100 ]
 
 measurements:
@@ -28,7 +28,13 @@ spawn_points:
     name: blaahh2
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e2 ]
-
+    
+event_areas:
+  - top_left: [ 189, 134 ]
+    bottom_right: [ 227, 174 ]
+    description:
+      - Attack with SPACE BAR!
+      
 line_segments:
   - start_x: 0
     start_y: 0
@@ -80,8 +86,3 @@ line_segments:
     end_x: 183
     end_y: 45
 
-event_areas:
-  - top_left: [ 189, 134 ]
-    bottom_right: [ 227, 174 ]
-    description:
-      - Attack with SPACE BAR!
