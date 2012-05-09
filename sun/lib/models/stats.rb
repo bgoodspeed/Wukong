@@ -17,6 +17,8 @@ class Stats
     conf = self.class.defaults.merge(conf_in)
     process_attributes(ATTRIBUTES, self, conf)
   end
-
+  def to_yaml
+    attr_to_yaml(ATTRIBUTES)
+  end
 
 end

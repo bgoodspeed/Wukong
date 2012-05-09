@@ -48,6 +48,7 @@ class SpawnPoint
       @enemy_quantity.times do
         orig_enemy = @game.level.declared_enemy(enemy_name)
         enemy = orig_enemy.dup
+        enemy.stats = orig_enemy.stats.dup
         enemy.position = @point
         #TODO get rid of this, shouldn't be needed
         @game.animation_controller.add_entity_equivalance(enemy, orig_enemy)

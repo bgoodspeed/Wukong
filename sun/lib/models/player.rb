@@ -7,8 +7,7 @@ class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
   attr_reader :radius
-  YAML_ATTRIBUTES = [:step_size, :position, :direction, :health, 
-    :max_health, :turn_speed, :movement_distance, :menu_action_delay,
+  YAML_ATTRIBUTES = [:step_size, :position, :direction, :turn_speed, :movement_distance, :menu_action_delay,
     :enemies_killed, :image_path, :collision_priority, :base_accuracy,
     :image_file, :animation_path,  :main_animation_name, :animation_name, :footsteps_effect_name
   ]
@@ -32,7 +31,6 @@ class Player
       'animation_width' => 30,
       'animation_height' => 30,
       'animation_rate' => 10,
-      'health' => 0,
       'direction' => 0,
       'step_size' => 1,
       'turn_speed' => 90,
@@ -40,7 +38,12 @@ class Player
       'enemies_killed' => 0,
       'movement_distance' => 1,
       'base_accuracy' => 100,
-      'collision_priority' => CollisionPriority::MID
+      'collision_priority' => CollisionPriority::MID,
+      'stats' => {
+          'health' => 10,
+          'max_health' => 15,
+      }
+
     }
   end
 
@@ -67,8 +70,21 @@ class Player
     self.is_moving=(false)
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil
+    cf = conf['stats'] ? conf['stats'] : {}
+    @stats = Stats.new(game, cf)
     @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
     process_attributes(YAML_ATTRIBUTES, self, conf)
+  end
+
+  def health=(v)
+    @stats.health = v
+  end
+
+  def health
+    @stats.health
+  end
+  def max_health
+    @stats.max_health
   end
 
   def is_moving=(v)
@@ -144,6 +160,7 @@ class Player
   
   def to_yaml
     cf = attr_to_yaml(YAML_ATTRIBUTES)
+    cf['stats'] = @stats.to_yaml
     {"player" => cf}.to_yaml(:UseHeader => true)
   end
 end

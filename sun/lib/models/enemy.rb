@@ -2,10 +2,11 @@
 class Enemy
 
   attr_accessor :tracking_target
-  ATTRIBUTES = [:position, :health, :velocity, :name, :collision_priority, :base_direction,
+  ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction,
                 :image_file, :direction, :animation_name, :animation_path
   ]
-  ATTRIBUTES.each {|attr| attr_accessor attr }
+  NON_YAML_ATTRIBUTES = [:stats]
+  (ATTRIBUTES + NON_YAML_ATTRIBUTES).each {|attr| attr_accessor attr }
 
   extend YamlHelper
   include MovementUndoable
@@ -19,11 +20,15 @@ class Enemy
       'animation_width' => 50,
       'animation_height' => 50,
       'animation_rate' => 10,
-      'health' => 15,
       'velocity' => 5,
       'direction' => 0.0,
       'base_direction' => 0.0,
-      'collision_priority' => CollisionPriority::LOW
+      'collision_priority' => CollisionPriority::LOW,
+      'stats' => {
+          'health' => 15,
+          'max_health' => 15,
+      }
+
     }
   end
   attr_reader :radius
@@ -48,16 +53,29 @@ class Enemy
     @radius = p.max
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
-
+    cf = conf['stats'] ? conf['stats'] : {}
+    @stats = Stats.new(game, cf)
     @game.animation_controller.animation_index_by_entity_and_name(self, conf['animation_name']).needs_update = true
     process_attributes(ATTRIBUTES, self, conf)
   end
+
+  def health=(v)
+    @stats.health = v
+  end
+
+  def health
+    @stats.health
+  end
+
+
+
+
   def animation_path_for(name)
     @animation_path
   end
   #TODO hackish
   def hud_message
-    "Enemy : #{@health}HP"
+    "Enemy : #{health}HP"
   end
 
   def angle_for(vector)
