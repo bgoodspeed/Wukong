@@ -77,7 +77,7 @@ class LevelLoader
       tl = ea['top_left']
       br = ea['bottom_right']
       rect = Primitives::Rectangle.new(tl, [tl.x, br.y], br, [br.x, tl.y])
-      eva = EventArea.new(@game, rect, ea['label'], ea['action'], ea['description'], ea['action_argument'] , ea['info_window_position'])
+      eva = EventArea.new(@game, rect, ea['label'], ea['action'], ea['description'], ea['action_argument'] , ea['info_window_position'], ea['info_window_size'])
       ea['images'].to_a.each do |img_conf|
         iwi = InfoWindowImage.new(@game, img_conf)
         @game.image_controller.register_image(iwi.image_name)

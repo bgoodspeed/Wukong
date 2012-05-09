@@ -4,10 +4,10 @@ class EventArea
   #TODO use ATTRIBUTES and process with yaml as usual
   attr_accessor :rect, :label, :action, :info_window, :action_argument
   alias_method :argument, :action_argument
-  def initialize(game, rect, label, action, description=nil, action_argument=nil, info_window_position=nil)
+  def initialize(game, rect, label, action, description=nil, action_argument=nil, info_window_position=nil, info_window_size=nil)
     @game =game
     @rect, @label, @action = rect, label, action
-    @info_window = InfoWindow.new(description ? description : ["Mystery?"], info_window_position)
+    @info_window = InfoWindow.new(description ? description : ["Mystery?"], info_window_position, info_window_size)
     @action_argument = action_argument
   end
 

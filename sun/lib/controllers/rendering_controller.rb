@@ -43,10 +43,26 @@ module Views
 
   class InfoWindowView < BaseView
     def call(screen, iw)
-      darken_screen(game, 50, game.window.width-50, 50, game.window.height-50)
+
+      #TODO this is really hideous.
+      if iw.info_window.position.nil? or iw.info_window.size.nil?
+        xp = 50
+        xpw = game.window.width-50
+        yp = 50
+        ypw = game.window.height-50
+        dp = 10
+
+      else
+        xp = iw.info_window.position[0]
+        xpw = xp + iw.info_window.size[0]
+        yp = iw.info_window.position[1]
+        ypw = iw.info_window.size[1]
+        dp =  10
+      end
+      darken_screen(game, xp, xpw, yp, ypw)
       #TODO fix this ZOrder stupidity
       iw.description.each_with_index do |desc, idx|
-        game.font_controller.draw_with_font(desc, 60, 60*(idx + 1), ZOrder.hud.value)
+        game.font_controller.draw_with_font(desc, xp + dp, yp + dp*(idx + 1), ZOrder.hud.value)
       end
 
       #TODO it seems we're actually being passed the event area, should be just the info window
