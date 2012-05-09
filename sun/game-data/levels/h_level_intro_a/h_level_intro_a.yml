@@ -1,0 +1,88 @@
+name: h_level_intro_a
+background_image: game-data/levels/h_level_intro_a/h_level_intro_a.png
+background_music: game-data/music/silence.wav
+wayfinding: game-data/levels/h_level_1/wayfinding.yml
+reward_level: game-data/levels/h_level_intro_b/h_level_intro_b.yml
+player_start_position: [ 100, 100 ]
+
+measurements:
+  width: 800
+  height: 600
+anded_completion_conditions:
+  - condition: player_health_at_least
+    argument: 1
+  - condition: player_near
+    argument: [ 780, 580 ]
+
+declared_enemies:
+  - enemy_yaml: game-data/enemies/enemy2_slow_anim.yml
+    name: e1
+  - enemy_yaml: game-data/enemies/enemy2_slow_anim.yml
+    name: e2
+spawn_points:
+  - point: [ 700, 400 ]
+    name: blahh 1
+    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_argument: [ e1 ]
+  - point: [ 600, 500 ]
+    name: blaahh2
+    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_argument: [ e2 ]
+    
+event_areas:
+  - top_left: [ 189, 134 ]
+    bottom_right: [ 227, 174 ]
+    description:
+      - Attack with SPACE BAR!
+      
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 800
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 600
+  - start_x: 800
+    start_y: 0
+    end_x: 800
+    end_y: 600
+  - start_x: 0
+    start_y: 600
+    end_x: 800
+    end_y: 600
+       
+  - start_x: 111
+    start_y: 0
+    end_x: 115
+    end_y: 15
+  - start_x: 266
+    start_y: 0
+    end_x: 249
+    end_y: 4
+  - start_x: 248
+    start_y: 5
+    end_x: 237
+    end_y: 15
+  - start_x: 115
+    start_y: 16
+    end_x: 121
+    end_y: 35
+  - start_x: 236
+    start_y: 16
+    end_x: 230
+    end_y: 30
+  - start_x: 229
+    start_y: 31
+    end_x: 184
+    end_y: 45
+  - start_x: 122
+    start_y: 35
+    end_x: 154
+    end_y: 35
+  - start_x: 155
+    start_y: 36
+    end_x: 183
+    end_y: 45
+

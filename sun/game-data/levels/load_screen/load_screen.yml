@@ -1,8 +1,8 @@
 name: load_screen
 background_image: game-data/levels/load_screen/load_screen_blue.png
-background_music: game-data/music/xnckv_mono.wav
+background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
-player_start_position: [ 400, 320 ]
+player_start_position: [ 370, 295 ]
 
 measurements:
   width: 800
@@ -29,7 +29,7 @@ event_areas:
     bottom_right: [ 243, 522 ]
     action: queue_start_new_game_event
     description:
-      - ...had it all...ack...and whit...answe...find...questio...
+      - Press ENTER or RETURN to accept.
   - top_left: [ 565, 78 ]
     bottom_right: [ 719, 135 ]
     action: queue_load_game_event
@@ -45,3 +45,7 @@ event_areas:
     action: queue_continue_event
     description:
       - Continue with most recently saved game.
+  - top_left: [ 349, 275 ]
+    bottom_right: [ 389, 317 ]
+    description:
+      - Use arrow buttons to move.
