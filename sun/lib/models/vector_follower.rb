@@ -21,8 +21,14 @@ class VectorFollower
   def tick
     @current_step += 1
   end
+  def updated_vector
+    @vector.scale(@current_step * @velocity)
+  end
   def current_position
-    @start.plus(@vector.scale(@current_step * @velocity))
+    @start.plus(updated_vector)
+  end
+  def distance_from_start
+    @start.distance_from(updated_vector)
   end
 
   #TODO this should be in a collidable module

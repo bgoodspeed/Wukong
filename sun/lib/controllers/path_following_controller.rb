@@ -13,9 +13,15 @@ class PathFollowingController
   end
 
   def tick
-    @vector_following.each {|vf| vf.tick}
+    @vector_following.each {|vf|
+      vf.tick
+    }
+
+    vfs = @vector_following.select {|vf| vf.distance_from_start > @distance_threshold}
+    @vector_following -= vfs
+
     @tracking.each {|h, wf|
-      if h.position.distance_from(@game.player.position) > 500
+      if h.position.distance_from(@game.player.position) > @distance_threshold
 
       else
         h.tick_tracking(current_tracking_direction_for(h))
