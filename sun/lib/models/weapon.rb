@@ -8,7 +8,16 @@ class Weapon
   attr_reader :inventory_type
   extend YamlHelper
 
-  def initialize(game, image)
+
+  def self.defaults
+    {
+        'stats' => {
+
+        }
+    }
+  end
+  def initialize(game, image, conf_in={})
+    conf = self.class.defaults.merge(conf_in)
     @image_path = image
     @swing_start = 0
     @swing_sweep = 0
@@ -20,6 +29,8 @@ class Weapon
     @type = "swung"
     @game = game
     @inventory_type = InventoryTypes::WEAPON
+    cf = conf['stats'] ? conf['stats'] : {}
+    @stats = Stats.new(game, cf)
     @animation_name = "weapon"
     @sound_effect_name = "unset"
   end

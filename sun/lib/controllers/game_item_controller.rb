@@ -9,6 +9,8 @@ class GameItem
   ATTRIBUTES.each {|at| attr_accessor at }
   def initialize(game, conf)
     @game = game
+    cf = conf['stats'] ? conf['stats'] : {}
+    @stats = Stats.new(game, cf)
   end
 end
 class GameItemController
