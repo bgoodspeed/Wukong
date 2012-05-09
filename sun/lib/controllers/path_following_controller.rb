@@ -18,7 +18,7 @@ class PathFollowingController
     }
 
     vfs = @vector_following.select {|vf| vf.distance_from_start > @distance_threshold}
-    @vector_following -= vfs
+    vfs.each {|vf| @game.remove_projectile(vf) }
 
     @tracking.each {|h, wf|
       if h.position.distance_from(@game.player.position) > @distance_threshold
