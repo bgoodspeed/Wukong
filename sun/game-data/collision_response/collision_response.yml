@@ -20,7 +20,7 @@ collision_response:
   "Player":
     "Primitives::LineSegment": [ blocking1 ]
     "VectorFollower": []
-    "Enemy": [ damaging1, damaging2, blocking1, show_damage1, show_damage2 ]
+    "Enemy": [ damaging1, damaging2, blocking1, show_damage1, show_damage2, blocking2 ]
     "EventEmitter": [ trigger_event2 ]
     "MouseCollisionWrapper": [ mouse_pick1 ]
     "Weapon": [  ]
