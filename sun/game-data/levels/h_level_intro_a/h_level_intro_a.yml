@@ -11,23 +11,35 @@ measurements:
 anded_completion_conditions:
   - condition: player_health_at_least
     argument: 1
-  - condition: player_near
-    argument: [ 780, 580 ]
+  - condition: enemies_killed_at_least
+    argument: 20
 
 declared_enemies:
-  - enemy_yaml: game-data/enemies/enemy2_slow_anim.yml
+  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
     name: e1
-  - enemy_yaml: game-data/enemies/enemy2_slow_anim.yml
+  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
     name: e2
+  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
+    name: e3
+  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
+    name: e4
 spawn_points:
   - point: [ 700, 400 ]
-    name: blahh 1
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    name: baby 1
+    spawn_schedule: 1 enemies every 100 ticks for 300 total ticks
     spawn_argument: [ e1 ]
   - point: [ 600, 500 ]
-    name: blaahh2
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    name: baby 2
+    spawn_schedule: 1 enemies every 100 ticks for 300 total ticks
     spawn_argument: [ e2 ]
+  - point: [ 675, 400 ]
+    name: baby 3
+    spawn_schedule: 1 enemies every 100 ticks for 300 total ticks
+    spawn_argument: [ e3 ]
+  - point: [ 650, 550 ]
+    name: baby 4
+    spawn_schedule: 1 enemies every 100 ticks for 300 total ticks
+    spawn_argument: [ e4 ]
     
 event_areas:
   - top_left: [ 189, 134 ]

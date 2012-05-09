@@ -3,7 +3,7 @@ player:
   position: [ 100, 100 ]
   movement_distance: 2
   turn_speed: 5
-  health: 10
-  max_health: 10
+  health: 500
+  max_health: 1000
   weapon_yaml: game-data/equipment/gun.yml
   menu_action_delay: 12
