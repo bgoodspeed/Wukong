@@ -48,6 +48,6 @@ event_areas:
   - top_left: [ 349, 275 ]
     bottom_right: [ 389, 317 ]
     description:
-      - Use arrow buttons to move.
+      - Welcome. Please choose an option and walk over to it.
     info_window_position: [ 300, 250 ]
     info_window_size: [100, 100 ]
