@@ -167,7 +167,7 @@ class Weapon
   def self.from_yaml(game, yaml, fn="unknown")
     data = YAML.load(yaml)
     conf = data['weapon']
-    obj = self.new(game, nil)
+    obj = self.new(game, nil, conf)
     obj.orig_filename = fn
     process_attributes(ATTRIBUTES, obj, conf)
   end
