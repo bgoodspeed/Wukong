@@ -83,7 +83,7 @@ When /^I invoke the action "([^"]*)" with set "([^"]*)"$/ do |arg1, arg2|
 end
 
 Given /^I create a vector follower with start "([^"]*)", vector "([^"]*)", velocity "([^"]*)"$/ do |arg1, arg2, arg3|
-  @vector_follower = VectorFollower.new(eval(arg1), eval(arg2), eval(arg3))
+  @vector_follower = VectorFollower.new( eval(arg1), eval(arg2), eval(arg3), "fake owner2")
   @last = @vector_follower
 end
 Then /^the last should match the fragment "([^"]*)"$/ do |arg1|

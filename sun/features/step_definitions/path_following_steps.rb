@@ -4,7 +4,7 @@ Given /^I create the path following controller$/ do
 end
 
 Given /^I add a projectile starting at (\d+),(\d+) from angle (\d+) at speed (\d+)$/ do |x, y, theta, v|
-  @projectile = @path_controller.add_projectile([x.to_f, y.to_f], theta.to_f, v.to_f)
+  @projectile = @path_controller.add_projectile("fake owner", [x.to_f, y.to_f], theta.to_f, v.to_f)
 end
 
 When /^I step the path following controller$/ do

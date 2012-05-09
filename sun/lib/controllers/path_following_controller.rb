@@ -26,12 +26,13 @@ class PathFollowingController
   def remove_projectile(p)
     @vector_following -= [p]
   end
-  def add_projectile(start, theta, velocity)
+  def add_projectile(owner, start, theta, velocity)
     vector = start
     vector = []
     vector[0] = Graphics::offset_x(theta, 1) #TODO isolate all gosu references
     vector[1] = Graphics::offset_y(theta, 1)
-    vf = VectorFollower.new(start, vector, velocity)
+    vf = VectorFollower.new(start, vector, velocity, owner)
+
     @vector_following << vf
     vf
   end

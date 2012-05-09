@@ -46,7 +46,7 @@ class Weapon
       @game.level.add_weapon(self)
 
     else
-      @game.add_projectile(p.position, p.direction, @velocity)
+      @game.add_projectile(self, p.position, p.direction, @velocity)
     end
 
     @game.play_effect(@sound_effect_name)

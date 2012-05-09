@@ -3,7 +3,8 @@
 
 class VectorFollower
   attr_reader :vector, :velocity, :collision_priority, :current_step
-  def initialize(start, vector, velocity)
+  def initialize(start, vector, velocity, owner)
+    @owner = owner
     @start = start
     @vector = vector
     @velocity = velocity

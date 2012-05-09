@@ -11,10 +11,11 @@ class InfoWindowImage
 end
 
 class InfoWindow
-  attr_accessor :description, :position, :images
-  def initialize(description, position=nil)
+  attr_accessor :description, :position, :images, :size
+  def initialize(description, position=nil, size=nil)
     @description = description
     @position = position
+    @size = size
     @images = []
   end
 end
