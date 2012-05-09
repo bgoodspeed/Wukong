@@ -5,7 +5,7 @@ class Weapon
     :orig_filename, :animation_name, :collision_priority, :display_name]
   ATTRIBUTES.each {|attr| attr_accessor attr }
   attr_accessor :in_use
-  attr_reader :inventory_type
+  attr_reader :inventory_type, :stats
   extend YamlHelper
 
 
@@ -30,7 +30,7 @@ class Weapon
     @game = game
     @inventory_type = InventoryTypes::WEAPON
     cf = conf['stats'] ? conf['stats'] : {}
-    @stats = Stats.new(game, cf)
+    @stats = Stats.new(cf)
     @animation_name = "weapon"
     @sound_effect_name = "unset"
   end

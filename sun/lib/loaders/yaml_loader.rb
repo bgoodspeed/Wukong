@@ -93,14 +93,12 @@ class InventoryController
     conf = data['inventory']
     obj = self.new(game)
     conf['weapons'].to_a.each do |item|
-      #TODO only knows about weapons...
       obj.register_item(item, YamlLoader.from_file(Weapon, game, item ))
     end
     conf['items'].to_a.each do |item|
-      #TODO only knows about weapons...
       obj.register_item(item, YamlLoader.from_file(GameItem, game, item ))
     end
-
+    #TODO will need armor here as well
     obj
   end
 

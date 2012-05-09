@@ -11,14 +11,28 @@ class Stats
         'accuracy' => 5,
     }
   end
+
+  def self.zero
+    s = Stats.new
+    ATTRIBUTES.each {|attr| s.send("#{attr}=", 0)}
+    s
+  end
   include YamlHelper
 
-  def initialize(game, conf_in={})
+  def initialize(conf_in={})
     conf = self.class.defaults.merge(conf_in)
     process_attributes(ATTRIBUTES, self, conf)
   end
   def to_yaml
     attr_to_yaml(ATTRIBUTES)
+  end
+
+  def plus_stats(other)
+    rv = Stats.new
+    ATTRIBUTES.each {|attr|
+      rv.send("#{attr}=", other.send(attr) + self.send(attr))
+    }
+    rv
   end
 
 end

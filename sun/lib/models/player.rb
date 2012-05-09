@@ -47,7 +47,7 @@ class Player
     }
   end
 
-  attr_reader :player_animation
+  attr_reader :player_animation, :stats
 
   def initialize(game, in_conf={})
     conf = self.class.defaults.merge(in_conf)
@@ -71,9 +71,13 @@ class Player
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
     @last_distance = nil
     cf = conf['stats'] ? conf['stats'] : {}
-    @stats = Stats.new(game, cf)
+    @stats = Stats.new(cf)
     @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
     process_attributes(YAML_ATTRIBUTES, self, conf)
+  end
+
+  def effective_stats
+    @stats.plus_stats(@inventory.equipped_stats)
   end
 
   def health=(v)

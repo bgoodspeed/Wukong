@@ -15,6 +15,10 @@ class Inventory
     @items = {}
     @weapon = nil
   end
+  def equipped_stats
+    #TODO will need to track more than just weapons
+    @weapon.nil? ? Stats.zero : @weapon.stats
+  end
 
   def items_matching(filter)
     return @items.keys unless filter

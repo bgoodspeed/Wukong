@@ -10,7 +10,7 @@ class GameItem
   def initialize(game, conf)
     @game = game
     cf = conf['stats'] ? conf['stats'] : {}
-    @stats = Stats.new(game, cf)
+    @stats = Stats.new(cf)
   end
 end
 class GameItemController

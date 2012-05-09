@@ -54,7 +54,7 @@ class Enemy
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
     cf = conf['stats'] ? conf['stats'] : {}
-    @stats = Stats.new(game, cf)
+    @stats = Stats.new(cf)
     @game.animation_controller.animation_index_by_entity_and_name(self, conf['animation_name']).needs_update = true
     process_attributes(ATTRIBUTES, self, conf)
   end

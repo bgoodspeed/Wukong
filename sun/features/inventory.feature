@@ -47,8 +47,14 @@ Feature: Inventory
     When the player takes reward "test-data/equipment/weapon.yml"
     When the player takes reward "test-data/equipment/weapon_sound.yml"
     When the player takes reward "test-data/equipment/weapon_swung.yml"
+    Then the player stats should have property "strength" equal to "10"
+    Then the equipment stats should have property "strength" equal to "0"
+    Then the effective player stats should have property "strength" equal to "10"
     When the player equips the weapon "test-data/equipment/weapon_sound.yml"
     Then the player inventory weapon should not be nil
     And the player inventory yaml should match "weapon:"
+    Then the player stats should have property "strength" equal to "10"
+    Then the equipment stats should have property "strength" equal to "10"
+    Then the effective player stats should have property "strength" equal to "20"
 
     
