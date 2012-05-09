@@ -69,6 +69,7 @@ class Player
 
     self.is_moving=(false)
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
+
     @last_distance = nil
     cf = conf['stats'] ? conf['stats'] : {}
     @stats = Stats.new(cf)

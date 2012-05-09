@@ -74,12 +74,12 @@ class CollisionResponseController
   def initialize(game, config=CollisionResponseController.default_config)
     @game = game
     @config = config
-    @empty_collision = lambda {|c1,c2|
-      @game.log.error "Error: unknown response pair #{c1} <-> #{c2}"
-      []
-    }
   end
 
+  def empty_collision (c1,c2)
+    @game.log.error "Error: unknown response pair #{c1} <-> #{c2}"
+    []
+  end
 
   def responses
     @game.action_controller.collision_responses
@@ -88,8 +88,8 @@ class CollisionResponseController
 
   def response(col)
     m = @config
-    return @empty_collision unless m.has_key? col.dynamic1.collision_response_type
-    return @empty_collision unless m[col.dynamic1.collision_response_type].has_key? col.dynamic2.collision_response_type
+    return empty_collision(col.dynamic1, col.dynamic2) unless m.has_key? col.dynamic1.collision_response_type
+    return empty_collision(col.dynamic1, col.dynamic2) unless m[col.dynamic1.collision_response_type].has_key? col.dynamic2.collision_response_type
     m[col.dynamic1.collision_response_type][col.dynamic2.collision_response_type]
   end
   

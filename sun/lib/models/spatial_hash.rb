@@ -51,8 +51,11 @@ class SpatialHash
     lsv = ls.p1.minus(ls.p2)
     lsu = lsv.unit
     steps = (lsv.norm/@cell_size).ceil
+    insert_data_at(data, ls.p1)
     steps.times do |step|
+
       insert_data_at(data, ls.p2.plus(lsu.scale(step * @cell_size)))
+
     end
   end
   def insert_circle_type_collider(elem)

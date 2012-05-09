@@ -47,8 +47,10 @@ class ActionController
 
       ResponseTypes::REMOVING1 => lambda {|game, col| game.remove_projectile(col.dynamic1)},
       ResponseTypes::REMOVING2 => lambda {|game, col| game.remove_projectile(col.dynamic2)},
-      ResponseTypes::BLOCKING1 => lambda {|game, col| col.dynamic1.undo_last_move},
-      ResponseTypes::BLOCKING2 => lambda {|game, col| col.dynamic2.undo_last_move},
+      ResponseTypes::BLOCKING1 => lambda {|game, col|
+        col.dynamic1.undo_last_move},
+      ResponseTypes::BLOCKING2 => lambda {|game, col|
+        col.dynamic2.undo_last_move},
       ResponseTypes::TRIGGER_EVENT1 => lambda {|game, col| col.dynamic1.trigger},
       ResponseTypes::TRIGGER_EVENT2 => lambda {|game, col| col.dynamic2.trigger},
       ResponseTypes::MOUSE_PICK1 => lambda {|game, col|
