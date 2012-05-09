@@ -2,7 +2,7 @@ sound_controller:
   effects:
     - filename: game-data/sounds/shoot_long.wav
       name: shoot
-    - filename: game-data/sounds/shoot_short.wav
+    - filename: game-data/sounds/footsteps.wav
       name: footsteps
 
   songs:
