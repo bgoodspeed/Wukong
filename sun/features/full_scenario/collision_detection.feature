@@ -226,23 +226,6 @@ Feature: Collision Detection
     Then there should be no projectiles
     And the enemy should have 12 hp
 
-  Scenario: Shooting bug enemy2
-    Given I load the game on level "trivial" with screen size 640, 480
-    And I create the path following controller
-    And I set the player avatar to "avatar.bmp"
-    And I set the player position to 236,484
-    And I set the player direction to 25
-    And I set the enemy avatar to "enemy_avatar.bmp"
-    And I set the enemy position 340,259
-    And I set the enemy health to 12
-    And I set the player weapon with image "weapon.png"
-    And I set the player weapon type to "projectile"
-    And I set the game clock to 60 fps
-    When I simulate "Graphics::KbSpace"
-    And I run the game loop 60 times and clear the state after run 1
-    Then there should be no projectiles
-    And the enemy should have 11 hp
-
   Scenario: Shooting bug wall3
     Given I load the game on level "level_1" with screen size 640, 480
     And I create the path following controller

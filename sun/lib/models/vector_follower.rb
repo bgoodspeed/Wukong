@@ -27,7 +27,7 @@ class VectorFollower
 
   #TODO this should be in a collidable module
   def to_collision
-    Primitives::LineSegment.new(current_position, current_position.plus(velocity_scaled_vector)  )
+    Primitives::LineSegment.new(current_position.minus(velocity_scaled_vector), current_position.plus(velocity_scaled_vector)  )
   end
 
   def collision_type
