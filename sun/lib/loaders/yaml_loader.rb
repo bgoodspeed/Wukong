@@ -77,15 +77,30 @@ class Inventory
   end
 end
 
+class GameItem
+  extend YamlHelper
+  def self.from_yaml(game, yaml, f=nil)
+    data = YAML.load(yaml)
+    conf = data['item']
+    obj = self.new(game, conf)
+    process_attributes(ATTRIBUTES, obj, conf)
+  end
+end
+
 class InventoryController
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['inventory']
     obj = self.new(game)
-    conf['items'].to_a.each do |item|
+    conf['weapons'].to_a.each do |item|
       #TODO only knows about weapons...
       obj.register_item(item, YamlLoader.from_file(Weapon, game, item ))
     end
+    conf['items'].to_a.each do |item|
+      #TODO only knows about weapons...
+      obj.register_item(item, YamlLoader.from_file(GameItem, game, item ))
+    end
+
     obj
   end
 

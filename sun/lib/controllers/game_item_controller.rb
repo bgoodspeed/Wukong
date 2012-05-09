@@ -5,9 +5,10 @@ module EquipmentTypes
   SWORD = "SWORD"
 end
 class GameItem
-  attr_accessor :name, :item_type, :item_subtype, :power_level
-  def initialize(name, item_type, item_subtype, power_level)
-    @name, @item_type, @item_subtype, @power_level = name, item_type, item_subtype, power_level
+  ATTRIBUTES = [:display_name, :item_type, :item_subtype, :power_level, :inventory_type, :orig_filename]
+  ATTRIBUTES.each {|at| attr_accessor at }
+  def initialize(game, conf)
+    @game = game
   end
 end
 class GameItemController
@@ -18,7 +19,7 @@ class GameItemController
   end
 
   def register_item(item)
-    @registered[item.name] = item
+    @registered[item.orig_filename] = item
   end
 end
 

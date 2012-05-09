@@ -4,6 +4,7 @@
 module InventoryTypes
   WEAPON = "weapon_type"
   ARMOR = "armor_type"
+  POTION = "potion_type"
 end
 
 class Inventory
