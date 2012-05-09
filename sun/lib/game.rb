@@ -150,8 +150,8 @@ class Game
     @level.remove_enemy(enemy)
   end
 
-  def add_projectile(start, theta, vel)
-    vf = @path_following_controller.add_projectile(start, theta, vel)
+  def add_projectile(owner, start, theta, vel)
+    vf = @path_following_controller.add_projectile(owner, start, theta, vel)
     @level.add_projectile(vf)
     vf
   end
