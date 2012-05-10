@@ -19,6 +19,7 @@ require 'models/spatial_hash'
 class SHolder
   include Health
   attr_accessor :stats
+  alias_method :effective_stats, :stats
   def initialize(stats)
     @stats = stats
   end

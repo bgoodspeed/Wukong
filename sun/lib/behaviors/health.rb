@@ -7,7 +7,7 @@ module Health
   end
 
   def calculate_damage(from)
-    [(from.stats.strength - @stats.defense) + 1, 0].max
+    [(from.effective_stats.strength - effective_stats.defense) + 1, 0].max
   end
   def take_damage(from)
     @stats.health -= calculate_damage(from)

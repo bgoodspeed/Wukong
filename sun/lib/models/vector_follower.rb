@@ -13,8 +13,11 @@ class VectorFollower
     @collision_priority = CollisionPriority::HIGH
   end
 
+  def effective_stats
+    @owner.effective_stats
+  end
   def stats
-    @owner.effective_stats #TODO this might be too much, maybe just weapon stats?
+    @owner.stats #TODO this might be too much, maybe just weapon stats?
   end
   def velocity_scaled_vector
     @vector.scale(@velocity)

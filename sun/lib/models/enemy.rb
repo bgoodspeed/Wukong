@@ -66,7 +66,10 @@ class Enemy
   def health
     @stats.health
   end
-
+  def effective_stats
+    #TODO when enemies have equipment make this do what player does
+    @stats
+  end
 
 
 
