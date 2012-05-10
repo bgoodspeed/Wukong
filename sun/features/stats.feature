@@ -17,3 +17,13 @@ Feature: Stats
     Given I create a stats object called "b"
     When stats "a" and "b" are added
     Then the stats result should have property "strength" equal to "20"
+
+  Scenario: Damage Calculation
+    Given I create a stats object called "a"
+    Given I create a stats object called "b"
+    And I set the stat "strength" on "a" to "10"
+    And I set the stat "defense" on "a" to "10"
+    And I set the stat "strength" on "b" to "5"
+    And I set the stat "defense" on "b" to "5"
+    Then the effective damage "a" can do to "b" is "6"
+    Then the effective damage "b" can do to "a" is "0"

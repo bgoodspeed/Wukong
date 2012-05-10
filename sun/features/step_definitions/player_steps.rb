@@ -109,7 +109,7 @@ Given /^I set the player position to (\d+),(\d+)$/ do |arg1, arg2|
 end
 
 When /^I damage the player$/ do
-  p.take_damage(nil)
+  p.take_damage(SHolder.new(p.stats.dup) )
 end
 
 Then /^the player should be dead$/ do

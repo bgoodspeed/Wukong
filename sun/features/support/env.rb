@@ -16,7 +16,13 @@ SimpleCov.start 'only_lib_code'
 
 require 'game'
 require 'models/spatial_hash'
-
+class SHolder
+  include Health
+  attr_accessor :stats
+  def initialize(stats)
+    @stats = stats
+  end
+end
 def mock_game
   m = Mocha::Mock.new("game mock")
   m.stubs(:level).returns m

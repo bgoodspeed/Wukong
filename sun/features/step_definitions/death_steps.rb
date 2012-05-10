@@ -1,5 +1,5 @@
 When /^I damage the enemy$/ do
-  @enemy.take_damage(nil)
+  @enemy.take_damage(SHolder.new(@enemy.stats.dup))
 end
 
 Then /^the enemy should be dead$/ do

@@ -5,9 +5,12 @@ module Health
   def dead?
     @stats.health <= 0
   end
-  
+
+  def calculate_damage(from)
+    [(from.stats.strength - @stats.defense) + 1, 0].max
+  end
   def take_damage(from)
-    @stats.health -= 1
+    @stats.health -= calculate_damage(from)
     if dead?
       @game.add_event(Event.new(self, EventTypes::DEATH))
     end

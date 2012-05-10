@@ -55,6 +55,32 @@ Then /^the equipment stats should have property "([^"]*)" equal to "([^"]*)"$/ d
 end
 
 
+Given /^I set the player strength to (\d+)$/ do |arg1|
+  @game.player.stats.strength = arg1.to_i
+end
+And /^I set the player weapon strength to (\d+)$/ do |arg1|
+  @game.player.inventory.weapon.stats.strength = arg1.to_i
+end
+Given /^I set the enemy defense to (\d+)$/ do |arg1|
+  the_first_enemy.stats.defense = arg1.to_i
+end
 Then /^the effective player stats should have property "([^"]*)" equal to "([^"]*)"$/ do |arg1, arg2|
   @game.player.effective_stats.send(arg1).should == arg2.to_i
+end
+
+And /^I set the player defense to (\d+)$/ do |arg1|
+  @game.player.stats.defense = arg1.to_i
+end
+
+
+
+Then /^the effective damage "([^"]*)" can do to "([^"]*)" is "([^"]*)"$/ do |arg1, arg2, arg3|
+  a = SHolder.new(@all_stats[arg1])
+  b = SHolder.new(@all_stats[arg2])
+
+  b.calculate_damage(a).should == arg3.to_i
+end
+
+And /^I set the stat "([^"]*)" on "([^"]*)" to "([^"]*)"$/ do |stat, which_stats_object, value|
+  @all_stats[which_stats_object].send("#{stat}=", eval(value))
 end

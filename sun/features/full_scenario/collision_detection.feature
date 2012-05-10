@@ -82,14 +82,17 @@ Feature: Collision Detection
     And I set the player step size to 10
     And I set the player direction to 180
     And I set the player health to 10
+    And I set the player strength to 10
+    And I set the player defense to 10
     And I set the enemy avatar to "enemy_avatar.bmp"
     And I set the enemy position 50,300
     And I set the enemy health to 5
+    And I set the enemy defense to 10
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbUp"
     And I run the game loop 18 times
-    And the player health should be 9
     And the enemy health should be 4
+    And the player health should be 9
 
   Scenario: Player collisions with Enemy damages both ghost
     Given I load the game on level "trivial" with screen size 640, 480
@@ -99,9 +102,12 @@ Feature: Collision Detection
     And I set the player step size to 10
     And I set the player direction to 180
     And I set the player health to 10
+    And I set the player strength to 10
+    And I set the player defense to 10
     And I set the enemy avatar to "enemy_avatar.bmp"
     And I set the enemy position 50,300
     And I set the enemy health to 5
+    And I set the enemy defense to 10
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbUp"
     And I run the game loop 18 times
@@ -161,14 +167,17 @@ Feature: Collision Detection
     Given I load the game on level "trivial" with screen size 640, 480
     And I create the path following controller
     And I set the player avatar to "avatar.bmp"
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
     And I set the player position to 200,200
     And I set the player step size to 10
     And I set the player direction to 45
+    And I set the player strength to 10
+    And I set the player weapon strength to 10
     And I set the enemy avatar to "enemy_avatar.bmp"
     And I set the enemy position 300,100
     And I set the enemy health to 12
-    And I set the player weapon with image "weapon.png"
-    And I set the player weapon type to "projectile"
+    And I set the enemy defense to 20
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbSpace"
     And I run the game loop 55 times and clear the state after run 1
@@ -196,13 +205,16 @@ Feature: Collision Detection
     Given I load the game on level "trivial" with screen size 640, 480
     And I create the path following controller
     And I set the player avatar to "avatar.bmp"
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
     And I set the player position to 267,394
     And I set the player direction to 135
+    And I set the player strength to 10
+    And I set the player weapon strength to 10
     And I set the enemy avatar to "enemy_avatar.bmp"
     And I set the enemy position 365,500
     And I set the enemy health to 12
-    And I set the player weapon with image "weapon.png"
-    And I set the player weapon type to "projectile"
+    And I set the enemy defense to 20
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbSpace"
     And I run the game loop 80 times and clear the state after run 1
@@ -247,13 +259,16 @@ Feature: Collision Detection
     Given I load the game on level "trivial" with screen size 640, 480
     And I create the path following controller
     And I set the player avatar to "avatar.bmp"
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
     And I set the player position to 257,384
     And I set the player direction to 70
+    And I set the player strength to 10
+    And I set the player weapon strength to 10
     And I set the enemy avatar to "enemy_avatar.bmp"
     And I set the enemy position 423,300
     And I set the enemy health to 12
-    And I set the player weapon with image "weapon.png"
-    And I set the player weapon type to "projectile"
+    And I set the enemy defense to 20
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbSpace"
     And I run the game loop 60 times and clear the state after run 1
@@ -264,13 +279,13 @@ Feature: Collision Detection
     Given I load the game on level "level_1" with screen size 640, 480
     And I create the path following controller
     And I set the player avatar to "avatar.bmp"
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
     And I set the player position to 224,385
     And I set the player direction to 70
     And I set the enemy avatar to "enemy_avatar.bmp"
     And I set the enemy position 450,292
     And I set the enemy health to 12
-    And I set the player weapon with image "weapon.png"
-    And I set the player weapon type to "projectile"
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbSpace"
     And I run the game loop 60 times and clear the state after run 1
@@ -281,13 +296,16 @@ Feature: Collision Detection
     Given I load the game on level "trivial" with screen size 640, 480
     And I create the path following controller
     And I set the player avatar to "avatar.bmp"
+    And I set the player weapon with image "weapon.png"
+    And I set the player weapon type to "projectile"
     And I set the player position to 224,385
     And I set the player direction to 70
+    And I set the player strength to 10
+    And I set the player weapon strength to 10
     And I set the enemy avatar to "enemy_avatar.bmp"
     And I set the enemy position 450,292
     And I set the enemy health to 12
-    And I set the player weapon with image "weapon.png"
-    And I set the player weapon type to "projectile"
+    And I set the enemy defense to 20
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbSpace"
     And I run the game loop 60 times and clear the state after run 1

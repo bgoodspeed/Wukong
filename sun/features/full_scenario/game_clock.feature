@@ -110,7 +110,8 @@ Feature: Game Clock
 
   Scenario: Spawn Events Repeating
     Given I load the game on level "simple" with screen size 640, 480
-    And I set the player health to 100
+    And I set the player health to 1000
+    And I set the player position to 600,400
     And I create a condition controller
     And I stub "foo" on game to return "false"
     When I add a fake condition that checks "foo" on game named "COND"
