@@ -52,6 +52,13 @@ Feature: Loading
     Then the save file should match "expected_savedata_inventory2.yml"
     And the animation position for player "weapon" should be 350, 200
 
+  Scenario: Saving a game saves player animation
+    Given I load the game "demo_inventory"
+    And I load a player from "gd_load_player.yml"
+    And I set the property "game_load_path" to "test-data/loadarea"
+    And I save slot 5
+    Then the save file should match "expected_savedata_animation.yml"
+
   Scenario: Loading a game loads player inventory - empty
     Given I load the game "demo_inventory"
     And I load slot 3
@@ -64,11 +71,20 @@ Feature: Loading
 
   Scenario: Loading a game loads player inventory - non-empty
     Given I load the game "demo_inventory"
+    And I load slot 5
+    Then the game property "player.animation_width" should be "32"
+    Then the game property "player.animation_height" should be "16"
+
+  Scenario: Loading a game loads player inventory - non-empty
+    Given I load the game "demo_inventory"
     And I load slot 6
     Then the game property "player.inventory.items.size" should be "2"
     Then the game property "player.inventory.weapon.nil?" should be "false"
-    
- Scenario: Menu Save Slot Filtering Unsaved
+
+
+
+
+  Scenario: Menu Save Slot Filtering Unsaved
     Given I load the game "demo_inventory"
     And I create a menu controller
     And I load the main menu "save_game.yml"

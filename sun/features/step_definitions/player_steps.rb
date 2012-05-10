@@ -122,7 +122,7 @@ end
 Then /^the player should have yaml matching "([^"]*)"$/ do |arg1|
 
   yml = p.to_yaml
-  expected_lines = IO.readlines("test-data/players/expected_player.yml")
+  expected_lines = IO.readlines("test-data/players/#{arg1}")
 
   expected_lines.each do|line|
     l = line.strip

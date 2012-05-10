@@ -52,4 +52,9 @@ Feature: Player Details
     And I load a player from "player.yml"
     When I see the first frame
     Then the player should have yaml matching "expected_player.yml"
-   
+
+  Scenario: Player YAML saving 2
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I load a player from "gd_load_player.yml"
+    When I see the first frame
+    Then the player should have yaml matching "expected_gd_player.yml"

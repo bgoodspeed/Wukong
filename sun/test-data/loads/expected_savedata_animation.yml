@@ -1,0 +1,5 @@
+--- 
+savedata: 
+  level: test-data/levels/load_screen/load_screen.yml
+  player: test-data/loadarea/5/player.yml
+  player_inventory: test-data/loadarea/5/inventory.yml
