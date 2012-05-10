@@ -28,7 +28,7 @@ class VectorFollower
     @start.plus(updated_vector)
   end
   def distance_from_start
-    @start.distance_from(updated_vector)
+    @start.distance_from(current_position)
   end
 
   #TODO this should be in a collidable module
