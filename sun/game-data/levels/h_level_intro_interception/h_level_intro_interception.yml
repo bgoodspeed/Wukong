@@ -30,19 +30,23 @@ event_areas:
     action: queue_save_game_event
     description:
       - Save your progress.
+    info_window_position: [ 60, 38 ]
+    info_window_size: [180, 75 ]
   - top_left: [ 560, 455 ]
     bottom_right: [ 715, 510 ]
     action: LOAD_LEVEL
     description:
-      - Hand over Kernel to User and continue.
-    info_window_position: [ 450, 360 ]
-    info_window_size: [343, 404 ]
+      - Duplicate Kernel and continue.
+    info_window_position: [ 507, 360 ]
+    info_window_size: [268, 404 ]
     action_argument: "game-data/levels/h_level_1/h_level_1.yml"
   - top_left: [ 392, 290 ]
     bottom_right: [ 425, 329 ]
     description:
-      - This your User. You will be attacked by the powerful Rubu.
-      - You are powerful but not be ready for this yet.
+      - This interception back to the source soon.
+      - Only enough time for a quick message, save your questions for later.
+      - You will be attacked by the powerful Rubu.
+      - You are strong but not be ready for him yet.
       - I will keep your Kernel safe incase you are caught and formatted.
-    info_window_position: [ 200, 230 ]
-    info_window_size: [527, 290 ]
+    info_window_position: [ 190, 230 ]
+    info_window_size: [575, 310 ]
