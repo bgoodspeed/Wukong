@@ -30,8 +30,8 @@ event_areas:
     action: queue_start_new_game_event
     description:
       - Press ENTER or RETURN to accept.
-  - top_left: [ 565, 78 ]
-    bottom_right: [ 719, 135 ]
+  - top_left: [ 565, 104 ]
+    bottom_right: [ 719, 159 ]
     action: queue_load_game_event
     description:
       - Load previous saved games.
@@ -40,14 +40,14 @@ event_areas:
     action: queue_settings_event
     description:
       - See and edit game settings.
-  - top_left: [ 87, 76 ]
-    bottom_right: [ 246, 133 ]
+  - top_left: [ 87, 106 ]
+    bottom_right: [ 246, 160 ]
     action: queue_continue_event
     description:
       - Continue with most recently saved game.
-  - top_left: [ 349, 275 ]
-    bottom_right: [ 389, 317 ]
+  - top_left: [ 349, 303 ]
+    bottom_right: [ 389, 337 ]
     description:
-      - Welcome. Please choose an option and walk over to it.
-    info_window_position: [ 300, 250 ]
-    info_window_size: [100, 100 ]
+      - Welcome MSG or something else clever here.
+    info_window_position: [ 200, 230 ]
+    info_window_size: [0, 0 ]

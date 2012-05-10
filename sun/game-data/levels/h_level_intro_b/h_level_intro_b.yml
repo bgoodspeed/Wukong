@@ -19,9 +19,9 @@ declared_enemies:
     name: e1
   - enemy_yaml: game-data/enemies/horned_pig_anim.yml
     name: e2
-  - enemy_yaml: game-data/enemies/enemy2_slow_anim.yml
+  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
     name: e3
-  - enemy_yaml: game-data/enemies/enemy2_slow_anim.yml
+  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
     name: e4
 spawn_points:
   - point: [ 1771, 1491 ]
@@ -45,7 +45,7 @@ event_areas:
   - top_left: [ 907, 610 ]
     bottom_right: [ 943, 647 ]
     description:
-      - Avoid the Horned Pigs at all cost and sneak into the citadel!
+      - Avoid the Adult Horned Pigs and sneak into the citadel!
 
 line_segments:
   - start_x: 0
