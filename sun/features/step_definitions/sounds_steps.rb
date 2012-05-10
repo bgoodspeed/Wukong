@@ -25,7 +25,7 @@ end
 
 
 Then /^the play count for sound effect "([^"]*)" should be (\d+)$/ do |sound_name, expected_count|
-  @sound_controller.play_count_for(sound_name).should == expected_count.to_i
+  @game.sound_controller.play_count_for(sound_name).should == expected_count.to_i
 end
 
 

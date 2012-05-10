@@ -6,6 +6,8 @@ sound_controller:
       name: weapon
     - filename: test-data/sounds/weapon.wav
       name: shoot
+    - filename: test-data/sounds/weapon.wav
+      name: wound
 
   songs:
     - filename: test-data/music/music.wav

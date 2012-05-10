@@ -3,7 +3,7 @@ class Enemy
 
   attr_accessor :tracking_target
   ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction,
-                :image_file, :direction, :animation_name, :animation_path
+                :image_file, :direction, :animation_name, :animation_path, :damage_sound_effect_name
   ]
   NON_YAML_ATTRIBUTES = [:stats]
   (ATTRIBUTES + NON_YAML_ATTRIBUTES).each {|attr| attr_accessor attr }
@@ -17,6 +17,7 @@ class Enemy
   def self.defaults
     {
       'animation_name' => "enemy_animation",
+      'damage_sound_effect_name' => 'enemy_damage_effect',
       'animation_width' => 50,
       'animation_height' => 50,
       'animation_rate' => 10,

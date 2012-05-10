@@ -60,3 +60,4 @@ Feature: Action
     And I set the property "old_level_name" to "test-data/levels/demo/demo.yml"
     When I invoke the action "EventTypes::BACK_TO_LEVEL"
     Then the game property "level.name" should be "'demo'"
+

@@ -58,3 +58,12 @@ Feature: Player Details
     And I load a player from "gd_load_player.yml"
     When I see the first frame
     Then the player should have yaml matching "expected_gd_player.yml"
+
+  Scenario: Player Sound Effect Names
+    Given I load the game "new_game_load_screen"
+    And I set the player property "damage_sound_effect_name" to "wound"
+    When I invoke the damage action
+    Then the play count for sound effect "wound" should be 1
+
+
+

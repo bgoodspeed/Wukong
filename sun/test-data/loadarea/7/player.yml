@@ -19,6 +19,7 @@ player:
   main_animation_name: main_player_anim
   animation_name: main_player_anim
   footsteps_effect_name: footsteps
+  damage_sound_effect_name: !!null 
   stats:
     strength: 10
     defense: 5

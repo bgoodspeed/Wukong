@@ -9,7 +9,7 @@ class Player
   attr_reader :radius
   YAML_ATTRIBUTES = [:step_size, :position, :direction, :turn_speed, :movement_distance, :menu_action_delay,
     :enemies_killed, :image_path, :collision_priority, :base_accuracy,   :animation_width, :animation_height,
-    :image_file, :animation_path,  :main_animation_name, :animation_name, :footsteps_effect_name
+    :image_file, :animation_path,  :main_animation_name, :animation_name, :footsteps_effect_name, :damage_sound_effect_name
   ]
   NON_YAML_ATTRIBUTES = [:inventory, :avatar, :is_moving, :animation_name,:animation_paths_by_name,
 

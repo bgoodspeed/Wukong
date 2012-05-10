@@ -155,3 +155,16 @@ end
 Then /^the player inventory yaml should match "([^"]*)"$/ do |arg1|
   p.inventory.to_yaml.should =~ Regexp.new(arg1)
 end
+
+
+Given /^I set the player property "([^"]*)" to "([^"]*)"$/ do |arg1, arg2|
+  p.send("#{arg1}=", arg2)
+end
+
+
+When /^I invoke the damage action$/ do
+  col = Mocha::Mock.new("mock collision")
+  col.stubs(:dynamic1).returns p
+  col.stubs(:dynamic2).returns p
+  @game.action_controller.invoke(ResponseTypes::DAMAGING1, col)
+end

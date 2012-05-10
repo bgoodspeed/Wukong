@@ -38,8 +38,13 @@ class ActionController
   end
   def default_collision_responses
     {
-      ResponseTypes::DAMAGING1 => lambda {|game, col| col.dynamic1.take_damage(col.dynamic2) },
-      ResponseTypes::DAMAGING2 => lambda {|game, col| col.dynamic2.take_damage(col.dynamic1) },
+      ResponseTypes::DAMAGING1 => lambda {|game, col|
+        game.sound_controller.play_effect(col.dynamic1.damage_sound_effect_name)
+        col.dynamic1.take_damage(col.dynamic2)
+      },
+      ResponseTypes::DAMAGING2 => lambda {|game, col|
+        col.dynamic2.take_damage(col.dynamic1)
+      },
       ResponseTypes::SHOW_DAMAGE1 => lambda {|game, col|
         game.rendering_controller.add_consumable_rendering(col.dynamic1, RenderingTypes::DAMAGE, 10) },
       ResponseTypes::SHOW_DAMAGE2 => lambda {|game, col|
