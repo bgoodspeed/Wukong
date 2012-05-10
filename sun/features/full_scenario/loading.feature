@@ -69,11 +69,14 @@ Feature: Loading
     And I load slot 4
     Then the game property "player.inventory.items.size" should be "2"
 
-  Scenario: Loading a game loads player inventory - non-empty
+  Scenario: Loading a game loads player animation
     Given I load the game "demo_inventory"
     And I load slot 5
     Then the game property "player.animation_width" should be "32"
     Then the game property "player.animation_height" should be "16"
+    When I use the weapon
+    And I run the game loop 1 times
+
 
   Scenario: Loading a game loads player inventory - non-empty
     Given I load the game "demo_inventory"

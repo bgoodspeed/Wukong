@@ -22,7 +22,7 @@ Given /^I set the player weapon type to "([^"]*)"$/ do |weapon_type|
 end
 
 When /^I use the weapon$/ do
-  @player.use_weapon
+  @game.player.use_weapon
 end
 
 Then /^the weapon should not be in use$/ do

@@ -33,8 +33,11 @@ class SaveLoader
     name = slot_name(slot)
     sd = YamlLoader.from_file(SaveData, @game, name)
     p = YamlLoader.from_file(Player, @game, sd.player)
-    i = YamlLoader.from_file(Inventory, @game, sd.player_inventory) if sd.player_inventory
-    p.inventory = i
+    if sd.player_inventory
+      i = YamlLoader.from_file(Inventory, @game, sd.player_inventory)
+      p.inventory = i
+      p.equip_weapon(i.weapon) if i.weapon
+    end
     @game.load_level(sd.level)
     @game.set_player(p)
   end
