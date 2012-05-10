@@ -1,0 +1,44 @@
+name: h_level_intro_b
+background_image: game-data/levels/h_level_intro_interception/h_level_intro_interception.png
+background_music: game-data/music/silence.wav
+reward_level: game-data/levels/h_level_1/h_level_1.yml
+player_start_position: [ 340, 300 ]
+
+measurements:
+  width: 800
+  height: 600
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 800
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 600
+  - start_x: 800
+    start_y: 0
+    end_x: 800
+    end_y: 600
+  - start_x: 0
+    start_y: 600
+    end_x: 800
+    end_y: 600
+event_areas:
+  - top_left: [ 80, 125 ]
+    bottom_right: [ 236, 182 ]
+    action: queue_save_game_event
+    description:
+      - Save your progress.
+  - top_left: [ 560, 455 ]
+    bottom_right: [ 715, 510 ]
+    action: LOAD_LEVEL
+    description:
+      - Hand over Kernel to User and continue.
+    action_argument: "game-data/levels/h_level_1/h_level_1.yml"
+  - top_left: [ 388, 288 ]
+    bottom_right: [ 423, 329 ]
+    description:
+      - Welcome MSG or something else clever here.
+    info_window_position: [ 200, 230 ]
+    info_window_size: [0, 0 ]
