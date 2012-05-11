@@ -30,7 +30,7 @@ end
 
 
 Then /^the info window should be valid$/ do
-  @info_window.should be_valid
+  @info_window.valid?.should be(ValidationHelper::Validation::VALID)
 end
 
 When /^I unset the info window property "([^"]*)"$/ do |arg1|
@@ -39,5 +39,5 @@ end
 
 
 Then /^the info window should not be valid$/ do
-  @info_window.should_not be_valid
+  @info_window.valid?.should_not be(ValidationHelper::Validation::VALID)
 end
