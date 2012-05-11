@@ -64,9 +64,6 @@ class GameLoader
     game.log.info { "Building HUD: #{conf['heads_up_display']}"}
     game_constructed_deps.each {|d| process_game_constructed_dep(game,  d)}
 
-    
-    
-
     process_attributes(attributes, game, conf)
     menus.each {|m| process_menu(game, conf, m)}
     sub_yaml_deps_pre_level.each {|a| process_yaml_dep(game, conf, a)}
