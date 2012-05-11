@@ -30,11 +30,15 @@ event_areas:
     action: queue_start_new_game_event
     description:
       - Press ENTER or RETURN to accept.
+    info_window_position: [ 41, 373 ]
+    info_window_size: [ 315, 419 ]
   - top_left: [ 565, 104 ]
     bottom_right: [ 719, 159 ]
     action: queue_load_game_event
     description:
-      - Load previous saved games.
+      - Load saved games.
+    info_window_position: [ 41, 206 ]
+    info_window_size: [ 265, 252 ]
   - top_left: [ 561, 467 ]
     bottom_right: [ 718, 523 ]
     action: queue_settings_event
@@ -45,8 +49,8 @@ event_areas:
     action: queue_continue_event
     description:
       - Continue recently saved game.
-    info_window_position: [ 41, 207 ]
-    info_window_size: [ 265, 253 ]
+    info_window_position: [ 41, 206 ]
+    info_window_size: [ 265, 252 ]
   - top_left: [ 349, 303 ]
     bottom_right: [ 389, 337 ]
     description:
