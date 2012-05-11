@@ -22,12 +22,16 @@ module Finalizers
   end
   class OredCompletionConditions < BaseFinalizer
     def call(level, data, cc)
-      level.add_ored_completion_condition CompletionCondition.new(cc)
+      c = CompletionCondition.new(cc)
+      validation_error("Fix ored completion condition yaml", CompletionCondition::ATTRIBUTES) unless c.valid?
+      level.add_ored_completion_condition c
     end
   end
   class AndedCompletionConditions < BaseFinalizer
     def call(level, data, cc)
-      level.add_anded_completion_condition CompletionCondition.new(cc)
+      c = CompletionCondition.new(cc)
+      validation_error("Fix anded completion condition yaml", CompletionCondition::ATTRIBUTES) unless c.valid?
+      level.add_anded_completion_condition c
     end
   end
 
