@@ -21,14 +21,19 @@ class LevelLoader
     data['orig_filename'] = which_level
     level = Level.new(@game, data)
     array_finalizers = {
-        "line_segments" => Finalizers::LineSegments.new(@game, @which_level),
-        "declared_enemies" => Finalizers::DeclaredEnemies.new(@game, @which_level),
-        "event_areas" => Finalizers::EventAreas.new(@game, @which_level),
-        "spawn_points" => Finalizers::SpawnPoints.new(@game, @which_level),
-        "animations" => Finalizers::Animations.new(@game, @which_level),
-        "event_emitters" => Finalizers::EventEmitters.new(@game, @which_level),
-        "ored_completion_conditions" => Finalizers::OredCompletionConditions.new(@game, @which_level),
-        "anded_completion_conditions" => Finalizers::AndedCompletionConditions.new(@game, @which_level),
+        "line_segments" => ArrayFinalizers::LineSegments.new(@game, @which_level),
+        "declared_enemies" => ArrayFinalizers::DeclaredEnemies.new(@game, @which_level),
+        "event_areas" => ArrayFinalizers::EventAreas.new(@game, @which_level),
+        "spawn_points" => ArrayFinalizers::SpawnPoints.new(@game, @which_level),
+        "animations" => ArrayFinalizers::Animations.new(@game, @which_level),
+        "event_emitters" => ArrayFinalizers::EventEmitters.new(@game, @which_level),
+        "ored_completion_conditions" => ArrayFinalizers::OredCompletionConditions.new(@game, @which_level),
+        "anded_completion_conditions" => ArrayFinalizers::AndedCompletionConditions.new(@game, @which_level),
+    }
+
+    yaml_finalizers = {
+        'wayfinding' => YamlFinalizers::WayfindingFinalizer.new(@game, @which_level),
+        'heads_up_display' => YamlFinalizers::HeadsUpDisplayFinalizer.new(@game, @which_level)
     }
 
     array_finalizers.each do |prop, method|
@@ -37,17 +42,9 @@ class LevelLoader
         method.call(level, data, elem)
       end
     end
-    #TODO should this know about wayfinding directly?
-    if data["wayfinding"]
-      log_info { "Loading wayfinding #{data["wayfinding"]}" }
-      @game.wayfinding = YamlLoader.from_file(WayFinding, @game, data["wayfinding"])
-    end
-    
-    if data["heads_up_display"]
-      @game.log.info { "Building Level HUD: #{data['heads_up_display']}"}
-      hud = YamlLoader.from_file(HeadsUpDisplay, @game, data['heads_up_display'])
-      @game.hud = hud
 
+    yaml_finalizers.each do |prop, method|
+      method.call(level, data, data[prop])
     end
 
     level

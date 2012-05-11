@@ -23,7 +23,7 @@ class EventEmitter
   ATTRIBUTES.each {|attribute| attr_accessor attribute }
 
   include YamlHelper
-
+  include ValidationHelper
   def initialize(game, conf)
     @game = game
     process_attributes(ATTRIBUTES, self, conf)
@@ -33,10 +33,7 @@ class EventEmitter
     }
   end
 
-  def valid?(attrs=ATTRIBUTES)
-    attrs.each {|attr| return false if self.send(attr).nil?}
-    true
-  end
+  def required_attributes; ATTRIBUTES; end
   def collision_type
     to_collision.class
   end

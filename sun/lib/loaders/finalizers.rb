@@ -1,4 +1,6 @@
-module Finalizers
+
+
+module ArrayFinalizers
   class BaseFinalizer
     def initialize(game, which_level)
       @game = game
@@ -8,6 +10,11 @@ module Finalizers
       msg =  ("*" * 80) + "\n From file #{@which_level}\n#{user_msg}, required are: #{atts}"
       @game.log.fatal msg
       puts msg
+    end
+    def check_validation_error(obj, user_msg, atts=[])
+      v = obj.valid?
+      return if v == ValidationHelper::Validation::VALID
+      validation_error("#{user_msg}: these were unset: [#{v}]", atts)
     end
   end
   class LineSegments < BaseFinalizer
@@ -23,14 +30,14 @@ module Finalizers
   class OredCompletionConditions < BaseFinalizer
     def call(level, data, cc)
       c = CompletionCondition.new(cc)
-      validation_error("Fix ored completion condition yaml", CompletionCondition::ATTRIBUTES) unless c.valid?
+      check_validation_error(c, "Fix ored completion condition yaml", CompletionCondition::ATTRIBUTES)
       level.add_ored_completion_condition c
     end
   end
   class AndedCompletionConditions < BaseFinalizer
     def call(level, data, cc)
       c = CompletionCondition.new(cc)
-      validation_error("Fix anded completion condition yaml", CompletionCondition::ATTRIBUTES) unless c.valid?
+      check_validation_error(c, "Fix anded completion condition yaml", CompletionCondition::ATTRIBUTES)
       level.add_anded_completion_condition c
     end
   end
@@ -40,7 +47,7 @@ module Finalizers
       circle = Primitives::Circle.new(ee['position'], ee['radius'].to_i)
       ee['collision_primitive'] = circle
       event_emitter = EventEmitter.new(@game, ee)
-      validation_error("Fix event emitter yaml", EventEmitter::ATTRIBUTES) unless event_emitter.valid?
+      check_validation_error(event_emitter, "Fix event emitter yaml", EventEmitter::ATTRIBUTES)
       level.add_event_emitter(event_emitter)
     end
   end
@@ -59,7 +66,7 @@ module Finalizers
   class SpawnPoints < BaseFinalizer
     def call(level, data, sp)
       pt = SpawnPoint.new(@game, sp)
-      validation_error("Fix spawn point yaml", SpawnPoint::ATTRIBUTES) unless pt.valid?
+      check_validation_error(pt, "Fix spawn point yaml", SpawnPoint::ATTRIBUTES)
       level.add_spawn_point(pt)
 
     end
@@ -73,8 +80,35 @@ module Finalizers
       ea_conf['rect'] = Primitives::Rectangle.new(tl, [tl.x, br.y], br, [br.x, tl.y])
       eva = EventArea.new(@game, ea_conf)
 
-      validation_error("Fix event area yaml", EventArea::REQUIRED_ATTRIBUTES) unless eva.valid?
+      check_validation_error(eva, "Fix event area yaml", EventArea::REQUIRED_ATTRIBUTES)
       level.add_event_area(eva)
     end
   end
+end
+module YamlFinalizers
+  class BaseFinalizer
+    def initialize(game, which_level)
+      @game = game
+      @which_level = which_level
+    end
+    def validation_error(user_msg, atts=[])
+      msg =  ("*" * 80) + "\n From file #{@which_level}\n#{user_msg}, required are: #{atts}"
+      @game.log.fatal msg
+      puts msg
+    end
+  end
+
+  class HeadsUpDisplayFinalizer < BaseFinalizer
+    def call(level, data, hud)
+      return unless hud
+      @game.hud = YamlLoader.from_file(HeadsUpDisplay, @game, hud)
+    end
+  end
+  class WayfindingFinalizer < BaseFinalizer
+    def call(level, data, wf)
+      return unless wf
+      @game.wayfinding = YamlLoader.from_file(WayFinding, @game, wf)
+    end
+  end
+
 end

@@ -156,10 +156,10 @@ When /^I unset the spawn point property "([^"]*)"$/ do |arg1|
   @spawn_point.send("#{arg1}=", nil)
 end
 Then /^the spawn point should not be valid$/ do
-  @spawn_point.should_not be_valid
+  @spawn_point.valid?.should_not be(ValidationHelper::Validation::VALID)
 end
 Then /^the spawn point should be valid$/ do
-  @spawn_point.should be_valid
+  @spawn_point.valid?.should be(ValidationHelper::Validation::VALID)
 end
 
 def valid_completion_condition_conf
@@ -172,7 +172,7 @@ Given /^I create a valid completion condition$/ do
 end
 
 Then /^the completion condition should be valid$/ do
-  @completion_condition.should be_valid
+  @completion_condition.valid?.should be(ValidationHelper::Validation::VALID)
 end
 
 When /^I unset the completion condition property "([^"]*)"$/ do |arg1|
@@ -180,5 +180,5 @@ When /^I unset the completion condition property "([^"]*)"$/ do |arg1|
 end
 
 Then /^the completion condition should not be valid$/ do
-  @completion_condition.should_not be_valid
+  @completion_condition.valid?.should_not be(ValidationHelper::Validation::VALID)
 end
