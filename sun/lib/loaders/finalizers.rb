@@ -2,19 +2,10 @@
 
 module ArrayFinalizers
   class BaseFinalizer
+    include ValidationHelper
     def initialize(game, which_level)
       @game = game
       @which_level = which_level
-    end
-    def validation_error(user_msg, atts=[])
-      msg =  ("*" * 80) + "\n From file #{@which_level}\n#{user_msg}, required are: #{atts}"
-      @game.log.fatal msg
-      puts msg
-    end
-    def check_validation_error(obj, user_msg, atts=[])
-      v = obj.valid?
-      return if v == ValidationHelper::Validation::VALID
-      validation_error("#{user_msg}: these were unset: [#{v}]", atts)
     end
   end
   class LineSegments < BaseFinalizer
@@ -24,7 +15,9 @@ module ArrayFinalizers
   end
   class DeclaredEnemies < BaseFinalizer
     def call(level, data, e)
-      level.add_declared_enemy(e['name'], YamlLoader.from_file(Enemy, @game, e['enemy_yaml']))
+      enemy = YamlLoader.from_file(Enemy, @game, e['enemy_yaml'])
+      check_validation_error(enemy, "Fix declared enemies yaml", enemy.required_attributes)
+      level.add_declared_enemy(e['name'], enemy)
     end
   end
   class OredCompletionConditions < BaseFinalizer
@@ -87,14 +80,10 @@ module ArrayFinalizers
 end
 module YamlFinalizers
   class BaseFinalizer
+    include ValidationHelper
     def initialize(game, which_level)
       @game = game
       @which_level = which_level
-    end
-    def validation_error(user_msg, atts=[])
-      msg =  ("*" * 80) + "\n From file #{@which_level}\n#{user_msg}, required are: #{atts}"
-      @game.log.fatal msg
-      puts msg
     end
   end
 

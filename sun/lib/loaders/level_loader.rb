@@ -13,6 +13,7 @@ class LevelLoader
   end
   #TODO technically this is a hash constructor config helper, it's not yaml specific
   include YamlHelper
+  include ValidationHelper
   def load_level(which_level)
     log_info { "Loading level #{which_level}" }
 
@@ -46,6 +47,8 @@ class LevelLoader
     yaml_finalizers.each do |prop, method|
       method.call(level, data, data[prop])
     end
+
+    check_validation_error(level, "Fix level yaml: ", level.required_attributes)
 
     level
   end
