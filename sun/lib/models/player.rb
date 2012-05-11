@@ -6,19 +6,17 @@ require 'yaml'
 class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
-  attr_reader :radius
   YAML_ATTRIBUTES = [:step_size, :position, :direction, :turn_speed, :movement_distance, :menu_action_delay,
     :enemies_killed, :image_path, :collision_priority, :base_accuracy,   :animation_width, :animation_height,
-    :image_file, :animation_path,  :main_animation_name, :animation_name, :footsteps_effect_name, :damage_sound_effect_name
-  ]
-  NON_YAML_ATTRIBUTES = [:inventory, :avatar, :is_moving, :animation_name,:animation_paths_by_name,
+    :image_file, :animation_path,  :main_animation_name, :animation_name, :footsteps_effect_name, :damage_sound_effect_name]
+  NON_YAML_ATTRIBUTES = [:inventory, :avatar, :is_moving, :animation_name,:animation_paths_by_name, :radius]
 
-  ]
   ATTRIBUTES = YAML_ATTRIBUTES + NON_YAML_ATTRIBUTES
   ATTRIBUTES.each {|attr| attr_accessor attr }
 
   extend YamlHelper
   include YamlHelper
+  include ValidationHelper
 
   include MovementUndoable
   include Health
@@ -47,7 +45,7 @@ class Player
     }
   end
 
-  attr_reader :player_animation, :stats
+  attr_reader :player_animation, :stats, :required_attributes
 
   def initialize(game, in_conf={})
     conf = self.class.defaults.merge(in_conf)
@@ -75,6 +73,7 @@ class Player
     @stats = Stats.new(cf)
     @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
     process_attributes(YAML_ATTRIBUTES, self, conf)
+    @required_attributes = (YAML_ATTRIBUTES - [:animation_path, :damage_sound_effect_name, :image_path, :image_file]) + [:inventory, :radius, :animation_name]
   end
 
   def effective_stats

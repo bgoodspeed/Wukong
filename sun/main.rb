@@ -1,6 +1,3 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-
 $: << "lib"
 
 require "game"
@@ -13,7 +10,5 @@ else
 end
 
 
-#TODO this should be triggered by and stored in the level
-#game.sound_controller.play_song("music", true)
 game.show
 

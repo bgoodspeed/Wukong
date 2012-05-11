@@ -123,3 +123,22 @@ Then /^the animation for the enemy should need an update$/ do
   @game.animation_controller.animation_index_by_entity_and_name(the_first_enemy, the_first_enemy.animation_name).needs_update.should == true
 end
 
+
+
+
+Given /^I create a valid enemy$/ do
+  @enemy = Enemy.new(mock_game, Enemy.defaults)
+end
+
+
+When /^I unset the enemy property "([^"]*)"$/ do |arg1|
+  @enemy.send("#{arg1}=", nil)
+end
+
+
+Then /^the enemy should be valid$/ do
+  @enemy.valid?.should be(ValidationHelper::Validation::VALID)
+end
+Then /^the enemy should not be valid$/ do
+  @enemy.valid?.should_not be(ValidationHelper::Validation::VALID)
+end
