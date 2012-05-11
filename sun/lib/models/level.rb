@@ -83,10 +83,9 @@ class Level
   def add_declared_enemy(n,e)
     @declared_enemies[n] = e
   end
-  def add_event_emitter(position, radius, event_name, event_arg)
-    update_minimax(position[0], position[1], position[0], position[1])
-    circle = Primitives::Circle.new(position, radius)
-    event_emitter = EventEmitter.new(@game, circle, event_name, event_arg)
+  def add_event_emitter(event_emitter)
+    update_minimax(event_emitter.position[0], event_emitter.position[1], event_emitter.position[0], event_emitter.position[1])
+
     @event_emitters << event_emitter
     @static_hash.insert_circle_type_collider(event_emitter)
   end

@@ -36,3 +36,17 @@ Feature: Events
     | rect     |
     | label    |
     | action   |
+
+  Scenario: Event Emitter Validation
+    Given I create a valid event emitter
+    Then the event emitter should be valid
+
+  Scenario Outline: Event Areas Validation - Requirements
+    Given I create a valid event emitter
+    When I unset the event emitter property "<property>"
+    Then the event emitter should not be valid
+  Examples:
+    | property              |
+    | event_name           |
+    | event_argument       |
+    | collision_primitive |

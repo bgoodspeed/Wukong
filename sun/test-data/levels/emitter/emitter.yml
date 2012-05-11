@@ -5,8 +5,8 @@ measurements: [ 640, 480 ]
 
 
 event_emitters:
-  - position: 100, 200
+  - position: [ 100, 200 ]
     radius: 5
-    event: play_sound
+    event_name: play_sound
     event_argument: land_mine_boom
 

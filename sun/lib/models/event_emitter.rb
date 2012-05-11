@@ -19,21 +19,24 @@ end
 
 class EventEmitter
 
-  attr_reader :event_name, :event_argument, :collision_primitive
+  ATTRIBUTES = [:event_name, :event_argument, :collision_primitive]
+  ATTRIBUTES.each {|attribute| attr_accessor attribute }
 
+  include YamlHelper
 
-
-  def initialize(game, collision_primitive, event_name, event_arg)
+  def initialize(game, conf)
     @game = game
-    @collision_primitive = collision_primitive
-    @event_name = event_name
-    @event_argument = event_arg
+    process_attributes(ATTRIBUTES, self, conf)
     #TODO these should be defined elsewhere
     @events = {
       "play_sound" => LambdaEvent.new(@game, lambda {|game, arg| game.play_effect(arg)}, @event_argument )
     }
   end
 
+  def valid?(attrs=ATTRIBUTES)
+    attrs.each {|attr| return false if self.send(attr).nil?}
+    true
+  end
   def collision_type
     to_collision.class
   end

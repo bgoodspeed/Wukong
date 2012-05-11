@@ -52,9 +52,10 @@ class LevelLoader
           level.animations << la
         },
         "event_emitters" => lambda {|level, data, ee|
-          pos = ee["position"].split(",").collect {|v| v.to_i}
-          log_info { "Loading event emitter #{ee})" }
-          level.add_event_emitter(pos, ee["radius"], ee["event"], ee["event_argument"])
+          circle = Primitives::Circle.new(ee['position'], ee['radius'].to_i)
+          ee['collision_primitive'] = circle
+          event_emitter = EventEmitter.new(@game, ee)
+          level.add_event_emitter(event_emitter)
         }
     }
 
