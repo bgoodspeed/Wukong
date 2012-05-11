@@ -34,7 +34,7 @@ event_areas:
       - No matter! I ripped you out of the Matrix, there's no where to hide.
       - Get ready to be Ponged!''
     info_window_position: [ 100, 550 ]
-    info_window_size: [ 620, 600 ]
+    info_window_size: [ 620, 576 ]
     
 declared_enemies:
   - enemy_yaml: game-data/enemies/rubu_anim.yml
