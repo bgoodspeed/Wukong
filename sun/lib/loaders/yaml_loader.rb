@@ -189,6 +189,6 @@ class YamlLoader
   end
 
   def self.game_from_file(f)
-    GameLoader.game_from_yaml(IO.readlines(f).join(""))
+    GameLoader.game_from_yaml(IO.readlines(f).join(""), f)
   end
 end

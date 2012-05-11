@@ -10,3 +10,5 @@ game:
   new_game_level: "test-data/levels/demo/demo.yml"
   menu_for_load_game: "test-data/menus/load_game.yml"
   menu_for_main: "test-data/menus/main.yml"
+  game_over_menu: "test-data/menus/game_over.yml"
+  menu_for_save_game: "test-data/menus/save_game.yml"
