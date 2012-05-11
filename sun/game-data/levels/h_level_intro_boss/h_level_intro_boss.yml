@@ -30,9 +30,9 @@ event_areas:
   - top_left: [ 1, 1 ]
     bottom_right: [ 799, 599 ]
     description:
-      - "Rubu You are strong to make it this far or you got help"
-      - "No matter I ripped you out of the Matrix there's no where to hide"
-      - "Get ready to be Ponged!"
+      - Rubu, ''You are strong to make it this far or you got help
+      - No matter I ripped you out of the Matrix there's no where to hide
+      - Get ready to be Ponged!''
     info_window_position: [ 100, 550 ]
     info_window_size: [ 620, 500 ]
     
