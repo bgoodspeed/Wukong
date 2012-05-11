@@ -150,3 +150,20 @@ When /^I stub the last saved time for slot (\d+) to be "([^"]*)"$/ do |arg1, arg
   
   #@game.stubs(:last_save_time_for_slot).with(arg1.to_i).returns eval(arg2)
 end
+
+Given /^I create a valid game$/ do
+  @game = YamlLoader.game_from_file("test-data/valid.yml")
+end
+
+
+When /^I unset the game property "([^"]*)"$/ do |arg1|
+  @game.send("#{arg1}=", nil)
+end
+
+
+Then /^the game should be valid$/ do
+  @game.valid?.should be(ValidationHelper::Validation::VALID)
+end
+Then /^the game should not be valid$/ do
+  @game.valid?.should_not be(ValidationHelper::Validation::VALID)
+end
