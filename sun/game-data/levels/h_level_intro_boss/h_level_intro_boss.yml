@@ -30,9 +30,11 @@ event_areas:
   - top_left: [ 1, 1 ]
     bottom_right: [ 799, 599 ]
     description:
-      - Rubu, You die now!
-    info_window_position: [ 60, 38 ]
-    info_window_size: [180, 75 ]
+      - Rubu, ''You are strong to make it this far, or you got help.
+      - No matter! I ripped you out of the Matrix, there's no where to hide.
+      - Get ready to be Ponged!''
+    info_window_position: [ 100, 550 ]
+    info_window_size: [ 620, 600 ]
     
 declared_enemies:
   - enemy_yaml: game-data/enemies/rubu_anim.yml
