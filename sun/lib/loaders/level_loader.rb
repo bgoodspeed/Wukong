@@ -17,9 +17,9 @@ class LevelLoader
     log_info { "Loading level #{which_level}" }
 
     data = YAML.load_file(which_level)
+    data['orig_filename'] = which_level
     level = Level.new(@game, data)
-    level.orig_filename = which_level
-    level.measurements = [data["measurements"]["width"].to_i,data["measurements"]["height"].to_i]
+
 
     data["line_segments"].to_a.each do |lineseg|
       log_info { "Adding line segment #{lineseg['start_x']} #{ lineseg['start_y']} #{ lineseg['end_x']} #{ lineseg['end_y']})" }

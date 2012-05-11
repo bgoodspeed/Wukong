@@ -4,9 +4,8 @@ background_music: test-data/music/music.wav
 wayfinding: test-data/levels/enemy_overload/wayfinding.yml
 reward_level: test-data/levels/foo/foo.yml
 player_start_position: [320, 240]
-measurements:
-  width: 640
-  height: 480
+measurements: [ 640, 480 ]
+
 declared_enemies:
   - enemy_yaml: test-data/enemies/enemy.yml
     name: e1

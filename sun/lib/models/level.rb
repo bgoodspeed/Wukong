@@ -32,8 +32,9 @@ class Level
   SCALAR_ATTRIBUTES = [
 
   ]
-  YAML_ATTRIBUTES = [ :orig_filename, :cell_size, :background_image, :background_music, :reward_level , :player_start_position, :name,
-                      :minimum_x, :minimum_y, :maximum_x, :maximum_y,:animation_distance_threshold, :max_enemies
+  YAML_ATTRIBUTES = [ :orig_filename, :cell_size, :background_image, :background_music, :reward_level,
+    :player_start_position, :name, :minimum_x, :minimum_y, :maximum_x, :maximum_y,
+    :animation_distance_threshold, :max_enemies, :measurements
   ]
 
   ATTRIBUTES = ARRAY_ATTRIBUTES + HASH_ATTRIBUTES + SCALAR_ATTRIBUTES + YAML_ATTRIBUTES

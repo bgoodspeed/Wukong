@@ -1,8 +1,6 @@
 name: large
 background_image: test-data/levels/large/grass.jpg
-measurements:
-  width: 1280
-  height: 960
+measurements: [ 1280 , 960 ]
 line_segments:
   - start_x: 0
     start_y: 0

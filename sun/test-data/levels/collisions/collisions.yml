@@ -1,7 +1,6 @@
 name: collisions
-measurements:
-  width: 640
-  height: 480
+measurements: [ 640, 480 ]
+
 line_segments:
   - start_x: 0
     start_y: 0

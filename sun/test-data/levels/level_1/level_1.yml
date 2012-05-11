@@ -5,9 +5,8 @@ wayfinding: test-data/levels/level_1/wayfinding.yml
 reward_level: test-data/levels/reward/reward.yml
 player_start_position: [ 100, 100 ]
 
-measurements:
-  width: 640
-  height: 480
+measurements: [ 640, 480 ]
+
 anded_completion_conditions:
   - condition: player_health_at_least
     argument: 1

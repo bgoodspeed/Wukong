@@ -4,9 +4,8 @@ background_music: game-data/music/crappypiano.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 320, 240 ]
 
-measurements:
-  width: 640
-  height: 480
+measurements: [ 640, 480 ]
+
 line_segments:
   - start_x: 0
     start_y: 0

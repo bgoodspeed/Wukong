@@ -1,9 +1,8 @@
 name: simple
 background_image: test-data/levels/demo/grass.jpg
 wayfinding: test-data/levels/demo/wayfinding.yml
-measurements:
-  width: 640
-  height: 480
+measurements: [ 640, 480 ]
+
 declared_enemies:
   - enemy_yaml: test-data/enemies/enemy.yml
     name: e1

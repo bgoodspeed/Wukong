@@ -5,9 +5,7 @@ wayfinding: game-data/levels/h_level_3/wayfinding.yml
 reward_level: game-data/levels/h_level_3_reward/h_level_3_reward.yml
 player_start_position: [ 35, 888 ]
 
-measurements:
-  width: 800
-  height: 986
+measurements: [ 800, 986 ]
 anded_completion_conditions:
   - condition: player_health_at_least
     argument: 1

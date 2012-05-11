@@ -1,9 +1,8 @@
 name: emitter
 background_image: game-data/levels/emitter/grass.jpg
 
-measurements:
-  width: 640
-  height: 480
+measurements: [ 640, 480 ]
+
 
 event_emitters:
   - position: 100, 200

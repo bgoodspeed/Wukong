@@ -4,9 +4,8 @@ background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 368, 321 ]
 
-measurements:
-  width: 800
-  height: 600
+measurements: [ 800, 600 ]
+
 line_segments:
   - start_x: 0
     start_y: 0

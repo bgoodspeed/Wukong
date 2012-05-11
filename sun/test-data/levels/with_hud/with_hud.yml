@@ -4,9 +4,8 @@ background_music: test-data/music/music.wav
 wayfinding: test-data/levels/demo/wayfinding.yml
 heads_up_display: "test-data/hud/hud_config2.yml"
 reward_level: test-data/levels/foo/foo.yml
-measurements:
-  width: 640
-  height: 480
+measurements: [ 640, 480 ]
+
 declared_enemies:
   - enemy_yaml: test-data/enemies/enemy.yml
     name: e1

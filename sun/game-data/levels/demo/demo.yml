@@ -3,9 +3,8 @@ background_image: game-data/levels/demo/demo.png
 background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/demo/wayfinding.yml
 reward_level: game-data/levels/reward/reward.yml
-measurements:
-  width: 640
-  height: 480
+measurements: [ 640, 480 ]
+
 anded_completion_conditions:
   - condition: player_health_at_least
     argument: 1
