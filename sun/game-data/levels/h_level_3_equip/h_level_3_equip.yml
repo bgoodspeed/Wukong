@@ -28,12 +28,14 @@ event_areas:
   - top_left: [ 486, 326 ]
     bottom_right: [ 600, 423 ]
     action: LOAD_LEVEL
-    description:
-      - not ready
+    info_window:
+      description:
+        - not ready
     action_argument: "game-data/levels/h_level_3_equip/h_level_3_equip.yml"
   - top_left: [ 32, 378 ]
     bottom_right: [ 170, 432 ]
     action: LOAD_LEVEL
-    description:
-      - back to reward level.
+    info_window:
+      description:
+        - back to reward level.
     action_argument: "game-data/levels/h_level_3_reward/h_level_3_reward.yml"

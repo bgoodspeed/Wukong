@@ -92,8 +92,9 @@ spawn_points:
 event_areas:
   - top_left: [ 189, 134 ]
     bottom_right: [ 227, 174 ]
-    description:
-      - Attack with SPACE BAR!
+    info_window:
+      description:
+        - Attack with SPACE BAR!
       
 line_segments:
   - start_x: 0

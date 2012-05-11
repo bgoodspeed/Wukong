@@ -44,8 +44,9 @@ spawn_points:
 event_areas:
   - top_left: [ 907, 610 ]
     bottom_right: [ 943, 647 ]
-    description:
-      - Avoid the Adult Horned Pigs and sneak into the citadel!
+    info_window:
+      description:
+        - Avoid the Adult Horned Pigs and sneak into the citadel!
 
 line_segments:
   - start_x: 0
