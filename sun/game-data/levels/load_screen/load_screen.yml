@@ -2,7 +2,7 @@ name: load_screen
 background_image: game-data/levels/load_screen/load_screen_blue.png
 background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
-player_start_position: [ 370, 295 ]
+player_start_position: [ 368, 321 ]
 
 measurements:
   width: 800
@@ -29,31 +29,35 @@ event_areas:
     bottom_right: [ 243, 522 ]
     action: queue_start_new_game_event
     description:
-      - Press ENTER or RETURN to accept.
+      - ENTER or O to open.
     info_window_position: [ 41, 373 ]
-    info_window_size: [ 315, 419 ]
+    info_window_size: [ 252, 419 ]
   - top_left: [ 565, 104 ]
     bottom_right: [ 719, 159 ]
     action: queue_load_game_event
     description:
       - Load saved games.
-    info_window_position: [ 41, 206 ]
-    info_window_size: [ 265, 252 ]
+    info_window_position: [ 516, 206 ]
+    info_window_size: [ 252, 252 ]
   - top_left: [ 561, 467 ]
     bottom_right: [ 718, 523 ]
     action: queue_settings_event
     description:
-      - See and edit game settings.
+      - Change game settings.
+    info_window_position: [ 516, 373 ]
+    info_window_size: [ 252, 419 ]
   - top_left: [ 87, 106 ]
     bottom_right: [ 246, 160 ]
     action: queue_continue_event
     description:
-      - Continue recently saved game.
+      - Continue recent game.
     info_window_position: [ 41, 206 ]
-    info_window_size: [ 265, 252 ]
+    info_window_size: [ 252, 252 ]
   - top_left: [ 349, 303 ]
     bottom_right: [ 389, 337 ]
     description:
-      - Welcome MSG or something else clever here.
-    info_window_position: [ 200, 230 ]
+      - .          Welcome to Haligonia,
+      - . where the adventures are unreal.
+      - .             Is everything else?
+    info_window_position: [ 260, 230 ]
     info_window_size: [0, 0 ]
