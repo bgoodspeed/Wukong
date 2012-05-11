@@ -32,3 +32,12 @@ end
 Then /^the info window should be valid$/ do
   @info_window.should be_valid
 end
+
+When /^I unset the info window property "([^"]*)"$/ do |arg1|
+  @info_window.send("#{arg1}=",nil)
+end
+
+
+Then /^the info window should not be valid$/ do
+  @info_window.should_not be_valid
+end

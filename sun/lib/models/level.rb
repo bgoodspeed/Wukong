@@ -30,11 +30,14 @@ class Level
     :declared_enemies,
   ]
   SCALAR_ATTRIBUTES = [
-    :minimum_x, :minimum_y, :maximum_x, :maximum_y, :name, :reward_level, :max_enemies,
-    :orig_filename, :cell_size, :player_start_position #TODO this is technically an array,but i don't want it init'd to []
+    :minimum_x, :minimum_y, :maximum_x, :maximum_y, :max_enemies,
+    :orig_filename, :cell_size,
+  ]
+  YAML_ATTRIBUTES = [ :background_image, :background_music, :reward_level , :player_start_position, :name
   ]
 
-  ATTRIBUTES = ARRAY_ATTRIBUTES + HASH_ATTRIBUTES + SCALAR_ATTRIBUTES
+  ATTRIBUTES = ARRAY_ATTRIBUTES + HASH_ATTRIBUTES + SCALAR_ATTRIBUTES + YAML_ATTRIBUTES
+
 
   ATTRIBUTES.each {|attr| attr_accessor attr}
   attr_reader :background_image, :background_music

@@ -11,17 +11,15 @@ class LevelLoader
     return unless @game
     @game.log.info yield
   end
-
+  #TODO technically this is a hash constructor config helper, it's not yaml specific
+  include YamlHelper
   def load_level(which_level)
     log_info { "Loading level #{which_level}" }
     level = Level.new(@game)
     data = YAML.load_file(which_level)
     level.orig_filename = which_level
-    level.background_image = data["background_image"]
-    level.background_music = data["background_music"] if data["background_music"]
-    level.reward_level = data["reward_level"] if data["reward_level"]
-    level.name = data["name"]
-    level.measurements = [data["measurements"]["width"].to_i,data["measurements"]["height"].to_i] 
+    process_attributes(Level::YAML_ATTRIBUTES, level, data)
+    level.measurements = [data["measurements"]["width"].to_i,data["measurements"]["height"].to_i]
 
     data["line_segments"].to_a.each do |lineseg|
       log_info { "Adding line segment #{lineseg['start_x']} #{ lineseg['start_y']} #{ lineseg['end_x']} #{ lineseg['end_y']})" }
@@ -66,23 +64,29 @@ class LevelLoader
       @game.hud = hud
 
     end
-    level.player_start_position = data["player_start_position"] if data["player_start_position"]
-
-    
 
     level.ored_completion_conditions = data["ored_completion_conditions"].to_a.collect {|cc| conf_for(cc) }
     level.anded_completion_conditions = data["anded_completion_conditions"].to_a.collect {|cc| conf_for(cc)}
     data["event_areas"].to_a.each {|ea|
       log_info { "Adding event areas: #{ea['label']} #{ea['action']}(#{ea['action_argument']})" }
+      validation_error("Fix event area yaml", ['top_left', 'bottom_right']) if ea['top_left'].nil? or ea['bottom_right'].nil?
       tl = ea['top_left']
       br = ea['bottom_right']
       ea_conf = ea.dup
       ea_conf['rect'] = Primitives::Rectangle.new(tl, [tl.x, br.y], br, [br.x, tl.y])
       eva = EventArea.new(@game, ea_conf)
+
+      validation_error("Fix event area yaml", EventArea::REQUIRED_ATTRIBUTES) unless eva.valid?
       level.add_event_area(eva)
     }
 
     level
+  end
+
+  def validation_error(user_msg, atts=[])
+    msg =  ("*" * 80) + "\n #{user_msg}, required are: #{atts}"
+    @game.log.fatal msg
+    puts msg
   end
   def conf_for(cc)
     log_info { "Adding completion condition: #{cc['condition']} #{cc['argument']}" }

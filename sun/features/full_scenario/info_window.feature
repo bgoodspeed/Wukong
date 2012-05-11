@@ -52,4 +52,5 @@ Feature: Info Window
     When I unset the info window property "<property>"
     Then the info window should not be valid
   Examples:
-    | property |
+    | property     |
+    | description |

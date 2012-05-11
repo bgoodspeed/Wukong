@@ -37,6 +37,7 @@ class InfoWindow
   end
   def valid?(attrs=REQUIRED_ATTRIBUTES)
     attrs.each {|attr| return false if self.send(attr).nil?}
+    @images.each {|iwi| return false unless iwi.valid?}
     true
   end
 
