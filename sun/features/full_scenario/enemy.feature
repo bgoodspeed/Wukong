@@ -141,3 +141,16 @@ Feature: Enemy Built
     Then there should be 1 enemies
     And the animation for the enemy should not be active
     And the animation for the enemy should need an update
+
+
+  Scenario: Enemy Validation
+    Given I create a valid enemy
+    Then the enemy should be valid
+
+  Scenario Outline: Enemy Validation - Requirements
+    Given I create a valid enemy
+    When I unset the enemy property "<property>"
+    Then the enemy should not be valid
+  Examples:
+    | property            |
+    | direction          |

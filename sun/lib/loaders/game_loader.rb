@@ -54,7 +54,9 @@ class GameLoader
       'new_game_level', 'game_load_path', 'menu_for_equipment'
     ]
   end
-  def self.game_from_yaml(yaml)
+  extend ValidationHelper
+
+  def self.game_from_yaml(yaml, f="unknown")
     data = YAML.load(yaml)
     conf = data['game']
 
@@ -73,10 +75,13 @@ class GameLoader
 
     try_add_splash_screen(game, conf)
     try_add_font_config(game, conf)
-
-    
+    @game = game
+    @which_level = f
+    check_validation_error(game, "Fix game yaml", game.required_attributes)
     game
   end
+
+
 
   def self.try_add_font_config(game, conf)
     if conf['font_config']

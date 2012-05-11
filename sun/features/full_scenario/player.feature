@@ -65,5 +65,15 @@ Feature: Player Details
     When I invoke the damage action
     Then the play count for sound effect "wound" should be 1
 
+  Scenario: Player Validation
+    Given I create a valid player
+    Then the player should be valid
 
-
+  Scenario Outline: Player Validation - Requirements
+    Given I create a valid player
+    When I unset the player property "<property>"
+    Then the player should not be valid
+  Examples:
+    | property            |
+    | menu_action_delay |
+    | direction          |

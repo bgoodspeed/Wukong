@@ -13,9 +13,11 @@ class Enemy
   include Health
   include Collidable
   include YamlHelper
+  include ValidationHelper
 
   def self.defaults
     {
+      'name' => 'DefaultEnemyName',
       'animation_name' => "enemy_animation",
       'damage_sound_effect_name' => 'enemy_damage_effect',
       'animation_width' => 50,
@@ -32,7 +34,7 @@ class Enemy
 
     }
   end
-  attr_reader :radius
+  attr_reader :radius, :required_attributes
   def initialize(game, conf_in)
     conf = self.class.defaults.merge(conf_in)
     @game = game
@@ -58,6 +60,8 @@ class Enemy
     @stats = Stats.new(cf)
     @game.animation_controller.animation_index_by_entity_and_name(self, conf['animation_name']).needs_update = true
     process_attributes(ATTRIBUTES, self, conf)
+    @required_attributes = ATTRIBUTES - [:image_file, :animation_path]
+
   end
 
   def health=(v)

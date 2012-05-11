@@ -142,3 +142,15 @@ Feature: Level Description
     | property              |
     | condition            |
     | argument             |
+
+  Scenario: Level Validation
+    Given I create a valid level
+    Then the level should be valid
+
+  Scenario Outline: Level Validation - Requirements
+    Given I create a valid level
+    When I unset the level property "<property>"
+    Then the level should not be valid
+  Examples:
+    | property            |
+    | cell_size          |

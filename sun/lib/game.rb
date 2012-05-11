@@ -83,15 +83,17 @@ class Game
     :save_loader, :font_controller, :inventory_controller, :level_controller,
     :collision_response_controller, :targetting_controller
   ]
-  attr_accessor :player, :clock, :hud, :screen, :level, :collisions,
-    :wayfinding, :main_menu_name, :temporary_message, :mouse_drawn,
-    :active, :new_game_level, :menu_for_load_game, :game_load_path, :over,
-    :game_over_menu, :menu_for_save_game, :log, :menu_for_equipment,
-    :old_level_name
+  REQUIRED_ATTRIBUTES = [:player, :clock, :hud, :screen, :level, :collisions,
+                         :wayfinding, :main_menu_name, :mouse_drawn,
+                         :active, :new_game_level, :menu_for_load_game, :game_load_path, :over,
+                         :game_over_menu, :menu_for_save_game, :log, :menu_for_equipment,
+                         ]
+  OPTIONAL_ATTRIBUTES = [:temporary_message, :old_level_name]
+  ATTRIBUTES = REQUIRED_ATTRIBUTES + OPTIONAL_ATTRIBUTES + GAME_CONSTRUCTED
 
-  ATTRIBUTES = GAME_CONSTRUCTED
-  ATTRIBUTES.each {|attr| attr_accessor attr}
-  
+  ATTRIBUTES.each {|attr| attr_accessor attr }
+
+
   alias_method :active?, :active
 
   def_delegators :@player, :turn_speed, :movement_distance, :weapon_in_use?, :stop_weapon
@@ -113,6 +115,7 @@ class Game
   def_delegator :@save_loader, :save_slot, :save_game_slot
 
   include InitHelper
+  include ValidationHelper
 
   def initialize(deps = {})
     dependencies = {:framerate => 60}.merge(deps)
@@ -134,7 +137,7 @@ class Game
     @hud = HeadsUpDisplay.new(self)
     @collisions = []
   end
-
+  def required_attributes; REQUIRED_ATTRIBUTES; end
   def set_player(player)
     @log.info "Setting player #{player}"
     @player = player

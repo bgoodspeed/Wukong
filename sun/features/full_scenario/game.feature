@@ -56,3 +56,14 @@ Feature: Game
     Then the game property "font_controller.font_size" should be "18"
 
 
+  Scenario: Game Validation
+    Given I create a valid game
+    Then the game should be valid
+
+  Scenario Outline: Game Validation - Requirements
+    Given I create a valid game
+    When I unset the game property "<property>"
+    Then the game should not be valid
+  Examples:
+    | property              |
+    | new_game_level      |

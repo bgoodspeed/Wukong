@@ -12,4 +12,16 @@ module ValidationHelper
 
     Validation.invalid(unset)
   end
+
+  def validation_error(user_msg, atts=[])
+    msg =  ("*" * 80) + "\n From file #{@which_level}\n#{user_msg}, required are: #{atts}"
+    @game.log.fatal msg
+    puts msg
+  end
+  def check_validation_error(obj, user_msg, atts=[])
+    v = obj.valid?
+    return if v == ValidationHelper::Validation::VALID
+    validation_error("#{user_msg}: these were unset: [#{v}]", atts)
+  end
+
 end

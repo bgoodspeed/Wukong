@@ -12,3 +12,5 @@ game:
   game_load_path: "test-data/loads/"
   splash_screen: "test-data/screens/splash_screen.png"
   menu_for_main: "test-data/menus/main.yml"
+  game_over_menu: "test-data/menus/game_over.yml"
+  menu_for_save_game: "test-data/menus/save_game.yml"

@@ -168,3 +168,20 @@ When /^I invoke the damage action$/ do
   col.stubs(:dynamic2).returns p
   @game.action_controller.invoke(ResponseTypes::DAMAGING1, col)
 end
+
+Given /^I create a valid player$/ do
+  @player = Player.new(mock_game, Player.defaults)
+end
+
+
+Then /^the player should be valid$/ do
+  @player.valid?.should be(ValidationHelper::Validation::VALID)
+end
+When /^I unset the player property "([^"]*)"$/ do |arg1|
+  @player.send("#{arg1}=", nil)
+end
+
+
+Then /^the player should not be valid$/ do
+  @player.valid?.should_not be(ValidationHelper::Validation::VALID)
+end

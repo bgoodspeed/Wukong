@@ -182,3 +182,27 @@ end
 Then /^the completion condition should not be valid$/ do
   @completion_condition.valid?.should_not be(ValidationHelper::Validation::VALID)
 end
+
+def valid_level_conf
+  {
+      'orig_filename' => 'fake/root/level.yml',
+      'name' => 'foo'
+  }
+end
+
+Given /^I create a valid level$/ do
+  @level = Level.new(mock_game, valid_level_conf)
+end
+
+
+When /^I unset the level property "([^"]*)"$/ do |arg1|
+  @level.send("#{arg1}=", nil)
+end
+
+
+Then /^the level should be valid$/ do
+  @level.valid?.should be(ValidationHelper::Validation::VALID)
+end
+Then /^the level should not be valid$/ do
+  @level.valid?.should_not be(ValidationHelper::Validation::VALID)
+end

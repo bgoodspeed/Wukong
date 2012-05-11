@@ -56,6 +56,8 @@ class Level
     }
   end
   include YamlHelper
+  include ValidationHelper
+  attr_reader :required_attributes
   def initialize(game=nil, in_conf={})
     @game = game
     init_arrays(ARRAY_ATTRIBUTES, self)
@@ -66,7 +68,7 @@ class Level
     @dynamic_hash = SpatialHash.new(@cell_size)
     @background = @game.image_controller.register_image(@background_image)   if @background_image
     @music = @game.sound_controller.add_song(@background_music, @background_music) if @background_music
-
+    @required_attributes = YAML_ATTRIBUTES - [:player_start_position, :background_music, :background_image, :reward_level]
   end
 
 
