@@ -2,14 +2,16 @@
 # and open the template in the editor.
 class EventArea
   #TODO use ATTRIBUTES and process with yaml as usual
-  YAML_ATTRIBUTES = [:rect, :label, :action, :action_argument]
+  REQUIRED_ATTRIBUTES = [:rect, :action]
+  YAML_ATTRIBUTES = REQUIRED_ATTRIBUTES + [:label, :action_argument,  :required_attributes]
   ATTRIBUTES = [:info_window ]
-  REQUIRED_ATTRIBUTES = YAML_ATTRIBUTES - [:action_argument, :label]
 
   (ATTRIBUTES + YAML_ATTRIBUTES).each {|attribute| attr_accessor attribute }
   alias_method :argument, :action_argument
   def self.defaults
     {
+        'required_attributes' => REQUIRED_ATTRIBUTES,
+        'info_window' => {}
     }
   end
   include YamlHelper
@@ -18,14 +20,7 @@ class EventArea
     conf = self.class.defaults.merge(conf_in)
     @game = game
     process_attributes(YAML_ATTRIBUTES, self, conf)
-    # conf.has_key?('description') ? conf['description'] : ["Mystery?"], conf['info_window']['position'], conf['info_window']['size']
-    cf = conf['info_window'] ? conf['info_window'] : {}
-    @info_window = InfoWindow.new(game, cf)
-  end
-
-  def valid?(attrs=REQUIRED_ATTRIBUTES)
-    attrs.each {|attr| return false if self.send(attr).nil?}
-    true
+    @info_window = InfoWindow.new(game, conf['info_window'])
   end
 
   def description_joined

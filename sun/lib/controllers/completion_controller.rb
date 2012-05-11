@@ -3,13 +3,12 @@ class CompletionCondition
   ATTRIBUTES = [:condition, :argument]
   ATTRIBUTES.each {|attribute| attr_accessor attribute }
   include YamlHelper
+  include ValidationHelper
 
+  attr_reader :required_attributes
   def initialize(conf)
     process_attributes(ATTRIBUTES, self, conf)
-  end
-  def valid?(attrs=ATTRIBUTES)
-    attrs.each {|attr| return false if self.send(attr).nil?}
-    true
+    @required_attributes = ATTRIBUTES
   end
 end
 

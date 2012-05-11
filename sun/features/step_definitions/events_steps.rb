@@ -34,7 +34,7 @@ end
 
 
 Then /^the event area should be valid$/ do
-  @event_area.should be_valid
+  @event_area.valid?.should be(ValidationHelper::Validation::VALID)
 end
 
 
@@ -45,7 +45,7 @@ end
 
 
 Then /^the event area should not be valid$/ do
-  @event_area.should_not be_valid, "Expected event emitter property #{@last_property} to be mandatory"
+  @event_area.valid?.should_not be(ValidationHelper::Validation::VALID), "Expected event emitter property #{@last_property} to be mandatory"
 end
 
 def valid_event_emitter_conf
@@ -62,7 +62,7 @@ end
 
 
 Then /^the event emitter should be valid$/ do
-  @event_emitter.should be_valid
+  @event_emitter.valid?.should be(ValidationHelper::Validation::VALID)
 end
 
 
@@ -73,5 +73,5 @@ end
 
 
 Then /^the event emitter should not be valid$/ do
-  @event_emitter.should_not be_valid, "Expected event emitter property #{@last_property} to be mandatory"
+  @event_emitter.valid?.should_not be(ValidationHelper::Validation::VALID)
 end
