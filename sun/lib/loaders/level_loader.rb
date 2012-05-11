@@ -38,7 +38,9 @@ class LevelLoader
           level.add_event_area(eva)
         },
         "spawn_points" => lambda {|level, data, sp|
-          level.add_spawn_point(SpawnPoint.new(@game, sp))
+          pt = SpawnPoint.new(@game, sp)
+          validation_error("Fix spawn point yaml", SpawnPoint::ATTRIBUTES) unless pt.valid?
+          level.add_spawn_point(pt)
         },
         "animations" => lambda {|level, data, anim|
           la = LevelAnimation.new(@game, anim)
