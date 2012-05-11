@@ -19,45 +19,56 @@ class LevelLoader
     data = YAML.load_file(which_level)
     data['orig_filename'] = which_level
     level = Level.new(@game, data)
+    array_finalizers = {
+        "line_segments" => lambda {|level, data, lineseg|
+          level.add_line_segment(lineseg["start_x"], lineseg["start_y"], lineseg["end_x"], lineseg["end_y"])
+        },
+        "declared_enemies" => lambda {|level, data, e|
+          level.add_declared_enemy(e['name'], YamlLoader.from_file(Enemy, @game, e['enemy_yaml']))
+        },
+        "event_areas" => lambda {|level, data, ea|
+          validation_error("Fix event area yaml", ['top_left', 'bottom_right']) if ea['top_left'].nil? or ea['bottom_right'].nil?
+          tl = ea['top_left']
+          br = ea['bottom_right']
+          ea_conf = ea.dup
+          ea_conf['rect'] = Primitives::Rectangle.new(tl, [tl.x, br.y], br, [br.x, tl.y])
+          eva = EventArea.new(@game, ea_conf)
 
+          validation_error("Fix event area yaml", EventArea::REQUIRED_ATTRIBUTES) unless eva.valid?
+          level.add_event_area(eva)
+        },
+        "spawn_points" => lambda {|level, data, sp|
+          pt = SpawnPoint.new(@game, sp['point'],sp['name'], sp['spawn_schedule'], sp['spawn_argument'] )
+          level.add_spawn_point(pt)
+        },
+        "animations" => lambda {|level, data, anim|
+          la = LevelAnimation.new(@game, anim)
+          #TODO maybe entity should be level?
+          #TODO wtf is the tiles boolean (hardcoded to false currently)
+          @game.animation_controller.register_animation(la, la.animation_name,
+                                                        la.animation_file, la.animation_width, la.animation_height, false,
+                                                        la.animation_active, la.animation_rate)
+          level.animations << la
+        },
+        "event_emitters" => lambda {|level, data, ee|
+          pos = ee["position"].split(",").collect {|v| v.to_i}
+          log_info { "Loading event emitter #{ee})" }
+          level.add_event_emitter(pos, ee["radius"], ee["event"], ee["event_argument"])
+        }
+    }
 
-    data["line_segments"].to_a.each do |lineseg|
-      log_info { "Adding line segment #{lineseg['start_x']} #{ lineseg['start_y']} #{ lineseg['end_x']} #{ lineseg['end_y']})" }
-      level.add_line_segment(lineseg["start_x"], lineseg["start_y"], lineseg["end_x"], lineseg["end_y"])
-    end
-    #TODO this is getting ugly
-    data["event_emitters"].to_a.each do |ee|
-
-      pos = ee["position"].split(",").collect {|v| v.to_i}
-      log_info { "Loading event emitter #{ee})" }
-      level.add_event_emitter(pos, ee["radius"], ee["event"], ee["event_argument"])
+    array_finalizers.each do |prop, method|
+      data[prop].to_a.each do |elem|
+        log_info { "Adding #{prop} #{elem}" }
+        method.call(level, data, elem)
+      end
     end
     #TODO should this know about wayfinding directly?
     if data["wayfinding"]
       log_info { "Loading wayfinding #{data["wayfinding"]}" }
-      wayfinding = YamlLoader.from_file(WayFinding, @game, data["wayfinding"])
-      @game.wayfinding = wayfinding
+      @game.wayfinding = YamlLoader.from_file(WayFinding, @game, data["wayfinding"])
     end
     
-    data["declared_enemies"].to_a.each {|e|
-      log_info { "Adding enemy #{e['name']} from #{e['enemy_yaml']}" }
-      level.add_declared_enemy(e['name'], YamlLoader.from_file(Enemy, @game, e['enemy_yaml']))
-    }
-    data["spawn_points"].to_a.each {|sp|
-      pt = SpawnPoint.new(@game, sp['point'],sp['name'], sp['spawn_schedule'], sp['spawn_argument'] )
-      log_info { "Adding spawn poit #{sp}" }
-      level.add_spawn_point(pt)
-    }
-
-    data["animations"].to_a.each {|anim|
-      la = LevelAnimation.new(@game, anim)
-      #TODO maybe entity should be level?
-      #TODO wtf is the tiles boolean (hardcoded to false currently)
-      @game.animation_controller.register_animation(la, la.animation_name,
-        la.animation_file, la.animation_width, la.animation_height, false,
-        la.animation_active, la.animation_rate)
-      level.animations << la
-    }
     if data["heads_up_display"]
       @game.log.info { "Building Level HUD: #{data['heads_up_display']}"}
       hud = YamlLoader.from_file(HeadsUpDisplay, @game, data['heads_up_display'])
@@ -67,18 +78,6 @@ class LevelLoader
 
     level.ored_completion_conditions = data["ored_completion_conditions"].to_a.collect {|cc| conf_for(cc) }
     level.anded_completion_conditions = data["anded_completion_conditions"].to_a.collect {|cc| conf_for(cc)}
-    data["event_areas"].to_a.each {|ea|
-      log_info { "Adding event areas: #{ea['label']} #{ea['action']}(#{ea['action_argument']})" }
-      validation_error("Fix event area yaml", ['top_left', 'bottom_right']) if ea['top_left'].nil? or ea['bottom_right'].nil?
-      tl = ea['top_left']
-      br = ea['bottom_right']
-      ea_conf = ea.dup
-      ea_conf['rect'] = Primitives::Rectangle.new(tl, [tl.x, br.y], br, [br.x, tl.y])
-      eva = EventArea.new(@game, ea_conf)
-
-      validation_error("Fix event area yaml", EventArea::REQUIRED_ATTRIBUTES) unless eva.valid?
-      level.add_event_area(eva)
-    }
 
     level
   end
