@@ -44,7 +44,9 @@ event_areas:
     bottom_right: [ 246, 160 ]
     action: queue_continue_event
     description:
-      - Continue with most recently saved game.
+      - Continue recently saved game.
+    info_window_position: [ 41, 207 ]
+    info_window_size: [ 265, 253 ]
   - top_left: [ 349, 303 ]
     bottom_right: [ 389, 337 ]
     description:
