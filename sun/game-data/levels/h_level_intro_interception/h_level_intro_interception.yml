@@ -39,7 +39,7 @@ event_areas:
       - Duplicate Kernel and continue.
     info_window_position: [ 507, 360 ]
     info_window_size: [268, 404 ]
-    action_argument: "game-data/levels/h_level_1/h_level_1.yml"
+    action_argument: "game-data/levels/h_level_intro_boss/h_level_intro_boss.yml"
   - top_left: [ 392, 290 ]
     bottom_right: [ 425, 329 ]
     description:
@@ -50,12 +50,3 @@ event_areas:
       - I will keep your Kernel safe incase you are caught and formatted.
     info_window_position: [ 190, 230 ]
     info_window_size: [575, 310 ]
-
-declared_enemies:
-  - enemy_yaml: game-data/enemies/rubu_anim.yml
-    name: e1
-spawn_points:
-  - point: [ 600, 500 ]
-    name: rubu
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
-    spawn_argument: [ e1 ]

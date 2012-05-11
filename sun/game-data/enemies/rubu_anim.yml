@@ -6,7 +6,7 @@ enemy:
   animation_rate: 1
   position: [ 1800 , 1100 ]
   base_direction: 90
-  velocity: 1.5
+  velocity: 2
   stats:
     health: 1000
     max_health: 1000
