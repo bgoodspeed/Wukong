@@ -1,0 +1,12 @@
+enemy:
+  name: rubu
+  image_path: game-data/sprites/rubu_animation.png
+  animation_width: 84
+  animation_height: 80
+  animation_rate: 1
+  position: [ 1800 , 1100 ]
+  base_direction: 90
+  velocity: 1.5
+  stats:
+    health: 1000
+    max_health: 1000
