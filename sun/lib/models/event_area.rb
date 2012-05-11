@@ -2,13 +2,30 @@
 # and open the template in the editor.
 class EventArea
   #TODO use ATTRIBUTES and process with yaml as usual
-  attr_accessor :rect, :label, :action, :info_window, :action_argument
+  YAML_ATTRIBUTES = [:rect, :label, :action, :action_argument]
+  ATTRIBUTES = [:info_window ]
+  REQUIRED_ATTRIBUTES = YAML_ATTRIBUTES - [:action_argument]
+
+  (ATTRIBUTES + YAML_ATTRIBUTES).each {|attribute| attr_accessor attribute }
   alias_method :argument, :action_argument
-  def initialize(game, rect, label, action, description=nil, action_argument=nil, info_window_position=nil, info_window_size=nil)
-    @game =game
-    @rect, @label, @action = rect, label, action
-    @info_window = InfoWindow.new(description ? description : ["Mystery?"], info_window_position, info_window_size)
-    @action_argument = action_argument
+  def self.defaults
+    {
+    }
+  end
+  include YamlHelper
+  include ValidationHelper
+  def initialize(game, conf_in)
+    conf = self.class.defaults.merge(conf_in)
+    @game = game
+    process_attributes(YAML_ATTRIBUTES, self, conf)
+    # conf.has_key?('description') ? conf['description'] : ["Mystery?"], conf['info_window']['position'], conf['info_window']['size']
+    cf = conf['info_window'] ? conf['info_window'] : {}
+    @info_window = InfoWindow.new(game, cf)
+  end
+
+  def valid?(attrs=REQUIRED_ATTRIBUTES)
+    attrs.each {|attr| return false if self.send(attr).nil?}
+    true
   end
 
   def description_joined

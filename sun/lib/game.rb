@@ -11,6 +11,7 @@ class Array
 end
 
 require 'helpers/init_helper'
+require 'helpers/validation_helper'
 require 'behaviors/movement_undoable'
 require 'behaviors/health'
 require 'behaviors/collidable'

@@ -27,18 +27,21 @@ event_areas:
     bottom_right: [ 280, 180 ]
     label: Start New Game
     action: queue_start_new_game_event
-    description:
-      - foo bar
-      - baz quz
-      -
-      - afterblank
+    info_window:
+      description:
+        - foo bar
+        - baz quz
+        -
+        - afterblank
   - top_left: [ 360, 10 ]
     bottom_right: [ 630, 180 ]
     label: Load Game
     action: queue_load_game_event
-    info_window_position: [ 1, 2 ]
-    description:
-      - monkeys
+    info_window:
+      position: [ 1, 2 ]
+      description:
+        - monkeys
+
   - top_left: [ 10, 280 ]
     bottom_right: [ 280, 470 ]
     label: Settings

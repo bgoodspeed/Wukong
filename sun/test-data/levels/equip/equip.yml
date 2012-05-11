@@ -28,12 +28,14 @@ event_areas:
     label: Equip Weapon
     action: equipment_menu
     action_argument: weapon
-    description:
-      - Change your equipment
-      - See all your weapons
+    info_window:
+      description:
+        - Change your equipment
+        - See all your weapons
   - top_left: [ 10, 250 ]
     bottom_right: [ 400, 500 ]
     label: Back
     action: back_to_level
-    description:
-      - Something
+    info_window:
+      description:
+        - Something

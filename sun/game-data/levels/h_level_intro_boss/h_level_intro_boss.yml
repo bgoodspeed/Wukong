@@ -26,6 +26,18 @@ line_segments:
     end_x: 800
     end_y: 600
 
+event_areas:
+  - top_left: [ 1, 1 ]
+    bottom_right: [ 799, 599 ]
+    action: noop
+    info_window:
+      description:
+        - "Rubu You are strong to make it this far or you got help"
+        - "No matter I ripped you out of the Matrix there's no where to hide"
+        - "Get ready to be Ponged!"
+      position: [ 100, 550 ]
+      size: [ 620, 500 ]
+    
 declared_enemies:
   - enemy_yaml: game-data/enemies/rubu_anim.yml
     name: e1
@@ -34,14 +46,3 @@ spawn_points:
     name: rubu
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e1 ]
-
-event_areas:
-  - top_left: [ 1, 1 ]
-    bottom_right: [ 799, 599 ]
-    action: noop
-    description:
-      - Rubu You are strong to make it this far or you got help
-      - No matter I ripped you out of the Matrix there's no where to hide
-      - Get ready to be Ponged!
-    info_window_position: [ 100, 550 ]
-    info_window_size: [ 620, 500 ]

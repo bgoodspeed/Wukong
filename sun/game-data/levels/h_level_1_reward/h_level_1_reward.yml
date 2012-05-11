@@ -28,23 +28,27 @@ event_areas:
   - top_left: [ 71, 121 ]
     bottom_right: [ 263, 211 ]
     action: take_reward
-    description:
-      - Avatar upgrade!
+    info_window:
+      description:
+        - Avatar upgrade!
     action: upgrade_player
     action_argument: "game-data/sprites/player_grey_scale_circle.png"
   - top_left: [ 379, 121 ]
     bottom_right: [ 572, 211 ]
     action: queue_save_game_event
-    description:
-      - Save your progress.
+    info_window:
+      description:
+        - Save your progress.
   - top_left: [ 72, 320 ]
     bottom_right: [ 264, 410 ]
     action: LOAD_LEVEL
-    description:
-      - Ready for level 2!
+    info_window:
+      description:
+        - Ready for level 2!
     action_argument: "game-data/levels/h_level_2/h_level_2.yml"
   - top_left: [ 378, 319 ]
     bottom_right: [ 571, 409 ]
     action: queue_load_game_event
-    description:
-      - Load previous saved games.
+    info_window:
+      description:
+        - Load previous saved games.
