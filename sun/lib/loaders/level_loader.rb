@@ -15,10 +15,10 @@ class LevelLoader
   include YamlHelper
   def load_level(which_level)
     log_info { "Loading level #{which_level}" }
-    level = Level.new(@game)
+
     data = YAML.load_file(which_level)
+    level = Level.new(@game, data)
     level.orig_filename = which_level
-    process_attributes(Level::YAML_ATTRIBUTES, level, data)
     level.measurements = [data["measurements"]["width"].to_i,data["measurements"]["height"].to_i]
 
     data["line_segments"].to_a.each do |lineseg|

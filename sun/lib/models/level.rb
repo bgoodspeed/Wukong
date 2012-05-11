@@ -30,10 +30,10 @@ class Level
     :declared_enemies,
   ]
   SCALAR_ATTRIBUTES = [
-    :minimum_x, :minimum_y, :maximum_x, :maximum_y, :max_enemies,
-    :orig_filename, :cell_size,
+
   ]
-  YAML_ATTRIBUTES = [ :background_image, :background_music, :reward_level , :player_start_position, :name
+  YAML_ATTRIBUTES = [ :orig_filename, :cell_size, :background_image, :background_music, :reward_level , :player_start_position, :name,
+                      :minimum_x, :minimum_y, :maximum_x, :maximum_y,:animation_distance_threshold, :max_enemies
   ]
 
   ATTRIBUTES = ARRAY_ATTRIBUTES + HASH_ATTRIBUTES + SCALAR_ATTRIBUTES + YAML_ATTRIBUTES
@@ -48,25 +48,23 @@ class Level
     {
       'cell_size' => 100,
       'animation_distance_threshold' => 800,
-      'max_enemies' => 10
+      'max_enemies' => 10,
+      'minimum_x' => 0,
+      'maximum_x' => 0,
+      'minimum_y' => 0,
+      'maximum_y' => 0,
     }
   end
-
+  include YamlHelper
   def initialize(game=nil, in_conf={})
+    @game = game
     init_arrays(ARRAY_ATTRIBUTES, self)
     conf = self.class.default_config.merge(in_conf)
+    process_attributes(YAML_ATTRIBUTES, self, conf)
     @declared_enemies = {}
-    @cell_size = conf['cell_size']
     @static_hash = SpatialHash.new(@cell_size)
     @dynamic_hash = SpatialHash.new(@cell_size)
-    @player_start_position = nil
-    @minimum_x = 0
-    @minimum_y = 0
-    @maximum_x = 0
-    @maximum_y = 0
-    @animation_distance_threshold = conf['animation_distance_threshold']
-    @max_enemies = conf['max_enemies']
-    @game = game
+
   end
 
   def background_image=(img)
