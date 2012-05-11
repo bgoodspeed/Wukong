@@ -92,10 +92,11 @@ event_areas:
   - top_left: [ 189, 134 ]
     bottom_right: [ 227, 174 ]
     action: noop
-    description:
-      - Attack with SPACE BAR!
-    info_window_position: [ 170, 90 ]
-    info_window_size: [225, 127 ]
+    info_window:
+      description:
+        - Attack with SPACE BAR!
+      position: [ 170, 90 ]
+      size: [225, 127 ]
       
 line_segments:
   - start_x: 0

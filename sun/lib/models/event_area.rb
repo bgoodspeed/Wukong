@@ -4,7 +4,7 @@ class EventArea
   #TODO use ATTRIBUTES and process with yaml as usual
   YAML_ATTRIBUTES = [:rect, :label, :action, :action_argument]
   ATTRIBUTES = [:info_window ]
-  REQUIRED_ATTRIBUTES = YAML_ATTRIBUTES - [:action_argument]
+  REQUIRED_ATTRIBUTES = YAML_ATTRIBUTES - [:action_argument, :label]
 
   (ATTRIBUTES + YAML_ATTRIBUTES).each {|attribute| attr_accessor attribute }
   alias_method :argument, :action_argument

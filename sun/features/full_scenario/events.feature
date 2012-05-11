@@ -34,7 +34,6 @@ Feature: Events
     Examples:
     | property |
     | rect     |
-    | label    |
     | action   |
 
   Scenario: Event Emitter Validation

@@ -27,37 +27,42 @@ event_areas:
   - top_left: [ 89, 466 ]
     bottom_right: [ 243, 522 ]
     action: queue_start_new_game_event
-    description:
-      - ENTER or O to open.
-    info_window_position: [ 41, 373 ]
-    info_window_size: [ 252, 419 ]
+    info_window:
+      description:
+        - ENTER or O to open.
+      position: [ 41, 373 ]
+      size: [ 252, 419 ]
   - top_left: [ 565, 104 ]
     bottom_right: [ 719, 159 ]
     action: queue_load_game_event
-    description:
-      - Load saved games.
-    info_window_position: [ 516, 206 ]
-    info_window_size: [ 252, 252 ]
+    info_window:
+      description:
+        - Load saved games.
+      position: [ 516, 206 ]
+      size: [ 252, 252 ]
   - top_left: [ 561, 467 ]
     bottom_right: [ 718, 523 ]
     action: queue_settings_event
-    description:
-      - Change game settings.
-    info_window_position: [ 516, 373 ]
-    info_window_size: [ 252, 419 ]
+    info_window:
+      description:
+        - Change game settings.
+      position: [ 516, 373 ]
+      size: [ 252, 419 ]
   - top_left: [ 87, 106 ]
     bottom_right: [ 246, 160 ]
     action: queue_continue_event
-    description:
-      - Continue recent game.
-    info_window_position: [ 41, 206 ]
-    info_window_size: [ 252, 252 ]
+    info_window:
+      description:
+        - Continue recent game.
+      position: [ 41, 206 ]
+      size: [ 252, 252 ]
   - top_left: [ 349, 303 ]
     bottom_right: [ 389, 337 ]
     action: noop
-    description:
-      - .          Welcome to Haligonia,
-      - . where the adventures are unreal.
-      - .             Is everything else?
-    info_window_position: [ 260, 230 ]
-    info_window_size: [0, 0 ]
+    info_window:
+      description:
+        - .          Welcome to Haligonia,
+        - . where the adventures are unreal.
+        - .             Is everything else?
+      position: [ 260, 230 ]
+      size: [0, 0 ]
