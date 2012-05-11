@@ -2,7 +2,7 @@
 # and open the template in the editor.
 
 Given /^I load the level "([^"]*)"$/ do |level_to_load|
-  @level_loader = LevelLoader.new
+  @level_loader = LevelLoader.new(mock_game)
   @level = @level_loader.load_level("test-data/levels/#{level_to_load}/#{level_to_load}.yml")
 end
 

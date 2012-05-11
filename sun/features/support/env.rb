@@ -28,6 +28,7 @@ def mock_game
   m = Mocha::Mock.new("game mock")
   m.stubs(:level).returns m
   m.stubs(:image_controller).returns m
+  m.stubs(:sound_controller).returns m
   m.stubs(:animation_controller).returns m
   m.stubs(:register_image).returns m
   m.stubs(:register_animation).returns m
@@ -35,6 +36,9 @@ def mock_game
   m.stubs(:width).returns 66
   m.stubs(:height).returns 44
   m.stubs(:remove_weapon)
+  m.stubs(:log).returns m
+  m.stubs(:info)
+
   m.stubs(:needs_update=)
   m.stubs(:stop_animation)
   m

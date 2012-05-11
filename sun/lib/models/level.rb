@@ -40,7 +40,6 @@ class Level
 
 
   ATTRIBUTES.each {|attr| attr_accessor attr}
-  attr_reader :background_image, :background_music
 
   include InitHelper
 
@@ -64,25 +63,11 @@ class Level
     @declared_enemies = {}
     @static_hash = SpatialHash.new(@cell_size)
     @dynamic_hash = SpatialHash.new(@cell_size)
+    @background = @game.image_controller.register_image(@background_image)   if @background_image
+    @music = @game.sound_controller.add_song(@background_music, @background_music) if @background_music
 
   end
 
-  def background_image=(img)
-    @background_image = img
-    if @game
-      @background = @game.image_controller.register_image(@background_image)
-    else
-      #TODO should game be required to build a level?
-    end
-  end
-  def background_music=(img)
-    @background_music = img
-    if @game
-      @music = @game.sound_controller.add_song(@background_music, @background_music)
-    else
-      #TODO should game be required to build a level?
-    end
-  end
 
   def update_minimax(sx,sy,ex,ey)
     @minimum_x = [sx, ex, @minimum_x].min
