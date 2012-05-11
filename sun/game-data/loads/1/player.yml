@@ -2,9 +2,9 @@
 player:
   step_size: 1
   position:
-  - 197.20585758674554
-  - 158.06962056718388
-  direction: 265
+  - 218.82732969850187
+  - 166.27738156805222
+  direction: 355
   turn_speed: 5
   movement_distance: 2
   menu_action_delay: 12
