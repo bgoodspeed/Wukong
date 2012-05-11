@@ -30,25 +30,26 @@ event_areas:
     info_window:
       description:
         - Save your progress.
-      position: [ 60, 38 ]
-      size: [180, 75 ]
+      position: [ 32, 228 ]
+      size: [ 252, 266 ]
   - top_left: [ 560, 455 ]
     bottom_right: [ 715, 510 ]
     action: LOAD_LEVEL
     action_argument: "game-data/levels/h_level_intro_boss/h_level_intro_boss.yml"
     info_window:
       description:
-        - Duplicate Kernel and continue.
-      position: [ 507, 360 ]
-      size: [268, 404 ]
+        - Copy Kernel and continue.
+      position: [ 513, 373 ]
+      size: [252, 410 ]
   - top_left: [ 392, 290 ]
     bottom_right: [ 425, 329 ]
+    action: noop
     info_window:
       description:
-        - This interception back to the source soon.
-        - Only enough time for a quick message, save your questions for later.
-        - You will be attacked by the powerful Rubu.
-        - You are strong but not be ready for him yet.
-        - I will keep your Kernel safe incase you are caught and formatted.
-      position: [ 190, 230 ]
-      size: [575, 310 ]
+        - ???, "This interception is being trace.
+        -
+        - No time for questions, Rubu knows where you are!
+        -
+        - I will keep your Kernel safely hidden. Now GO!"
+      position: [ 240, 230 ]
+      size: [425, 310 ]
