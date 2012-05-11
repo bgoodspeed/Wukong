@@ -8,12 +8,15 @@ class InfoWindowImage
   def initialize(game, conf)
     @game = game
     process_attributes(ATTRIBUTES, self, conf)
+    @game.image_controller.register_image(self.image_name)
   end
 end
 
 class InfoWindow
-  ATTRIBUTES = [:description, :position, :images, :size]
+  YAML_ATTRIBUTES = [:description, :position, :size]
   REQUIRED_ATTRIBUTES = [:description]
+
+  ATTRIBUTES = YAML_ATTRIBUTES + [:images]
   ATTRIBUTES.each {|attribute| attr_accessor attribute }
   include YamlHelper
   include ValidationHelper
@@ -25,9 +28,12 @@ class InfoWindow
     }
   end
 
-  def initialize(conf_in)
+  def initialize(game, conf_in)
+    @game = game
     conf = self.class.defaults.merge(conf_in)
-    process_attributes(ATTRIBUTES, self, conf)
+    process_attributes(YAML_ATTRIBUTES, self, conf)
+    @images = []
+    conf['images'].each {|img| @images << InfoWindowImage.new(@game, img)}
   end
   def valid?(attrs=REQUIRED_ATTRIBUTES)
     attrs.each {|attr| return false if self.send(attr).nil?}

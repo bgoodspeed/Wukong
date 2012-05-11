@@ -25,7 +25,7 @@ def valid_info_window_conf
   }
 end
 Given /^I create a valid info window$/ do
-  @info_window = InfoWindow.new(valid_info_window_conf)
+  @info_window = InfoWindow.new(nil, valid_info_window_conf)
 end
 
 

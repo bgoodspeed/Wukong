@@ -79,11 +79,6 @@ class LevelLoader
       ea_conf = ea.dup
       ea_conf['rect'] = Primitives::Rectangle.new(tl, [tl.x, br.y], br, [br.x, tl.y])
       eva = EventArea.new(@game, ea_conf)
-      ea['images'].to_a.each do |img_conf|
-        iwi = InfoWindowImage.new(@game, img_conf)
-        @game.image_controller.register_image(iwi.image_name)
-        eva.info_window.images << InfoWindowImage.new(@game, img_conf)
-      end
       level.add_event_area(eva)
     }
 

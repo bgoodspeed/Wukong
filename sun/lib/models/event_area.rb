@@ -20,7 +20,7 @@ class EventArea
     process_attributes(YAML_ATTRIBUTES, self, conf)
     # conf.has_key?('description') ? conf['description'] : ["Mystery?"], conf['info_window']['position'], conf['info_window']['size']
     cf = conf['info_window'] ? conf['info_window'] : {}
-    @info_window = InfoWindow.new(cf)
+    @info_window = InfoWindow.new(game, cf)
   end
 
   def valid?(attrs=REQUIRED_ATTRIBUTES)
