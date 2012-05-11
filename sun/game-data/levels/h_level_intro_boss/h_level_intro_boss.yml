@@ -29,6 +29,7 @@ line_segments:
 event_areas:
   - top_left: [ 1, 1 ]
     bottom_right: [ 799, 599 ]
+    action: noop
     info_window:
       description:
         - "Rubu You are strong to make it this far or you got help"
