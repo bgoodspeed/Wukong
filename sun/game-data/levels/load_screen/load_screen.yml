@@ -55,6 +55,7 @@ event_areas:
     info_window_size: [ 252, 252 ]
   - top_left: [ 349, 303 ]
     bottom_right: [ 389, 337 ]
+    action: noop
     description:
       - .          Welcome to Haligonia,
       - . where the adventures are unreal.
