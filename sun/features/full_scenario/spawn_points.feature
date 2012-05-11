@@ -39,6 +39,20 @@ Feature: Spawn Points
     Then a "EventTypes::SPAWN" event should be queued
     And the "EventTypes::SPAWN" event should have "argument.class" equal to "Enemy"
 
+  Scenario: Spawn Point Validation
+    Given I create a valid spawn point
+    Then the spawn point should be valid
+
+  Scenario Outline: Spawn Point Validation - Requirements
+    Given I create a valid spawn point
+    When I unset the spawn point property "<property>"
+    Then the spawn point should not be valid
+  Examples:
+    | property     |
+    | point        |
+    | name         |
+    | spawn_schedule |
+    | spawn_argument |
 
 
 

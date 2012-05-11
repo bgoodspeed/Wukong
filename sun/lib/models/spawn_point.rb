@@ -1,12 +1,17 @@
 class SpawnPoint
   attr_reader :enemy_quantity, :frequency, :total_time, :condition
-  attr_accessor :point, :name, :spawn_schedule, :spawn_argument
-  def initialize(game, point, name, spawn_schedule, spawn_argument)
+  ATTRIBUTES = [:point, :name, :spawn_schedule, :spawn_argument]
+  ATTRIBUTES.each {|attribute| attr_accessor attribute }
+  include YamlHelper
+  def initialize(game, conf)
     @game = game
-    @point, @name, @spawn_schedule, @spawn_argument = point, name, spawn_schedule, spawn_argument
+    process_attributes(ATTRIBUTES, self, conf)
     calculate_properties_from(@spawn_schedule)
   end
-
+  def valid?(attrs=ATTRIBUTES)
+    attrs.each {|attr| return false if self.send(attr).nil?}
+    true
+  end
   def calculate_properties_from(s)
     re = /(?<eq>\d+) enemies every (?<fr>\d+) ticks for (?<tt>\d+) total ticks/
     d = re.match(s)

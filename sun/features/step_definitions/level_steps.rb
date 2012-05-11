@@ -138,3 +138,26 @@ end
 Then /^there should be (\d+) animations$/ do |arg1|
   @game.level.animations.size.should == arg1.to_i
 end
+
+def valid_spawn_point_conf
+  {
+      'point' => [1,2],
+      'name' => "fakespawnpointname",
+      'spawn_schedule' => "1 enemies every 300 ticks for 900 total ticks",
+      'spawn_argument' => ["a"]
+  }
+end
+Given /^I create a valid spawn point$/ do
+  @spawn_point = SpawnPoint.new(nil, valid_spawn_point_conf)
+end
+
+
+When /^I unset the spawn point property "([^"]*)"$/ do |arg1|
+  @spawn_point.send("#{arg1}=", nil)
+end
+Then /^the spawn point should not be valid$/ do
+  @spawn_point.should_not be_valid
+end
+Then /^the spawn point should be valid$/ do
+  @spawn_point.should be_valid
+end

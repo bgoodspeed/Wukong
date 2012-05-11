@@ -38,8 +38,7 @@ class LevelLoader
           level.add_event_area(eva)
         },
         "spawn_points" => lambda {|level, data, sp|
-          pt = SpawnPoint.new(@game, sp['point'],sp['name'], sp['spawn_schedule'], sp['spawn_argument'] )
-          level.add_spawn_point(pt)
+          level.add_spawn_point(SpawnPoint.new(@game, sp))
         },
         "animations" => lambda {|level, data, anim|
           la = LevelAnimation.new(@game, anim)
