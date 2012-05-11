@@ -46,10 +46,10 @@ event_areas:
     action: noop
     info_window:
       description:
-        - ???, "This interception is being trace.
+        - ???, ''This interception is being trace.
         -
-        - No time for questions, Rubu knows where you are!
+        - "         No time for questions, Rubu knows where you are!"
         -
-        - I will keep your Kernel safely hidden. Now GO!"
+        - "         I will keep your Kernel safely hidden. Now GO!''"
       position: [ 240, 227 ]
-      size: [425, 310 ]
+      size: [475, 310 ]
