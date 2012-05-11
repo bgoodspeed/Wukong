@@ -75,20 +75,15 @@ require 'controllers/level_controller'
 require 'forwardable'
 class Game
   extend Forwardable
-  GAME_CONSTRUCTED = [ :game_item_controller, :animation_controller,
-    :action_controller, :image_controller, :player_loader, :level_loader,
-    :rendering_controller, :path_following_controller, :menu_controller,
-    :condition_controller, :completion_controller, :event_controller,
-    :input_controller, :camera, :splash_controller, :sound_controller, 
-    :save_loader, :font_controller, :inventory_controller, :level_controller,
-    :collision_response_controller, :targetting_controller
-  ]
-  REQUIRED_ATTRIBUTES = [:player, :clock, :hud, :screen, :level, :collisions,
-                         :wayfinding, :main_menu_name, :mouse_drawn,
-                         :active, :new_game_level, :menu_for_load_game, :game_load_path, :over,
-                         :game_over_menu, :menu_for_save_game, :log, :menu_for_equipment,
-                         ]
-  OPTIONAL_ATTRIBUTES = [:temporary_message, :old_level_name]
+  GAME_CONSTRUCTED = [ :game_item_controller, :animation_controller,:action_controller, :image_controller,
+    :player_loader, :level_loader, :rendering_controller, :path_following_controller, :menu_controller,
+    :condition_controller, :completion_controller, :event_controller, :input_controller, :camera,
+    :splash_controller, :sound_controller, :save_loader, :font_controller, :inventory_controller,
+    :level_controller, :collision_response_controller, :targetting_controller ]
+  REQUIRED_ATTRIBUTES = [:player, :clock, :hud, :screen, :level, :collisions, :main_menu_name, :mouse_drawn,
+                         :active, :new_game_level, :menu_for_load_game, :game_load_path, :over, :game_over_menu,
+                         :menu_for_save_game, :log, :menu_for_equipment, ]
+  OPTIONAL_ATTRIBUTES = [:temporary_message, :old_level_name, :wayfinding ]
   ATTRIBUTES = REQUIRED_ATTRIBUTES + OPTIONAL_ATTRIBUTES + GAME_CONSTRUCTED
 
   ATTRIBUTES.each {|attr| attr_accessor attr }
