@@ -58,7 +58,9 @@ class LevelLoader
           event_emitter = EventEmitter.new(@game, ee)
           validation_error("Fix event emitter yaml", EventEmitter::ATTRIBUTES) unless event_emitter.valid?
           level.add_event_emitter(event_emitter)
-        }
+        },
+        "ored_completion_conditions" => lambda {|level, data, cc| level.add_ored_completion_condition CompletionCondition.new(cc) },
+        "anded_completion_conditions" => lambda {|level, data, cc| level.add_anded_completion_condition CompletionCondition.new(cc) },
     }
 
     array_finalizers.each do |prop, method|
@@ -79,9 +81,6 @@ class LevelLoader
       @game.hud = hud
 
     end
-
-    level.ored_completion_conditions = data["ored_completion_conditions"].to_a.collect {|cc| CompletionCondition.new(cc) }
-    level.anded_completion_conditions = data["anded_completion_conditions"].to_a.collect {|cc| CompletionCondition.new(cc)}
 
     level
   end

@@ -37,6 +37,14 @@ Cucumber::Rake::Task.new("slow_specs") do |t|
   t.libs << ['lib']
   t.cucumber_opts = %w{--format progress --tags @slow}
 end
+Cucumber::Rake::Task.new("gosu_specs") do |t|
+  t.libs << ['lib']
+  t.cucumber_opts = %w{--format progress --tags @needs_full_gosu}
+end
+Cucumber::Rake::Task.new("non_gosu_specs") do |t|
+  t.libs << ['lib']
+  t.cucumber_opts = %w{--format progress --tags ~@needs_full_gosu}
+end
 
 task :start_profile do |t|
   puts "starting profile"
