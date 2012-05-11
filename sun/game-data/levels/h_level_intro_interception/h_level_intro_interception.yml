@@ -39,8 +39,8 @@ event_areas:
     info_window:
       description:
         - Copy Kernel and continue.
-      position: [ 513, 373 ]
-      size: [252, 410 ]
+      position: [ 513, 368 ]
+      size: [252, 409 ]
   - top_left: [ 392, 290 ]
     bottom_right: [ 425, 329 ]
     action: noop
@@ -51,5 +51,5 @@ event_areas:
         - No time for questions, Rubu knows where you are!
         -
         - I will keep your Kernel safely hidden. Now GO!"
-      position: [ 240, 230 ]
+      position: [ 240, 227 ]
       size: [425, 310 ]

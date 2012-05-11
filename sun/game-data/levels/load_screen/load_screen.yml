@@ -65,5 +65,5 @@ event_areas:
         - " where the adventures are unreal."
         -
         - "             Is everything else?"
-      position: [ 260, 230 ]
+      position: [ 260, 220 ]
       size: [0, 0 ]

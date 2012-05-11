@@ -96,7 +96,6 @@ spawn_points:
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e10 ]
 
-
 line_segments:
   - start_x: 0
     start_y: 0
