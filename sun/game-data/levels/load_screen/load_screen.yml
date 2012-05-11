@@ -1,7 +1,6 @@
 name: load_screen
 background_image: game-data/levels/load_screen/load_screen_blue.png
 background_music: game-data/music/drumbeats.wav
-wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 368, 321 ]
 
 measurements: [ 800, 600 ]
