@@ -43,4 +43,13 @@ Feature: Info Window
     And the event area info window images size should be "1"
 
 
-    
+  Scenario: Info Window Validation
+    Given I create a valid info window
+    Then the info window should be valid
+
+  Scenario Outline: Info Window Validation - Requirements
+    Given I create a valid info window
+    When I unset the info window property "<property>"
+    Then the info window should not be valid
+  Examples:
+    | property |

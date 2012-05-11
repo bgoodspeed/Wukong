@@ -52,7 +52,8 @@ end
 
 Given /^I create an event area$/ do
   @mock_game = mock_game
-  @event_area = EventArea.new(@mock_game,nil, nil, "action", nil, "action_argument")
+  conf = { 'action' => 'action', 'action_argument' => 'action_argument'}
+  @event_area = EventArea.new(@mock_game,conf)
 end
 
 Given /^I expect "([^"]*)" with event area for the argument on the action controller$/ do |arg1|

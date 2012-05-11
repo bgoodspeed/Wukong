@@ -22,3 +22,17 @@ Feature: Events
     And handle events
     Then there should be 1 enemies
     And the path following controller should be tracking 1 element
+
+  Scenario: Event Areas Validation
+    Given I create a valid event area
+    Then the event area should be valid
+
+  Scenario Outline: Event Areas Validation - Requirements
+    Given I create a valid event area
+    When I unset the event area property "<property>"
+    Then the event area should not be valid
+    Examples:
+    | property |
+    | rect     |
+    | label    |
+    | action   |
