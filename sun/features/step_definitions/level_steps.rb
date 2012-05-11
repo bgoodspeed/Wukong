@@ -161,3 +161,24 @@ end
 Then /^the spawn point should be valid$/ do
   @spawn_point.should be_valid
 end
+
+def valid_completion_condition_conf
+  {'condition' => 'fakecondition',
+  'argument' => 12}
+end
+
+Given /^I create a valid completion condition$/ do
+  @completion_condition = CompletionCondition.new(valid_completion_condition_conf)
+end
+
+Then /^the completion condition should be valid$/ do
+  @completion_condition.should be_valid
+end
+
+When /^I unset the completion condition property "([^"]*)"$/ do |arg1|
+  @completion_condition.send("#{arg1}=",nil)
+end
+
+Then /^the completion condition should not be valid$/ do
+  @completion_condition.should_not be_valid
+end

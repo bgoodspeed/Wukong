@@ -1,8 +1,15 @@
 
 class CompletionCondition
-  attr_reader :condition, :argument
-  def initialize(condition, argument)
-    @condition, @argument = condition, argument
+  ATTRIBUTES = [:condition, :argument]
+  ATTRIBUTES.each {|attribute| attr_accessor attribute }
+  include YamlHelper
+
+  def initialize(conf)
+    process_attributes(ATTRIBUTES, self, conf)
+  end
+  def valid?(attrs=ATTRIBUTES)
+    attrs.each {|attr| return false if self.send(attr).nil?}
+    true
   end
 end
 

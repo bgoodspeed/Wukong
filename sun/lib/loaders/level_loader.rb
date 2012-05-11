@@ -17,6 +17,7 @@ class LevelLoader
     log_info { "Loading level #{which_level}" }
 
     data = YAML.load_file(which_level)
+    @which_level = which_level
     data['orig_filename'] = which_level
     level = Level.new(@game, data)
     array_finalizers = {
@@ -55,6 +56,7 @@ class LevelLoader
           circle = Primitives::Circle.new(ee['position'], ee['radius'].to_i)
           ee['collision_primitive'] = circle
           event_emitter = EventEmitter.new(@game, ee)
+          validation_error("Fix event emitter yaml", EventEmitter::ATTRIBUTES) unless event_emitter.valid?
           level.add_event_emitter(event_emitter)
         }
     }
@@ -78,19 +80,15 @@ class LevelLoader
 
     end
 
-    level.ored_completion_conditions = data["ored_completion_conditions"].to_a.collect {|cc| conf_for(cc) }
-    level.anded_completion_conditions = data["anded_completion_conditions"].to_a.collect {|cc| conf_for(cc)}
+    level.ored_completion_conditions = data["ored_completion_conditions"].to_a.collect {|cc| CompletionCondition.new(cc) }
+    level.anded_completion_conditions = data["anded_completion_conditions"].to_a.collect {|cc| CompletionCondition.new(cc)}
 
     level
   end
 
   def validation_error(user_msg, atts=[])
-    msg =  ("*" * 80) + "\n #{user_msg}, required are: #{atts}"
+    msg =  ("*" * 80) + "\n From file #{@which_level}\n#{user_msg}, required are: #{atts}"
     @game.log.fatal msg
     puts msg
-  end
-  def conf_for(cc)
-    log_info { "Adding completion condition: #{cc['condition']} #{cc['argument']}" }
-    CompletionCondition.new(cc['condition'],cc['argument'])
   end
 end

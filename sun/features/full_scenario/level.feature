@@ -130,4 +130,15 @@ Feature: Level Description
     Then there should be 2 animations
 
 
-    
+  Scenario: Completion Condition Validation
+    Given I create a valid completion condition
+    Then the completion condition should be valid
+
+  Scenario Outline: Completion Condition Validation - Requirements
+    Given I create a valid completion condition
+    When I unset the completion condition property "<property>"
+    Then the completion condition should not be valid
+  Examples:
+    | property              |
+    | condition            |
+    | argument             |
