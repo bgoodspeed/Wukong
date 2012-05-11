@@ -35,11 +35,11 @@ event_areas:
   - top_left: [ 560, 455 ]
     bottom_right: [ 715, 510 ]
     action: LOAD_LEVEL
+    action_argument: "game-data/levels/h_level_intro_boss/h_level_intro_boss.yml"
     description:
       - Duplicate Kernel and continue.
     info_window_position: [ 507, 360 ]
     info_window_size: [268, 404 ]
-    action_argument: "game-data/levels/h_level_intro_boss/h_level_intro_boss.yml"
   - top_left: [ 392, 290 ]
     bottom_right: [ 425, 329 ]
     description:

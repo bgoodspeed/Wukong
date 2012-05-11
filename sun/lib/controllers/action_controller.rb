@@ -190,7 +190,7 @@ class ActionController
   end
 
   def invoke(action_name, arg=nil, rs = all_responses)
-    raise "unknown action #{action_name}\ndefined are: #{rs.keys}" unless rs.has_key?(action_name)
+    raise "unknown action '#{action_name}'\ndefined are: #{rs.keys}" unless rs.has_key?(action_name)
     rs[action_name].call(@game, arg )
   end
 
