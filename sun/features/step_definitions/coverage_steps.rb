@@ -37,11 +37,11 @@ Given /^I create a collider$/ do
 end
 
 Given /^I make a line segment from \[(\d+),(\d+)\] to \[(\d+), (\d+)\]$/ do |x1, y1, x2, y2|
-  @line_seg = Primitives::LineSegment.new([x1.to_i, y1.to_i], [x2.to_i, y2.to_i])
+  @line_seg = Primitives::LineSegment.new(GVector.xy(x1.to_i, y1.to_i), GVector.xy(x2.to_i, y2.to_i))
 end
 
 Given /^I make a circle at \[(\d+),(\d+)\] radius (\d+)$/ do |x, y, rad|
-  @circle = Primitives::Circle.new([x.to_i, y.to_i], rad.to_i)
+  @circle = Primitives::Circle.new(GVector.xy(x.to_i, y.to_i), rad.to_i)
 end
 
 When /^I check collision between the line segment and the circle i should get true$/ do
@@ -84,7 +84,11 @@ When /^I invoke the action "([^"]*)" with set "([^"]*)"$/ do |arg1, arg2|
 end
 
 Given /^I create a vector follower with start "([^"]*)", vector "([^"]*)", velocity "([^"]*)"$/ do |arg1, arg2, arg3|
-  @vector_follower = VectorFollower.new( eval(arg1), eval(arg2), eval(arg3), "fake owner2")
+  start = eval(arg1)
+  start_v = GVector.xy(start[0], start[1])
+  vector = eval(arg2)
+  vector_v = GVector.xy(vector[0], vector[1])
+  @vector_follower = VectorFollower.new(start_v , vector_v, eval(arg3), "fake owner2")
   @last = @vector_follower
 end
 Then /^the last should match the fragment "([^"]*)"$/ do |arg1|
@@ -106,7 +110,7 @@ end
 
 def mock_tracking_target
   m = Mocha::Mock.new("tracking target")
-  m.stubs(:tracking_target).returns [0,0]
+  m.stubs(:tracking_target).returns GVector.xy(0,0)
   m
 end
 Given /^I add tracking$/ do

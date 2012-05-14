@@ -9,12 +9,19 @@ end
 
 def to_vector(vs)
   return vs if vs.kind_of? Array
-  vs.split(",").collect {|v| v.to_f }
+  vals = vs.split(",").collect {|v| v.to_f }
+  GVector.xy(vals[0], vals[1])
 end
 
 class Array
   def near?(expected, max_delta = 0.005)
     BeNear.new(max_delta).of(expected).matches?(self)
+  end
+end
+
+class GVector
+  def near?(expected, max_delta = 0.005)
+    BeNearGV.new(max_delta).of(expected).matches?(self)
   end
 end
 
@@ -37,6 +44,25 @@ class BeNear
       
     end
     true
+  end
+    def failure_message_for_should
+    "expected #{@target.inspect} to be within #{@max_delta} of #{@expected}"
+  end
+  def failure_message_for_should_not
+    "expected #{@target.inspect} not to be within #{@max_delta} of #{@expected}"
+  end
+end
+class BeNearGV
+  def initialize(max_delta)
+    @max_delta = max_delta
+  end
+  def of(expected)
+    @expected = expected
+    self
+  end
+  def matches?(target)
+    @target = target
+    ((target.x - @expected.x).abs < @max_delta) && ((target.y - @expected.y).abs < @max_delta)
   end
     def failure_message_for_should
     "expected #{@target.inspect} to be within #{@max_delta} of #{@expected}"

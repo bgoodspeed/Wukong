@@ -61,7 +61,7 @@ class Weapon
   end
 
   def vector_to_weapon_tip
-    [calculate_offset_x(@equipped_on.direction, @weapon_length), calculate_offset_y(@equipped_on.direction, @weapon_length)].scale(@weapon_length)
+    GVector.xy(calculate_offset_x(@equipped_on.direction, @weapon_length), calculate_offset_y(@equipped_on.direction, @weapon_length)).scale(@weapon_length)
   end
   include GraphicsApi
   include Collidable
@@ -69,6 +69,8 @@ class Weapon
   def to_collision
     mv = vector_to_weapon_tip
     p = @equipped_on.position
+    raise $GVECTOR_UPGRADE unless p.kind_of?(GVector)
+    raise $GVECTOR_UPGRADE unless mv.kind_of?(GVector)
     Primitives::LineSegment.new(p, p.plus(mv))
   end
 

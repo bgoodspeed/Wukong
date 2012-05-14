@@ -177,7 +177,7 @@ class WayFinding
     data = YAML.load(yaml)
     wf = self.new(game)
     data['layer']['points'].each do |point|
-      wf.add_point(point)
+      wf.add_point(GVector.xy(point[0], point[1]))
     end
     wf
   end

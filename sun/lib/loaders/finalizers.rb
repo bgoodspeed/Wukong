@@ -1,4 +1,13 @@
 
+module Finalizers
+  class GVectorFinalizer
+    def call(v)
+      return v if v.kind_of? GVector
+      GVector.xy(v[0], v[1])
+    end
+
+  end
+end
 
 module ArrayFinalizers
   class BaseFinalizer
@@ -37,7 +46,8 @@ module ArrayFinalizers
 
   class EventEmitters < BaseFinalizer
     def call(level, data, ee)
-      circle = Primitives::Circle.new(ee['position'], ee['radius'].to_i)
+
+      circle = Primitives::Circle.new(GVector.xy(ee['position'][0],ee['position'][1]) , ee['radius'].to_i)
       ee['collision_primitive'] = circle
       event_emitter = EventEmitter.new(@game, ee)
       check_validation_error(event_emitter, "Fix event emitter yaml", EventEmitter::ATTRIBUTES)
@@ -68,9 +78,10 @@ module ArrayFinalizers
     def call(level, data, ea)
       validation_error("Fix event area yaml", ['top_left', 'bottom_right']) if ea['top_left'].nil? or ea['bottom_right'].nil?
       tl = ea['top_left']
+
       br = ea['bottom_right']
       ea_conf = ea.dup
-      ea_conf['rect'] = Primitives::Rectangle.new(tl, [tl.x, br.y], br, [br.x, tl.y])
+      ea_conf['rect'] = Primitives::Rectangle.new(GVector.xy(tl.x, tl.y), GVector.xy(tl.x, br.y), GVector.xy(br.x, br.y), GVector.xy(br.x, tl.y))
       eva = EventArea.new(@game, ea_conf)
 
       check_validation_error(eva, "Fix event area yaml", EventArea::REQUIRED_ATTRIBUTES)

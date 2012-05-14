@@ -1,3 +1,5 @@
+$GVECTOR_UPGRADE = "construct using GVectors"
+
 module ArrayVectorOperations
 
 
@@ -9,15 +11,15 @@ module ArrayVectorOperations
   end
   #HACK this is hard coded to 2d
   def sum2d
-    self[0] + self[1]
+    x + y
   end
 
   #HACK this is hard coded to 2d
   def dot(other)
 #    rvs = gather_up_as(:*, other)
-    rvs = []
-    rvs[0] = self[0] * other[0]
-    rvs[1] = self[1] * other[1]
+    rvs = GVector.xy(0,0)
+    rvs.x = x * other.x
+    rvs.y = y * other.y
     rvs.sum2d
   end
 
@@ -32,28 +34,63 @@ module ArrayVectorOperations
     scale(scale_factor)
   end
   def distance_from(other)
+    raise $GVECTOR_UPGRADE unless other.kind_of?(GVector)
     v = self.minus(other)
     v.norm
   end
 
+  #HACK hardcoded to 2d
   def scale(factor)
-    collect {|val| val * factor }
+    GVector.xy(x*factor, y*factor)
   end
 
   #HACK 2d specific
   def minus(other)
-    [self[0] - other[0], self[1] - other[1]]
+    raise $GVECTOR_UPGRADE unless other.kind_of?(GVector)
+
+    GVector.xy(self.x - other.x, self.y - other.y)
   end
   def plus(other)
-    [self[0] + other[0], self[1] + other[1]]
+    GVector.xy(self.x + other.x, self.y + other.y)
   end
   def vx
-    self[0]
+    x
   end
   def vy
-    self[1]
+    y
   end
 
+end
+
+class GVector
+  attr_accessor :x,:y
+  include ArrayVectorOperations
+
+  def self.xy(x,y)
+    GVector.new(x,y)
+  end
+  def initialize(x,y)
+    @x = x
+    @y = y
+  end
+
+  def min
+    (x < y) ? x : y
+  end
+  def max
+    (x < y) ? y : x
+  end
+  def <=>(other)
+    xrv = (x.to_f <=> other.x.to_f)
+    xrv == 0 ? (y.to_f <=> other.y.to_f) : xrv
+  end
+  def ==(other)
+    x == other.x and y == other.y
+  end
+
+  def to_s
+    "[#{x}, #{y}]"
+  end
 end
 
 
@@ -62,6 +99,7 @@ module Primitives
     attr_accessor :position, :radius, :user_data
     def initialize(position, radius)
       @position = position
+      raise $GVECTOR_UPGRADE unless position.kind_of? GVector
       @radius = radius
       @user_data = nil #TODO reconsider this design? should the circle belong to a data holder?
     end
@@ -74,6 +112,8 @@ module Primitives
   class LineSegment
     attr_accessor :p1, :p2, :user_data, :collision_priority
     def initialize(p1, p2, ud=nil, cp=CollisionPriority::HIGH)
+      raise $GVECTOR_UPGRADE unless p1.kind_of? GVector
+      raise $GVECTOR_UPGRADE unless p2.kind_of? GVector
       @p1 = p1
       @p2 = p2
       @user_data = ud #TODO reconsider this design
@@ -97,6 +137,11 @@ module Primitives
       @p2 = p2
       @p3 = p3
       @p4 = p4
+      raise $GVECTOR_UPGRADE unless p1.kind_of? GVector
+      raise $GVECTOR_UPGRADE unless p2.kind_of? GVector
+      raise $GVECTOR_UPGRADE unless p3.kind_of? GVector
+      raise $GVECTOR_UPGRADE unless p4.kind_of? GVector
+
       all = [p1, p2, p3,p4]
       xs = all.collect {|p| p.x}
       ys = all.collect {|p| p.y}
@@ -114,6 +159,10 @@ module Primitives
       @p1 = p1
       @p2 = p2
       @p3 = p3
+      raise $GVECTOR_UPGRADE unless p1.kind_of? GVector
+      raise $GVECTOR_UPGRADE unless p2.kind_of? GVector
+      raise $GVECTOR_UPGRADE unless p3.kind_of? GVector
+
     end
     def to_s; "Triangle #{@p1}:#{@p2}:#{@p3}"; end
   end
@@ -163,7 +212,7 @@ module PrimitiveIntersectionTests
   end
 
   def circle_line_segment_intersection?(circle, line_segment)
-    primitive_circle_line_segment_intersection?(circle.position[0], circle.position[1], circle.radius, line_segment.p1.x, line_segment.p1.y, line_segment.p2.x, line_segment.p2.y)
+    primitive_circle_line_segment_intersection?(circle.position.x, circle.position.y, circle.radius, line_segment.p1.x, line_segment.p1.y, line_segment.p2.x, line_segment.p2.y)
   end
  
 

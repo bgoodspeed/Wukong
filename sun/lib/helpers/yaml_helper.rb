@@ -1,4 +1,5 @@
 module YamlHelper
+
   def process_attributes(attrlist, instance, yaml_data, finalizers={})
     defined = attrlist.select{|attr| yaml_data.has_key? attr.to_s}
     defined.each {|attr|

@@ -46,10 +46,10 @@ class Enemy
       @animation_path, conf['animation_width'], conf['animation_height'], false, false, conf['animation_rate'])
     @enemy_avatar = @game.image_controller.register_image(conf['image_path'])
     if conf.has_key?('animation_width')
-      p = [conf['animation_width']/2.0, conf['animation_height']/2.0 ]
+      p = GVector.xy(conf['animation_width']/2.0, conf['animation_height']/2.0)
 
     else
-      p = [@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 ]
+      p = GVector.xy(@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 )
     end
 
 
@@ -59,7 +59,7 @@ class Enemy
     cf = conf['stats'] ? conf['stats'] : {}
     @stats = Stats.new(cf)
     @game.animation_controller.animation_index_by_entity_and_name(self, conf['animation_name']).needs_update = true
-    process_attributes(ATTRIBUTES, self, conf)
+    process_attributes(ATTRIBUTES, self, conf, {:position => Finalizers::GVectorFinalizer.new})
     @required_attributes = ATTRIBUTES - [:image_file, :animation_path]
 
   end
@@ -87,17 +87,17 @@ class Enemy
   end
 
   def angle_for(vector)
-    if vector[0] == 0.0
-      return 0.0 if vector[1] > 0
+    if vector.x == 0.0
+      return 0.0 if vector.y > 0
       return 180.0
     end
-    if vector[1] == 0.0
-      return 90.0 if vector[0] > 0
+    if vector.y == 0.0
+      return 90.0 if vector.x > 0
       return 270.0
     end
 
-    rv = (Math::atan(vector[1].to_f/vector[0].to_f) * 180.0)/Math::PI
-    if vector[0] < 0
+    rv = (Math::atan(vector.y.to_f/vector.x.to_f) * 180.0)/Math::PI
+    if vector.x < 0
       rv -= 180
     end
     rv

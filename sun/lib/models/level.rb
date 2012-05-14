@@ -9,7 +9,7 @@ class LevelAnimation
   alias_method :animation_path, :animation_file
   def initialize(game, conf)
     @game = game
-    process_attributes(ATTRIBUTES, self, conf)
+    process_attributes(ATTRIBUTES, self, conf, {:animation_position => Finalizers::GVectorFinalizer.new})
   end
 
   def animation_path_for(name)
@@ -62,7 +62,7 @@ class Level
     @game = game
     init_arrays(ARRAY_ATTRIBUTES, self)
     conf = self.class.default_config.merge(in_conf)
-    process_attributes(YAML_ATTRIBUTES, self, conf)
+    process_attributes(YAML_ATTRIBUTES, self, conf, {:player_start_position => Finalizers::GVectorFinalizer.new})
     @declared_enemies = {}
     @static_hash = SpatialHash.new(@cell_size)
     @dynamic_hash = SpatialHash.new(@cell_size)
@@ -86,7 +86,7 @@ class Level
     @declared_enemies[n] = e
   end
   def add_event_emitter(event_emitter)
-    update_minimax(event_emitter.position[0], event_emitter.position[1], event_emitter.position[0], event_emitter.position[1])
+    update_minimax(event_emitter.position.x, event_emitter.position.y, event_emitter.position.x, event_emitter.position.y)
 
     @event_emitters << event_emitter
     @static_hash.insert_circle_type_collider(event_emitter)
@@ -127,7 +127,7 @@ class Level
 
   def add_line_segment(sx,sy, ex, ey)
     update_minimax(sx,sy,ex,ey)
-    segment = Primitives::LineSegment.new([sx,sy],[ex,ey])
+    segment = Primitives::LineSegment.new(GVector.xy(sx,sy),GVector.xy(ex,ey))
     @line_segments << segment
     @static_hash.add_line_segment(segment, segment)
   end
@@ -210,8 +210,8 @@ class Level
 
   def draw(screen)
     unless @background.nil?
-      coords = @game.camera.screen_coordinates_for([0,0]) #TODO is this always 0,0?
-      @background.draw(coords[0],coords[1],ZOrder.background.value)
+      coords = @game.camera.screen_coordinates_for(GVector.xy(0,0)) #TODO is this always 0,0?
+      @background.draw(coords.x,coords.y,ZOrder.background.value)
     end
     static_bodies.each {|body| @game.rendering_controller.draw_function_for(body).call(screen, body)}
     dynamic_elements.each {|body| @game.rendering_controller.draw_function_for(body).call(screen, body)}

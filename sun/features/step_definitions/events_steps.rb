@@ -1,5 +1,5 @@
 Given /^I create an event emitter to play the "([^"]*)" sound$/ do |sound_name|
-  c = Primitives::Circle.new([0,0],0)
+  c = Primitives::Circle.new(GVector.xy(0,0),0)
   conf = {
       'collision_primitive' => c,
       'event_name' => "play_sound",
@@ -52,7 +52,7 @@ def valid_event_emitter_conf
   {
       'event_name' => 'play_sound',
       'event_argument' => "fakenotneededeventarg",
-      'collision_primitive' => Primitives::Circle.new([0,0],0)
+      'collision_primitive' => Primitives::Circle.new(GVector.xy(0,0),0)
   }
 end
 

@@ -7,6 +7,8 @@ class VectorFollower
     @owner = owner
     @start = start
     @vector = vector
+    raise $GVECTOR_UPGRADE unless vector.kind_of?(GVector)
+
     @velocity = velocity
     @current_step = 0
     #TODO this should be in a behavior module

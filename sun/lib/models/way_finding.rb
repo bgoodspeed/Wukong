@@ -6,7 +6,7 @@ class WayFinding
     @close_enough_threshold = 5 #TODO this is dependant on the velocity of the tracker -- eg enemy
   end
   def add_point(p)
-    raise "fixit" unless p.first.kind_of?(Numeric)
+    raise $GVECTOR_UPGRADE unless p.kind_of?(GVector)
     @points << p
   end
 

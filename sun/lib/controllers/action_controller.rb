@@ -150,9 +150,9 @@ class ActionController
       KeyActions::MENU        => delaying(KeyActions::MENU)        {|game,arg| game.enter_menu},
       KeyActions::MOUSE_CLICK => delaying(KeyActions::MOUSE_CLICK) {|game,arg|
         msc = game.input_controller.mouse_screen_coords
-        game.log.info "Mouse click at screen: #{msc[0]},#{msc[1]}"
+        game.log.info "Mouse click at screen: #{msc.x},#{msc.y}"
         mwc = game.input_controller.mouse_world_coordinates
-        game.log.info "Mouse click at world: #{mwc[0]},#{mwc[1]}"
+        game.log.info "Mouse click at world: #{mwc.x},#{mwc.y}"
         game.pick_game_element},
       
       KeyActions::RIGHT => lambda { |game, arg| game.player.turn(game.turn_speed) },
