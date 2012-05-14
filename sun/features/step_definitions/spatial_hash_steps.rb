@@ -14,9 +14,9 @@ When /^I override the y prime to (\d+)$/ do |arg1|
   @spatial_hash.y_prime = arg1.to_i
 end
 When /^I add data "([^"]*)" at \((\d+), (\d+)\)$/ do |data, x, y|
-  circle = Primitives::Circle.new([x.to_i, y.to_i], 1)
+  circle = Primitives::Circle.new(GVector.xy(x.to_i, y.to_i), 1)
   circle.user_data = data
-  @spatial_hash.insert_data_at(circle, [x.to_i, y.to_i])
+  @spatial_hash.insert_data_at(circle, GVector.xy(x.to_i, y.to_i))
 end
 
 When /^I clear the spatial hash$/ do
@@ -26,13 +26,13 @@ end
 
 
 Then /^the cell coordinate for vertex (\d+),(\d+) is (\d+),(\d+)$/ do |vx, vy, i, j|
-  rv = @spatial_hash.cell_index_for([vx.to_i,vy.to_i])
-  rv.should == [i.to_i, j.to_i]
+  rv = @spatial_hash.cell_index_for(GVector.xy(vx.to_i,vy.to_i))
+  rv.to_s.should == GVector.xy(i.to_i, j.to_i).to_s
 end
 
 
 Then /^the hash for (\d+),(\d+) should be (\d+)$/ do |i,j,hash|
-  rv = @spatial_hash.spatial_hash([i.to_i, j.to_i])
+  rv = @spatial_hash.spatial_hash(GVector.xy(i.to_i, j.to_i))
   rv.should == hash.to_i
 end
 
@@ -73,7 +73,7 @@ Then /^asking for collision pairs yields:$/ do |table|
   table.map_column!('center_y') {|a| a.to_i}
   table.map_column!('radius') {|a| a.to_i}
   table.hashes.each do |h|
-    pos = [h['center_x'], h['center_y']]
+    pos = GVector.xy(h['center_x'], h['center_y'])
     r = h['radius']
     p = Mocha::Mock.new("player")
     p.stubs(:collision_type).returns Primitives::Circle
@@ -88,7 +88,18 @@ Then /^asking for collision pairs yields:$/ do |table|
 end
 
 When /^I add line segment (\d+),(\d+):(\d+),(\d+) with data "([^"]*)"$/ do |lssx, lssy, lsex, lsey, data|
-  ls = Primitives::LineSegment.new([lssx.to_f, lssy.to_f], [lsex.to_f, lsey.to_f])
+  ls = Primitives::LineSegment.new(GVector.xy(lssx.to_f, lssy.to_f), GVector.xy(lsex.to_f, lsey.to_f))
   ls.user_data = data
   @spatial_hash.add_line_segment(ls, ls)
+end
+
+
+
+Given /^I create a line segment (\d+),(\d+):(\d+),(\d+)$/ do |lssx, lssy, lsex, lsey|
+  @ls = Primitives::LineSegment.new(GVector.xy(lssx.to_f, lssy.to_f), GVector.xy(lsex.to_f, lsey.to_f))
+end
+
+
+Then /^the line segment property "([^"]*)" should be "([^"]*)"$/ do |prop, expected|
+  "#{invoke_property_string_on(@ls, prop)}".should == expected
 end

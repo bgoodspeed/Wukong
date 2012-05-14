@@ -7,7 +7,7 @@ Feature: Info Window
   Scenario: Player outside area
     Given I load the game "new_game_load_screen"
     When I run the game loop 1 times
-    Then the game property "player.position" should be "[320, 240]"
+    Then the game property "player.position" should be "GVector.xy(320, 240)"
     Then there should be 0 active event areas
 
   Scenario: Player in area

@@ -14,7 +14,7 @@ class Camera
   end
 
   def offset
-    position.minus([screen_width/2.0, screen_height/2.0])
+    position.minus(GVector.xy(screen_width/2.0, screen_height/2.0))
   end
 
 
@@ -27,17 +27,17 @@ class Camera
     minx = level_min_bounds[0] + screen_extent[0]
     maxx = level_max_bounds[0] - screen_extent[0]
     if (goal.x < minx)
-      rv[0] = minx
+      rv.x = minx
     elsif (goal.x > maxx)
-      rv[0] = maxx
+      rv.x = maxx
     end
 
     miny = level_min_bounds[1] + screen_extent[1]
     maxy = level_max_bounds[1] - screen_extent[1]
     if (goal.y < miny)
-      rv[1] = miny
+      rv.y = miny
     elsif (goal.y > maxy)
-      rv[1] = maxy
+      rv.y = maxy
     end
 
     rv

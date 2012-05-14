@@ -54,6 +54,17 @@ Then /^the player should be in the scene$/ do
   
 end
 
+class GVector
+  def within_epsilon_of?(other, epsilon = 0.0005)
+    rv = ((x - other.x).abs < epsilon) && ((y - other.y).abs < epsilon)
+
+    puts "Expected #{self} to be within #{epsilon} of #{other}" unless rv
+
+    rv
+  end
+
+end
+
 class Array
   def within_epsilon_of?(other, epsilon = 0.0005)
     self.each_with_index do |this_value, index|
@@ -101,11 +112,11 @@ Then /^the enemy health should be (\d+)$/ do |arg1|
   @enemy.health.should == arg1.to_i
 end
 Then /^the player property "([^"]*)" should be "([^"]*)"$/ do |arg1, arg2|
-  @game.player.send(arg1).to_s.should == arg2.to_s
+  @game.player.send(arg1).to_s.should == arg2
 end
 
 Given /^I set the player position to (\d+),(\d+)$/ do |arg1, arg2|
-  p.position = [arg1.to_i, arg2.to_i]
+  p.position = GVector.xy(arg1.to_i, arg2.to_i)
 end
 
 When /^I damage the player$/ do

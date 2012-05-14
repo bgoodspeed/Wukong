@@ -44,3 +44,4 @@ module Graphics
   KbO = Gosu::KbO
   KbQ = Gosu::KbQ
 end
+

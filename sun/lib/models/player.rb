@@ -6,6 +6,8 @@ require 'yaml'
 class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
+
+
   YAML_ATTRIBUTES = [:step_size, :position, :direction, :turn_speed, :movement_distance, :menu_action_delay,
     :enemies_killed, :image_path, :collision_priority, :base_accuracy,   :animation_width, :animation_height,
     :image_file, :animation_path,  :main_animation_name, :animation_name, :footsteps_effect_name, :damage_sound_effect_name]
@@ -52,7 +54,7 @@ class Player
     @game = game
     #TODO move register image calls into loaders/yaml parsers
     @avatar = @game.image_controller.register_image(conf['image_path'])
-    p = [@avatar.width/2.0, @avatar.height/2.0 ]
+    p = GVector.xy(@avatar.width/2.0, @avatar.height/2.0)
     @radius = p.min
     @position = p
     @collision_type = Primitives::Circle.new(@position, @radius)
@@ -72,7 +74,7 @@ class Player
     cf = conf['stats'] ? conf['stats'] : {}
     @stats = Stats.new(cf)
     @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
-    process_attributes(YAML_ATTRIBUTES, self, conf)
+    process_attributes(YAML_ATTRIBUTES, self, conf, {:position => Finalizers::GVectorFinalizer.new} )
     @required_attributes = (YAML_ATTRIBUTES - [:animation_path, :damage_sound_effect_name, :image_path, :image_file]) + [:inventory, :radius, :animation_name]
   end
 
@@ -135,7 +137,7 @@ class Player
   include GraphicsApi
   def move_forward(distance)
     dv = distance * @step_size
-    mv = [calculate_offset_x(@direction, dv), calculate_offset_y(@direction, dv)]
+    mv = GVector.xy(calculate_offset_x(@direction, dv), calculate_offset_y(@direction, dv))
     @position = @position.plus(mv)
     @last_move = mv
     @last_distance = distance

@@ -6,7 +6,7 @@ class MenuEntry
     @index = index
     @conf = conf
     @display_text, @action, @action_argument, @image = @conf['display_text'], @conf['action'], @conf['action_argument'], @conf['image']
-    @position = conf['position']
+    @position = GVector.xy(conf['position'][0],conf['position'][1]) if conf['position']
   end
   include GameLineFormattable
   def formatted_display_text
@@ -63,18 +63,18 @@ class Menu
  #TODO ugly
   def cursor_position
     return current_entry.position if current_entry.position
-    pos = [@x_spacing, @y_spacing ]
+    pos = GVector.xy(@x_spacing, @y_spacing)
     pos = pos.scale(@menu_scale)
     cwi = @game.current_menu_index
-    pos[1] = pos[1] * (cwi + 1)
+    pos.y = pos.y * (cwi + 1)
     pos
   end
   def draw_cursor
     pos = cursor_position
-    base_y = pos[1]
-    @game.window.draw_triangle(pos[0] - 20, base_y - 10, Graphics::Color::WHITE,
-                               pos[0] - 5,  base_y, Graphics::Color::WHITE,
-                               pos[0] - 20, base_y + 10, Graphics::Color::WHITE)
+    base_y = pos.y
+    @game.window.draw_triangle(pos.x - 20, base_y - 10, Graphics::Color::WHITE,
+                               pos.x - 5,  base_y, Graphics::Color::WHITE,
+                               pos.x - 20, base_y + 10, Graphics::Color::WHITE)
   end
 
 
@@ -100,7 +100,7 @@ class Menu
   end
 
   def make_rectangle(x,y,step, xs)
-    Primitives::Rectangle.new([x,y], [x,y+step], [x+xs, y+step], [x + xs, y])
+    Primitives::Rectangle.new(GVector.xy(x,y), GVector.xy(x,y+step), GVector.xy(x+xs, y+step), GVector.xy(x + xs, y))
   end
   #TODO this whole menu rendering thing is a hideous mess
   def region_for_index(index)

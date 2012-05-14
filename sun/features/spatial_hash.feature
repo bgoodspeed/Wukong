@@ -172,3 +172,7 @@ Feature: Data Structure for Storing Visual Data
       | center_x | center_y | radius | candidate_data         |
       | 0         | 100       |  8     | left                    |
       | 0         | 10       |  8      | left                    |
+
+  Scenario: Collision Detection Gvector usage
+    Given I create a line segment 123,456:789,101
+    Then the line segment property "p1.class" should be "GVector"

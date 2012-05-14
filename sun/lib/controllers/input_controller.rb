@@ -60,8 +60,7 @@ class InputController
 
 
   def mouse_screen_coords
-    x,y = @game.window.mouse_x, @game.window.mouse_y
-    [x,y]
+    GVector.xy(@game.window.mouse_x, @game.window.mouse_y)
   end
 
   def mouse_on_screen

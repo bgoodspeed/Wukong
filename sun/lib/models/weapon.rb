@@ -61,7 +61,7 @@ class Weapon
   end
 
   def vector_to_weapon_tip
-    [calculate_offset_x(@equipped_on.direction, @weapon_length), calculate_offset_y(@equipped_on.direction, @weapon_length)].scale(@weapon_length)
+    GVector.xy(calculate_offset_x(@equipped_on.direction, @weapon_length), calculate_offset_y(@equipped_on.direction, @weapon_length)).scale(@weapon_length)
   end
   include GraphicsApi
   include Collidable

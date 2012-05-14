@@ -99,7 +99,7 @@ module Views
     def call(screen, tr)
       pos = game.camera.screen_coordinates_for(tr.position)
       w = tr.radius
-      darken_screen(game, pos[0] - w, pos[0] + w, pos[1] - w, pos[1] + w, transparent_red, ZOrder.hud.value)
+      darken_screen(game, pos.x - w, pos.x + w, pos.y - w, pos.y + w, transparent_red, ZOrder.hud.value)
     end
   end
 

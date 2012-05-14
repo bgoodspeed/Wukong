@@ -1,9 +1,9 @@
 ---
 player:
   step_size: 1
-  position:
-  - 350
-  - 200
+  position: !ruby/object:GVector
+    x: 350
+    y: 200
   direction: 0
   turn_speed: 5
   movement_distance: 2

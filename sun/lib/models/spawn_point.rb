@@ -6,7 +6,7 @@ class SpawnPoint
   include ValidationHelper
   def initialize(game, conf)
     @game = game
-    process_attributes(ATTRIBUTES, self, conf)
+    process_attributes(ATTRIBUTES, self, conf, {:point => Finalizers::GVectorFinalizer.new})
     calculate_properties_from(@spawn_schedule)
   end
   def required_attributes; ATTRIBUTES; end

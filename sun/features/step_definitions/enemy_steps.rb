@@ -36,7 +36,7 @@ end
 
 
 Given /^I set the enemy position (\d+),(\d+)$/ do |x, y|
-  pos = [x.to_i, y.to_i]
+  pos = GVector.xy(x.to_i, y.to_i)
   @enemy.position = pos
 end
 Then /^the enemy should be at position (\d+),(\d+)\.(\d+)$/ do |x, arg2, arg3|
@@ -50,7 +50,7 @@ end
 
 
 Then /^the next wayfinding point for enemy should be (\d+),(\d+)$/ do |arg1, arg2|
-  expected =[arg1.to_f, arg2.to_f]
+  expected = GVector.xy(arg1.to_f, arg2.to_f)
   @path_controller.tracking_point_for(@enemy).should be_within_epsilon_of(expected)
 end
 
@@ -66,13 +66,14 @@ def check_wayfind_direction(expected)
   dir.should be_within_epsilon_of(expected)
 end
 Then /^the next wayfinding direction for enemy should be (\d+),(\d+)$/ do |arg1, arg2|
-  expected =[arg1.to_f, arg2.to_f]
+  expected = GVector.xy(arg1.to_f, arg2.to_f)
   check_wayfind_direction(expected)
 end
 
 Then /^the next wayfinding direction for enemy should be (\d+)\.(\d+), (\d+)\.(\d+)$/ do |arg1, arg2, arg3, arg4|
   expected = ["#{arg1}.#{arg2}".to_f,
               "#{arg3}.#{arg4}".to_f]
+  GVector.xy(expected[0], expected[1])
   check_wayfind_direction(expected)
 end
 Then /^the enemy should be at position (\d+)\.(\d+),(\d+)\.(\d+)$/ do |arg1, arg2, arg3, arg4|
