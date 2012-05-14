@@ -1,0 +1,41 @@
+name: h_level_intro_reward
+background_image: game-data/levels/h_level_intro_reward/h_level_intro_reward.png
+background_music: game-data/music/silence.wav
+background_music: game-data/music/drumbeats.wav
+wayfinding: game-data/levels/h_level_1/wayfinding.yml
+reward_level: game-data/levels/h_level_1/h_level_1.yml
+player_start_position: [ 100, 100 ]
+
+measurements: [ 800, 600 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 800
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 600
+  - start_x: 800
+    start_y: 0
+    end_x: 800
+    end_y: 600
+  - start_x: 0
+    start_y: 600
+    end_x: 800
+    end_y: 600
+
+event_areas:
+  - top_left: [ 0, 540 ]
+    bottom_right: [ 60, 599 ]
+    action: noop
+    info_window:
+      description:
+        - "Fragger, ''You are nothing! You will never be able to suceed!"
+        -
+        - "                Might as well quit now."
+        -
+        - "                Press Q or hold down CTRL+ALT+DELETE.''"
+      position: [ 100, 520 ]
+      size: [ 620, 725 ]
