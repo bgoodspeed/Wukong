@@ -21,7 +21,6 @@ class PathFollowingController
     vfs.each {|vf| @game.remove_projectile(vf) }
 
     @tracking.each {|h, wf|
-      raise $GVECTOR_UPGRADE unless @game.player.position.kind_of?(GVector)
       if h.position.distance_from(@game.player.position) > @distance_threshold
 
       else
@@ -34,8 +33,6 @@ class PathFollowingController
     @vector_following -= [p]
   end
   def add_projectile(owner, start, theta, velocity)
-    raise $GVECTOR_UPGRADE unless start.kind_of?(GVector)
-
     vector = GVector.xy(0,0)
     vector.x = Graphics::offset_x(theta, 1) #TODO isolate all gosu references
     vector.y = Graphics::offset_y(theta, 1)
@@ -53,8 +50,6 @@ class PathFollowingController
 
   def current_tracking_direction_for(hunter)
     pt = tracking_point_for(hunter)
-    raise $GVECTOR_UPGRADE unless pt.kind_of?(GVector)
-    raise $GVECTOR_UPGRADE unless hunter.position.kind_of?(GVector)
     pt.minus(hunter.position).unit
   end
 

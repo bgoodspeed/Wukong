@@ -69,8 +69,6 @@ class Weapon
   def to_collision
     mv = vector_to_weapon_tip
     p = @equipped_on.position
-    raise $GVECTOR_UPGRADE unless p.kind_of?(GVector)
-    raise $GVECTOR_UPGRADE unless mv.kind_of?(GVector)
     Primitives::LineSegment.new(p, p.plus(mv))
   end
 

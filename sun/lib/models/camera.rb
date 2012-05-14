@@ -19,7 +19,6 @@ class Camera
 
 
   def calculate_position(goal)
-    raise $GVECTOR_UPGRADE unless goal.kind_of?(GVector)
     rv = goal.dup
     screen_extent = [@game.screen.width/2.0, @game.screen.height/2.0]
     level_min_bounds = [@game.level.minimum_x, @game.level.minimum_y]
@@ -45,7 +44,6 @@ class Camera
 
   end
   def position
-    raise $GVECTOR_UPGRADE unless @game.player.position.kind_of?(GVector)
     calculate_position(@game.player.position)
   end
 

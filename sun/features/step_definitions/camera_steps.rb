@@ -10,12 +10,10 @@ Then /^the camera should be centered at (\d+), (\d+)$/ do |arg1, arg2|
 end
 
 Then /^the player screen coordinates should be (\d+), (\d+)$/ do |arg1, arg2|
-  raise $GVECTOR_UPGRADE unless @player.position.kind_of?(GVector)
   @camera.screen_coordinates_for(@player.position).should be_within_epsilon_of(GVector.xy(arg1.to_f, arg2.to_f))
 end
 
 Then /^the enemy screen coordinates should be (\d+),(\d+)$/ do |arg1, arg2|
-  raise $GVECTOR_UPGRADE unless @enemy.position.kind_of?(GVector)
   @camera.screen_coordinates_for(@enemy.position).should be_within_epsilon_of(GVector.xy(arg1.to_f, arg2.to_f))
 end
 

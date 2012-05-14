@@ -34,7 +34,6 @@ module ArrayVectorOperations
     scale(scale_factor)
   end
   def distance_from(other)
-    raise $GVECTOR_UPGRADE unless other.kind_of?(GVector)
     v = self.minus(other)
     v.norm
   end
@@ -46,8 +45,6 @@ module ArrayVectorOperations
 
   #HACK 2d specific
   def minus(other)
-    raise $GVECTOR_UPGRADE unless other.kind_of?(GVector)
-
     GVector.xy(self.x - other.x, self.y - other.y)
   end
   def plus(other)
@@ -99,7 +96,6 @@ module Primitives
     attr_accessor :position, :radius, :user_data
     def initialize(position, radius)
       @position = position
-      raise $GVECTOR_UPGRADE unless position.kind_of? GVector
       @radius = radius
       @user_data = nil #TODO reconsider this design? should the circle belong to a data holder?
     end
@@ -112,8 +108,6 @@ module Primitives
   class LineSegment
     attr_accessor :p1, :p2, :user_data, :collision_priority
     def initialize(p1, p2, ud=nil, cp=CollisionPriority::HIGH)
-      raise $GVECTOR_UPGRADE unless p1.kind_of? GVector
-      raise $GVECTOR_UPGRADE unless p2.kind_of? GVector
       @p1 = p1
       @p2 = p2
       @user_data = ud #TODO reconsider this design
@@ -137,10 +131,6 @@ module Primitives
       @p2 = p2
       @p3 = p3
       @p4 = p4
-      raise $GVECTOR_UPGRADE unless p1.kind_of? GVector
-      raise $GVECTOR_UPGRADE unless p2.kind_of? GVector
-      raise $GVECTOR_UPGRADE unless p3.kind_of? GVector
-      raise $GVECTOR_UPGRADE unless p4.kind_of? GVector
 
       all = [p1, p2, p3,p4]
       xs = all.collect {|p| p.x}
@@ -159,10 +149,6 @@ module Primitives
       @p1 = p1
       @p2 = p2
       @p3 = p3
-      raise $GVECTOR_UPGRADE unless p1.kind_of? GVector
-      raise $GVECTOR_UPGRADE unless p2.kind_of? GVector
-      raise $GVECTOR_UPGRADE unless p3.kind_of? GVector
-
     end
     def to_s; "Triangle #{@p1}:#{@p2}:#{@p3}"; end
   end
