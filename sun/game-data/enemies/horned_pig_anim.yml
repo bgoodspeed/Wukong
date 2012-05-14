@@ -10,5 +10,5 @@ enemy:
   stats:
     health: 900
     max_health: 900
-    defense: 50
+    defense: 15
     strength: 15
