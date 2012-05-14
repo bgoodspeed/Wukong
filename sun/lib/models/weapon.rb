@@ -81,8 +81,4 @@ class Weapon
     @equipped_on.position.plus(vector_to_weapon_tip)
   end
 
-
-
-
-
 end

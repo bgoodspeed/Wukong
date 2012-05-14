@@ -4,7 +4,7 @@ class Stats
   def self.defaults
     {
         'strength' => 10,
-       'defense' => 5,
+        'defense' => 5,
         'health' => 10,
         'max_health' => 12,
         'speed' => 5,
