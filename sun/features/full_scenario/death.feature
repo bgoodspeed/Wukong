@@ -34,5 +34,4 @@ Feature: Death Events
     When I create a player death event
     And I update the game state
     Then the game should be over
-    Then the game should be in menu mode
-    Then the action "Menu" should be disabled
+    And the game property "level.name" should be "'game_over'"

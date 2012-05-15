@@ -72,12 +72,10 @@ class ActionController
 
   def default_event_actions
     {
-      #TODO not sure if this should be here or in the events themselves
       EventTypes::DEATH => lambda {|game,e|
         if e.argument.kind_of?(game.player.class)
           game.over = true
-          game.enter_menu(game.game_over_menu)
-          game.disable_action(KeyActions::MENU)
+          game.load_level(game.game_over_level)
         else
           game.player.enemy_killed
           game.remove_enemy(e.argument)

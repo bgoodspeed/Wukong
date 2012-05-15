@@ -51,7 +51,7 @@ class GameLoader
 
   def self.attributes
     [
-      'new_game_level', 'game_load_path', 'menu_for_equipment', 'player_damage_mask', 'player_bullet'
+      'new_game_level', 'game_load_path', 'menu_for_equipment', 'player_damage_mask', 'player_bullet', 'game_over_level'
     ]
   end
   extend ValidationHelper
@@ -71,7 +71,7 @@ class GameLoader
     sub_yaml_deps_post_level.each {|a| process_yaml_dep(game, conf, a)}
 
 
-    try_add_splash_screen(game, conf)
+    try_add_splash_screens(game, conf)
     try_add_font_config(game, conf)
     @game = game
     @which_level = f
@@ -90,12 +90,17 @@ class GameLoader
       game.font_controller = FontController.new(game, conf['font_config']['font_name'], conf['font_config']['font_size'])
     end
   end
-  def self.try_add_splash_screen(game, conf)
+  def self.try_add_splash_screens(game, conf)
     if conf['splash_screen']
       game.log.info { "Adding splash #{conf['splash_screen']}"}
       game.splash_controller.add_splash(conf['splash_screen'])
       game.splash_controller.splash_mode = true
     end
+    conf['splash_screens'].to_a.each {|ss|
+      game.log.info { "Adding splash #{ss}"}
+      game.splash_controller.add_splash(ss)
+      game.splash_controller.splash_mode = true
+    }
 
   end
   def self.try_add_menu(game , menu_name)

@@ -14,4 +14,6 @@ game:
   game_over_menu: "game-data/menus/game_over.yml"
   menu_for_main: "game-data/menus/image_menu.yml"
   player_damage_mask: "game-data/sprites/player_damage.png"
+  game_over_level: "game-data/levels/game_over/game_over.yml"
+  game_over_level: "game-data/levels/game_over/game_over.yml"
   player_bullet: "game-data/equipment/bullet.png"
