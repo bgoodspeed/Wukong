@@ -11,6 +11,7 @@ module ResponseTypes
   DAMAGING1 = :damaging1
   DAMAGING2 = :damaging2
   SHOW_DAMAGE1 = :show_damage1
+  CHECK_HEALTH1 = :check_health1
   SHOW_DAMAGE2 = :show_damage2
   MOUSE_PICK1 = :mouse_pick1
   TEMPORARY_MESSAGE1 = :temporary_message1
@@ -62,7 +63,8 @@ class CollisionResponseController
       Player => {
         Primitives::LineSegment => [ResponseTypes::BLOCKING1],
         VectorFollower => [], #TODO unrealistic
-        Enemy => [ResponseTypes::DAMAGING1, ResponseTypes::DAMAGING2, ResponseTypes::BLOCKING1, ResponseTypes::SHOW_DAMAGE1,
+        Enemy => [
+            ResponseTypes::DAMAGING1, ResponseTypes::DAMAGING2, ResponseTypes::BLOCKING1, ResponseTypes::SHOW_DAMAGE1,
                   ResponseTypes::SHOW_DAMAGE2
         ],
         EventEmitter => [ResponseTypes::TRIGGER_EVENT2],

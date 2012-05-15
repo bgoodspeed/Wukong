@@ -91,3 +91,9 @@ end
 When /^I invoke the action "([^"]*)"$/ do |action_name|
   @game.action_controller.invoke(eval(action_name))
 end
+
+When /^I invoke the collision response "([^"]*)" on player vs anything$/ do |action_name|
+  other = Mocha::Mock.new("player vs anything mock")
+  c = Collision.new(@game.player, other)
+  @game.action_controller.invoke(eval(action_name), c)
+end

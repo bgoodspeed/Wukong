@@ -31,6 +31,9 @@ When /^I move forward (\d+) step$/ do |steps|
   @player.move_forward(steps.to_i)
 end
 
+When /^I set the player max health to (\d+)$/ do |arg1|
+  @game.player.stats.max_health = arg1.to_i
+end
 
 def numeric_direction_from_cardinal(cardinal_direction)
   known = { 'north' => 0, 'east' => 90, 'south' => 180, 'west' => 270}

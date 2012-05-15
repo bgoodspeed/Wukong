@@ -79,5 +79,17 @@ Feature: Action
     When I invoke the action "BehaviorTypes::CONTINUE_LAST_GAME"
     Then the game property "level.name" should be "'load_screen'"
 
+  Scenario: Taking Damage on player with sufficient health does not render anything
+    Given I load the game "new_game_load_screen"
+    Then there should be 0 temporary renderings
 
+  Scenario: Taking Damage on player causes full screen damage effect
+    Given I load the game "new_game_load_screen"
+    When I set the player health to 1
+    When I set the player max health to 10
+    And I run the game loop 1 times
+    Then there should be 1 temporary renderings
+    When I set the player health to 10
+    And I run the game loop 1 times
+    Then there should be 0 temporary renderings
 

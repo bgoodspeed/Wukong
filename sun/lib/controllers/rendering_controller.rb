@@ -95,18 +95,25 @@ module Views
       draw_line_segment(screen, ls)
     end
   end
-  class TemporaryRenderingView < BaseView
+  class TargetDamageRenderingView < BaseView
     def call(screen, tr)
       pos = game.camera.screen_coordinates_for(tr.position)
       w = tr.radius
       darken_screen(game, pos.x - w, pos.x + w, pos.y - w, pos.y + w, transparent_red, ZOrder.hud.value)
     end
   end
+  class PlayerHealthRenderingView < BaseView
+    def call(screen, tr)
+      darken_screen(game, 0, game.screen.width, 0, game.screen.width, transparent_red_near_death)
+
+    end
+  end
 
 end
 
 module RenderingTypes
-  DAMAGE = "RENDER_DAMAGE"
+  TARGET_DAMAGE = "RENDER_TARGET_DAMAGE"
+  PLAYER_HEALTH = "RENDER_PLAYER_HEALTH"
 end
 
 class TemporaryRendering
@@ -143,19 +150,43 @@ class RenderingController
                Weapon => Views::WeaponView.new(@game),
                #MouseCollisionWrapper => lambda {|screen, enemy| puts "NOOP, could add a highlight?" },
                VectorFollower => Views::VectorFollowerView.new(@game),
-              RenderingTypes::DAMAGE => Views::TemporaryRenderingView.new(@game)
+              RenderingTypes::TARGET_DAMAGE => Views::TargetDamageRenderingView.new(@game),
+              RenderingTypes::PLAYER_HEALTH => Views::PlayerHealthRenderingView.new(@game),
     }
 
     @temporary_renderings = []
+    @indeterminate_renderings = []
+  end
+
+
+  def matching_renderings(entity, type)
+    @temporary_renderings.select{|tr| tr.entity == entity && tr.type == type}
+  end
+
+  def add_indeterminate_consumable_rendering(entity, type )
+    @indeterminate_renderings << add_consumable_rendering(entity, type, 0)
+
   end
 
   def add_consumable_rendering(entity, type, duration)
-    @temporary_renderings << TemporaryRendering.new(entity, type, duration)
+    matching = matching_renderings(entity, type)
+    if matching.empty?
+      tr = TemporaryRendering.new(entity, type, duration)
+      @temporary_renderings << tr
+    else
+      tr = matching.first
+    end
+    tr
   end
 
+  def remove_consumable_rendering(entity, type)
+    m = matching_renderings(entity, type)
+    @temporary_renderings -= m
+    @indeterminate_renderings -= m
+  end
   def tick
     @temporary_renderings.each {|tr|tr.tick}
-    @temporary_renderings.reject!{|tr| tr.dead?}
+    @temporary_renderings.reject!{|tr| tr.dead? and !@indeterminate_renderings.include?(tr)}
   end
 
   def draw_temporary_renderings

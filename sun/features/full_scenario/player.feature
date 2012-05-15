@@ -31,6 +31,11 @@ Feature: Player Details
     And the player should be at position 36,36
     And the player should be facing "north"
     And the player radius should be 36
+    And the game property "player.health" should be "5"
+    When I set the player health to 6
+    And the game property "player.health" should be "6"
+    And the game property "player.max_health" should be "6"
+    And the game property "player.health_percent" should be "100"
 
   Scenario: Player weapon YAML loading
     Given I load the game on level "trivial" with screen size 640, 480

@@ -82,7 +82,7 @@ class Game
     :level_controller, :collision_response_controller, :targetting_controller ]
   REQUIRED_ATTRIBUTES = [:player, :clock, :hud, :screen, :level, :collisions, :main_menu_name, :mouse_drawn,
     :active, :new_game_level, :menu_for_load_game, :game_load_path, :over, :game_over_menu,
-    :menu_for_save_game, :log, :menu_for_equipment, :save_slots]
+    :menu_for_save_game, :log, :menu_for_equipment, :save_slots, :health_display_threshold]
   OPTIONAL_ATTRIBUTES = [:temporary_message, :old_level_name, :wayfinding ]
   ATTRIBUTES = REQUIRED_ATTRIBUTES + OPTIONAL_ATTRIBUTES + GAME_CONSTRUCTED
 
@@ -125,6 +125,7 @@ class Game
     @main_menu_name = "main menu"
     @save_slots = [1,2,3,4,5,6]
     @menu_for_equipment = GameMenu::EQUIPMENT
+    @health_display_threshold = 30
     @game_load_path = "UNSET"
     @old_level_name = nil
     @active = true
@@ -180,6 +181,11 @@ class Game
 
   def update_game_state
     @animation_controller.animation_index_by_entity_and_name(@player, @player.main_animation_name).needs_update = false
+    if @player.health_percent < @health_display_threshold
+      @rendering_controller.add_indeterminate_consumable_rendering(@player, RenderingTypes::PLAYER_HEALTH)
+    else
+      @rendering_controller.remove_consumable_rendering(@player, RenderingTypes::PLAYER_HEALTH)
+    end
     @event_controller.handle_events
     @input_controller.respond_to_keys
     return if menu_mode? 

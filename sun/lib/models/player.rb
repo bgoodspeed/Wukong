@@ -93,6 +93,7 @@ class Player
     @stats.max_health
   end
 
+
   def is_moving=(v)
     if v
       @game.animation_controller.play_animation(self, @main_animation_name)

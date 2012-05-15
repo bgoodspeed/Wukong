@@ -48,9 +48,11 @@ class ActionController
         col.dynamic2.take_damage(col.dynamic1)
       },
       ResponseTypes::SHOW_DAMAGE1 => lambda {|game, col|
-        game.rendering_controller.add_consumable_rendering(col.dynamic1, RenderingTypes::DAMAGE, 10) },
+        game.rendering_controller.add_consumable_rendering(col.dynamic1, RenderingTypes::TARGET_DAMAGE, 10)
+      },
       ResponseTypes::SHOW_DAMAGE2 => lambda {|game, col|
-        game.rendering_controller.add_consumable_rendering(col.dynamic2, RenderingTypes::DAMAGE, 10) },
+        game.rendering_controller.add_consumable_rendering(col.dynamic2, RenderingTypes::TARGET_DAMAGE, 10)
+      },
 
       ResponseTypes::REMOVING1 => lambda {|game, col| game.remove_projectile(col.dynamic1)},
       ResponseTypes::REMOVING2 => lambda {|game, col| game.remove_projectile(col.dynamic2)},

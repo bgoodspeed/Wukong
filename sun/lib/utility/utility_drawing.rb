@@ -45,6 +45,9 @@ module UtilityDrawing
   def transparent_red
     Graphics::Color.argb(0x22FF0000)
   end
+  def transparent_red_near_death
+    Graphics::Color.argb(0x22FF0000)
+  end
 
   def darken_screen(g = @game, minx=0, maxx=@game.window.width, miny=0, maxy=@game.window.height, color=transparent_grey, zo=ZOrder.dynamic.value)
     #TODO GOSU specific, not automatically tested
