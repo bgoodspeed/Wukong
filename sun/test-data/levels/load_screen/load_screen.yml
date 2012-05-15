@@ -48,4 +48,4 @@ event_areas:
   - top_left: [ 360, 280 ]
     bottom_right: [ 630, 470 ]
     label: Continue
-    action: queue_continue_event
+    action: continue_last_game
