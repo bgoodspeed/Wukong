@@ -34,8 +34,34 @@ event_areas:
       description:
         - "Fragger, ''You are nothing! You will never be able to suceed!"
         -
-        - "                Might as well quit now."
+        - "                Might as well quit now and end your miserable existence!"
         -
-        - "                Press Q or hold down CTRL+ALT+DELETE.''"
+        - "                Press Q or hold down CTRL+ALT+DELETE!''"
       position: [ 100, 520 ]
       size: [ 620, 725 ]
+
+  - top_left: [ 205, 170 ]
+    bottom_right: [ 240, 204 ]
+    action: noop
+    info_window:
+      description:
+        - "???, ''It worked! You were defeated by Rubu but I reconstructed what"
+        -
+        - "         I could with the Kernel copy. It's not perfect but it's a start."
+        -
+        - "         The world won't look the same and your current phsyical being "
+        -
+        - "         won't last. Once you continue on from here you deteriorate to"
+        -
+        - "         primitive codes. Don't worry, I'll find a way to help you get "
+        -
+        - "         back to yourself and more...Rubu and his masters will fear us!"
+        -
+        -
+        - "         However, you must gather the resources yourself. They'll track"
+        -
+        - "         back to me if I interfere at that level. A new beginning will"
+        -
+        - "         be tough, but I'll be there with you. Choose your path!''"
+      position: [ 140, 225 ]
+      size: [ 580, 440 ]
