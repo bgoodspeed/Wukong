@@ -1,0 +1,80 @@
+name: h_level_intro_reward
+background_image: game-data/levels/h_level_intro_reward/h_level_intro_reward.png
+background_music: game-data/music/silence.wav
+wayfinding: game-data/levels/h_level_1/wayfinding.yml
+reward_level: game-data/levels/h_level_1/h_level_1.yml
+player_start_position: [ 100, 100 ]
+
+measurements: [ 800, 600 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 800
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 600
+  - start_x: 800
+    start_y: 0
+    end_x: 800
+    end_y: 600
+  - start_x: 0
+    start_y: 600
+    end_x: 800
+    end_y: 600
+
+event_areas:
+  - top_left: [ 0, 540 ]
+    bottom_right: [ 60, 599 ]
+    action: noop
+    info_window:
+      description:
+        - "Fragger, ''You are nothing! You will never be able to suceed!"
+        -
+        - "                Might as well quit now and end your miserable existence!"
+        -
+        - "                Press Q or hold down CTRL+ALT+DELETE!''"
+      position: [ 100, 520 ]
+      size: [ 620, 725 ]
+
+  - top_left: [ 205, 170 ]
+    bottom_right: [ 240, 204 ]
+    action: noop
+    info_window:
+      description:
+        - "???, ''It worked! You were defeated by Rubu but I reconstructed what"
+        -
+        - "         I could with the Kernel copy. It's not perfect but it's a start."
+        -
+        - "         The world won't look the same and your current phsyical being "
+        -
+        - "         won't last. Once you continue on from here you'll deteriorate to"
+        -
+        - "         primitive codes. Don't worry, I'll find a way to help you get "
+        -
+        - "         back to yourself and more...Rubu and his masters will fear us!"
+        -
+        -
+        - "         However, you must gather the resources yourself. They'll track"
+        -
+        - "         back to me if I interfere at that level. A new beginning will"
+        -
+        - "         be tough, but I'll be there with you. Choose your path!''"
+      position: [ 140, 225 ]
+      size: [ 580, 440 ]
+
+  - top_left: [ 494, 60 ]
+    bottom_right: [ 751, 215 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/h_level_1/h_level_1.yml"
+    info_window:
+      description:
+        - "Your real adventure beggins!"
+        -
+        - "Destroy your them and take"
+        -
+        - "back what's rightfully yours!"
+      position: [ 493, 225 ]
+      size: [ 258, 310 ]

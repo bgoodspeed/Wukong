@@ -6,5 +6,9 @@ enemy:
   animation_rate: 5
   position: [ 100 , 100 ]
   base_direction: 90
-  health: 10
   velocity: 1
+  stats:
+    health: 300
+    max_health: 300
+    defense: 15
+    strength: 10

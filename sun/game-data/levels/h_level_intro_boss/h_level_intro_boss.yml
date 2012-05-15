@@ -3,8 +3,12 @@ background_image: game-data/levels/h_level_intro_boss/h_level_intro_boss.png
 background_music: game-data/music/silence.wav
 background_music: game-data/music/drumbeats.wav
 wayfinding: game-data/levels/h_level_1/wayfinding.yml
-reward_level: game-data/levels/h_level_1/h_level_1.yml
+reward_level: game-data/levels/h_level_intro_reward/h_level_intro_reward.yml
 player_start_position: [ 100, 100 ]
+
+anded_completion_conditions:
+  - condition: player_health_at_most
+    argument: 10
 
 measurements: [ 800, 600 ]
 

@@ -55,43 +55,43 @@ declared_enemies:
     name: e10
 
 spawn_points:
-  - point: [ 1771, 1491 ]
+  - point: [ 1575, 1317 ]
     name: large_piggy_1
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e1 ]
-  - point: [ 1523, 1307 ]
+  - point: [ 1812, 1485 ]
     name: large_piggy_2
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e2 ]
-  - point: [ 850, 400 ]
+  - point: [ 987, 603 ]
     name: blahh 1
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e3 ]
-  - point: [ 850, 500 ]
+  - point: [ 1338, 582 ]
     name: blaahh2
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e4 ]
-  - point: [ 2350, 1000 ]
+  - point: [ 1755, 504 ]
     name: baby 5
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e5 ]
-  - point: [ 915, 320 ]
+  - point: [ 1836, 843 ]
     name: baby 6
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e6 ]
-  - point: [ 760, 580 ]
+  - point: [ 2208, 1053 ]
     name: baby 7
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e7 ]
-  - point: [ 1870, 620 ]
+  - point: [ 2271, 1188 ]
     name: baby 8
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e8 ]
-  - point: [ 700, 700 ]
+  - point: [ 1020, 843 ]
     name: baby 9
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e9 ]
-  - point: [ 1330, 530 ]
+  - point: [ 1020, 1233 ]
     name: baby 10
     spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e10 ]

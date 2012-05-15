@@ -1,7 +1,7 @@
 name: load_screen
 background_image: game-data/levels/load_screen/load_screen_blue.png
 background_music: game-data/music/drumbeats.wav
-player_start_position: [ 368, 321 ]
+player_start_position: [ 364, 270 ]
 
 measurements: [ 800, 600 ]
 
@@ -55,15 +55,15 @@ event_areas:
         - Continue recent game.
       position: [ 41, 206 ]
       size: [ 252, 252 ]
-  - top_left: [ 349, 303 ]
-    bottom_right: [ 389, 337 ]
+  - top_left: [ 349, 253 ]
+    bottom_right: [ 380, 287 ]
     action: noop
     info_window:
       description:
-        - "          Welcome to Haligonia,"
+        - "Use arrows ''UP'' to move forward,"
         -
-        - " where the adventures are unreal."
+        - "    ''LEFT'' and ''RIGHT'' to turn,"
         -
-        - "             Is everything else?"
+        - "    ''DOWN'' to move backwards."
       position: [ 260, 220 ]
-      size: [0, 0 ]
+      size: [ 295, 305 ]
