@@ -30,7 +30,7 @@ class LevelController
     end
     @game.clock.reset
     @game.temporary_message = nil
-
+    @game.rendering_controller.add_consumable_rendering(@game, RenderingTypes::FADE_IN_LEVEL, 60)
     @game.input_controller.enable_all
     @game.level
   end

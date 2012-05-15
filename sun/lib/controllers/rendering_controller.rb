@@ -108,18 +108,25 @@ module Views
 
     end
   end
+  class FadeInLevelRenderingView < BaseView
+    def call(screen, tr)
+      darken_screen(game, 0, game.screen.width, 0, game.screen.width, fade_in_color_for(tr.time_to_live.to_f/tr.start_time_to_live.to_f))
+    end
+  end
 
 end
 
 module RenderingTypes
   TARGET_DAMAGE = "RENDER_TARGET_DAMAGE"
   PLAYER_HEALTH = "RENDER_PLAYER_HEALTH"
+  FADE_IN_LEVEL = "RENDER_LEVEL_FADE"
 end
 
 class TemporaryRendering
-  attr_reader :entity, :type, :time_to_live
+  attr_reader :entity, :type, :time_to_live, :start_time_to_live
   def initialize(entity, type, time_to_live)
     @entity, @type, @time_to_live = entity, type, time_to_live
+    @start_time_to_live = time_to_live
   end
 
   def tick
@@ -134,6 +141,7 @@ class TemporaryRendering
   def radius
     @entity.radius
   end
+
 
 end
 
@@ -152,6 +160,7 @@ class RenderingController
                VectorFollower => Views::VectorFollowerView.new(@game),
               RenderingTypes::TARGET_DAMAGE => Views::TargetDamageRenderingView.new(@game),
               RenderingTypes::PLAYER_HEALTH => Views::PlayerHealthRenderingView.new(@game),
+              RenderingTypes::FADE_IN_LEVEL => Views::FadeInLevelRenderingView.new(@game),
     }
 
     @temporary_renderings = []
