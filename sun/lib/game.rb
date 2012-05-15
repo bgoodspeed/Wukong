@@ -82,7 +82,7 @@ class Game
     :level_controller, :collision_response_controller, :targetting_controller ]
   REQUIRED_ATTRIBUTES = [:player, :clock, :hud, :screen, :level, :collisions, :main_menu_name, :mouse_drawn,
     :active, :new_game_level, :menu_for_load_game, :game_load_path, :over, :game_over_menu,
-    :menu_for_save_game, :log, :menu_for_equipment, :save_slots, :health_display_threshold]
+    :menu_for_save_game, :log, :menu_for_equipment, :save_slots, :health_display_threshold, :player_damage_mask]
   OPTIONAL_ATTRIBUTES = [:temporary_message, :old_level_name, :wayfinding ]
   ATTRIBUTES = REQUIRED_ATTRIBUTES + OPTIONAL_ATTRIBUTES + GAME_CONSTRUCTED
 
@@ -129,7 +129,7 @@ class Game
     @game_load_path = "UNSET"
     @old_level_name = nil
     @active = true
-    @over = false 
+    @over = false
     @clock = Clock.new(self, dependencies[:framerate])
     @hud = HeadsUpDisplay.new(self)
     @collisions = []

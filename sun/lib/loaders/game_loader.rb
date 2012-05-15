@@ -51,7 +51,7 @@ class GameLoader
 
   def self.attributes
     [
-      'new_game_level', 'game_load_path', 'menu_for_equipment'
+      'new_game_level', 'game_load_path', 'menu_for_equipment', 'player_damage_mask'
     ]
   end
   extend ValidationHelper
@@ -70,10 +70,13 @@ class GameLoader
     game.load_level(conf['level'])
     sub_yaml_deps_post_level.each {|a| process_yaml_dep(game, conf, a)}
 
+
     try_add_splash_screen(game, conf)
     try_add_font_config(game, conf)
     @game = game
     @which_level = f
+    game.image_controller.register_image(game.player_damage_mask)
+
     check_validation_error(game, "Fix game yaml", game.required_attributes)
     game
   end

@@ -14,3 +14,4 @@ game:
   game_over_menu: "game-data/menus/game_over.yml"
   menu_for_save_game: "game-data/menus/save_game.yml"
   menu_for_main: "game-data/menus/main.yml"
+  player_damage_mask: "game-data/sprites/player_damage.png"

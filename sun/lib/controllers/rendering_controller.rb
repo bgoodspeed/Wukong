@@ -104,7 +104,9 @@ module Views
   end
   class PlayerHealthRenderingView < BaseView
     def call(screen, tr)
-      darken_screen(game, 0, game.screen.width, 0, game.screen.width, transparent_red_near_death)
+      img = game.image_controller.lookup_image(game.player_damage_mask)
+      img.draw(0,0, ZOrder.dynamic.value)
+      # darken_screen(game, 0, game.screen.width, 0, game.screen.width, transparent_red_near_death)
 
     end
   end
