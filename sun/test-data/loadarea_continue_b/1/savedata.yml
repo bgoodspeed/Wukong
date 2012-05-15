@@ -1,0 +1,5 @@
+---
+savedata:
+  level: test-data/levels/reward/reward.yml
+  player: test-data/loadarea_continue_b/1/player.yml
+  player_inventory: test-data/loadarea_continue_b/1/inventory.yml

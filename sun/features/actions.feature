@@ -61,3 +61,23 @@ Feature: Action
     When I invoke the action "EventTypes::BACK_TO_LEVEL"
     Then the game property "level.name" should be "'demo'"
 
+  Scenario: Continuing Last Saved Game A
+    Given I load the game "new_game_load_screen"
+    And I set the property "game_load_path" to "test-data/loadarea_continue_a"
+    When I invoke the action "BehaviorTypes::CONTINUE_LAST_GAME"
+    Then the game property "level.name" should be "'demo'"
+
+  Scenario: Continuing Last Saved Game B
+    Given I load the game "new_game_load_screen"
+    And I set the property "game_load_path" to "test-data/loadarea_continue_b"
+    When I invoke the action "BehaviorTypes::CONTINUE_LAST_GAME"
+    Then the game property "level.name" should be "'reward'"
+
+  Scenario: Continuing Last Saved Game None Saved
+    Given I load the game "new_game_load_screen"
+    And I set the property "game_load_path" to "test-data/loadarea_continue_none"
+    When I invoke the action "BehaviorTypes::CONTINUE_LAST_GAME"
+    Then the game property "level.name" should be "'load_screen'"
+
+
+

@@ -9,6 +9,7 @@ module BehaviorTypes
   CHOOSE_GAME_MENU = "CHOOSE_GAME_MENU"
   SAVE_GAME_SLOT = "save_game_slot"
   LOAD_GAME_SLOT = "load_game_slot"
+  CONTINUE_LAST_GAME = "continue_last_game"
   TAKE_REWARD = "take_reward"
   UPGRADE_PLAYER = "upgrade_player"
   EQUIPMENT_MENU = "equipment_menu"
@@ -33,6 +34,7 @@ class ActionController
         game.clock.set_last_save_time
         game.save_game_slot(arg)}, #TODO could add temp message and maybe exit menu
       BehaviorTypes::LOAD_GAME_SLOT => lambda {|game, arg| game.load_game_slot(arg)},
+      BehaviorTypes::CONTINUE_LAST_GAME => lambda {|game, arg| game.load_most_recent_game_slot},
       BehaviorTypes::NOOP => lambda {|game, arg| }
     }
   end

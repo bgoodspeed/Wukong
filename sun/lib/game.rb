@@ -82,7 +82,7 @@ class Game
     :level_controller, :collision_response_controller, :targetting_controller ]
   REQUIRED_ATTRIBUTES = [:player, :clock, :hud, :screen, :level, :collisions, :main_menu_name, :mouse_drawn,
     :active, :new_game_level, :menu_for_load_game, :game_load_path, :over, :game_over_menu,
-    :menu_for_save_game, :log, :menu_for_equipment, ]
+    :menu_for_save_game, :log, :menu_for_equipment, :save_slots]
   OPTIONAL_ATTRIBUTES = [:temporary_message, :old_level_name, :wayfinding ]
   ATTRIBUTES = REQUIRED_ATTRIBUTES + OPTIONAL_ATTRIBUTES + GAME_CONSTRUCTED
 
@@ -123,6 +123,7 @@ class Game
     init_game_constructed(GAME_CONSTRUCTED, self)
     @mouse_drawn = true
     @main_menu_name = "main menu"
+    @save_slots = [1,2,3,4,5,6]
     @menu_for_equipment = GameMenu::EQUIPMENT
     @game_load_path = "UNSET"
     @old_level_name = nil
@@ -251,11 +252,29 @@ class Game
     @level.interact(@player.to_collision)
   end
 
-  def last_save_time_for_slot(slot)
+  def load_most_recent_game_slot
+    saved_slots = @save_slots.reject{|ss| save_time_for_slot(ss).nil? }
+
+    saved_slots.sort!{|a,b| save_time_for_slot(b) <=> save_time_for_slot(a)}
+    if saved_slots.empty?
+      @log.warn { "WARNING: No saved slots exist (checked slots #{@save_slots.first}-#{@save_slots.last} in '#{@game_load_path}'" }
+      return
+    end
+
+    load_game_slot(saved_slots.first)
+  end
+
+  def save_time_for_slot(slot)
     d = File.join(@game_load_path, slot.to_s)
-    return "(empty)" unless Dir.exists?(d)
-    t = File.mtime(File.join(d, "savedata.yml"))
-    "(#{t})"
+    return nil unless Dir.exists?(d)
+    f = File.join(d, "savedata.yml")
+    return nil unless File.exists?(f)
+    File.mtime(f)
+  end
+
+  def last_save_time_for_slot(slot)
+    t = save_time_for_slot(slot)
+    t.nil? ? "(empty)" : "(#{t})"
   end
 
   def noop(arg=nil)
