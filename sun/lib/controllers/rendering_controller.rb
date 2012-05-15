@@ -83,10 +83,8 @@ module Views
   end
   class VectorFollowerView < BaseView
     def call(screen, vf)
-      d = 10
       cp = game.camera.screen_coordinates_for(vf.current_position)
       img = game.image_controller.lookup_image(game.player_bullet)
-      raise "missing param player bullet on game: '#{game.player_bullet}'" unless img
       img.draw(cp.x,cp.y, ZOrder.dynamic.value)
     end
   end

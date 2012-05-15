@@ -112,8 +112,19 @@ class ActionController
         #NOTE this assumes the new animation is the same size and rate of the old.
         game.log.info "Upgrading player"
         orig_animation = @game.player.player_animation
+        if arg.argument.kind_of?(Hash)
+          hash = arg.argument
+          f = hash['animation_file']
+          w = hash['animation_width']
+          h = hash['animation_height']
+
+        else
+          f = arg.argument
+          w = orig_animation.width
+          h = orig_animation.height
+        end
         animation = game.animation_controller.register_animation(game.player, game.player.animation_name,
-            arg.argument, orig_animation.width, orig_animation.height, false, false,orig_animation.animation_rate)
+            f, w, h, false, false,orig_animation.animation_rate)
         game.player.image_path = arg.argument
         game.player.image_file = arg.argument
 
