@@ -51,7 +51,7 @@ class GameLoader
 
   def self.attributes
     [
-      'new_game_level', 'game_load_path', 'menu_for_equipment', 'player_damage_mask'
+      'new_game_level', 'game_load_path', 'menu_for_equipment', 'player_damage_mask', 'player_bullet'
     ]
   end
   extend ValidationHelper
@@ -60,7 +60,7 @@ class GameLoader
     data = YAML.load(yaml)
     conf = data['game']
 
-    game = Game.new({:width => conf['width'], :height => conf['height']})
+    game = Game.new(conf)
     game.log.info { "Building HUD: #{conf['heads_up_display']}"}
     game_constructed_deps.each {|d| process_game_constructed_dep(game,  d)}
 
@@ -75,9 +75,11 @@ class GameLoader
     try_add_font_config(game, conf)
     @game = game
     @which_level = f
-    game.image_controller.register_image(game.player_damage_mask)
 
     check_validation_error(game, "Fix game yaml", game.required_attributes)
+
+
+
     game
   end
 

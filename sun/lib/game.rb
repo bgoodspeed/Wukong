@@ -82,7 +82,8 @@ class Game
     :level_controller, :collision_response_controller, :targetting_controller ]
   REQUIRED_ATTRIBUTES = [:player, :clock, :hud, :screen, :level, :collisions, :main_menu_name, :mouse_drawn,
     :active, :new_game_level, :menu_for_load_game, :game_load_path, :over, :game_over_menu,
-    :menu_for_save_game, :log, :menu_for_equipment, :save_slots, :health_display_threshold, :player_damage_mask]
+    :menu_for_save_game, :log, :menu_for_equipment, :save_slots, :health_display_threshold,
+    :player_damage_mask, :player_bullet]
   OPTIONAL_ATTRIBUTES = [:temporary_message, :old_level_name, :wayfinding ]
   ATTRIBUTES = REQUIRED_ATTRIBUTES + OPTIONAL_ATTRIBUTES + GAME_CONSTRUCTED
 
@@ -112,14 +113,23 @@ class Game
   include InitHelper
   include ValidationHelper
 
+  def self.defaults
+    {
+        'width' => 640,
+        'height' => 480,
+        'framerate' => 60,
+        'player_bullet' => "game-data/equipment/bullet.png",
+        'player_damage_mask' => "game-data/sprites/player_damage.png",
+    }
+  end
   def initialize(deps = {})
-    dependencies = {:framerate => 60}.merge(deps)
+    dependencies = self.class.defaults.merge(deps)
     #TODO HACKISH
     log_path = "logs"
     Dir.mkdir(log_path) unless File.exists?(log_path)
     @log = Logger.new(File.join(log_path, "game.log"), 10, 1024000)
     @log.level = Logger::INFO #NOTE: also ::DEBUG 
-    @screen = Screen.new(self, dependencies[:width], dependencies[:height])
+    @screen = Screen.new(self, dependencies['width'], dependencies['height'])
     init_game_constructed(GAME_CONSTRUCTED, self)
     @mouse_drawn = true
     @main_menu_name = "main menu"
@@ -127,10 +137,14 @@ class Game
     @menu_for_equipment = GameMenu::EQUIPMENT
     @health_display_threshold = 30
     @game_load_path = "UNSET"
+    @player_bullet = dependencies['player_bullet']
+    @player_damage_mask = dependencies['player_damage_mask']
+    @image_controller.register_image(dependencies['player_bullet'])
+    @image_controller.register_image(dependencies['player_damage_mask'])
     @old_level_name = nil
     @active = true
     @over = false
-    @clock = Clock.new(self, dependencies[:framerate])
+    @clock = Clock.new(self, dependencies['framerate'])
     @hud = HeadsUpDisplay.new(self)
     @collisions = []
   end

@@ -85,14 +85,9 @@ module Views
     def call(screen, vf)
       d = 10
       cp = game.camera.screen_coordinates_for(vf.current_position)
-
-      draw_rectangle(screen, Primitives::Rectangle.new(cp, cp.plus([d,0]), cp.plus([d,d]), cp.plus([0,d])))
-      lsi = vf.to_collision
-
-      ls1 = game.camera.screen_coordinates_for(lsi.p1)
-      ls2 = game.camera.screen_coordinates_for(lsi.p2)
-      ls = Primitives::LineSegment.new(ls1,ls2)
-      draw_line_segment(screen, ls)
+      img = game.image_controller.lookup_image(game.player_bullet)
+      raise "missing param player bullet on game: '#{game.player_bullet}'" unless img
+      img.draw(cp.x,cp.y, ZOrder.dynamic.value)
     end
   end
   class TargetDamageRenderingView < BaseView

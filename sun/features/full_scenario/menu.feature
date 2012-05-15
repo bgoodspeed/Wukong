@@ -90,7 +90,7 @@ Feature: Menu
       | 1              | choose_slot    | 1               |
     When I invoke the current menu action
     Then the menu action result should be 3
-    Then the game property "image_controller.images.size" should be "2"
+    Then the game property "image_controller.images.size" should be "4"
     Then the game property "menu_controller.current_menu.image_menu?" should be "false"
 
 
@@ -99,7 +99,7 @@ Feature: Menu
     And I create a menu controller
     And I load the main menu "image_menu.yml"
     When I enter the menu
-    Then the game property "image_controller.images.size" should be "4"
+    Then the game property "image_controller.images.size" should be "6"
     Then the game property "menu_controller.current_menu.image_menu?" should be "true"
 
   Scenario: Image Menu Drawing

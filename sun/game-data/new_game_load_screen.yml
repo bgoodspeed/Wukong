@@ -15,3 +15,4 @@ game:
   menu_for_save_game: "game-data/menus/save_game.yml"
   menu_for_main: "game-data/menus/main.yml"
   player_damage_mask: "game-data/sprites/player_damage.png"
+  player_bullet: "game-data/equipment/bullet.png"
