@@ -1,10 +1,5 @@
 $GVECTOR_UPGRADE = "construct using GVectors"
 
-module ArrayVectorOperations
-
-
-
-end
 
 class GVector
   attr_accessor :x,:y
