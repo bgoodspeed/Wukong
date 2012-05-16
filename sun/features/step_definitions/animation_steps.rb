@@ -17,7 +17,7 @@ Then /^the animation index for the player attack animation should be (\d+)$/ do 
 end
 
 Then /^the animation position for player "([^"]*)" should be (\d+), (\d+)$/ do |player_prop, x, y|
-  @game.animation_controller.position_for(@game.player, player_prop).should be_within_epsilon_of([x.to_f, y.to_f])
+  @game.animation_controller.position_for(@game.player, player_prop).should be_within_epsilon_of(GVector.xy(x.to_f, y.to_f))
 end
 
 Then /^the player attack animation should be active$/ do

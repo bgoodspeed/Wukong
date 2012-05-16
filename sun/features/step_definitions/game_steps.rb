@@ -63,7 +63,7 @@ When /^I see the first frame$/ do
 end
 
 Then /^I should be at (\d+),(\d+) in the game space$/ do |expected_x, expected_y|
-  @game.player_position.should == [expected_x.to_i, expected_y.to_i]
+  @game.player_position.should == GVector.xy(expected_x.to_i, expected_y.to_i)
 end
 
 Then /^there should be (\d+) event areas$/ do |arg1|

@@ -25,7 +25,7 @@ Feature: Targetting
     Then the game property "player.accuracy" should be "100"
     And the enemy should be at position 25,25
     And the player should be at position 36,36
-    Then the game property "targetting_controller.target_list.first.vector_to_target" should be "[ -11, -11 ]"
+    Then the game property "targetting_controller.target_list.first.vector_to_target" should be "GVector.xy( -11, -11 )"
     Then the game property "targetting_controller.target_list.first.distance_to_target" should be approximately "15.556"
     Then the game property "targetting_controller.target_list.first.hit_odds_for_target" should be approximately "97"
 

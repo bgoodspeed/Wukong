@@ -21,7 +21,7 @@ Then /^the hud should be in menu mode$/ do
 end
 
 Then /^the hud cursor position should be (\d+),(\d+)$/ do |arg1, arg2|
-  expected = [arg1.to_f, arg2.to_f]
+  expected = GVector.xy(arg1.to_f, arg2.to_f)
   @game.menu_controller.current_menu.cursor_position.should be_within_epsilon_of(expected)
 end
 

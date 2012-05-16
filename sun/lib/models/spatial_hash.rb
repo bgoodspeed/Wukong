@@ -41,11 +41,11 @@ class SpatialHash
     @data = []
   end
   def cell_index_for(vertex)
-    [(vertex.vx/@cell_size).floor, (vertex.vy/@cell_size).floor]
+    GVector.xy((vertex.x/@cell_size).floor, (vertex.y/@cell_size).floor)
   end
  
   def spatial_hash(discretized_vertex)
-    (@x_prime * discretized_vertex.vx ^ @y_prime * discretized_vertex.vy) % @base_table_size
+    (@x_prime * discretized_vertex.x ^ @y_prime * discretized_vertex.y) % @base_table_size
   end
   def add_line_segment(data, ls)
     lsv = ls.p1.minus(ls.p2)
@@ -81,15 +81,15 @@ class SpatialHash
   def candidate_hashes(radius, vertex)
     hashes = []
 
-    hashes << spatial_hash(cell_index_for(vertex.plus([ radius, radius])))
-    hashes << spatial_hash(cell_index_for(vertex.plus([ 0     , radius])))
-    hashes << spatial_hash(cell_index_for(vertex.plus([-radius, radius])))
-    hashes << spatial_hash(cell_index_for(vertex.plus([radius, 0])))
+    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy(radius, radius))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy( 0     , radius))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy(-radius, radius))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy(radius, 0))))
     hashes << spatial_hash(cell_index_for(vertex))
-    hashes << spatial_hash(cell_index_for(vertex.plus([-radius, 0])))
-    hashes << spatial_hash(cell_index_for(vertex.plus([ radius, -radius])))
-    hashes << spatial_hash(cell_index_for(vertex.plus([ 0     , -radius])))
-    hashes << spatial_hash(cell_index_for(vertex.plus([-radius, -radius])))
+    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy(-radius, 0))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy( radius, -radius))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy( 0     , -radius))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy(-radius, -radius))))
     hashes.uniq
 
   end

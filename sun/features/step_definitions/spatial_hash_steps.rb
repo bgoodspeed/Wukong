@@ -59,7 +59,7 @@ Then /^asking for collision candidates yields:$/ do |table|
   table.map_column!('center_y') {|a| a.to_i}
   table.map_column!('radius') {|a| a.to_i}
   table.hashes.each do |h|
-    datas = @spatial_hash.candidates(h['radius'], [h['center_x'], h['center_y']])
+    datas = @spatial_hash.candidates(h['radius'], GVector.xy(h['center_x'], h['center_y']))
     datas.flatten!
     data = datas.collect {|d| (d.kind_of?(String) or d.kind_of?(Symbol)) ? d.to_s : d.user_data }
 

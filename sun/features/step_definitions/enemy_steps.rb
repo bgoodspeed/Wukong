@@ -30,17 +30,15 @@ def the_first_enemy
 end
 
 Then /^the enemy should be at position (\d+),(\d+)$/ do |x, y|
-  expected = [x.to_i, y.to_i]
-  the_first_enemy.position.should be_within_epsilon_of(expected)
+  the_first_enemy.position.should be_within_epsilon_of(GVector.xy(x.to_i, y.to_i))
 end
 
 
 Given /^I set the enemy position (\d+),(\d+)$/ do |x, y|
-  pos = GVector.xy(x.to_i, y.to_i)
-  @enemy.position = pos
+  @enemy.position = GVector.xy(x.to_i, y.to_i)
 end
 Then /^the enemy should be at position (\d+),(\d+)\.(\d+)$/ do |x, arg2, arg3|
-  expected = [x.to_f, "#{arg2}.#{arg3}".to_f]
+  expected = GVector.xy(x.to_f, "#{arg2}.#{arg3}".to_f)
   the_first_enemy.position.should be_within_epsilon_of(expected)
 end
 
@@ -73,14 +71,14 @@ end
 Then /^the next wayfinding direction for enemy should be (\d+)\.(\d+), (\d+)\.(\d+)$/ do |arg1, arg2, arg3, arg4|
   expected = ["#{arg1}.#{arg2}".to_f,
               "#{arg3}.#{arg4}".to_f]
-  GVector.xy(expected[0], expected[1])
-  check_wayfind_direction(expected)
+
+  check_wayfind_direction(GVector.xy(expected[0], expected[1]))
 end
 Then /^the enemy should be at position (\d+)\.(\d+),(\d+)\.(\d+)$/ do |arg1, arg2, arg3, arg4|
   expected = ["#{arg1}.#{arg2}".to_f,
               "#{arg3}.#{arg4}".to_f]
 
-  the_first_enemy.position.should be_within_epsilon_of(expected)
+  the_first_enemy.position.should be_within_epsilon_of(GVector.xy(expected[0], expected[1]))
 end
 
 Given /^I tell the enemy velocity to (\d+)$/ do |arg1|
@@ -105,7 +103,8 @@ Given /^I create an enemy in isolation$/ do
 end
 
 When /^I tick tracking with vector "([^"]*)"$/ do |arg1|
-  @enemy.tick_tracking(eval(arg1))
+  arr = eval(arg1)
+  @enemy.tick_tracking(GVector.xy(arr[0], arr[1]))
 end
 
 Then /^the enemy direction should be (\d+)$/ do |arg1|

@@ -6,10 +6,6 @@ require 'statemachine'
 require 'models/collision_priority'
 require 'utility/utility_vector_math'
 
-class Array
-  include ArrayVectorOperations
-end
-
 require 'helpers/init_helper'
 require 'helpers/validation_helper'
 require 'behaviors/movement_undoable'

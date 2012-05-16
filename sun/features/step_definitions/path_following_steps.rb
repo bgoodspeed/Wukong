@@ -17,7 +17,7 @@ end
 Then /^the projectile should be at (\d+),(\d+)$/ do |x,y|
   p = @path_controller.vector_following.first
 
-  p.current_position.should be_near([x.to_f, y.to_f])
+  p.current_position.should be_near(GVector.xy(x.to_f, y.to_f))
 end
 Then /^there should be no projectiles$/ do
   pm = @path_controller ? @path_controller : @game.path_following_controller
@@ -44,7 +44,7 @@ Then /^the projectile collision radius should be (\d+)$/ do |rad|
 end
 
 Then /^the projectile collision center should be (\d+),(\d+)$/ do |x,y|
-  @projectile.collision_center.should be_near [x.to_i, y.to_i]
+  @projectile.collision_center.should be_near GVector.xy(x.to_i, y.to_i)
 end
 
 Then /^the path following controller should be tracking (\d+) elements?$/ do |n|

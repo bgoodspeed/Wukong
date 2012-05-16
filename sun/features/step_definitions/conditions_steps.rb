@@ -39,3 +39,10 @@ end
 Then /^there should be (\d+) conditions registered$/ do |arg1|
   @game.condition_controller.conditions.size.should == arg1.to_i
 end
+
+
+
+
+Then /^asking if game condition player near with arg "([^"]*)" should be "([^"]*)"$/ do |arg1, arg2|
+  @game.condition_controller.condition_met?("player_near", eval(arg1)).should == eval(arg2)
+end
