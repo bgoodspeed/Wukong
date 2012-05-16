@@ -1,8 +1,6 @@
 
 Given /^we import vector math on arrays$/ do
-  class Array
-    include ArrayVectorOperations
-  end
+  #NOOP
 end
 
 

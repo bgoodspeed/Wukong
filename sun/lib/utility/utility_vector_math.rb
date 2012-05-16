@@ -3,12 +3,38 @@ $GVECTOR_UPGRADE = "construct using GVectors"
 module ArrayVectorOperations
 
 
-  def x
-    self[0]
+
+end
+
+class GVector
+  attr_accessor :x,:y
+
+  def self.xy(x,y)
+    GVector.new(x,y)
   end
-  def y
-    self[1]
+  def initialize(x,y)
+    @x = x
+    @y = y
   end
+
+  def min
+    (x < y) ? x : y
+  end
+  def max
+    (x < y) ? y : x
+  end
+  def <=>(other)
+    xrv = (x.to_f <=> other.x.to_f)
+    xrv == 0 ? (y.to_f <=> other.y.to_f) : xrv
+  end
+  def ==(other)
+    x == other.x and y == other.y
+  end
+
+  def to_s
+    "[#{x}, #{y}]"
+  end
+
   #HACK this is hard coded to 2d
   def sum2d
     x + y
@@ -50,44 +76,7 @@ module ArrayVectorOperations
   def plus(other)
     GVector.xy(self.x + other.x, self.y + other.y)
   end
-  def vx
-    x
-  end
-  def vy
-    y
-  end
 
-end
-
-class GVector
-  attr_accessor :x,:y
-  include ArrayVectorOperations
-
-  def self.xy(x,y)
-    GVector.new(x,y)
-  end
-  def initialize(x,y)
-    @x = x
-    @y = y
-  end
-
-  def min
-    (x < y) ? x : y
-  end
-  def max
-    (x < y) ? y : x
-  end
-  def <=>(other)
-    xrv = (x.to_f <=> other.x.to_f)
-    xrv == 0 ? (y.to_f <=> other.y.to_f) : xrv
-  end
-  def ==(other)
-    x == other.x and y == other.y
-  end
-
-  def to_s
-    "[#{x}, #{y}]"
-  end
 end
 
 
@@ -113,10 +102,10 @@ module Primitives
       @user_data = ud #TODO reconsider this design
       @collision_priority = cp
     end
-    def sx; @p1.vx; end
-    def sy; @p1.vy; end
-    def ex; @p2.vx; end
-    def ey; @p2.vy; end
+    def sx; @p1.x; end
+    def sy; @p1.y; end
+    def ex; @p2.x; end
+    def ey; @p2.y; end
     def to_s; "Lineseg #{@p1}:#{@p2}"; end
     def collision_response_type; self.class; end
     def collision_type; self.class; end
