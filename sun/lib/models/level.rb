@@ -217,7 +217,6 @@ class Level
     static_bodies.each {|body| @game.rendering_controller.draw_function_for(body).call(screen, body)}
     dynamic_elements.each {|body| @game.rendering_controller.draw_function_for(body).call(screen, body)}
     event_areas.each {|body| @game.rendering_controller.draw_function_for(body).call(screen, body) }
-    active_event_areas.each {|body| @game.rendering_controller.draw_function_for(body.info_window).call(screen, body) }
   end
 
   def remove_projectile(p)

@@ -15,6 +15,8 @@ module ResponseTypes
   SHOW_DAMAGE2 = :show_damage2
   MOUSE_PICK1 = :mouse_pick1
   TEMPORARY_MESSAGE1 = :temporary_message1
+  SHOW_INFO_WINDOW1 = :show_info_window1
+  SHOW_INFO_WINDOW2 = :show_info_window2
 end
 
 class Collision
@@ -64,6 +66,7 @@ class CollisionResponseController
       "Player" => {
         "LineSegment" => [ResponseTypes::BLOCKING1],
         "VectorFollower" => [], #TODO unrealistic
+        "EventArea" => [ResponseTypes::SHOW_INFO_WINDOW2],
         "Enemy" => [
             ResponseTypes::DAMAGING1, ResponseTypes::DAMAGING2, ResponseTypes::BLOCKING1, ResponseTypes::SHOW_DAMAGE1,
                   ResponseTypes::SHOW_DAMAGE2

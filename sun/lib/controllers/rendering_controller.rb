@@ -42,8 +42,9 @@ module Views
   end
 
   class InfoWindowView < BaseView
-    def call(screen, iw)
-
+    def call(screen, iw_in)
+      iw = iw_in
+      iw = iw_in.entity if iw_in.respond_to?(:entity)
       #TODO this is really hideous.
       if iw.info_window.position.nil? or iw.info_window.size.nil?
         xp = 50
@@ -115,6 +116,7 @@ module RenderingTypes
   TARGET_DAMAGE = "RENDER_TARGET_DAMAGE"
   PLAYER_HEALTH = "RENDER_PLAYER_HEALTH"
   FADE_IN_LEVEL = "RENDER_LEVEL_FADE"
+  INFO_WINDOW = "RENDER_INFO_WINDOW"
 end
 
 class TemporaryRendering
@@ -156,6 +158,7 @@ class RenderingController
               RenderingTypes::TARGET_DAMAGE => Views::TargetDamageRenderingView.new(@game),
               RenderingTypes::PLAYER_HEALTH => Views::PlayerHealthRenderingView.new(@game),
               RenderingTypes::FADE_IN_LEVEL => Views::FadeInLevelRenderingView.new(@game),
+              RenderingTypes::INFO_WINDOW => Views::InfoWindowView.new(@game),
     }
 
     @temporary_renderings = []

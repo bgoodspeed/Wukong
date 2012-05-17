@@ -22,6 +22,7 @@ collision_response:
     "VectorFollower": []
     "Enemy": [ damaging1, damaging2, blocking1, show_damage1, show_damage2, blocking2 ]
     "EventEmitter": [ trigger_event2 ]
+    "EventArea": [ show_info_window2 ]
     "MouseCollisionWrapper": [ mouse_pick1 ]
     "Weapon": [  ]
 #TODO note that player vs weapon collisions will need to be handled, eg check to see if it's your weapon
