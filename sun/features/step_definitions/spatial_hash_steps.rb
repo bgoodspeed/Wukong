@@ -13,10 +13,24 @@ end
 When /^I override the y prime to (\d+)$/ do |arg1|
   @spatial_hash.y_prime = arg1.to_i
 end
+
+class FakeCollisionParticipant
+  attr_accessor :user_data, :prim
+
+  def collision_type; prim.collision_type; end
+  def to_collision; prim; end
+  def p1; prim.p1; end
+  def p2; prim.p2; end
+  def p3; prim.p3; end
+  def p4; prim.p4; end
+end
+
 When /^I add data "([^"]*)" at \((\d+), (\d+)\)$/ do |data, x, y|
   circle = Primitives::Circle.new(GVector.xy(x.to_i, y.to_i), 1)
-  circle.user_data = data
-  @spatial_hash.insert_data_at(circle, GVector.xy(x.to_i, y.to_i))
+  fcp = FakeCollisionParticipant.new
+  fcp.prim = circle
+  fcp.user_data = data
+  @spatial_hash.insert_data_at(fcp, GVector.xy(x.to_i, y.to_i))
 end
 
 When /^I clear the spatial hash$/ do
@@ -89,8 +103,10 @@ end
 
 When /^I add line segment (\d+),(\d+):(\d+),(\d+) with data "([^"]*)"$/ do |lssx, lssy, lsex, lsey, data|
   ls = Primitives::LineSegment.new(GVector.xy(lssx.to_f, lssy.to_f), GVector.xy(lsex.to_f, lsey.to_f))
-  ls.user_data = data
-  @spatial_hash.add_line_segment(ls, ls)
+  fcp = FakeCollisionParticipant.new
+  fcp.prim = ls
+  fcp.user_data = data
+  @spatial_hash.add_line_segment(fcp, fcp)
 end
 
 

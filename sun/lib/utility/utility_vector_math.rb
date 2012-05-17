@@ -77,11 +77,10 @@ end
 
 module Primitives
   class Circle
-    attr_accessor :position, :radius, :user_data
+    attr_accessor :position, :radius
     def initialize(position, radius)
       @position = position
       @radius = radius
-      @user_data = nil #TODO reconsider this design? should the circle belong to a data holder?
     end
     def to_s; "Circle #{@position}:#{@radius}"; end
     def collision_response_type; "Circle"; end
@@ -90,11 +89,10 @@ module Primitives
     def to_collision; self; end
   end
   class LineSegment
-    attr_accessor :p1, :p2, :user_data, :collision_priority
-    def initialize(p1, p2, ud=nil, cp=CollisionPriority::HIGH)
+    attr_accessor :p1, :p2, :collision_priority
+    def initialize(p1, p2, cp=CollisionPriority::HIGH)
       @p1 = p1
       @p2 = p2
-      @user_data = ud #TODO reconsider this design
       @collision_priority = cp
     end
     def sx; @p1.x; end
