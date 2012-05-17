@@ -14,6 +14,7 @@ module ResponseTypes
   CHECK_HEALTH1 = :check_health1
   SHOW_DAMAGE2 = :show_damage2
   MOUSE_PICK1 = :mouse_pick1
+  MOUSE_PICK2 = :mouse_pick2
   TEMPORARY_MESSAGE1 = :temporary_message1
   SHOW_INFO_WINDOW1 = :show_info_window1
   SHOW_INFO_WINDOW2 = :show_info_window2

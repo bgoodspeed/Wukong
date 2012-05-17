@@ -72,6 +72,10 @@ class ActionController
         game.log.info { "Mouse click on #{col.dynamic1}" }
         game.remove_mouse_collision #TODO could also add a timed event here add a highlight around that enemy?
         game.add_event(Event.new(col.dynamic1, EventTypes::PICK))},
+      ResponseTypes::MOUSE_PICK2 => lambda {|game, col|
+        game.log.info { "Mouse click on #{col.dynamic2}" }
+        game.remove_mouse_collision #TODO could also add a timed event here add a highlight around that enemy?
+        game.add_event(Event.new(col.dynamic2, EventTypes::PICK))},
       ResponseTypes::TEMPORARY_MESSAGE1  => lambda {|game, col| game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", col.dynamic1.hud_message,"temporary_message=", nil, 60 )) }
     }
   end

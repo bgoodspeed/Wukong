@@ -27,4 +27,5 @@ collision_response:
     "Weapon": [  ]
 #TODO note that player vs weapon collisions will need to be handled, eg check to see if it's your weapon
   "MouseCollisionWrapper":
-    "Player": [ mouse_pick1 ]
+    "Player": [ mouse_pick2 ]
+    "EventArea": [ mouse_pick2 ]
