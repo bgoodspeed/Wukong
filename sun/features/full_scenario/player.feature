@@ -36,6 +36,7 @@ Feature: Player Details
     And the game property "player.health" should be "6"
     And the game property "player.max_health" should be "6"
     And the game property "player.health_percent" should be "100"
+    And the game property "player.position.class" should be "GVector"
 
   Scenario: Player weapon YAML loading
     Given I load the game on level "trivial" with screen size 640, 480

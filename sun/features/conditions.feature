@@ -30,7 +30,11 @@ Feature: Conditions
    | enemies_killed  | player       | 12           | enemies_killed_at_least | 13                 | false    |
    | enemies_killed  | player       | 12           | enemies_killed_at_least | 12                 | true     |
    | enemies_killed  | player       | 12           | enemies_killed_at_least | 11                 | true     |
-   | position        | player       | 2, 3         | player_near             | 200, 200           | false    |
-   | position        | player       | 200, 200     | player_near             | 200, 200           | true     |
 
-
+  Scenario: Player Near
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a condition controller
+    And I set the player position to 200,200
+    And I update the game state
+    Then asking if game condition player near with arg "[200, 200]" should be "true"
+    Then asking if game condition player near with arg "[200, 300]" should be "false"

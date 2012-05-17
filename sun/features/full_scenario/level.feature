@@ -95,8 +95,8 @@ Feature: Level Description
 
   Scenario: Demo Level starting position
     Given I load the game "demo_start"
-    Then the game property "level.player_start_position" should be "[320, 240]"
-    Then the game property "player.position" should be "[320, 240]"
+    Then the game property "level.player_start_position" should be "GVector.xy(320, 240)"
+    Then the game property "player.position" should be "GVector.xy(320, 240)"
 
   Scenario: Player avatar changing
     Given I load the game "reward"

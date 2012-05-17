@@ -20,10 +20,12 @@ Feature: Loading
     Given I load the game "new_game_load_screen"
     Given I set the temporary message to "foo"
     Then the game property "level.name" should be "'load_screen'"
-    Then the game property "player.position" should be "[320, 240]"
+    Then the game property "player.position.x" should be "320"
+    Then the game property "player.position.y" should be "240"
     And I load slot 1
     Then the game property "level.name" should be "'demo'"
-    Then the game property "player.position" should be "[300, 200]"
+    Then the game property "player.position.x" should be "300"
+    Then the game property "player.position.y" should be "200"
     And the animation position for player "weapon" should be 300, 200
     And the temporary message should be ""
 

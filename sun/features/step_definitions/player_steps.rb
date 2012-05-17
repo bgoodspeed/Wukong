@@ -87,7 +87,7 @@ end
 
 Then /^the player should be at position (\d+),(\d+)$/ do |x, y|
   expected = [x.to_i, y.to_i]
-  the_player.position.should be_within_epsilon_of(expected)
+  the_player.position.should be_within_epsilon_of(GVector.xy(expected[0], expected[1]))
 end
 
 

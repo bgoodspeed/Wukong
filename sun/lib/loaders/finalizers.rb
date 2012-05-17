@@ -81,7 +81,12 @@ module ArrayFinalizers
 
       br = ea['bottom_right']
       ea_conf = ea.dup
-      ea_conf['rect'] = Primitives::Rectangle.new(GVector.xy(tl.x, tl.y), GVector.xy(tl.x, br.y), GVector.xy(br.x, br.y), GVector.xy(br.x, tl.y))
+      ea_conf['rect'] = Primitives::Rectangle.new(
+          GVector.xy(tl[0], tl[1]),
+          GVector.xy(tl[0], br[1]),
+          GVector.xy(br[0], br[1]),
+          GVector.xy(br[0], tl[1]))
+
       eva = EventArea.new(@game, ea_conf)
 
       check_validation_error(eva, "Fix event area yaml", EventArea::REQUIRED_ATTRIBUTES)

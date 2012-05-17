@@ -66,7 +66,7 @@ class HeadsUpDisplay
 
 
   def draw(screen)
-    @game.font_controller.draw_lines([@x_spacing, @y_spacing ], lines)
+    @game.font_controller.draw_lines(GVector.xy(@x_spacing, @y_spacing ), lines)
   end
 
 end

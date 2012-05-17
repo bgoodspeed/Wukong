@@ -11,6 +11,8 @@ Feature: Enemy Built
     Then the enemy should be in the scene
     And the enemy should be at position 25,25.0
     And the enemy should have hud message "Enemy : 15HP"
+    And the game property "level.enemies.first.position.class" should be "GVector"
+
 
   Scenario: Enemy Chasing Player
     Given I load the game on level "trivial" with screen size 640, 480

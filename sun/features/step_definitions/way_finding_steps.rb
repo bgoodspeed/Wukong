@@ -16,7 +16,7 @@ Then /^the nearest point should be at (\d+),(\d+)$/ do |x,y|
 end
 Then /^the best point for target (\d+),(\d+) should be at (\d+),(\d+)$/ do |tx, ty, px, py|
   p = @way_finding.best_point(@agent_position, GVector.xy(tx.to_f, ty.to_f))
-  p.should == [px.to_f, py.to_f]
+  p.should == GVector.xy(px.to_f, py.to_f)
 end
 Then /^the best point for target (\d+),(\d+) should be undefined$/ do |tx, ty|
   p = @way_finding.best_point(@agent_position, GVector.xy(tx.to_f, ty.to_f))

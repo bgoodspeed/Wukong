@@ -114,5 +114,5 @@ Then /^the menu's "([^"]*)" should be "([^"]*)"$/ do |arg1, arg2|
 end
 
 Then /^the cursor position should be near (\d+),(\d+)$/ do |arg1, arg2|
-  mm.current_menu.cursor_position.should be_within_epsilon_of([arg1.to_f, arg2.to_f])
+  mm.current_menu.cursor_position.should be_within_epsilon_of(GVector.xy(arg1.to_f, arg2.to_f))
 end

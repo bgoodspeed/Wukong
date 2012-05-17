@@ -16,11 +16,11 @@ module UtilityDrawing
 
   def draw_animation_at(screen, position, animation)
     img = animation.image
-    img.draw(position.vx - img.width/2.0, position.vy - img.height/2.0, ZOrder.dynamic.value, 1, 1, transparency_color, :add )
+    img.draw(position.x - img.width/2.0, position.y - img.height/2.0, ZOrder.dynamic.value, 1, 1, transparency_color, :add )
   end
   def draw_animation_rotated_at(screen, position, direction, animation)
     img = animation.image
-    img.draw_rot(position.vx, position.vy  , ZOrder.dynamic.value, direction)
+    img.draw_rot(position.x, position.y  , ZOrder.dynamic.value, direction)
   end
 
   def draw_rectangle_as_box(screen, r,  zorder = ZOrder.dynamic.value, color=Graphics::Color::BLACK)
