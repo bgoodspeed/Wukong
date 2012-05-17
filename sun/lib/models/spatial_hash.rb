@@ -47,6 +47,15 @@ class SpatialHash
   def spatial_hash(discretized_vertex)
     (@x_prime * discretized_vertex.x ^ @y_prime * discretized_vertex.y) % @base_table_size
   end
+
+  def add_rectangle(data, r)
+    add_line_segment(data, Primitives::LineSegment.new(r.p1, r.p2))
+    add_line_segment(data, Primitives::LineSegment.new(r.p2, r.p3))
+    add_line_segment(data, Primitives::LineSegment.new(r.p3, r.p4))
+    add_line_segment(data, Primitives::LineSegment.new(r.p4, r.p1))
+    add_line_segment(data, Primitives::LineSegment.new(r.p1, r.p3))
+    add_line_segment(data, Primitives::LineSegment.new(r.p2, r.p4))
+  end
   def add_line_segment(data, ls)
     lsv = ls.p1.minus(ls.p2)
     lsu = lsv.unit

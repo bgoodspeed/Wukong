@@ -7,10 +7,12 @@ class Collider
       "Circle" => {
         "Circle" => lambda {|a,b| circle_circle_intersection?(a.to_collision, b.to_collision)},
         "LineSegment" => lambda {|a,b| circle_line_segment_intersection?(a.to_collision, b.to_collision)},
+        "Rectangle" => lambda {|a,b| circle_rectangle_intersection?(a.to_collision, b.to_collision)},
       },
       "LineSegment" => {
         "LineSegment" => lambda {|a, b| line_segment_line_segment_intersection?(a.to_collision, b.to_collision)},
         "Circle" => lambda {|a,b| circle_line_segment_intersection?(b.to_collision, a.to_collision)},
+        "Rectangle" => lambda {|a,b| rectangle_line_segment_intersection?(b.to_collision, a.to_collision)},
       },
     }
   end

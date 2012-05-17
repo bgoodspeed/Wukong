@@ -16,11 +16,13 @@ class EventArea
   end
   include YamlHelper
   include ValidationHelper
+  include Collidable
   def initialize(game, conf_in)
     conf = self.class.defaults.merge(conf_in)
     @game = game
     process_attributes(YAML_ATTRIBUTES, self, conf)
     @info_window = InfoWindow.new(game, conf['info_window'])
+    @collision_type = @rect
   end
 
   def description_joined

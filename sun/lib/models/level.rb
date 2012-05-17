@@ -108,6 +108,7 @@ class Level
   end
 
   def add_event_area(ea)
+    @static_hash.add_rectangle(ea, ea.rect)
     @event_areas << ea
   end
 

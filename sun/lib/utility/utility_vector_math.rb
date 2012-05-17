@@ -107,13 +107,13 @@ module Primitives
 
   #TODO this assumed AXIS ALIGNED to calculate l,r,b,t
   class Rectangle
-    attr_accessor :p1, :p2, :p3, :p4, :left, :right, :top, :bottom
-    def initialize(p1, p2, p3, p4)
+    attr_accessor :p1, :p2, :p3, :p4, :left, :right, :top, :bottom, :radius, :position, :collision_priority
+    def initialize(p1, p2, p3, p4, cp=CollisionPriority::LOW)
       @p1 = p1
       @p2 = p2
       @p3 = p3
       @p4 = p4
-
+      @collision_priority = cp
       all = [p1, p2, p3,p4]
       xs = all.collect {|p| p.x}
       ys = all.collect {|p| p.y}
@@ -121,8 +121,13 @@ module Primitives
       @right = xs.max
       @top = ys.max
       @bottom = ys.min
+      @position = GVector.xy((@right - @left).abs/2.0, (@top - @bottom).abs/2.0)
+      @radius = @position.min
+
     end
     def to_s; "Rectangle #{@p1}:#{@p2}:#{@p3}:#{@p4}"; end
+    def collision_response_type; "Rectangle"; end
+    def collision_type; "Rectangle"; end
 
   end
   class Triangle

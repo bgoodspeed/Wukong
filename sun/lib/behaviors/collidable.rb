@@ -10,6 +10,9 @@ module Collidable
     to_collision.collision_type
   end
 
+  def collision_priority
+    to_collision.collision_priority
+  end
   def collision_radius
     to_collision.radius
   end
