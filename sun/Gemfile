@@ -18,7 +18,8 @@ gem "mocha"
 gem "rspec-expectations"
 gem "cucumber"
 gem "ruby-prof"
-
+gem "rake-compiler"
+gem "rice"
 
 #gem 'linecache19'
 #gem 'ruby-debug-base19'

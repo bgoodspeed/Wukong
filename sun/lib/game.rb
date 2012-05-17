@@ -8,11 +8,11 @@ require 'utility/utility_vector_math'
 begin
   platform = "linux"
   platform = "win" if ENV['OS'] =~ /Windows/ or RUBY_PLATFORM =~ /(win|w)32$/
-  require "native/bin/#{platform}/ripmunk"
 
+  require "haligonia/haligonia"
+  puts "successfully loaded native extensions for platform #{platform}"
 rescue Exception => e
-  puts "could not load native extensions for platform #{platform}"
-
+  puts "could not load native extensions for platform #{platform}: \n#{e}"
 end
 
 require 'helpers/init_helper'

@@ -3,19 +3,33 @@
 require 'rubygems'
 require 'hoe'
 require 'rake/testtask'
-HOE = Hoe.spec 'Haligonia' do
+HOE = Hoe.spec 'haligonia' do
   developer('Ben Goodspeed', 'b.goodspeed@gmail.com')
   self.version   = '0.7.0'
   self.readme_file   = 'README.rdoc'
   self.history_file  = 'CHANGELOG.rdoc'
   self.extra_rdoc_files  = FileList['*.rdoc']
   self.extra_dev_deps << ['rake-compiler', '>= 0']
-  self.spec_extras = { :extensions => ["ext/ripmunk/extconf.rb"] }
+  self.spec_extras = { :extensions => ["ext/haligonia/extconf.rb"] }
 end
 
 require "rake/extensiontask"
 
+task "check_bin" do |t|
+  #TODO this might have to be updated to handle windows correctly
+  if !File.exists?("lib/haligonia/haligonia.so") or (File.mtime("ext/haligonia/haligonia.cpp") > File.mtime("lib/haligonia/haligonia.so"))
+    `rm lib/haligonia/haligonia.so` if File.exists?("lib/haligonia/haligonia.so")
+    `rm -rf tmp/*`
+  end
+end
 
+
+Rake::ExtensionTask.new(HOE.name, HOE.spec) do |ext|
+  ext.lib_dir = File.join('lib', 'haligonia')
+  ext.source_pattern = "*.{c,cpp}"
+end
+
+Rake::Task[:compile].prerequisites << "check_bin"
 
 require 'cucumber/rake/task'
 
@@ -45,6 +59,8 @@ Cucumber::Rake::Task.new("non_gosu_specs") do |t|
   t.libs << ['lib']
   t.cucumber_opts = %w{--format progress --tags ~@needs_full_gosu}
 end
+
+multitask :test_parallel => ["gosu_specs", "non_gosu_specs"]
 
 task :start_profile do |t|
   puts "starting profile"
