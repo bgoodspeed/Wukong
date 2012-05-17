@@ -11,11 +11,11 @@ class MouseCollisionWrapper
   end
 
   def collision_type
-    to_collision.class
+    to_collision.collision_type
   end
 
   def collision_response_type
-    self.class
+    self.class.to_s
   end
 
   def to_collision

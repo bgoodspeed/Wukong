@@ -35,10 +35,10 @@ class EventEmitter
 
   def required_attributes; ATTRIBUTES; end
   def collision_type
-    to_collision.class
+    to_collision.collision_type
   end
   def collision_response_type
-    self.class
+    self.class.to_s
   end
 
   #TODO extract this to a behavior

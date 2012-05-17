@@ -37,39 +37,40 @@ class CollisionResponseController
 
   def self.default_config
     {
-      EventEmitter => {
-        Player => [ResponseTypes::TRIGGER_EVENT1]
+      "EventEmitter" => {
+
+        "Player" => [ResponseTypes::TRIGGER_EVENT1]
       },
-      Weapon => {
-        Primitives::LineSegment => []
+      "Weapon" => {
+        "Primitives::LineSegment" => []
       },
-      Primitives::LineSegment => {
-        Player => [ResponseTypes::BLOCKING2],
-        VectorFollower => [ResponseTypes::REMOVING2],
-        Enemy => [ResponseTypes::BLOCKING2]
+      "Primitives::LineSegment" => {
+        "Player" => [ResponseTypes::BLOCKING2],
+        "VectorFollower" => [ResponseTypes::REMOVING2],
+        "Enemy" => [ResponseTypes::BLOCKING2]
       },
-      Enemy => {
-        Enemy => [],
-        VectorFollower => [ResponseTypes::DAMAGING1, ResponseTypes::REMOVING2, ResponseTypes::SHOW_DAMAGE1],
-        Primitives::LineSegment => [ResponseTypes::BLOCKING1],
-        MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1],
-        Weapon => [ResponseTypes::DAMAGING1]
+      "Enemy" => {
+        "Enemy" => [],
+        "VectorFollower" => [ResponseTypes::DAMAGING1, ResponseTypes::REMOVING2, ResponseTypes::SHOW_DAMAGE1],
+        "LineSegment" => [ResponseTypes::BLOCKING1],
+        "MouseCollisionWrapper" => [ResponseTypes::MOUSE_PICK1],
+        "Weapon" => [ResponseTypes::DAMAGING1]
       },
-      VectorFollower => {
-        Player => [],
-        Enemy => [ResponseTypes::DAMAGING2, ResponseTypes::REMOVING1, ResponseTypes::SHOW_DAMAGE2],
-        Primitives::LineSegment => [ResponseTypes::REMOVING1]
+      "VectorFollower" => {
+        "Player" => [],
+        "Enemy" => [ResponseTypes::DAMAGING2, ResponseTypes::REMOVING1, ResponseTypes::SHOW_DAMAGE2],
+        "LineSegment" => [ResponseTypes::REMOVING1]
       },
-      Player => {
-        Primitives::LineSegment => [ResponseTypes::BLOCKING1],
-        VectorFollower => [], #TODO unrealistic
-        Enemy => [
+      "Player" => {
+        "LineSegment" => [ResponseTypes::BLOCKING1],
+        "VectorFollower" => [], #TODO unrealistic
+        "Enemy" => [
             ResponseTypes::DAMAGING1, ResponseTypes::DAMAGING2, ResponseTypes::BLOCKING1, ResponseTypes::SHOW_DAMAGE1,
                   ResponseTypes::SHOW_DAMAGE2
         ],
-        EventEmitter => [ResponseTypes::TRIGGER_EVENT2],
-        MouseCollisionWrapper => [ResponseTypes::MOUSE_PICK1],
-        Weapon => [], #TODO unrealistic
+        "EventEmitter" => [ResponseTypes::TRIGGER_EVENT2],
+        "MouseCollisionWrapper" => [ResponseTypes::MOUSE_PICK1],
+        "Weapon" => [], #TODO unrealistic
       },
     }
   end

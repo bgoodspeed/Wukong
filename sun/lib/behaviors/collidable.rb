@@ -3,11 +3,11 @@
 
 module Collidable
   def collision_response_type
-    self.class
+    self.class.to_s
   end
   #TODO use strings/enums/symbols for collision types not classes, make these first class values
   def collision_type
-    to_collision.class
+    to_collision.collision_type
   end
 
   def collision_radius

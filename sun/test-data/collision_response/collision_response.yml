@@ -2,23 +2,23 @@ collision_response:
   "EventEmitter":
     "Player": [ trigger_event1 ]
   "Weapon":
-    "Primitives::LineSegment": []
-  "Primitives::LineSegment":
+    "LineSegment": []
+  "LineSegment":
     "Player": [ blocking2 ]
     "VectorFollower": [ removing2 ]
     "Enemy": [ blocking2 ]
   "Enemy":
     "Enemy": [ ]
     "VectorFollower": [ damaging1, removing2, temporary_message1 ]
-    "Primitives::LineSegment": [ blocking1 ]
+    "LineSegment": [ blocking1 ]
     "MouseCollisionWrapper": [ mouse_pick1 ]
     "Weapon": [ damaging1 ]
   "VectorFollower":
     "Player": []
     "Enemy": [ damaging2, removing1 ]
-    "Primitives::LineSegment": [ removing1 ]
+    "LineSegment": [ removing1 ]
   "Player":
-    "Primitives::LineSegment": [ blocking1 ]
+    "LineSegment": [ blocking1 ]
     "VectorFollower": []
     "Enemy": [ damaging1, damaging2, blocking1 ]
     "EventEmitter": [ trigger_event2 ]

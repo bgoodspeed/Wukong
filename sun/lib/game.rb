@@ -5,6 +5,15 @@ require "logger"
 require 'statemachine'
 require 'models/collision_priority'
 require 'utility/utility_vector_math'
+begin
+  platform = "linux"
+  platform = "win" if ENV['OS'] =~ /Windows/ or RUBY_PLATFORM =~ /(win|w)32$/
+  require "native/bin/#{platform}/ripmunk"
+
+rescue Exception => e
+  puts "could not load native extensions for platform #{platform}"
+
+end
 
 require 'helpers/init_helper'
 require 'helpers/validation_helper'

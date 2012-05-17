@@ -15,8 +15,8 @@ def mock_collision_type(t)
   m
 end
 When /^a collision occurs between type "([^"]*)" and type "([^"]*)"$/ do |type1, type2|
-  m1 = mock_collision_type(eval(type1))
-  m2 = mock_collision_type(eval(type2))
+  m1 = mock_collision_type(type1)
+  m2 = mock_collision_type(type2)
   col = Collision.new(m1, m2)
   @responses = @collision_responder.response(col)
 end

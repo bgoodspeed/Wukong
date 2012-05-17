@@ -84,8 +84,8 @@ module Primitives
       @user_data = nil #TODO reconsider this design? should the circle belong to a data holder?
     end
     def to_s; "Circle #{@position}:#{@radius}"; end
-    def collision_response_type; self.class; end
-    def collision_type; self.class; end
+    def collision_response_type; "Circle"; end
+    def collision_type; "Circle"; end
     
     def to_collision; self; end
   end
@@ -102,8 +102,8 @@ module Primitives
     def ex; @p2.x; end
     def ey; @p2.y; end
     def to_s; "Lineseg #{@p1}:#{@p2}"; end
-    def collision_response_type; self.class; end
-    def collision_type; self.class; end
+    def collision_response_type; "LineSegment"; end
+    def collision_type; "LineSegment"; end
     def to_collision; self; end
   end
 

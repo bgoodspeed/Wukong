@@ -4,13 +4,13 @@
 class Collider
   def initialize
     @config = {
-      Primitives::Circle => {
-        Primitives::Circle => lambda {|a,b| circle_circle_intersection?(a.to_collision, b.to_collision)},
-        Primitives::LineSegment => lambda {|a,b| circle_line_segment_intersection?(a.to_collision, b.to_collision)},
+      "Circle" => {
+        "Circle" => lambda {|a,b| circle_circle_intersection?(a.to_collision, b.to_collision)},
+        "LineSegment" => lambda {|a,b| circle_line_segment_intersection?(a.to_collision, b.to_collision)},
       },
-      Primitives::LineSegment => {
-        Primitives::LineSegment => lambda {|a, b| line_segment_line_segment_intersection?(a.to_collision, b.to_collision)},
-        Primitives::Circle => lambda {|a,b| circle_line_segment_intersection?(b.to_collision, a.to_collision)},
+      "LineSegment" => {
+        "LineSegment" => lambda {|a, b| line_segment_line_segment_intersection?(a.to_collision, b.to_collision)},
+        "Circle" => lambda {|a,b| circle_line_segment_intersection?(b.to_collision, a.to_collision)},
       },
     }
   end

@@ -44,10 +44,10 @@ class CollisionResponseController
     conf = data['collision_response']
     cr = {}
     conf.each {|type1,type2c|
-      t1 = eval(type1)
+      t1 = type1
       cr[t1] = {} unless cr.has_key?(t1)
       type2c.each {|type2, r|
-        t2 = eval(type2)
+        t2 = type2
         rs = r.collect {|e| e.to_sym}
         cr[t1][t2] = rs
       }

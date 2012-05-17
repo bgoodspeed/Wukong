@@ -33,7 +33,7 @@ Feature: Collision Response
   Scenario: Collision Response Enemy Linesegment
     Given I load the game on level "trivial" with screen size 640, 480
     And I create a collision responder
-    When a collision occurs between type "Enemy" and type "Primitives::LineSegment"
+    When a collision occurs between type "Enemy" and type "LineSegment"
     Then the collision responses should be:
         | collision_response_type |
         | blocking1               |
@@ -41,7 +41,7 @@ Feature: Collision Response
   Scenario: Collision Response config from Yaml
     Given I load the game on level "trivial" with screen size 640, 480
     And I create a collision responder from file "collision_response.yml"
-    When a collision occurs between type "VectorFollower" and type "Primitives::LineSegment"
+    When a collision occurs between type "VectorFollower" and type "LineSegment"
     Then the collision responses should be:
         | collision_response_type |
         | removing1               |

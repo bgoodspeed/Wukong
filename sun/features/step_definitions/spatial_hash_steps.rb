@@ -76,8 +76,8 @@ Then /^asking for collision pairs yields:$/ do |table|
     pos = GVector.xy(h['center_x'], h['center_y'])
     r = h['radius']
     p = Mocha::Mock.new("player")
-    p.stubs(:collision_type).returns Primitives::Circle
-    p.stubs(:collision_response_type).returns Player
+    p.stubs(:collision_type).returns "Circle"
+    p.stubs(:collision_response_type).returns "Player"
     p.stubs(:collision_radius).returns r
     p.stubs(:collision_center).returns pos
     p.stubs(:to_collision).returns Primitives::Circle.new(pos, r)
