@@ -14,10 +14,21 @@ end
 
 require "rake/extensiontask"
 
-Rake::ExtensionTask.new(HOE.name, HOE.spec) do |ext|
-  ext.lib_dir = File.join('lib', 'ripmunk')
+task "check_bin" do |t|
+	
+	if !File.exists?("lib/ripmunk/ripmunk.so") or (File.mtime("ext/ripmunk/ripmunk.cpp") > File.mtime("lib/ripmunk/ripmunk.so"))
+		`rm lib/ripmunk/ripmunk.so` if File.exists?("lib/ripmunk/ripmunk.so")
+		`rm -rf tmp/*`
+	end
 end
 
+
+Rake::ExtensionTask.new(HOE.name, HOE.spec) do |ext|
+  ext.lib_dir = File.join('lib', 'ripmunk')
+  ext.source_pattern = "*.{c,cpp}"
+end
+
+Rake::Task[:compile].prerequisites << "check_bin"
 
 Rake::TestTask.new do |t|
   t.pattern = "test/*_test.rb"
@@ -28,7 +39,7 @@ require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new do |t|
   t.libs << ['lib']
-  t.cucumber_opts = %w{--format pretty}
+  t.cucumber_opts = %w{--format progress}
 end
 
 Rake::Task[:default].prerequisites << :test
