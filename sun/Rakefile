@@ -3,9 +3,9 @@
 require 'rubygems'
 require 'hoe'
 require 'rake/testtask'
-HOE = Hoe.spec 'ripmunk' do
+HOE = Hoe.spec 'Haligonia' do
   developer('Ben Goodspeed', 'b.goodspeed@gmail.com')
-  self.version   = '0.1.0'
+  self.version   = '0.7.0'
   self.readme_file   = 'README.rdoc'
   self.history_file  = 'CHANGELOG.rdoc'
   self.extra_rdoc_files  = FileList['*.rdoc']
