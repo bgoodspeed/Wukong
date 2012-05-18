@@ -97,3 +97,7 @@ When /^I invoke the collision response "([^"]*)" on player vs anything$/ do |act
   c = Collision.new(@game.player, other)
   @game.action_controller.invoke(eval(action_name), c)
 end
+
+Given /^I touch the savedata file in slot (\d+)$/ do |arg1|
+  `touch #{@game.game_load_path}/#{arg1}/savedata.yml`
+end

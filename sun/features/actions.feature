@@ -64,6 +64,7 @@ Feature: Action
   Scenario: Continuing Last Saved Game A
     Given I load the game "new_game_load_screen"
     And I set the property "game_load_path" to "test-data/loadarea_continue_a"
+    And I touch the savedata file in slot 4
     When I invoke the action "BehaviorTypes::CONTINUE_LAST_GAME"
     Then the game property "level.name" should be "'demo'"
 
