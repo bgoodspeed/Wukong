@@ -1,0 +1,14 @@
+enemy:
+  name: Test AI Enemy
+  image_path: test-data/sprites/enemy1.png
+  artificial_intelligence:
+    strategy:
+      start_state: wait
+      states:
+        - wait:
+          - enemy_sighted: chase
+        - chase:
+          - enemy_in_range: attack
+          - enemy_lost: wait
+        - attack:
+          - enemy_too_far: chase

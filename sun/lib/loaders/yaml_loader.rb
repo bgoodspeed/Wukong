@@ -1,7 +1,6 @@
 
 class ArtificialIntelligence
-  def self.from_yaml(yaml)
-    data = YAML.load(yaml)
+  def self.from_conf(data)
     statemachine = Statemachine.build do
       data['strategy']['states'].each do |stateconf|
         stateconf.each do |state_name, targets|
@@ -15,6 +14,12 @@ class ArtificialIntelligence
     end
 
     self.new(statemachine)
+
+  end
+
+  def self.from_yaml(yaml)
+    data = YAML.load(yaml)
+    ArtificialIntelligence.from_conf(data)
   end
 end
 class InputController

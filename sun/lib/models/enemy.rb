@@ -5,7 +5,7 @@ class Enemy
   ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction,
                 :image_file, :direction, :animation_name, :animation_path, :damage_sound_effect_name
   ]
-  NON_YAML_ATTRIBUTES = [:stats]
+  NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence]
   (ATTRIBUTES + NON_YAML_ATTRIBUTES).each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -58,6 +58,9 @@ class Enemy
     @collision_type = Primitives::Circle.new(@position, @radius)
     cf = conf['stats'] ? conf['stats'] : {}
     @stats = Stats.new(cf)
+    if conf['artificial_intelligence']
+      @artificial_intelligence = ArtificialIntelligence.from_conf(conf['artificial_intelligence'])
+    end
     @game.animation_controller.animation_index_by_entity_and_name(self, conf['animation_name']).needs_update = true
     process_attributes(ATTRIBUTES, self, conf, {:position => Finalizers::GVectorFinalizer.new})
     @required_attributes = ATTRIBUTES - [:image_file, :animation_path]
