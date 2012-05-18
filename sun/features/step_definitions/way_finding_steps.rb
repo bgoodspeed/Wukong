@@ -25,3 +25,39 @@ Then /^the best point for target (\d+),(\d+) should be undefined$/ do |tx, ty|
 
   p.should be_nil
 end
+
+
+
+Given /^I create a graph$/ do
+  @graph = WayfindingGraph.new
+end
+
+Then /^the graph property "([^"]*)" should be "([^"]*)"$/ do |prop, expected|
+  invoke_property_string_on(@graph, prop).should == eval(expected)
+end
+
+
+When /^I add a node named "([^"]*)" at position (\d+), (\d+)$/ do |name, x, y|
+  @graph.add_node(name, GVector.xy(x.to_i,y.to_i))
+end
+
+When /^I add an edge from "([^"]*)" to "([^"]*)"$/ do |arg1, arg2|
+  @graph.add_edge(arg1, arg2)
+end
+
+Then /^weight of edge "([^"]*)","([^"]*)" should be "([^"]*)"$/ do |arg1, arg2, arg3|
+  @graph.edge_weight_for(arg1, arg2).should == eval(arg3)
+end
+
+Then /^the neighbors for "([^"]*)" should be "([^"]*)"$/ do |arg1, arg2|
+  @graph.neighbors_for(arg1).should == eval(arg2)
+end
+
+When /^I run the A\-Star algorithm from start "([^"]*)" and goal "([^"]*)"$/ do |arg1, arg2|
+  @a_star_path = @graph.a_star(arg1, arg2)
+end
+
+
+Then /^the A\-Star path should be "([^"]*)"$/ do |arg1|
+    @a_star_path.should == eval(arg1)
+end

@@ -78,3 +78,77 @@ Feature: Wayfinding Details
     When the agent in the scene is at 303,49
     Then the nearest point should be at 300,50
     And the best point for target 300,300 should be undefined
+
+  Scenario: Wayfinding A-Star
+    Given I create a graph
+    Then the graph property "nodes.size" should be "0"
+    When I add a node named "A" at position 10, 10
+    Then the graph property "nodes.size" should be "1"
+
+  Scenario: Wayfinding A-Star Edge Weights
+    Given I create a graph
+    When I add a node named "A" at position 1, 2
+    When I add a node named "B" at position 1, 10
+    When I add a node named "C" at position 3, 2
+    When I add an edge from "A" to "B"
+    When I add an edge from "A" to "C"
+    Then weight of edge "A","B" should be "8"
+
+  Scenario: Wayfinding A-Star Neighbors
+    Given I create a graph
+    When I add a node named "A" at position 1, 2
+    When I add a node named "B" at position 1, 10
+    When I add a node named "C" at position 3, 2
+    When I add a node named "D" at position 9, 7
+    When I add a node named "E" at position 9, 10
+    When I add a node named "F" at position 12, 1
+    When I add an edge from "A" to "B"
+    When I add an edge from "A" to "C"
+    When I add an edge from "A" to "D"
+    When I add an edge from "A" to "F"
+    Then the neighbors for "A" should be "['B','C','D','F']"
+
+  Scenario: Wayfinding A-Star Implicit Bidirectional Edges
+    Given I create a graph
+    When I add a node named "A" at position 1, 2
+    When I add a node named "B" at position 1, 10
+    When I add a node named "C" at position 3, 2
+    When I add a node named "D" at position 9, 7
+    When I add a node named "E" at position 9, 10
+    When I add a node named "F" at position 12, 1
+    When I add an edge from "A" to "B"
+    When I add an edge from "A" to "C"
+    When I add an edge from "A" to "D"
+    When I add an edge from "A" to "F"
+    When I add an edge from "B" to "E"
+    When I add an edge from "C" to "D"
+    When I add an edge from "C" to "F"
+    When I add an edge from "D" to "E"
+    When I add an edge from "D" to "F"
+    When I add an edge from "E" to "F"
+    Then the neighbors for "F" should be "['A','C','D','E']"
+
+  Scenario: Wayfinding A-Star Implicit Bidirectional Edges
+    Given I create a graph
+    When I add a node named "A" at position 1, 2
+    When I add a node named "B" at position 1, 10
+    When I add a node named "C" at position 3, 2
+    When I add a node named "D" at position 9, 7
+    When I add a node named "E" at position 9, 10
+    When I add a node named "F" at position 12, 1
+    When I add an edge from "A" to "B"
+    When I add an edge from "A" to "C"
+    When I add an edge from "A" to "D"
+    When I add an edge from "A" to "F"
+    When I add an edge from "B" to "E"
+    When I add an edge from "C" to "D"
+    When I add an edge from "C" to "F"
+    When I add an edge from "D" to "E"
+    When I add an edge from "D" to "F"
+    When I add an edge from "E" to "F"
+    When I run the A-Star algorithm from start "C" and goal "B"
+    Then the A-Star path should be "['C','A','B']"
+    When I run the A-Star algorithm from start "D" and goal "B"
+    Then the A-Star path should be "['D','E','B']"
+    When I run the A-Star algorithm from start "F" and goal "B"
+    Then the A-Star path should be "['F','E','B']"

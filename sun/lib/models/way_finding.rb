@@ -1,4 +1,95 @@
 
+class WayfindingGraph
+  attr_accessor :nodes
+  def initialize()
+    @nodes = {}
+    @edge_weights = {}
+  end
+
+  def add_node(name, position)
+    @nodes[name] = position
+  end
+
+  def add_edge(n1, n2)
+    unless @edge_weights.has_key?(n1)
+      @edge_weights[n1] = {}
+    end
+    unless @edge_weights.has_key?(n2)
+      @edge_weights[n2] = {}
+    end
+    w = @nodes[n1].distance_from(@nodes[n2])
+    @edge_weights[n1][n2] = w
+    @edge_weights[n2][n1] = w
+  end
+  def edge_weight_for(n1,n2)
+    @edge_weights[n1][n2]
+  end
+
+  def neighbors_for(name)
+    @edge_weights[name].keys
+  end
+
+  def heuristic(start, goal)
+    @nodes[start].distance_from(@nodes[goal])
+  end
+
+  def open_node_with_lowest_fscore(open_set, f_score)
+
+    sorted = open_set.sort {|n1, n2|
+      f1 = f_score[n1]
+      f2 = f_score[n2]
+      f1 <=> f2}
+    sorted.first
+  end
+  def a_star(start, goal)
+    closed_set = {}
+    open_set = [start]
+    came_from = {}
+
+    g_score = {}
+    g_score[start] = 0
+    f_score = {}
+    f_score[start] = g_score[start] + heuristic(start, goal)
+
+    while !open_set.empty?
+      current = open_node_with_lowest_fscore(open_set, f_score)
+      if current == goal
+        return reconstruct_path(came_from, goal)
+      end
+
+      open_set -= [current]
+      closed_set[current] = true
+      neighbors_for(current).each do |neighbor|
+        next if closed_set.has_key?(neighbor)
+        tentative_g_score = g_score[current] + edge_weight_for(current, neighbor)
+        if !open_set.include?(neighbor) or tentative_g_score < g_score[neighbor]
+          open_set << neighbor
+          came_from[neighbor] = current
+          g_score[neighbor] = tentative_g_score
+          f_score[neighbor] = g_score[neighbor] + heuristic(neighbor, goal)
+        end
+
+
+      end
+    end
+    return failure
+  end
+
+  def reconstruct_path(came_from, current_node)
+    if came_from.has_key?(current_node)
+      p = reconstruct_path(came_from, came_from[current_node])
+      p << current_node
+      return p
+    else
+      return [current_node]
+    end
+  end
+
+  def failure
+    []
+  end
+end
+
 class WayFinding
   def initialize(game, points = [])
     @game = game
