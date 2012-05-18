@@ -5,7 +5,7 @@ player:
   movement_distance: 2
   turn_speed: 5
   stats:
-    health: 799
+    health: 299
     max_health: 1000
   position: [ 320, 240 ]
   menu_action_delay: 12
