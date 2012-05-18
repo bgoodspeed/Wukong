@@ -1,5 +1,7 @@
 
 class ArtificialIntelligence
+
+
   def self.from_conf(data)
     statemachine = Statemachine.build do
       data['strategy']['states'].each do |stateconf|

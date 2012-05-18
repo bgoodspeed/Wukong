@@ -12,3 +12,4 @@ enemy:
           - enemy_lost: wait
         - attack:
           - enemy_too_far: chase
+          - enemy_lost: wait

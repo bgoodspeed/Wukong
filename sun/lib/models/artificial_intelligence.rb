@@ -2,6 +2,16 @@
 # and open the template in the editor.
 
 class ArtificialIntelligence
+  def self.default
+    statemachine = Statemachine.build do
+      trans "chase", :enemy_in_range, "chase"
+      trans "chase", :enemy_lost, "chase"
+      trans "chase", :enemy_too_far, "chase"
+      trans "chase", :enemy_sighted, "chase"
+    end
+
+    self.new(statemachine)
+  end
   def initialize(statemachine)
     @state_machine = statemachine
   end
@@ -16,5 +26,6 @@ class ArtificialIntelligence
   def trigger_event(event)
     @state_machine.send(event)
   end
+
 
 end

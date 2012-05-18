@@ -5,7 +5,7 @@ class Enemy
   ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction,
                 :image_file, :direction, :animation_name, :animation_path, :damage_sound_effect_name
   ]
-  NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence]
+  NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range]
   (ATTRIBUTES + NON_YAML_ATTRIBUTES).each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -52,6 +52,9 @@ class Enemy
       p = GVector.xy(@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 )
     end
 
+    #TODO this should be a weapon property
+    @attack_range = 4
+
 
     @radius = p.max
     @position = p
@@ -60,12 +63,15 @@ class Enemy
     @stats = Stats.new(cf)
     if conf['artificial_intelligence']
       @artificial_intelligence = ArtificialIntelligence.from_conf(conf['artificial_intelligence'])
+    else
+      @artificial_intelligence = ArtificialIntelligence.default
     end
     @game.animation_controller.animation_index_by_entity_and_name(self, conf['animation_name']).needs_update = true
     process_attributes(ATTRIBUTES, self, conf, {:position => Finalizers::GVectorFinalizer.new})
     @required_attributes = ATTRIBUTES - [:image_file, :animation_path]
 
   end
+
 
   def health=(v)
     @stats.health = v
@@ -79,6 +85,9 @@ class Enemy
     @stats
   end
 
+  def trigger_event(e)
+    @artificial_intelligence.trigger_event(e)
+  end
 
 
   def animation_path_for(name)
@@ -105,7 +114,13 @@ class Enemy
     end
     rv
   end
+
+  def in_chase_state?
+    @artificial_intelligence.current_state.to_s =~ /chase/
+  end
   def tick_tracking(vector)
+    return unless in_chase_state?
+
     @game.animation_controller.animation_index_by_entity_and_name(self, animation_name).needs_update = true
     @last_move = vector.scale(@velocity)
     @direction = (@base_direction + angle_for(vector)) % 360.0

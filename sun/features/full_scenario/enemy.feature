@@ -95,7 +95,6 @@ Feature: Enemy Built
     When I see the first frame
     Then there should be 1 enemies
     And there should be be 2 animations registered
-    Then the game property "level.enemies.first.artificial_intelligence.class" should be "NilClass"
 
   Scenario: AI Enemy
     Given I load the game on level "trivial" with screen size 640, 480

@@ -21,12 +21,18 @@ class PathFollowingController
     vfs.each {|vf| @game.remove_projectile(vf) }
 
     @tracking.each {|h, wf|
-      if h.position.distance_from(@game.player.position) > @distance_threshold
-
-      else
+      d = h.position.distance_from(@game.player.position)
+      if d <= @distance_threshold
+        h.trigger_event(:enemy_sighted) #TODO needs real line of sight
+        if d <= h.attack_range
+          h.trigger_event(:enemy_in_range)
+        else
+          h.trigger_event(:enemy_too_far)
+        end
         h.tick_tracking(current_tracking_direction_for(h))
+      else
+        h.trigger_event(:enemy_lost)
       end
-
     }
   end
   def remove_projectile(p)
