@@ -40,6 +40,7 @@ def mock_game
   m.stubs(:info)
 
   m.stubs(:needs_update=)
+  m.stubs(:wayfinding=)
   m.stubs(:stop_animation)
   m
 end

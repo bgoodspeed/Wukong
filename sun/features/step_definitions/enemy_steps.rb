@@ -9,12 +9,16 @@ Given /^I add an enemy from "([^"]*)"$/ do |file|
 end
 
 Given /^I tell the enemy to track the player$/ do
-  @enemy.tracking_target = @player
+  p = @player ? @player : @game.player
+
+  @enemy.tracking_target = p
 end
 
 
 Given /^I register the enemy in the path following controller using wayfinding$/ do
-  @path_controller.add_tracking(@enemy, @way_finding)
+  pc = @path_controller ? @path_controller : @game.path_following_controller
+  wf = @way_finding ? @way_finding : @game.wayfinding
+  pc.add_tracking(@enemy, wf )
 end
 
 Then /^the enemy should be in the scene$/ do

@@ -33,11 +33,11 @@ class WayfindingGraph
   def best_point(position, target)
     pn = closest_node_to(position)
     tn = closest_node_to(target)
-    current_dist = position.distance_from(target)
-    return nil if current_dist < @close_enough_threshold
+#    current_dist = position.distance_from(target)
+#    return nil if current_dist < @close_enough_threshold
 
     path = a_star(pn, tn)
-    nil if path.empty?
+#    nil if path.empty?
     pt = @nodes[path.first]
     pt = @nodes[1] if pt.distance_from(position) < @close_enough_threshold
     pt

@@ -1,5 +1,6 @@
 name: trivial
 background_image: test-data/levels/trivial/grass.jpg
+wayfinding: test-data/levels/trivial/wayfinding.yml
 measurements: [ 640, 480 ]
 
 line_segments:

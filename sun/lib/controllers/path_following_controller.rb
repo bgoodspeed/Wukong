@@ -50,6 +50,7 @@ class PathFollowingController
 
   def tracking_point_for(hunter)
     target = hunter.tracking_target.position
+
     tp = @tracking[hunter].best_point(hunter.position, target)
     tp.nil? ? target : tp
   end
