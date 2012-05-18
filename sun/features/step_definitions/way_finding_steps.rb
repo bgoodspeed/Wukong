@@ -59,5 +59,14 @@ end
 
 
 Then /^the A\-Star path should be "([^"]*)"$/ do |arg1|
-    @a_star_path.should == eval(arg1)
+  @a_star_path.should == eval(arg1)
+end
+
+
+Then /^the closest node to position (\d+), (\d+) should be "([^"]*)"$/ do |x, y, expected_name|
+  @graph.closest_node_to(GVector.xy(x.to_i, y.to_i)).should == expected_name
+end
+
+Given /^I create a graph from yaml "([^"]*)"$/ do |arg1|
+  @graph = YamlLoader.from_file(WayfindingGraph, mock_game, "test-data/#{arg1}")
 end

@@ -183,6 +183,24 @@ class WayFinding
   end
 
 end
+class WayfindingGraph
+  def self.from_yaml(game, yaml, f=nil)
+    data = YAML.load(yaml)
+    wf = self.new
+    data['layer']['nodes'].each do |node|
+      wf.add_node(node['name'], GVector.xy(node["position"][0], node["position"][1]))
+    end
+    data['layer']['edges'].each do |edge_conf|
+      n1 = edge_conf.first
+      rest = edge_conf.last
+      rest.each {|n2|
+        wf.add_edge(n1, n2)
+      }
+    end
+    wf
+  end
+
+end
 class YamlLoader
   def self.from_file(klass, game, f)
     klass.from_yaml(game, IO.readlines(f).join(""), f)

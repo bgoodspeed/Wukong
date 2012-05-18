@@ -94,6 +94,15 @@ Feature: Wayfinding Details
     When I add an edge from "A" to "C"
     Then weight of edge "A","B" should be "8"
 
+  Scenario: Wayfinding A-Star Closest Node
+    Given I create a graph
+    When I add a node named "A" at position 1, 2
+    When I add a node named "B" at position 1, 10
+    When I add a node named "C" at position 3, 2
+    Then the closest node to position 0, 7 should be "B"
+    Then the closest node to position 0, 2 should be "A"
+    Then the closest node to position 3, 3 should be "C"
+
   Scenario: Wayfinding A-Star Neighbors
     Given I create a graph
     When I add a node named "A" at position 1, 2
@@ -128,7 +137,7 @@ Feature: Wayfinding Details
     When I add an edge from "E" to "F"
     Then the neighbors for "F" should be "['A','C','D','E']"
 
-  Scenario: Wayfinding A-Star Implicit Bidirectional Edges
+  Scenario: Wayfinding A-Star Algorithm Implementation
     Given I create a graph
     When I add a node named "A" at position 1, 2
     When I add a node named "B" at position 1, 10
@@ -152,3 +161,8 @@ Feature: Wayfinding Details
     Then the A-Star path should be "['D','E','B']"
     When I run the A-Star algorithm from start "F" and goal "B"
     Then the A-Star path should be "['F','E','B']"
+
+  Scenario: Wayfinding A-Star Algorithm Implementation
+    Given I create a graph from yaml "wayfinding/wayfinding.yml"
+    When I run the A-Star algorithm from start "c" and goal "b"
+    Then the A-Star path should be "['c','a','b']"

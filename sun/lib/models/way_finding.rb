@@ -25,6 +25,11 @@ class WayfindingGraph
     @edge_weights[n1][n2]
   end
 
+  def closest_node_to(position)
+    nodes = @nodes.keys.sort{|n1, n2| @nodes[n1].distance_from(position) <=> @nodes[n2].distance_from(position)}
+    nodes.first
+  end
+
   def neighbors_for(name)
     @edge_weights[name].keys
   end
