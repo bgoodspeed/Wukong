@@ -166,3 +166,15 @@ Feature: Wayfinding Details
     Given I create a graph from yaml "wayfinding/wayfinding.yml"
     When I run the A-Star algorithm from start "c" and goal "b"
     Then the A-Star path should be "['c','a','b']"
+
+  Scenario: Wayfinding A-Star Algorithm Wayfinding
+    Given I load wayfinding layer "wayfinding/wayfinding.yml"
+    When the agent in the scene is at 14,14
+    Then the nearest point should be at 9,10
+    And the best point for target 9,9 should be at 9,10
+
+  Scenario: Wayfinding A-Star Algorithm Wayfinding Abandoning Track For Direct
+    Given I load wayfinding layer "wayfinding/wayfinding.yml"
+    When the agent in the scene is at 11,11
+    Then the nearest point should be at 9,10
+    And the best point for target 10,10 should be undefined

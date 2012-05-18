@@ -1,8 +1,12 @@
 Given /^I create a new Wayfinding Layer:$/ do |yaml|
   @way_finding = WayFinding.from_yaml(@game, yaml)
 end
+
+
 Given /^I load wayfinding layer "([^"]*)"$/ do |layer_name|
-  @way_finding = YamlLoader.from_file(WayFinding, @game, "test-data/levels/#{layer_name}/wayfinding.yml")
+  f = "test-data/levels/#{layer_name}/wayfinding.yml"
+  f = "test-data/#{layer_name}" if layer_name =~ /\//
+  @way_finding = YamlLoader.from_file(WayFinding, @game, f)
 
 end
 

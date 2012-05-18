@@ -183,10 +183,16 @@ class WayFinding
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     wf = self.new(game)
-    data['layer']['points'].each do |point|
-      wf.add_point(GVector.xy(point[0], point[1]))
+    if data['layer']['points']
+      data['layer']['points'].each do |point|
+        wf.add_point(GVector.xy(point[0], point[1]))
+      end
+      return wf
     end
-    wf
+    if data['layer']['nodes']
+      return WayfindingGraph.from_yaml(game, yaml)
+    end
+
   end
 
 end

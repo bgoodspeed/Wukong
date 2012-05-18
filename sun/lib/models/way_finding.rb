@@ -4,6 +4,7 @@ class WayfindingGraph
   def initialize()
     @nodes = {}
     @edge_weights = {}
+    @close_enough_threshold = 5 #TODO this is dependant on the velocity of the tracker -- eg enemy
   end
 
   def add_node(name, position)
@@ -25,6 +26,23 @@ class WayfindingGraph
     @edge_weights[n1][n2]
   end
 
+  def nearest_point(position)
+    @nodes[closest_node_to(position)]
+  end
+
+  def best_point(position, target)
+    pn = closest_node_to(position)
+    tn = closest_node_to(target)
+    current_dist = position.distance_from(target)
+    return nil if current_dist < @close_enough_threshold
+
+    path = a_star(pn, tn)
+    nil if path.empty?
+    pt = @nodes[path.first]
+    pt = @nodes[1] if pt.distance_from(position) < @close_enough_threshold
+    pt
+
+  end
   def closest_node_to(position)
     nodes = @nodes.keys.sort{|n1, n2| @nodes[n1].distance_from(position) <=> @nodes[n2].distance_from(position)}
     nodes.first
