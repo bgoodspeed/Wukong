@@ -11,8 +11,8 @@ game:
   menu_for_load_game: "game-data/menus/load_game.yml"
   game_load_path: "game-data/loads/"
   splash_screens:
-    - "game-data/screens/splash_screen_v3.png"
-    - "game-data/splash/SplashScr1.png"
+    - "game-data/splash/B&T_blue.png"
+    - "game-data/splash/splash_tour_Haligonia.png"
     - "game-data/splash/SplashScr2.png"
   game_over_menu: "game-data/menus/game_over.yml"
   menu_for_save_game: "game-data/menus/save_game.yml"
