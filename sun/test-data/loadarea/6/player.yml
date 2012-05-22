@@ -7,7 +7,7 @@ player:
   direction: 0
   turn_speed: 90
   movement_distance: 1
-  menu_action_delay: 4
+  menu_action_delay: 2
   enemies_killed: 0
   image_path: test-data/sprites/avatar.bmp
   collision_priority: 4
