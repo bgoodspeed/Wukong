@@ -1,15 +1,17 @@
 menu:
   menu_id: save_game
-
+  header_text: "                                      Navigate menu with ''UP'' and ''DOWN'' keys then "
+  header_text: "                                      ''ENTER'' to select. ''M'' to exit menu.:"
+  header_position: [ 40, 170 ]
   entries:
     - display_text: ""
     - display_text: ""
     - display_text: ""
     - display_text: ""
     - display_text: ""
-    - display_text: "                   "
-    - display_text: "                                      Navigate menu with ''UP'' and ''DOWN'' keys then "
-    - display_text: "                                      ''ENTER'' to select. ''M'' to exit menu.:"
+    - display_text: ""
+    - display_text: ""
+    - display_text: ""
     - display_text: ""
     - display_text: "                                                  Slot 1 {{last_save_time_for_slot}}"
       action: save_game_slot
