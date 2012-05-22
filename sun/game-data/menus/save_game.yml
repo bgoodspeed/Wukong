@@ -1,18 +1,20 @@
 menu:
   menu_id: load_game
   entries:
-    - display_text: Save Game 1 {{last_save_time_for_slot}}
+    - display_text: "  Navigate menu with ''UP'' and ''DOWN'' keys then ''ENTER'' to select. ''M'' to exit menu.:"
+    - display_text: ""
+    - display_text: "  Slot 1 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 1
-    - display_text: Save Game 2 {{last_save_time_for_slot}}
+    - display_text: "  Slot 2 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 2
-    - display_text: Save Game 3 {{last_save_time_for_slot}}
+    - display_text: "  Slot 3 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 3
-    - display_text: Save Game 4 {{last_save_time_for_slot}}
+    - display_text: "  Slot 4 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 4
-    - display_text: Save Game 5 {{last_save_time_for_slot}}
+    - display_text: "  Slot 5 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 5
