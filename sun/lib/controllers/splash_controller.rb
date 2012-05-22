@@ -9,13 +9,14 @@ class Splash
   end
 end
 class SplashController
-  attr_accessor :splash_mode, :splash, :splashes, :splash_rate
+  attr_accessor :splash_mode, :splash, :splashes, :splash_rate, :splash_fade
   def initialize(game)
     @game = game
     @splash_mode = false
     @splashes = []
     @splash_index = 0
     @splash_rate = 60
+    @splash_fade = 20
     @ticks = 0
   end
 
@@ -31,12 +32,18 @@ class SplashController
     @splashes[@splash_index]
   end
 
+  include UtilityDrawing
   def draw(screen)
     @ticks += 1
     if @ticks > @splash_rate
       @ticks = 0
       @splash_index = (@splash_index + 1) % @splashes.size
     end
+
     @game.image_controller.draw_image(current_splash)
+    if @ticks < @splash_fade
+      darken_screen(@game, 0, @game.screen.width, 0, @game.screen.width, fade_in_color_for((@splash_fade - @ticks).to_f/@splash_fade.to_f, 0,0,0))
+    end
+
   end
 end
