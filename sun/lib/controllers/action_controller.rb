@@ -102,7 +102,10 @@ class ActionController
           game.load_level(game.game_over_level)
         else
           game.player.enemy_killed
-          game.remove_enemy(e.argument)
+          enemy = e.argument
+          game.remove_enemy(enemy)
+          game.level.add_pickup_item(PickupItem.new(game, enemy.inventory, enemy.position)) if !enemy.inventory_empty?
+
         end
         },
       EventTypes::LAMBDA => lambda {|game,e| e.invoke },

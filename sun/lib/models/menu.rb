@@ -33,6 +33,10 @@ class Menu
     @menu_width = 300
   end
 
+  def positioned?
+    rvs = @entries.select {|me| me.position }
+    !rvs.empty?
+  end
   def image_menu?
     imaged = @entries.select {|me| me.image}
     !imaged.empty?
@@ -62,7 +66,9 @@ class Menu
   end
  #TODO ugly
   def cursor_position
-    return current_entry.position if current_entry.position
+
+    cp = current_entry.position
+    return cp.plus(GVector.xy(0, @y_spacing*@menu_scale/2.0)) if cp
     pos = GVector.xy(@x_spacing, @y_spacing)
     pos = pos.scale(@menu_scale)
     cwi = @game.current_menu_index
@@ -74,7 +80,7 @@ class Menu
     base_y = pos.y
     @game.window.draw_triangle(pos.x - 20, base_y - 10, Graphics::Color::WHITE,
                                pos.x - 5,  base_y, Graphics::Color::WHITE,
-                               pos.x - 20, base_y + 10, Graphics::Color::WHITE)
+                               pos.x - 20, base_y + 10, Graphics::Color::WHITE, ZOrder.hud.value)
   end
 
 
@@ -107,7 +113,13 @@ class Menu
     if image_menu?
       make_rectangle(@x_spacing , @y_spacing * (index),@y_spacing, @menu_width)
     else
-      make_rectangle(@x_spacing * @menu_scale,@x_spacing*@menu_scale * (index + 1),@y_spacing*@menu_scale, @menu_width)
+      pos = @entries[index].position
+      if pos
+        make_rectangle(pos.x, pos.y, @y_spacing * @menu_scale, @menu_width)
+      else
+        make_rectangle(@x_spacing * @menu_scale,@x_spacing*@menu_scale * (index + 1),@y_spacing*@menu_scale, @menu_width)
+      end
+
     end
   end
 

@@ -151,7 +151,7 @@ Feature: Menu
     And I create a menu controller
     And I load the main menu "fully_positioned_menu.yml"
     When I enter the menu
-    Then the cursor position should be near 50,50
+    Then the cursor position should be near 50,60
 
   Scenario: Menu Header
     Given I load the game on level "trivial" with screen size 640, 480

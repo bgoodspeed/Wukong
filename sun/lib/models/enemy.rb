@@ -5,7 +5,7 @@ class Enemy
   ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction,
                 :image_file, :direction, :animation_name, :animation_path, :damage_sound_effect_name
   ]
-  NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range]
+  NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range, :inventory]
   (ATTRIBUTES + NON_YAML_ATTRIBUTES).each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -51,7 +51,7 @@ class Enemy
     else
       p = GVector.xy(@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 )
     end
-
+    @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
     #TODO this should be a weapon property
     @attack_range = 4
 
@@ -72,6 +72,11 @@ class Enemy
 
   end
 
+  def inventory_empty?
+    return true unless @inventory
+
+    @inventory.items.empty?
+  end
 
   def health=(v)
     @stats.health = v

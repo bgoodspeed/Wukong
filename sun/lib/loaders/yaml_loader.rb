@@ -122,6 +122,7 @@ class Enemy
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['enemy']
+    conf['inventory'] = YamlLoader.from_file(Inventory, game,conf['inventory_file']) if conf['inventory_file']
     self.new(game, conf )
   end
 end
@@ -146,11 +147,13 @@ class Player
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['player']
+    conf['inventory'] = YamlLoader.from_file(Inventory, game,conf['inventory_file']) if conf['inventory_file']
     obj = self.new(game, conf)
     if conf['weapon_yaml']
       w = YamlLoader.from_file(Weapon, game, conf['weapon_yaml'])
       w.orig_filename = conf['weapon_yaml']
       game.inventory_controller.register_item(w.orig_filename, w)
+
       obj.equip_weapon(game.inventory_controller.item_named(conf['weapon_yaml']))
     end
     obj
