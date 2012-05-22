@@ -34,7 +34,7 @@ class Player
       'direction' => 0,
       'step_size' => 1,
       'turn_speed' => 90,
-      'menu_action_delay' => 4,
+      'menu_action_delay' => 2,
       'enemies_killed' => 0,
       'movement_distance' => 1,
       'base_accuracy' => 100,
