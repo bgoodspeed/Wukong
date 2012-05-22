@@ -138,7 +138,7 @@ Feature: Menu
     When I invoke the current menu action
     Then the game property "player.inventory.weapon.display_name" should be "'TestWeaponSwung'"
 
- Scenario: Menu Configuration
+  Scenario: Menu Configuration
     Given I load the game on level "trivial" with screen size 640, 480
     And I create a menu controller
     And I load the main menu "positioned_menu.yml"
@@ -146,12 +146,22 @@ Feature: Menu
     Then the menu's "x_spacing" should be "15"
     And the cursor position should be near 30,20
 
- Scenario: Menu Configuration Fully Specified
+  Scenario: Menu Configuration Fully Specified
     Given I load the game on level "trivial" with screen size 640, 480
     And I create a menu controller
     And I load the main menu "fully_positioned_menu.yml"
     When I enter the menu
     Then the cursor position should be near 50,50
+
+  Scenario: Menu Header
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a menu controller
+    And I load the main menu "header_menu.yml"
+    When I enter the menu
+    Then the game property "menu_controller.current_menu.header_text" should be "'fake header text'"
+    Then the game property "menu_controller.current_menu.header_position" should be "GVector.xy(42,69)"
+    When I run the game loop 1 times
+
 
 
     

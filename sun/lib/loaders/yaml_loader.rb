@@ -131,7 +131,7 @@ class Menu
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['menu']
-    obj = process_attributes(ATTRIBUTES, self.new(game, conf['menu_id']), conf)
+    obj = process_attributes(ATTRIBUTES, self.new(game, conf['menu_id']), conf,  {:header_position => Finalizers::GVectorFinalizer.new})
     conf['entries'].each_with_index do |entry, index|
       game.image_controller.register_image(entry['image']) if entry['image']
       obj.add_entry(MenuEntry.new(game, index, entry))

@@ -18,7 +18,7 @@ end
 class Menu
   attr_reader :current_index, :menu_id, :entries
 
-  ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width]
+  ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width, :header_text, :header_position]
   ATTRIBUTES.each {|attr| attr_accessor attr}
 
   def initialize(game, menu_id)
