@@ -11,7 +11,7 @@ class GameWindow < Graphics::Window
   def width; @w; end
   def height; @h; end
 
-  def initialize(game, width, height, fr=16.66666)
+  def initialize(game, width, height, fr=33.3333333)
     super width, height, false, fr
     @w = width
     @h = height
