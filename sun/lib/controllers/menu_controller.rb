@@ -128,12 +128,17 @@ class MenuController
     @active_menu_name = nil
   end
 
+  #TODO this should call a menu view in rendering controller
   def draw(screen)
     darken_screen
 
     menu = current_menu
     menu.draw_cursor
     menu.highlight_mouse_selection if @game.input_controller.mouse_on_screen
+    if menu.header_text and menu.header_position
+      @game.font_controller.draw_with_font(menu.header_text, menu.header_position.x, menu.header_position.y, ZOrder.hud.value)
+    end
+
     if menu.image_menu?
       menu.draw_images
     else

@@ -25,7 +25,7 @@ Feature: Collision Response
   Scenario: Collision Response Linesegment Enemy
     Given I load the game on level "trivial" with screen size 640, 480
     And I create a collision responder
-    When a collision occurs between type "Primitives::LineSegment" and type "Enemy"
+    When a collision occurs between type "LineSegment" and type "Enemy"
     Then the collision responses should be:
         | collision_response_type |
         | blocking2               |

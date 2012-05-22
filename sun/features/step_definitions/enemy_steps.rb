@@ -24,7 +24,6 @@ end
 Then /^the enemy should be in the scene$/ do
   elems = @game.dynamic_elements
 
-  elems.size.should == 2
   cs = elems.collect{|e| e.class}
   cs.should be_include(Enemy)
 end

@@ -121,6 +121,8 @@ class SpatialHash
   def dynamic_collisions(elems)
     rv = []
     elems.each do |elem|
+
+      #TODO need to handle non circle types to get better bounds, at least linesegment
       cs = candidates(elem.collision_radius, elem.collision_center).flatten.select do|candidate|
         @collider.check_for_collision_by_type(elem, candidate)
       end

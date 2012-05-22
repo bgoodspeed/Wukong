@@ -24,7 +24,7 @@ class Level
   ARRAY_ATTRIBUTES = [:enemies, :measurements, :line_segments, :triangles,
     :circles, :rectangles, :dynamic_elements, :enemies, :event_emitters,
     :spawn_points, :ored_completion_conditions, :anded_completion_conditions,
-    :event_areas, :animations
+    :event_areas, :animations, :sight_lines
     ]
   HASH_ATTRIBUTES = [
     :declared_enemies,
@@ -84,6 +84,24 @@ class Level
   end
   def add_declared_enemy(n,e)
     @declared_enemies[n] = e
+  end
+
+  def remove_line_of_sight(los)
+    @sight_lines.reject!{|e| e == los}
+    @dynamic_elements.reject! {|e|los == e}
+  end
+  def remove_line_of_sight_queries
+    #TODO might need to send an enemy lost query here
+    @sight_lines.each {|los|
+      los.a.trigger_event(:enemy_sighted)
+      @dynamic_elements.reject! {|e|los == e}
+    }
+    @sight_lines = []
+  end
+  def add_line_of_sight_query(los)
+    @sight_lines << los
+    @dynamic_elements << los
+
   end
   def add_event_emitter(event_emitter)
     update_minimax(event_emitter.position.x, event_emitter.position.y, event_emitter.position.x, event_emitter.position.y)

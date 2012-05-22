@@ -4,6 +4,8 @@
 module ResponseTypes
   TRIGGER_EVENT1 = :trigger_event1
   TRIGGER_EVENT2 = :trigger_event2
+  BLOCKED_LINE_OF_SIGHT1 = :block_line_of_sight1
+  BLOCKED_LINE_OF_SIGHT2 = :block_line_of_sight2
   BLOCKING1 = :blocking1
   BLOCKING2 = :blocking2
   REMOVING1 = :removing1
@@ -44,20 +46,25 @@ class CollisionResponseController
 
         "Player" => [ResponseTypes::TRIGGER_EVENT1]
       },
-      "Weapon" => {
-        "Primitives::LineSegment" => []
+      "LineOfSightQuery" => {
+        "LineSegment" => [ResponseTypes::BLOCKED_LINE_OF_SIGHT1],
       },
-      "Primitives::LineSegment" => {
+      "Weapon" => {
+        "LineSegment" => []
+      },
+      "LineSegment" => {
         "Player" => [ResponseTypes::BLOCKING2],
         "VectorFollower" => [ResponseTypes::REMOVING2],
-        "Enemy" => [ResponseTypes::BLOCKING2]
+        "Enemy" => [ResponseTypes::BLOCKING2],
+        "LineOfSightQuery" => [ResponseTypes::BLOCKED_LINE_OF_SIGHT2]
       },
       "Enemy" => {
         "Enemy" => [],
         "VectorFollower" => [ResponseTypes::DAMAGING1, ResponseTypes::REMOVING2, ResponseTypes::SHOW_DAMAGE1],
         "LineSegment" => [ResponseTypes::BLOCKING1],
         "MouseCollisionWrapper" => [ResponseTypes::MOUSE_PICK1],
-        "Weapon" => [ResponseTypes::DAMAGING1]
+        "Weapon" => [ResponseTypes::DAMAGING1],
+        "LineOfSightQuery" => []
       },
       "VectorFollower" => {
         "Player" => [],
@@ -75,6 +82,7 @@ class CollisionResponseController
         "EventEmitter" => [ResponseTypes::TRIGGER_EVENT2],
         "MouseCollisionWrapper" => [ResponseTypes::MOUSE_PICK1],
         "Weapon" => [], #TODO unrealistic
+        "LineOfSightQuery" => []
       },
     }
   end

@@ -43,6 +43,7 @@ module Views
 
   class InfoWindowView < BaseView
     def call(screen, iw_in)
+      return if game.menu_mode?
       iw = iw_in
       iw = iw_in.entity if iw_in.respond_to?(:entity)
       #TODO this is really hideous.
@@ -108,6 +109,12 @@ module Views
     end
   end
 
+  class NOOPView
+    def call(screen, we)
+      # NOOP
+    end
+  end
+
 end
 
 module RenderingTypes
@@ -151,6 +158,7 @@ class RenderingController
                EventArea => Views::EventAreaView.new(@game),
                InfoWindow => Views::InfoWindowView.new(@game),
                Weapon => Views::WeaponView.new(@game),
+               LineOfSightQuery => Views::NOOPView.new,
                #MouseCollisionWrapper => lambda {|screen, enemy| puts "NOOP, could add a highlight?" },
                VectorFollower => Views::VectorFollowerView.new(@game),
               RenderingTypes::TARGET_DAMAGE => Views::TargetDamageRenderingView.new(@game),
