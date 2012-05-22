@@ -30,7 +30,7 @@ class Player
       'animation_name' => 'main_player_anim',
       'animation_width' => 30,
       'animation_height' => 30,
-      'animation_rate' => 10,
+      'animation_rate' => 5,
       'direction' => 0,
       'step_size' => 1,
       'turn_speed' => 90,
