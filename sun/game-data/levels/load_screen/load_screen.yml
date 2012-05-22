@@ -1,7 +1,7 @@
 name: load_screen
 background_image: game-data/levels/load_screen/load_screen_blue.png
 background_music: game-data/music/drumbeats.wav
-player_start_position: [ 364, 270 ]
+player_start_position: [ 364, 215 ]
 
 measurements: [ 800, 600 ]
 
@@ -55,15 +55,15 @@ event_areas:
         - Continue recent game.
       position: [ 41, 206 ]
       size: [ 252, 252 ]
-  - top_left: [ 349, 253 ]
-    bottom_right: [ 380, 287 ]
+  - top_left: [ 349, 200 ]
+    bottom_right: [ 380, 237 ]
     action: noop
     info_window:
       description:
-        - "Use arrows ''UP'' to move forward,"
+        - "    Arrows ''UP'' to move forward,"
         -
         - "    ''LEFT'' and ''RIGHT'' to turn,"
         -
         - "    ''DOWN'' to move backwards."
-      position: [ 260, 220 ]
-      size: [ 295, 305 ]
+      position: [ 260, 330 ]
+      size: [ 295, 410 ]

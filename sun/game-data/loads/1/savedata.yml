@@ -1,5 +1,7 @@
 ---
 savedata:
   level: game-data/levels/h_level_intro_interception/h_level_intro_interception.yml
-  player: game-data/loads/1/player.yml
-  player_inventory: game-data/loads/1/inventory.yml
+  player: !binary |-
+    Z2FtZS1kYXRhL2xvYWRzLzEvcGxheWVyLnltbA==
+  player_inventory: !binary |-
+    Z2FtZS1kYXRhL2xvYWRzLzEvaW52ZW50b3J5LnltbA==

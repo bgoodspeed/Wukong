@@ -2,7 +2,7 @@ name: h_level_intro_a
 background_image: game-data/levels/h_level_intro_a/h_level_intro_a.png
 background_music: game-data/music/silence.wav
 wayfinding: game-data/levels/h_level_1/wayfinding.yml
-reward_level: game-data/levels/h_level_intro_b/h_level_intro_b.yml
+reward_level: game-data/levels/h_level_intro/h_level_intro.yml
 player_start_position: [ 100, 100 ]
 
 measurements: [ 800, 600 ]
@@ -20,73 +20,21 @@ declared_enemies:
     name: e2
   - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
     name: e3
-  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
-    name: e4
-  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
-    name: e5
-  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
-    name: e6
-  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
-    name: e7
-  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
-    name: e8
-  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
-    name: e9
-  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
-    name: e10
-  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
-    name: e11
-  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
-    name: e12
+
 spawn_points:
-  - point: [ 700, 400 ]
+  - point: [ 330, 575 ]
     name: baby 1
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: 1 enemies every 100 ticks for 400 total ticks
     spawn_argument: [ e1 ]
-  - point: [ 600, 500 ]
+  - point: [ 755, 520 ]
     name: baby 2
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: 1 enemies every 200 ticks for 800 total ticks
     spawn_argument: [ e2 ]
-  - point: [ 675, 400 ]
+  - point: [ 770, 185 ]
     name: baby 3
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: 1 enemies every 300 ticks for 1200 total ticks
     spawn_argument: [ e3 ]
-  - point: [ 650, 550 ]
-    name: baby 4
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
-    spawn_argument: [ e4 ]
-  - point: [ 700, 400 ]
-    name: baby 5
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
-    spawn_argument: [ e5 ]
-  - point: [ 620, 520 ]
-    name: baby 6
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
-    spawn_argument: [ e6 ]
-  - point: [ 565, 400 ]
-    name: baby 7
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
-    spawn_argument: [ e7 ]
-  - point: [ 680, 520 ]
-    name: baby 8
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
-    spawn_argument: [ e8 ]
-  - point: [ 700, 400 ]
-    name: baby 9
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
-    spawn_argument: [ e9 ]
-  - point: [ 620, 530 ]
-    name: baby 10
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
-    spawn_argument: [ e10 ]
-  - point: [ 675, 420 ]
-    name: baby 11
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
-    spawn_argument: [ e11 ]
-  - point: [ 650, 520 ]
-    name: baby 12
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
-    spawn_argument: [ e12 ]
+
     
 event_areas:
   - top_left: [ 189, 134 ]
