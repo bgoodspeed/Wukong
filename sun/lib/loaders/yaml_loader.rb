@@ -137,6 +137,10 @@ class Menu
       game.image_controller.register_image(entry['image']) if entry['image']
       obj.add_entry(MenuEntry.new(game, index, entry))
     end
+    conf['headers'].to_a.each do |header|
+
+      obj.add_header(MenuHeader.new(header['header_text'], Finalizers::GVectorFinalizer.new.call(header['header_position'])))
+    end
     obj
   end
 end

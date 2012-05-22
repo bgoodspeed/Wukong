@@ -1,7 +1,10 @@
 menu:
   menu_id: save_game
-  header_text: "Navigate menu with ''UP'' and ''DOWN'' keys then"
-  header_position: [ 500, 500 ]
+  headers:
+    - header_text: "Navigate menu with ''UP'' and ''DOWN'' keys then"
+      header_position: [ 240, 100 ]
+    - header_text: "use 'ENTER' to select or 'M' to exit the menu"
+      header_position: [ 240, 120 ]
   entries:
     - display_text: "Slot 1 {{last_save_time_for_slot}}"
       action: save_game_slot
@@ -22,4 +25,4 @@ menu:
     - display_text: "Slot 5 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 5
-      position: [ 240, 290 ]
+      position: [ 240, 230 ]

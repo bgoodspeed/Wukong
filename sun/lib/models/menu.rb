@@ -1,3 +1,10 @@
+class MenuHeader
+  attr_accessor :header_text, :header_position
+  def initialize(header_text, header_position)
+    @header_text = header_text
+    @header_position = header_position
+  end
+end
 
 class MenuEntry
   attr_accessor :display_text, :action, :action_argument, :image, :position
@@ -16,7 +23,7 @@ class MenuEntry
 end
 
 class Menu
-  attr_reader :current_index, :menu_id, :entries
+  attr_reader :current_index, :menu_id, :entries, :headers
 
   ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width, :header_text, :header_position]
   ATTRIBUTES.each {|attr| attr_accessor attr}
@@ -31,6 +38,7 @@ class Menu
     @y_spacing = 10
     @menu_scale = 2
     @menu_width = 300
+    @headers =[]
   end
 
   def positioned?
@@ -50,6 +58,9 @@ class Menu
     @current_index = (@current_index - 1) % @entries.size
   end
 
+  def add_header(header)
+    @headers << header
+  end
   def current_entry
     @entries[@current_index]
   end

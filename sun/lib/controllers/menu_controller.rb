@@ -135,8 +135,8 @@ class MenuController
     menu = current_menu
     menu.draw_cursor
     menu.highlight_mouse_selection if @game.input_controller.mouse_on_screen
-    if menu.header_text and menu.header_position
-      @game.font_controller.draw_with_font(menu.header_text, menu.header_position.x, menu.header_position.y, ZOrder.hud.value)
+    menu.headers.each do |header|
+      @game.font_controller.draw_with_font(header.header_text, header.header_position.x, header.header_position.y, ZOrder.hud.value)
     end
 
     if menu.image_menu?
