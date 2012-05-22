@@ -30,6 +30,17 @@ Feature: Spawn Points
     When the spawn points are updated
     And there should be no events queued
 
+  Scenario: Spawn Point Properties Total
+    Given I create a valid spawn point
+    When the spawn point calculates properties from "2 enemies every 10 ticks for 100 total ticks"
+    Then the spawn point property "total_time" should be "100"
+    Then the spawn point property "start_time" should be "0"
+
+  Scenario: Spawn Point Properties Start Time
+    Given I create a valid spawn point
+    When the spawn point calculates properties from "after 15 ticks 2 enemies every 10 ticks for 100 total ticks"
+    Then the spawn point property "start_time" should be "15"
+
   Scenario: Spawn Point - Spawning Wired into Game tick
     Given I load the game on level "simple" with screen size 640, 480
     And I create a condition controller

@@ -1,5 +1,5 @@
 class SpawnPoint
-  attr_reader :enemy_quantity, :frequency, :total_time, :condition
+  attr_reader :enemy_quantity, :frequency, :total_time, :condition, :start_time
   ATTRIBUTES = [:point, :name, :spawn_schedule, :spawn_argument]
   ATTRIBUTES.each {|attribute| attr_accessor attribute }
   include YamlHelper
@@ -17,11 +17,16 @@ class SpawnPoint
     @frequency = d["fr"].to_i
     @total_time = d["tt"].to_i
     @total_time = nil if @total_time == 0
-
+    @start_time = 0
     cond = /until (?<cnd>\w+)/
     if s =~ cond
       c = cond.match(s)
       @condition = c['cnd']
+    end
+    start_time_frag = /after (?<st>\d+) ticks/
+    if s =~ start_time_frag
+      c = start_time_frag.match(s)
+      @start_time = c['st'].to_i
     end
   end
 
@@ -45,6 +50,7 @@ class SpawnPoint
 
   def enqueue_events
     t = @game.clock.current_tick
+    return unless t >= @start_time
     @first_spawn_time = t if @first_spawn_time.nil?
     @last_spawn_time = t
     @spawn_argument.each do |enemy_name|
