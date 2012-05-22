@@ -206,3 +206,13 @@ end
 Then /^the level should not be valid$/ do
   @level.valid?.should_not be(ValidationHelper::Validation::VALID)
 end
+
+
+When /^the spawn point calculates properties from "([^"]*)"$/ do |arg1|
+  @spawn_point.calculate_properties_from(arg1)
+end
+
+
+Then /^the spawn point property "([^"]*)" should be "([^"]*)"$/ do |prop, expected|
+  @spawn_point.send(prop).should == eval(expected)
+end
