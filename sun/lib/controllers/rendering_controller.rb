@@ -43,6 +43,7 @@ module Views
 
   class InfoWindowView < BaseView
     def call(screen, iw_in)
+      return if game.menu_mode?
       iw = iw_in
       iw = iw_in.entity if iw_in.respond_to?(:entity)
       #TODO this is really hideous.
