@@ -2,6 +2,8 @@ player:
   image_path: game-data/sprites/anima_gold_avatar_smaller.png
   animation_width: 32
   animation_height: 16
+  animation_rate: 5
+  menu_action_delay: 2
   movement_distance: 3
   turn_speed: 5
   stats:
