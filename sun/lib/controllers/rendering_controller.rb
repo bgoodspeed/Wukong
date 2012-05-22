@@ -109,6 +109,13 @@ module Views
     end
   end
 
+  class PickupItemView < BaseView
+    def call(screen, item)
+      game.font_controller.draw_with_font("X", item.position.x, item.position.y, ZOrder.dynamic.value)
+    end
+  end
+
+
   class NOOPView
     def call(screen, we)
       # NOOP
@@ -158,6 +165,7 @@ class RenderingController
                EventArea => Views::EventAreaView.new(@game),
                InfoWindow => Views::InfoWindowView.new(@game),
                Weapon => Views::WeaponView.new(@game),
+               PickupItem => Views::PickupItemView.new(@game),
                LineOfSightQuery => Views::NOOPView.new,
                #MouseCollisionWrapper => lambda {|screen, enemy| puts "NOOP, could add a highlight?" },
                VectorFollower => Views::VectorFollowerView.new(@game),

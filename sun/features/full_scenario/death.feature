@@ -31,6 +31,7 @@ Feature: Death Events
     And I update the game state
     Then enemy should not be in scene
     Then the level should have 2 dynamic elements
+    When I run the game loop 1 times
 
 
 
