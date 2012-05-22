@@ -59,13 +59,17 @@ class SpatialHash
   def add_line_segment(data, ls)
     lsv = ls.p1.minus(ls.p2)
     lsu = lsv.unit
-    steps = (lsv.norm/@cell_size).ceil
-    insert_data_at(data, ls.p1)
+    steps = (lsv.norm).ceil
+    indices = []
+    indices << insert_data_at(data, ls.p1, true)
+
     steps.times do |step|
 
-      insert_data_at(data, ls.p2.plus(lsu.scale(step * @cell_size)))
+      indices << insert_data_at(data, ls.p2.plus(lsu.scale(step)), true)
 
     end
+
+    indices.uniq
   end
   def insert_circle_type_collider(elem)
     #TODO reinstate this raise
@@ -75,10 +79,11 @@ class SpatialHash
       data_at(hash) << elem
     end
   end
-  def insert_data_at(data, vertex, debug=false)
+  def insert_data_at(data, vertex, unique=false)
     ci = cell_index_for(vertex)
     idx = spatial_hash(ci)
-    data_at(idx) << data
+    data_at(idx) << data if !unique or !data_at(idx).include?(data)
+    idx
   end
   def data_at(idx)
     if @data[idx].nil?

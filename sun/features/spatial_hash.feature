@@ -176,3 +176,48 @@ Feature: Data Structure for Storing Visual Data
   Scenario: Collision Detection Gvector usage
     Given I create a line segment 123,456:789,101
     Then the line segment property "p1.class" should be "GVector"
+
+  Scenario: Collision Detection 8
+    Given I create a spatial hash with cell size 100
+    When I override the table size to 100
+    And I add line segment 2203,1180:2342,1262 with data "diagonal"
+    Then asking for collision candidates yields:
+      | center_x | center_y | radius | candidate_data         |
+      | 2285     | 1228       |  8     | diagonal                |
+      | 2285     | 1225       |  8     | diagonal                |
+    Then asking for collision pairs yields:
+      | center_x | center_y | radius | candidate_data         |
+      | 2285     | 1228       |  8     | diagonal                |
+      | 2285     | 1226       |  8     | diagonal                |
+      | 2287     | 1226       |  8     | diagonal                |
+
+  Scenario: Collision Detection Game Bug 1
+    Given I create a spatial hash with cell size 100
+    When I override the table size to 100
+    And I add line segment 2200,1179:2579,1394 with data "d"
+    Then the effected spatial hash indices are: "[ 10, 34, 47, 56, 71 ]"
+    Then the cell coordinate for vertex 2200,1179 is 22,11
+    Then the cell coordinate for vertex 2274,1221 is 22,12
+    Then the cell coordinate for vertex 2579,1394 is 25,13
+    And the hash for 22,11 should be 47
+    And the hash for 22,12 should be 10
+    And the hash for 25,13 should be 34
+
+    And the data array looks like:
+      | hash_index | data        |
+      | 34          | d           |
+      | 47          | d           |
+      | 10          | d           |
+    Then asking for collision candidates yields:
+      | center_x | center_y | radius | candidate_data         |
+      | 2285     | 1228       |  30    | d                       |
+      | 2274     | 1221       |  30    | d                       |
+      | 2274     | 1221       |  16    | d                       |
+    Then asking for collision pairs yields:
+      | center_x | center_y | radius | candidate_data         |
+      | 2285     | 1228       |  30     | d                      |
+      | 2285     | 1228       |  16     | d                      |
+      | 2274     | 1221       |  30     | d                       |
+      | 2274     | 1221       |  16     | d                       |
+      | 2274     | 1221       |  8      | d                       |
+      | 2285     | 1228       |  8     | d                      |

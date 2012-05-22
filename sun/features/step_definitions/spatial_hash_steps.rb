@@ -106,10 +106,12 @@ When /^I add line segment (\d+),(\d+):(\d+),(\d+) with data "([^"]*)"$/ do |lssx
   fcp = FakeCollisionParticipant.new
   fcp.prim = ls
   fcp.user_data = data
-  @spatial_hash.add_line_segment(fcp, fcp)
+  @spatial_hash_indices = @spatial_hash.add_line_segment(fcp, fcp)
 end
 
-
+Then /^the effected spatial hash indices are: "([^"]*)"$/ do |arg1|
+  @spatial_hash_indices.sort.should == eval(arg1).sort
+end
 
 Given /^I create a line segment (\d+),(\d+):(\d+),(\d+)$/ do |lssx, lssy, lsex, lsey|
   @ls = Primitives::LineSegment.new(GVector.xy(lssx.to_f, lssy.to_f), GVector.xy(lsex.to_f, lsey.to_f))
