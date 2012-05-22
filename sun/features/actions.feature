@@ -93,3 +93,4 @@ Feature: Action
     And I run the game loop 1 times
     Then there should be 1 temporary renderings
 
+

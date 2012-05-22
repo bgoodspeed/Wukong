@@ -199,3 +199,7 @@ end
 Then /^the player should not be valid$/ do
   @player.valid?.should_not be(ValidationHelper::Validation::VALID)
 end
+
+When /^the player acquires the enemy inventory$/ do
+  @game.player.acquire_inventory(@enemy.inventory)
+end

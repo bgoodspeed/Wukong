@@ -111,7 +111,8 @@ module Views
 
   class PickupItemView < BaseView
     def call(screen, item)
-      game.font_controller.draw_with_font("X", item.position.x, item.position.y, ZOrder.dynamic.value)
+      pos = game.camera.screen_coordinates_for(item.position)
+      game.font_controller.draw_with_font("X", pos.x, pos.y, ZOrder.dynamic.value)
     end
   end
 

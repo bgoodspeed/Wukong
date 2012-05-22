@@ -47,6 +47,12 @@ class ActionController
       ResponseTypes::DAMAGING2 => lambda {|game, col|
         col.dynamic2.take_damage(col.dynamic1)
       },
+      ResponseTypes::TAKE_INVENTORY1 => lambda {|game, col|
+        game.player.acquire_inventory(col.dynamic1.inventory)
+      },
+      ResponseTypes::TAKE_INVENTORY2 => lambda {|game, col|
+        game.player.acquire_inventory(col.dynamic2.inventory)
+      },
       ResponseTypes::SHOW_DAMAGE1 => lambda {|game, col|
         game.rendering_controller.add_consumable_rendering(col.dynamic1, RenderingTypes::TARGET_DAMAGE, 10)
       },

@@ -1,5 +1,5 @@
 class PickupItem
-  attr_reader :position
+  attr_reader :position, :inventory
   include Collidable
   def initialize(game, inventory, position)
     @game = game
