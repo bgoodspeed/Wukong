@@ -4,6 +4,9 @@ menu:
   entries:
     - display_text: ""
     - display_text: ""
+    - display_text: ""
+    - display_text: ""
+    - display_text: ""
     - display_text: "                   "
     - display_text: "                                      Navigate menu with ''UP'' and ''DOWN'' keys then "
     - display_text: "                                      ''ENTER'' to select. ''M'' to exit menu.:"
@@ -11,20 +14,20 @@ menu:
     - display_text: "                                                  Slot 1 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 1
-      position: [ 240, 150 ]
+      position: [ 240, 210 ]
     - display_text: "                                                  Slot 2 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 2
-      position: [ 240, 170 ]
+      position: [ 240, 230 ]
     - display_text: "                                                  Slot 3 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 3
-      position: [ 240, 190 ]
+      position: [ 240, 250 ]
     - display_text: "                                                  Slot 4 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 4
-      position: [ 240, 210 ]
+      position: [ 240, 270 ]
     - display_text: "                                                  Slot 5 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 5
-      position: [ 240, 230 ]
+      position: [ 240, 290 ]
