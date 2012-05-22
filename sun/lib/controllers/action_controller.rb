@@ -60,6 +60,20 @@ class ActionController
         game.rendering_controller.add_consumable_rendering(col.dynamic2, RenderingTypes::INFO_WINDOW, 10)
       },
 
+      ResponseTypes::BLOCKED_LINE_OF_SIGHT1 => lambda {|game, col|
+        los = col.dynamic1
+        hunter = los.a
+        hunter.trigger_event(:enemy_lost)
+        game.level.remove_line_of_sight(los)
+
+      },
+      ResponseTypes::BLOCKED_LINE_OF_SIGHT2 => lambda {|game, col|
+        los = col.dynamic2
+        hunter = los.a
+        hunter.trigger_event(:enemy_lost)
+        game.level.remove_line_of_sight(los)
+
+      },
       ResponseTypes::REMOVING1 => lambda {|game, col| game.remove_projectile(col.dynamic1)},
       ResponseTypes::REMOVING2 => lambda {|game, col| game.remove_projectile(col.dynamic2)},
       ResponseTypes::BLOCKING1 => lambda {|game, col|

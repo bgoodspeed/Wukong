@@ -211,9 +211,11 @@ class Game
     @animation_controller.tick
     @rendering_controller.tick
     @path_following_controller.tick
+
     @level.tick
     @collisions = @level.check_for_collisions
     @collision_response_controller.handle_collisions(@collisions)
+
   end
 
   def render_one_frame
