@@ -2,7 +2,7 @@ enemy:
   image_path: game-data/sprites/black_square.png
   animation_width: 50
   animation_height: 50
-  animation_rate: 10
+  animation_rate: 40
   position: [ 100 , 100 ]
   health: 5
   velocity: 2
