@@ -1,0 +1,34 @@
+name: simple
+background_image: test-data/levels/empty/grass.jpg
+wayfinding: test-data/levels/empty/wayfinding.yml
+measurements: [ 640, 480 ]
+
+declared_enemies:
+  - enemy_yaml: test-data/enemies/enemy.yml
+    name: e1
+  - enemy_yaml: test-data/enemies/enemy2.yml
+    name: e2
+  - enemy_yaml: test-data/enemies/enemy3.yml
+    name: e3
+spawn_points:
+  - point: [ 50, 50 ]
+    name: fiftyfifty
+    spawn_schedule: 1 enemies every 1 ticks for 20 total ticks until COND
+    spawn_argument: [ e1 ]
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480

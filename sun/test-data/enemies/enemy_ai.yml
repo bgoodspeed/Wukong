@@ -7,9 +7,12 @@ enemy:
       states:
         - wait:
           - enemy_sighted: chase
+            enemy_too_far: wait
         - chase:
           - enemy_in_range: attack
           - enemy_lost: wait
+          - enemy_too_far: chase
+          - enemy_sighted: chase
         - attack:
           - enemy_too_far: chase
           - enemy_lost: wait

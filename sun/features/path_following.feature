@@ -25,7 +25,32 @@ Feature: Path Following Details
       | 0,5               |
       | 10,0              |
 
-  Scenario: Path Following
-    Given I load the game "demo"
+  Scenario: Path Following - Line Of Sight - Available
+    Given I load the game on level "empty" with screen size 640, 480
+    And I set the player avatar to "avatar.bmp"
+    And I create the path following controller
+    And I add an enemy from "enemy_ai.yml"
+    When I see the first frame
+    Then there should be 1 enemies
+    Given I tell the enemy to track the player
+    Given I register the enemy in the path following controller using wayfinding
+    When I run the game loop 1 times
+#    Then the game property "level.enemies.first.artificial_intelligence.current_state" should be ":chase"
 
+#TODO enable line of sight state machine transitions
+#  Scenario: Path Following - Line Of Sight - Blocked
+#    Given I load the game on level "trivial" with screen size 640, 480
+#    And I set the player avatar to "avatar.bmp"
+#    And I create the path following controller
+#    And I add an enemy from "enemy_ai.yml"
+#    When I see the first frame
+#    Then there should be 1 enemies
+#    When I set the property "level.enemies.first.position.x" to "275"
+#    When I set the property "level.enemies.first.position.y" to "275"
+#    When I set the property "player.position.x" to "275"
+#    When I set the property "player.position.y" to "75"
+#    Given I tell the enemy to track the player
+#    Given I register the enemy in the path following controller using wayfinding
+#    When I run the game loop 1 times
+#    Then the game property "level.enemies.first.artificial_intelligence.current_state" should be ":wait"
 
