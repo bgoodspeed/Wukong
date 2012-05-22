@@ -151,15 +151,15 @@ Feature: Menu
     And I create a menu controller
     And I load the main menu "fully_positioned_menu.yml"
     When I enter the menu
-    Then the cursor position should be near 50,50
+    Then the cursor position should be near 50,60
 
   Scenario: Menu Header
     Given I load the game on level "trivial" with screen size 640, 480
     And I create a menu controller
     And I load the main menu "header_menu.yml"
     When I enter the menu
-    Then the game property "menu_controller.current_menu.header_text" should be "'fake header text'"
-    Then the game property "menu_controller.current_menu.header_position" should be "GVector.xy(42,69)"
+    Then the game property "menu_controller.current_menu.headers.first.header_text" should be "'fake header text'"
+    Then the game property "menu_controller.current_menu.headers.first.header_position" should be "GVector.xy(42,69)"
     When I run the game loop 1 times
 
 

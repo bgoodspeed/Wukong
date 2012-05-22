@@ -1,3 +1,10 @@
+class MenuHeader
+  attr_accessor :header_text, :header_position
+  def initialize(header_text, header_position)
+    @header_text = header_text
+    @header_position = header_position
+  end
+end
 
 class MenuEntry
   attr_accessor :display_text, :action, :action_argument, :image, :position
@@ -16,7 +23,7 @@ class MenuEntry
 end
 
 class Menu
-  attr_reader :current_index, :menu_id, :entries
+  attr_reader :current_index, :menu_id, :entries, :headers
 
   ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width, :header_text, :header_position]
   ATTRIBUTES.each {|attr| attr_accessor attr}
@@ -31,8 +38,13 @@ class Menu
     @y_spacing = 10
     @menu_scale = 2
     @menu_width = 300
+    @headers =[]
   end
 
+  def positioned?
+    rvs = @entries.select {|me| me.position }
+    !rvs.empty?
+  end
   def image_menu?
     imaged = @entries.select {|me| me.image}
     !imaged.empty?
@@ -46,6 +58,9 @@ class Menu
     @current_index = (@current_index - 1) % @entries.size
   end
 
+  def add_header(header)
+    @headers << header
+  end
   def current_entry
     @entries[@current_index]
   end
@@ -62,7 +77,9 @@ class Menu
   end
  #TODO ugly
   def cursor_position
-    return current_entry.position if current_entry.position
+
+    cp = current_entry.position
+    return cp.plus(GVector.xy(0, @y_spacing*@menu_scale/2.0)) if cp
     pos = GVector.xy(@x_spacing, @y_spacing)
     pos = pos.scale(@menu_scale)
     cwi = @game.current_menu_index
@@ -74,7 +91,7 @@ class Menu
     base_y = pos.y
     @game.window.draw_triangle(pos.x - 20, base_y - 10, Graphics::Color::WHITE,
                                pos.x - 5,  base_y, Graphics::Color::WHITE,
-                               pos.x - 20, base_y + 10, Graphics::Color::WHITE)
+                               pos.x - 20, base_y + 10, Graphics::Color::WHITE, ZOrder.hud.value)
   end
 
 
@@ -107,7 +124,13 @@ class Menu
     if image_menu?
       make_rectangle(@x_spacing , @y_spacing * (index),@y_spacing, @menu_width)
     else
-      make_rectangle(@x_spacing * @menu_scale,@x_spacing*@menu_scale * (index + 1),@y_spacing*@menu_scale, @menu_width)
+      pos = @entries[index].position
+      if pos
+        make_rectangle(pos.x, pos.y, @y_spacing * @menu_scale, @menu_width)
+      else
+        make_rectangle(@x_spacing * @menu_scale,@x_spacing*@menu_scale * (index + 1),@y_spacing*@menu_scale, @menu_width)
+      end
+
     end
   end
 

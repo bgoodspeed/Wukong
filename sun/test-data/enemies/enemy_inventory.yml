@@ -1,0 +1,5 @@
+enemy:
+  name: Test Enemy
+  image_path: test-data/sprites/enemy1.png
+  inventory_file: test-data/enemies/one_item_inventory.yml
+  
