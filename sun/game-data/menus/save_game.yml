@@ -1,5 +1,5 @@
 menu:
-  menu_id: load_game
+  menu_id: save_game
   entries:
     - display_text: "  Navigate menu with ''UP'' and ''DOWN'' keys then ''ENTER'' to select. ''M'' to exit menu.:"
     - display_text: ""
