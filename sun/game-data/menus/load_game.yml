@@ -1,18 +1,18 @@
 menu:
   menu_id: load_game
   entries:
-    - display_text: Load Game 1
+    - display_text: "  Slot 1 {{last_save_time_for_slot}}"
       action: load_game_slot
       action_argument: 1
-    - display_text: Load Game 2
+    - display_text: "  Slot 2 {{last_save_time_for_slot}}"
       action: load_game_slot
       action_argument: 2
-    - display_text: Load Game 3
+    - display_text: "  Slot 3 {{last_save_time_for_slot}}"
       action: load_game_slot
       action_argument: 3
-    - display_text: Load Game 4
+    - display_text: "  Slot 4 {{last_save_time_for_slot}}"
       action: load_game_slot
       action_argument: 4
-    - display_text: Load Game 5
+    - display_text: "  Slot 5 {{last_save_time_for_slot}}"
       action: load_game_slot
       action_argument: 5
