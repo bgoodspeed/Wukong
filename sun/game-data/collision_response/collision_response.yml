@@ -20,7 +20,10 @@ collision_response:
     "Player": []
     "Enemy": [ damaging2, removing1, show_damage2 ]
     "LineSegment": [ removing1 ]
+  "PickupItem":
+    "Player": [ take_inventory1]
   "Player":
+    "PickupItem": [ take_inventory2]
     "LineSegment": [ blocking1 ]
     "VectorFollower": []
     "Enemy": [ damaging1, damaging2, blocking1, show_damage1, show_damage2, blocking2 ]

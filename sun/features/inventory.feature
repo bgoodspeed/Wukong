@@ -57,4 +57,10 @@ Feature: Inventory
     Then the equipment stats should have property "strength" equal to "10"
     Then the effective player stats should have property "strength" equal to "20"
 
-    
+  Scenario: Inventory Acquisition
+    Given I load the game "demo_inventory"
+    And I add an enemy from "enemy_inventory.yml"
+    Then the player inventory filtered by "InventoryTypes::WEAPON" should have size 0
+    When the player acquires the enemy inventory
+    Then the player inventory filtered by "InventoryTypes::WEAPON" should have size 1
+

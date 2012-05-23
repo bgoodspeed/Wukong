@@ -17,6 +17,8 @@ module ResponseTypes
   SHOW_DAMAGE2 = :show_damage2
   MOUSE_PICK1 = :mouse_pick1
   MOUSE_PICK2 = :mouse_pick2
+  TAKE_INVENTORY1 = :take_inventory1
+  TAKE_INVENTORY2 = :take_inventory2
   TEMPORARY_MESSAGE1 = :temporary_message1
   SHOW_INFO_WINDOW1 = :show_info_window1
   SHOW_INFO_WINDOW2 = :show_info_window2
@@ -71,8 +73,12 @@ class CollisionResponseController
         "Enemy" => [ResponseTypes::DAMAGING2, ResponseTypes::REMOVING1, ResponseTypes::SHOW_DAMAGE2],
         "LineSegment" => [ResponseTypes::REMOVING1]
       },
+      "PickupItem" => {
+          "Player" => [ResponseTypes::TAKE_INVENTORY1]
+      },
       "Player" => {
         "LineSegment" => [ResponseTypes::BLOCKING1],
+        "PickupItem" => [ResponseTypes::TAKE_INVENTORY2],
         "VectorFollower" => [], #TODO unrealistic
         "EventArea" => [ResponseTypes::SHOW_INFO_WINDOW2],
         "Enemy" => [

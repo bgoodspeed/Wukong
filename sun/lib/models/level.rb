@@ -106,7 +106,9 @@ class Level
 
   def add_pickup_item(pickup_item)
     @dynamic_elements << pickup_item
-
+  end
+  def remove_pickup_item(pickup_item)
+    @dynamic_elements.reject! {|e|e == pickup_item }
   end
   def add_event_emitter(event_emitter)
     update_minimax(event_emitter.position.x, event_emitter.position.y, event_emitter.position.x, event_emitter.position.y)

@@ -13,6 +13,15 @@ Feature: Collision Response
         | damaging1               |
         | damaging2               |
 
+  Scenario: Collision Response Pickup Item
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a collision responder
+    When a collision occurs between type "Player" and type "PickupItem"
+    Then the collision responses should be:
+      | collision_response_type |
+      | take_inventory2          |
+
+
   Scenario: Collision Response Projectile
     Given I load the game on level "trivial" with screen size 640, 480
     And I create a collision responder

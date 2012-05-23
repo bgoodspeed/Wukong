@@ -155,7 +155,9 @@ class Player
     @inventory.weapon.inactivate
   end
 
-
+  def acquire_inventory(inventory)
+    @inventory.add_all(inventory)
+  end
   def take_reward(item)
     @inventory.add_item(item)
   end

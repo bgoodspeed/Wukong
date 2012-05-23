@@ -75,7 +75,9 @@ class Inventory
     obj = self.new( game, nil) #TODO we don't know who the owner is at this point
     conf['items'].to_a.each {|hash|
       raise "bad inventory yaml " unless hash.size == 1
-      obj.add_item(hash.keys.first, hash.values.first)
+      item_name =  hash.keys.first
+      item_quantity = hash.values.first
+      obj.add_item(game.inventory_controller.item_named(item_name),item_quantity )
     }
     if conf['weapon']
       obj.weapon = game.inventory_controller.item_named(conf['weapon'])

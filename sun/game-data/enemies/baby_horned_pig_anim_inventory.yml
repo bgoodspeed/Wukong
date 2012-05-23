@@ -1,0 +1,15 @@
+enemy:
+  name: Game Enemy Baby Horned Piggy Inventory
+  image_path: game-data/sprites/baby_horned_pig_animation.png
+  animation_width: 41
+  animation_height: 48
+  animation_rate: 2
+  position: [ 100 , 100 ]
+  base_direction: 90
+  inventory_file: game-data/enemies/one_item_inventory.yml
+  velocity: 1
+  stats:
+    health: 30
+    max_health: 30
+    defense: 15
+    strength: 10

@@ -26,6 +26,10 @@ class Inventory
     @items.keys.select {|item| item.inventory_type == filter}
   end
 
+  def add_all(inventory)
+    inventory.items.each {|item, quantity|  add_item(item, quantity.to_i)}
+  end
+
   def add_item(item, n=1)
     unless @items.has_key?(item)
       @items[item] = 0
