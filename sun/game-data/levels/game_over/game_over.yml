@@ -22,3 +22,12 @@ line_segments:
     end_x: 800
     end_y: 600
 event_areas:
+  - top_left: [ 334, 282 ]
+    bottom_right: [ 496, 341 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/load_screen/load_screen.yml"
+    info_window:
+      description:
+        - Return to load screen.
+      position: [ 288, 386 ]
+      size: [ 252, 419 ]

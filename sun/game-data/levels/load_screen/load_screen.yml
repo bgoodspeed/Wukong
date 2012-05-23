@@ -47,8 +47,8 @@ event_areas:
         - Continue recent game.
       position: [ 41, 206 ]
       size: [ 252, 252 ]
-  - top_left: [ 349, 200 ]
-    bottom_right: [ 380, 237 ]
+  - top_left: [ 349, 205 ]
+    bottom_right: [ 380, 242 ]
     action: noop
     info_window:
       description:
