@@ -5,4 +5,4 @@ weapon:
   image_path: game-data/equipment/weapon_black2.png
   type: projectile
   sound_effect_name: shoot
-  velocity: 10
+  velocity: 16

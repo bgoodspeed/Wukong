@@ -4,8 +4,8 @@ player:
   animation_height: 16
   animation_rate: 5
   menu_action_delay: 2
-  movement_distance: 3
-  turn_speed: 5
+  movement_distance: 5
+  turn_speed: 8
   stats:
     health: 1000
     max_health: 1000

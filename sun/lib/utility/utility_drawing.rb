@@ -40,7 +40,7 @@ module UtilityDrawing
   end
 
   def transparent_grey
-    Graphics::Color.argb(0xAA000000)
+    Graphics::Color.argb(0xCC000000)
   end
   def transparent_red
     Graphics::Color.argb(0x22FF0000)

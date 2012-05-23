@@ -1,42 +1,24 @@
 name: game_over
-background_image: game-data/levels/game_over/grass.jpg
+background_image: game-data/levels/game_over/game_over.png
 background_music: game-data/music/crappypiano.wav
 wayfinding: game-data/levels/game_over/wayfinding.yml
-measurements: [ 640, 480 ]
+measurements: [ 800, 600 ]
 
 line_segments:
   - start_x: 0
     start_y: 0
-    end_x: 640
+    end_x: 800
     end_y:   0
   - start_x: 0
     start_y: 0
     end_x:   0
-    end_y: 480
-  - start_x: 640
+    end_y: 600
+  - start_x: 800
     start_y: 0
-    end_x: 640
-    end_y: 480
+    end_x: 800
+    end_y: 600
   - start_x: 0
-    start_y: 480
-    end_x: 640
-    end_y: 480
+    start_y: 600
+    end_x: 800
+    end_y: 600
 event_areas:
-  - top_left: [ 10, 10 ]
-    bottom_right: [ 280, 180 ]
-    label: Reward
-    action: take_reward
-  - top_left: [ 400, 10 ]
-    bottom_right: [ 600, 180 ]
-    label: Upgrade Player Avatar
-    action: upgrade_player
-    action_argument: foo/bar/player42.yml
-  - top_left: [ 360, 280 ]
-    bottom_right: [ 630, 470 ]
-    label: Save
-    action: queue_save_game_event
-  - top_left: [ 10, 340 ]
-    bottom_right: [ 630, 470 ]
-    label: Load Level
-    action: LOAD_LEVEL
-    action_argument: some/level.yml
