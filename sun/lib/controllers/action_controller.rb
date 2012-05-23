@@ -48,10 +48,15 @@ class ActionController
         col.dynamic2.take_damage(col.dynamic1)
       },
       ResponseTypes::TAKE_INVENTORY1 => lambda {|game, col|
-        game.player.acquire_inventory(col.dynamic1.inventory)
+        pi = col.dynamic1
+        game.player.acquire_inventory(pi.inventory)
+        game.level.remove_pickup_item(pi)
       },
       ResponseTypes::TAKE_INVENTORY2 => lambda {|game, col|
-        game.player.acquire_inventory(col.dynamic2.inventory)
+        pi = col.dynamic2
+
+        game.player.acquire_inventory(pi.inventory)
+        game.level.remove_pickup_item(pi)
       },
       ResponseTypes::SHOW_DAMAGE1 => lambda {|game, col|
         game.rendering_controller.add_consumable_rendering(col.dynamic1, RenderingTypes::TARGET_DAMAGE, 10)

@@ -134,7 +134,7 @@ Feature: Player Controls
       """
     And I set the main menu name to "fake"
     When I simulate "Graphics::KbM"
-    And I run the game loop 3 times
+    And I run the game loop 5 times
     Then the game should be in menu mode
     When I simulate "Graphics::KbM"
     And I run the game loop 1 times

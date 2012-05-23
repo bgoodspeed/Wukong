@@ -25,6 +25,7 @@ Feature: Death Events
 
   Scenario: Death Event Handling Drops Inventory Pickup
     Given I load the game on level "trivial" with screen size 640, 480
+    And I set the player position to 500,500
     And I add an enemy from "enemy_inventory.yml"
     Then the level should have 2 dynamic elements
     When I create an enemy death event
