@@ -2,29 +2,29 @@ menu:
   menu_id: save_game
   headers:
     - header_text: "SAVE MENU"
-      header_position: [ 350, 210 ]
+      header_position: [ 350, 200 ]
     - header_text: "Navigate menu with ''UP'' and ''DOWN'' keys then"
-      header_position: [ 230, 240 ]
+      header_position: [ 230, 230 ]
     - header_text: "use 'ENTER' to select or 'M' to exit the menu:"
-      header_position: [ 230, 260 ]
+      header_position: [ 230, 250 ]
   entries:
     - display_text: "Slot 1 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 1
-      position: [ 250, 290 ]
+      position: [ 280, 295 ]
     - display_text: "Slot 2 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 2
-      position: [ 250, 310 ]
+      position: [ 280, 315 ]
     - display_text: "Slot 3 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 3
-      position: [ 250, 330 ]
+      position: [ 280, 335 ]
     - display_text: "Slot 4 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 4
-      position: [ 250, 350 ]
+      position: [ 280, 355 ]
     - display_text: "Slot 5 {{last_save_time_for_slot}}"
       action: save_game_slot
       action_argument: 5
-      position: [ 250, 370 ]
+      position: [ 280, 375 ]
