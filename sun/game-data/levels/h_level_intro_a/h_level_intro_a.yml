@@ -25,15 +25,15 @@ declared_enemies:
 spawn_points:
   - point: [ 330, 575 ]
     name: baby 1
-    spawn_schedule: 1 enemies every 100 ticks for 400 total ticks
+    spawn_schedule: after 0 ticks 1 enemies every 100 ticks for 400 total ticks
     spawn_argument: [ e1 ]
   - point: [ 755, 520 ]
     name: baby 2
-    spawn_schedule: 1 enemies every 200 ticks for 800 total ticks
+    spawn_schedule: after 180 ticks 1 enemies every 200 ticks for 800 total ticks
     spawn_argument: [ e2 ]
   - point: [ 770, 185 ]
     name: baby 3
-    spawn_schedule: 1 enemies every 300 ticks for 1200 total ticks
+    spawn_schedule: after 360 ticks 1 enemies every 300 ticks for 1200 total ticks
     spawn_argument: [ e3 ]
 
     
