@@ -1,8 +1,18 @@
 menu:
   menu_id: main_menu
+  headers:
+    - header_text: "MAIN MENU"
+      header_position: [ 355, 200 ]
+    - header_text: "Navigate menu with \"UP\" and \"DOWN\" keys then"
+      header_position: [ 230, 230 ]
+    - header_text: "use \"ENTER\" to select or \"M\" to exit the menu:"
+      header_position: [ 230, 250 ]
   entries:
-    - display_text: Option One
-      action: debug_print
-    - display_text: Another Option ... 2
-      action: debug_print
-      action_argument: arg2
+    - display_text: "Quit Game"
+      action: load_game_slot
+      action_argument: 1
+      position: [ 280, 295 ]
+    - display_text: "???Reminder: Need to wire in \"Quit\" option."
+      action: load_game_slot
+      action_argument: 2
+      position: [ 280, 315 ]
