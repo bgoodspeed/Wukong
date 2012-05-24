@@ -33,17 +33,23 @@ class ActionController
       BehaviorTypes::SAVE_GAME_SLOT => lambda {|game, arg| 
         game.clock.set_last_save_time
         game.save_game_slot(arg)
-        game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "Saved to slot #{arg}","temporary_message=", nil, 60 ))
+        msg = "Saved to slot #{arg}"
+        game.log.info { msg }
+        game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", msg ,"temporary_message=", nil, 60 ))
         game.exit_menu
       }, #TODO could add temp message and maybe exit menu
       BehaviorTypes::LOAD_GAME_SLOT => lambda {|game, arg|
         game.load_game_slot(arg)
-        game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "Loaded slot #{arg}","temporary_message=", nil, 60 ))
+        msg = "Loaded slot #{arg}","temporary_message="
+        game.log.info { msg }
+        game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", msg ,"temporary_message=", nil, 60 ))
         game.exit_menu
       },
       BehaviorTypes::CONTINUE_LAST_GAME => lambda {|game, arg|
         slot = game.load_most_recent_game_slot
-        game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "Loaded slot #{slot}","temporary_message=", nil, 60 ))
+        msg = "Continued slot #{slot}","temporary_message="
+        game.log.info { msg }
+        game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", msg ,"temporary_message=", nil, 60 ))
       },
       BehaviorTypes::NOOP => lambda {|game, arg| }
     }
