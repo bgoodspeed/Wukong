@@ -17,9 +17,14 @@ class LevelController
     end
     #TODO Hackish and an exact double
     if @game.level.player_start_position
-      @game.log.info "Level setting start position"
+      @game.log.info "Level setting start player position"
       @game.player.position = @game.level.player_start_position
     end
+    if @game.level.player_start_health
+      @game.log.info "Level setting start player health"
+      @game.player.health = ((@game.level.player_start_health.to_f/100.0) * @game.player.max_health).to_i
+    end
+
     @game.log.info "Level adding player #{@game.player} weapon:(#{@game.player.inventory.weapon})"
     if @game.player.inventory.weapon
       @game.player.inventory.weapon.inactivate

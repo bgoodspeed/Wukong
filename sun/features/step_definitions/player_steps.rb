@@ -108,7 +108,7 @@ Given /^I set the enemy health to (\d+)$/ do |arg1|
 end
 
 Then /^the player health should be (\d+)$/ do |arg1|
-  @player.health.should == arg1.to_i
+  p.health.should == arg1.to_i
 end
 
 Then /^the enemy health should be (\d+)$/ do |arg1|

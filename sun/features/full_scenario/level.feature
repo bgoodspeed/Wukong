@@ -92,11 +92,15 @@ Feature: Level Description
     Given I load the game "game_with_level_hud"
     Then the game property "hud.lines.first" should be "'(HUD2)Player HP: 5/6'"
     Then there should be 0 animations
+    And the player health should be 5
+    Then the game property "player.stats.max_health" should be "6"
 
   Scenario: Demo Level starting position
     Given I load the game "demo_start"
     Then the game property "level.player_start_position" should be "GVector.xy(320, 240)"
     Then the game property "player.position" should be "GVector.xy(320, 240)"
+    Then the game property "player.stats.max_health" should be "6"
+    And the player health should be 6
 
   Scenario: Player avatar changing
     Given I load the game "reward"

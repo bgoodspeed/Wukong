@@ -160,8 +160,14 @@ class Game
     @player = player
     #TODO Hackish and an exact double
     if @level.player_start_position
+      @log.info "Level setting start player position"
       @player.position = @level.player_start_position
     end
+    if @level.player_start_health
+      @log.info "Level setting start player health"
+      @player.health = ((@level.player_start_health.to_f/100.0) * @player.max_health).to_i
+    end
+
     @level.set_player(player)
 
   end

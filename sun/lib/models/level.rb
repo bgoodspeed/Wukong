@@ -33,7 +33,7 @@ class Level
 
   ]
   YAML_ATTRIBUTES = [ :orig_filename, :cell_size, :background_image, :background_music, :reward_level,
-    :player_start_position, :name, :minimum_x, :minimum_y, :maximum_x, :maximum_y,
+    :player_start_position, :name, :minimum_x, :minimum_y, :maximum_x, :maximum_y, :player_start_health,
     :animation_distance_threshold, :max_enemies, :measurements
   ]
 
@@ -68,7 +68,8 @@ class Level
     @dynamic_hash = SpatialHash.new(@cell_size)
     @background = @game.image_controller.register_image(@background_image)   if @background_image
     @music = @game.sound_controller.add_song(@background_music, @background_music) if @background_music
-    @required_attributes = YAML_ATTRIBUTES - [:player_start_position, :background_music, :background_image, :reward_level]
+    @required_attributes = YAML_ATTRIBUTES - [:player_start_position, :player_start_health,
+                                              :background_music, :background_image, :reward_level]
   end
 
 
