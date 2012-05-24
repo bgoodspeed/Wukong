@@ -294,8 +294,9 @@ class Game
       @log.warn { "WARNING: No saved slots exist (checked slots #{@save_slots.first}-#{@save_slots.last} in '#{@game_load_path}'" }
       return
     end
-
-    load_game_slot(saved_slots.first)
+    slot = saved_slots.first
+    load_game_slot(slot)
+    slot
   end
 
   def save_time_for_slot(slot)
