@@ -56,11 +56,11 @@ declared_enemies:
 spawn_points:
   - point: [ 1575, 1317 ]
     name: large_piggy_1
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: after 333 ticks 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e1 ]
   - point: [ 1812, 1485 ]
     name: large_piggy_2
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: after 333 ticks 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e2 ]
   - point: [ 987, 603 ]
     name: blahh 1
@@ -68,31 +68,31 @@ spawn_points:
     spawn_argument: [ e3 ]
   - point: [ 1338, 582 ]
     name: blaahh2
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: after 90 ticks 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e4 ]
   - point: [ 1755, 504 ]
     name: baby 5
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: after 120 ticks 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e5 ]
   - point: [ 1836, 843 ]
     name: baby 6
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: after 150 ticks 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e6 ]
   - point: [ 2288, 1053 ]
     name: baby 7
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: after 175 ticks 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e7 ]
   - point: [ 2271, 1188 ]
     name: baby 8
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: after 190 ticks 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e8 ]
   - point: [ 1020, 843 ]
     name: baby 9
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: after 200 ticks 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e9 ]
   - point: [ 1020, 1233 ]
     name: baby 10
-    spawn_schedule: 1 enemies every 100 ticks for 100 total ticks
+    spawn_schedule: after 210 ticks 1 enemies every 100 ticks for 100 total ticks
     spawn_argument: [ e10 ]
 
 line_segments:
