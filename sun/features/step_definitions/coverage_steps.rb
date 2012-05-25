@@ -256,3 +256,18 @@ Then /^the dot product of the ansi vector and the other should be near "([^"]*)"
   @ansi_vector.dot(@other_ansi_vector).should be_near(arg1.to_f)
 end
 
+Given /^I create an ansi vector using x,y: (\d+),(\d+)$/ do |arg1, arg2|
+  @ansi_vector = ANSIVector.xy(arg1.to_i, arg2.to_i)
+end
+
+Then /^the ansi vector should have sum(\d+)d: (\d+)$/ do |arg1, arg2|
+  @ansi_vector.sum2d.should be_near(arg2.to_f)
+end
+
+Then /^the ansi vector should have min: (\d+)$/ do |arg1|
+  @ansi_vector.min.should be_near(arg1.to_f)
+end
+
+Then /^the ansi vector should have max: (\d+)$/ do |arg1|
+  @ansi_vector.max.should be_near(arg1.to_f)
+end

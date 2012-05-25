@@ -133,3 +133,17 @@ Feature: CodeCoverage
     Given I create another ansi vector: 2,1
     Then the dot product of the ansi vector and the other should be near "88.0"
 
+  Scenario: ANSI Vectors XY factory method
+    Given I create an ansi vector using x,y: 44,88
+    Then the ansi vector should have x: 44
+    Then the ansi vector should have y: 88
+
+  Scenario: ANSI Vectors Sum2d
+    Given I create an ansi vector using x,y: 1,9
+    Then the ansi vector should have sum2d: 10
+
+  Scenario: ANSI Vectors Sum2d
+    Given I create an ansi vector using x,y: 1,9
+    Then the ansi vector should have min: 1
+    Then the ansi vector should have max: 9
+
