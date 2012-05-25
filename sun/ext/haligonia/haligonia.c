@@ -92,6 +92,25 @@ static void av_scale(ANSIVector *rv, ANSIVector *vector, double scale) {
     rv->y = vector->y * scale;
 }
 
+static VALUE vector_sum(VALUE self) {
+    ANSIVector *v1;
+    Data_Get_Struct(self, ANSIVector, v1 );
+    return rb_float_new(v1->x + v1->y);
+}
+static VALUE vector_min(VALUE self) {
+    ANSIVector *v1;
+    Data_Get_Struct(self, ANSIVector, v1 );
+    double m = v1->y > v1->x ? v1->x : v1->y;
+    return rb_float_new(m);
+}
+static VALUE vector_max(VALUE self) {
+    ANSIVector *v1;
+    Data_Get_Struct(self, ANSIVector, v1 );
+    double m = v1->y > v1->x ? v1->y : v1->x;
+    return rb_float_new(m);
+}
+
+
 static VALUE vector_plus(VALUE self, VALUE dest, VALUE other) {
     ANSIVector *v1;
     ANSIVector *v2;
@@ -160,19 +179,34 @@ static VALUE vector_dot(VALUE self, VALUE other) {
 
     return  rb_float_new(av_dot(v1, v2));
 }
+static VALUE rb_cANSIVector;
+
+static VALUE vector_xy(VALUE self, VALUE x, VALUE y) {
+    VALUE vector = allocate_vector(rb_cANSIVector);
+    return vector_initialize(vector, x, y);
+}
+
 
 void Init_haligonia() {
-    VALUE klass = rb_define_class("ANSIVector", rb_cObject);
-    rb_define_alloc_func(klass, allocate_vector);
-    rb_define_method(klass, "initialize", vector_initialize, 2);
-    rb_define_method(klass, "x", vector_get_x, 0);
-    rb_define_method(klass, "y", vector_get_y, 0);
-    rb_define_method(klass, "plus", vector_plus, 2);
-    rb_define_method(klass, "minus", vector_minus, 2);
-    rb_define_method(klass, "distance_from", vector_distance_from, 1);
-    rb_define_method(klass, "scale", vector_scale, 2);
-    rb_define_method(klass, "norm", vector_norm, 0);
-    rb_define_method(klass, "unit", vector_unit, 1);
-    rb_define_method(klass, "dot", vector_dot, 1);
+    rb_cANSIVector = rb_define_class("ANSIVector", rb_cObject);
+    rb_define_alloc_func(rb_cANSIVector, allocate_vector);
+    rb_define_method(rb_cANSIVector, "initialize", vector_initialize, 2);
+    rb_define_method(rb_cANSIVector, "x", vector_get_x, 0);
+    rb_define_method(rb_cANSIVector, "y", vector_get_y, 0);
+    rb_define_method(rb_cANSIVector, "plus", vector_plus, 2);
+    rb_define_method(rb_cANSIVector, "minus", vector_minus, 2);
+    rb_define_method(rb_cANSIVector, "distance_from", vector_distance_from, 1);
+    rb_define_method(rb_cANSIVector, "scale", vector_scale, 2);
+    rb_define_method(rb_cANSIVector, "norm", vector_norm, 0);
+    rb_define_method(rb_cANSIVector, "sum2d", vector_sum, 0);
+    rb_define_method(rb_cANSIVector, "min", vector_min, 0);
+    rb_define_method(rb_cANSIVector, "max", vector_max, 0);
+    rb_define_method(rb_cANSIVector, "unit", vector_unit, 1);
+    rb_define_method(rb_cANSIVector, "dot", vector_dot, 1);
+    rb_define_singleton_method(rb_cANSIVector, "xy", vector_xy, 2);
+
+
+
 }
+
 
