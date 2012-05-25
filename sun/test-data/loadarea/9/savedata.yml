@@ -1,5 +1,7 @@
 ---
 savedata:
   level: test-data/levels/load_screen/load_screen.yml
-  player: test-data/loadarea/9/player.yml
-  player_inventory: test-data/loadarea/9/inventory.yml
+  player: !binary |-
+    dGVzdC1kYXRhL2xvYWRhcmVhLzkvcGxheWVyLnltbA==
+  player_inventory: !binary |-
+    dGVzdC1kYXRhL2xvYWRhcmVhLzkvaW52ZW50b3J5LnltbA==

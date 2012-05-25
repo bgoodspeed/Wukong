@@ -14,12 +14,12 @@ player:
   base_accuracy: 100
   animation_width: 30
   animation_height: 30
-  image_file: !!null 
+  image_file: 
   animation_path: test-data/sprites/player20120411.png
   main_animation_name: main_player_anim
   animation_name: main_player_anim
   footsteps_effect_name: footsteps
-  damage_sound_effect_name: !!null 
+  damage_sound_effect_name: 
   stats:
     strength: 10
     defense: 5
