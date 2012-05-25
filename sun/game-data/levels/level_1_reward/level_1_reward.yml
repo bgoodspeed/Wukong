@@ -4,25 +4,26 @@ background_music: game-data/music/crappypiano.wav
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 400, 300 ]
 
-measurements: [ 640, 480 ]
+measurements: [ 800, 400 ]
 
 line_segments:
   - start_x: 0
     start_y: 0
-    end_x: 640
+    end_x: 800
     end_y:   0
   - start_x: 0
     start_y: 0
     end_x:   0
-    end_y: 480
-  - start_x: 640
+    end_y: 400
+  - start_x: 800
     start_y: 0
-    end_x: 640
-    end_y: 480
+    end_x: 800
+    end_y: 400
   - start_x: 0
-    start_y: 480
-    end_x: 640
-    end_y: 480
+    start_y: 400
+    end_x: 800
+    end_y: 400
+
 event_areas:
   - top_left: [ 71, 121 ]
     bottom_right: [ 263, 211 ]
