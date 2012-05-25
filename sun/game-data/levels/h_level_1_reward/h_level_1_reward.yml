@@ -26,7 +26,7 @@ line_segments:
 event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
-    action: queue_start_new_game_event
+    action: take_reward
     info_window:
       description:
         - Install upgrade.
