@@ -91,3 +91,45 @@ Feature: CodeCoverage
     And I add a fake completion condition to both and and or
     Then expectations should be met
 
+  Scenario: ANSI Vectors Plus
+    Given I create an ansi vector: 12,13
+    Given I create another ansi vector: 21,42
+    Then the ansi vector should have x: 12
+    Then the ansi vector should have y: 13
+    When I sum the two ansi vectors overriding the first
+    Then the ansi vector should have x: 33
+    Then the ansi vector should have y: 55
+
+  Scenario: ANSI Vectors Minus
+    Given I create an ansi vector: 22,44
+    Given I create another ansi vector: 21,42
+    When I subtract the two ansi vectors overriding the first
+    Then the ansi vector should have x: 1
+    Then the ansi vector should have y: 2
+
+  Scenario: ANSI Vectors Distance From
+    Given I create an ansi vector: 22,44
+    Given I create another ansi vector: 21,42
+    Then the distance between the two ansi vectors should be "2.236"
+
+  Scenario: ANSI Vectors Scale
+    Given I create an ansi vector: 22,44
+    When I scale the ansi vector overriding itself by 2
+    Then the ansi vector should have x: 44
+    Then the ansi vector should have y: 88
+
+  Scenario: ANSI Vectors Norm
+    Given I create an ansi vector: 22,44
+    Then the norm of the vector should be near "49.193"
+
+  Scenario: ANSI Vectors Unit
+    Given I create an ansi vector: 22,44
+    When I take the unit the ansi vector overriding itself
+    Then the ansi vector should have x near "0.447"
+    Then the ansi vector should have y near "0.894"
+
+  Scenario: ANSI Vectors Dot
+    Given I create an ansi vector: 22,44
+    Given I create another ansi vector: 2,1
+    Then the dot product of the ansi vector and the other should be near "88.0"
+

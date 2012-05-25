@@ -1,7 +1,7 @@
 ENV['RC_ARCHS'] = '' if RUBY_PLATFORM =~ /darwin/
 
-require 'mkmf-rice'
-#require 'mkmf'
+#require 'mkmf-rice'
+require 'mkmf'
 
 
 LIBDIR      = Config::CONFIG['libdir']

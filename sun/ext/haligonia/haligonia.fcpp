@@ -53,20 +53,49 @@ int primitive_circle_line_segment_intersection_cpp(float cx, float cy,float cr, 
     return (dist_vx * dist_vx + dist_vy * dist_vy) <= cr * cr;
 }
 
+
+struct ANSIVector_s {
+    double x,y;
+};
+
+typedef ANSIVector_s ANSIVector;
+static void deallocate_vector(void *vector) {
+    free(vector);
+}
+
+static VALUE allocate_vector(VALUE klass) {
+    ANSIVector *vector = (ANSIVector *)malloc(sizeof(ANSIVector));
+    return Data_Wrap_Struct(klass, NULL, deallocate_vector, vector);
+}
+
+static VALUE vector_initialize(VALUE self) {
+    ANSIVector *vector;
+    Data_Get_Struct(self, ANSIVector, vector );
+  //  Check_Type(rb_x, T_FIXNUM);
+  //  Check_Type(rb_y, T_FIXNUM);
+
+  return self;
+
+}
+
 extern "C"
 void Init_haligonia() {
 
-
-
-    Class rb_cFoo =
-            define_class<Foo>("Foo")
-            .define_constructor(Constructor<Foo>())
-            .define_method("hello", &test_hello);
-
-    Module rb_mPrimitiveOpsCpp =
-            define_module("PrimitiveOpsCpp")
-            .define_method("hello", &test_hello)
-            .define_method("primitive_circle_line_segment_intersection_cpp", &primitive_circle_line_segment_intersection_cpp);
+    VALUE klass = rb_define_class("ANSIVector", rb_cObject);
+    rb_define_alloc_func(klass, allocate_vector);
+    rb_define_method(klass,
+    "initialize",
+    vector_initialize,
+    1);
+//    Class rb_cFoo =
+//            define_class<Foo>("Foo")
+//            .define_constructor(Constructor<Foo>())
+//            .define_method("hello", &test_hello);
+//
+//    Module rb_mPrimitiveOpsCpp =
+//            define_module("PrimitiveOpsCpp")
+//            .define_method("hello", &test_hello)
+//            .define_method("primitive_circle_line_segment_intersection_cpp", &primitive_circle_line_segment_intersection_cpp);
 
 
 }

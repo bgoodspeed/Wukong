@@ -17,7 +17,7 @@ require "rake/extensiontask"
 
 task "check_bin" do |t|
   #TODO this might have to be updated to handle windows correctly
-  if !File.exists?("lib/haligonia/haligonia.so") or (File.mtime("ext/haligonia/haligonia.cpp") > File.mtime("lib/haligonia/haligonia.so"))
+  if !File.exists?("lib/haligonia/haligonia.so") or (File.mtime("ext/haligonia/haligonia.c") > File.mtime("lib/haligonia/haligonia.so"))
     `rm lib/haligonia/haligonia.so` if File.exists?("lib/haligonia/haligonia.so")
     `rm -rf tmp/*`
   end

@@ -199,3 +199,60 @@ end
 Then /^the method "([^"]*)" should be defined on the sample$/ do |arg1|
   @sample.should be_respond_to(arg1)
 end
+
+
+
+Given /^I create an ansi vector: (\d+),(\d+)$/ do |arg1, arg2|
+  @ansi_vector = ANSIVector.new(arg1.to_f, arg2.to_f)
+end
+
+
+Then /^the ansi vector should have x: (\d+)$/ do |arg1|
+  @ansi_vector.x.should == arg1.to_f
+end
+
+Then /^the ansi vector should have y: (\d+)$/ do |arg1|
+  @ansi_vector.y.should == arg1.to_f
+end
+
+
+Given /^I create another ansi vector: (\d+),(\d+)$/ do |arg1, arg2|
+  @other_ansi_vector = ANSIVector.new(arg1.to_f, arg2.to_f)
+end
+When /^I sum the two ansi vectors overriding the first$/ do
+  @ansi_vector.plus(@ansi_vector, @other_ansi_vector)
+end
+
+When /^I subtract the two ansi vectors overriding the first$/ do
+  @ansi_vector.minus(@ansi_vector, @other_ansi_vector)
+end
+
+Then /^the distance between the two ansi vectors should be "([^"]*)"$/ do |arg1|
+  @ansi_vector.distance_from(@other_ansi_vector).should be_near(arg1.to_f)
+end
+
+When /^I scale the ansi vector overriding itself by (\d+)$/ do |arg1|
+  @ansi_vector.scale(@ansi_vector, arg1.to_i)
+end
+
+
+Then /^the ansi vector should have x near "([^"]*)"$/ do |arg1|
+  @ansi_vector.x.should be_near(arg1.to_f)
+end
+
+Then /^the ansi vector should have y near "([^"]*)"$/ do |arg1|
+  @ansi_vector.y.should be_near(arg1.to_f)
+end
+
+Then /^the norm of the vector should be near "([^"]*)"$/ do |arg1|
+  @ansi_vector.norm.should be_near(arg1.to_f)
+end
+
+When /^I take the unit the ansi vector overriding itself$/ do
+  @ansi_vector.unit(@ansi_vector)
+end
+
+Then /^the dot product of the ansi vector and the other should be near "([^"]*)"$/ do |arg1|
+  @ansi_vector.dot(@other_ansi_vector).should be_near(arg1.to_f)
+end
+

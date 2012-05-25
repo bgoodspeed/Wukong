@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1337953229 source:/home/bg/src/Wukong/sun/native/angv/main.c
+1337956216 source:/home/bg/src/Wukong/sun/native/angv/main.c
 	<stdio.h>
 	<stdlib.h>
 	<glib.h>
