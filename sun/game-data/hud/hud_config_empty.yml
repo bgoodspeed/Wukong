@@ -1,0 +1,7 @@
+heads_up_display:
+  x_spacing: 10
+  y_spacing: 10
+  menu_mode: false
+  menu_scale: 2
+  lines:
+    - "Player HP: {{player.health}}/{{player.max_health}}"
