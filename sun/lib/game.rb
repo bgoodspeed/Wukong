@@ -4,17 +4,17 @@
 require "logger"
 require 'statemachine'
 require 'models/collision_priority'
-require 'utility/utility_vector_math'
+
 begin
   platform = "linux"
   platform = "win" if ENV['OS'] =~ /Windows/ or RUBY_PLATFORM =~ /(win|w)32$/
-
+  require 'utility/g_vector'
   require "haligonia/haligonia"
   puts "successfully loaded native extensions for platform #{platform}"
 rescue Exception => e
   puts "could not load native extensions for platform #{platform}: \n#{e}"
 end
-
+require 'utility/utility_vector_math'
 require 'helpers/init_helper'
 require 'helpers/validation_helper'
 require 'behaviors/movement_undoable'
