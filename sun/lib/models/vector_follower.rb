@@ -20,14 +20,16 @@ class VectorFollower
     @owner.stats #TODO this might be too much, maybe just weapon stats?
   end
   def velocity_scaled_vector
-    @vector.scale(@velocity)
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    @vector.scale(tmp, @velocity)
   end
 
   def tick
     @current_step += 1
   end
   def updated_vector
-    @vector.scale(@current_step * @velocity)
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    @vector.scale(tmp, @current_step * @velocity)
   end
   def current_position
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation

@@ -95,7 +95,8 @@ class PathFollowingController
   def current_tracking_direction_for(hunter)
     pt = tracking_point_for(hunter)
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    pt.minus(tmp, hunter.position).unit
+    tmp_u = GVector.xy(0,0) #NOTE temporary vector allocation
+    pt.minus(tmp, hunter.position).unit(tmp_u)
   end
 
   def remove_tracking(hunter, wayfinding)

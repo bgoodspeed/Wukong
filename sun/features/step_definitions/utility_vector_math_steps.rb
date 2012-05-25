@@ -171,7 +171,8 @@ Then /^I should be able to get the unit of the following vectors$/ do |table|
   table.hashes.each {|hash|
     v = hash['vector']
     expected = hash['expected_unit']
-    unit = v.unit
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    unit = v.unit(tmp)
     unit.should be_near(expected)
   }
 

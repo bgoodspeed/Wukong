@@ -47,12 +47,12 @@ class GVector
   def norm
     Math.sqrt(dot(self))
   end
-  def unit
+  def unit(rv)
     n = norm.to_f
     raise "cannot take the unit of a zero sized vector" if n == 0.0
     scale_factor = 1.0/n
 
-    scale(scale_factor)
+    scale(rv, scale_factor)
   end
   def distance_from(other)
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
@@ -61,8 +61,10 @@ class GVector
   end
 
   #HACK hardcoded to 2d
-  def scale(factor)
-    GVector.xy(x*factor, y*factor)
+  def scale(rv, factor)
+    rv.x = x*factor
+    rv.y = y*factor
+    rv
   end
 
   #HACK 2d specific

@@ -145,7 +145,8 @@ class MenuController
       if menu.positioned?
         menu.entries.each {|me| @game.font_controller.draw_with_font(me.formatted_display_text, me.position.x, me.position.y, ZOrder.hud.value  )}
       else
-        @game.font_controller.draw_lines(GVector.xy(menu.x_spacing, menu.y_spacing).scale(menu.menu_scale), menu.lines)
+        tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+        @game.font_controller.draw_lines(GVector.xy(menu.x_spacing, menu.y_spacing).scale(tmp, menu.menu_scale), menu.lines)
       end
 
     end

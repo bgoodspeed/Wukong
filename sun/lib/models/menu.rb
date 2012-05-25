@@ -82,7 +82,8 @@ class Menu
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     return cp.plus(tmp, GVector.xy(0, @y_spacing*@menu_scale/2.0)) if cp
     pos = GVector.xy(@x_spacing, @y_spacing)
-    pos = pos.scale(@menu_scale)
+    tmp_s = GVector.xy(0,0) #NOTE temporary vector allocation
+    pos = pos.scale(tmp_s, @menu_scale)
     cwi = @game.current_menu_index
     pos.y = pos.y * (cwi + 1)
     pos

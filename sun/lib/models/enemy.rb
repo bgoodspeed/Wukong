@@ -127,7 +127,8 @@ class Enemy
     return unless in_chase_state?
 
     @game.animation_controller.animation_index_by_entity_and_name(self, animation_name).needs_update = true
-    @last_move = vector.scale(@velocity)
+    tmp_s = GVector.xy(0,0) #NOTE temporary vector allocation
+    @last_move = vector.scale(tmp_s, @velocity)
     @direction = (@base_direction + angle_for(vector)) % 360.0
     @position = @position.plus(@position, @last_move)
   end

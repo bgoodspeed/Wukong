@@ -59,14 +59,17 @@ class SpatialHash
   def add_line_segment(data, ls)
     tmp_min = GVector.xy(0,0) #NOTE temporary vector allocation
     lsv = ls.p1.minus(tmp_min, ls.p2)
-    lsu = lsv.unit
+    tmp_u = GVector.xy(0,0) #NOTE temporary vector allocation
+    lsu = lsv.unit(tmp_u)
     steps = (lsv.norm).ceil
     indices = []
     indices << insert_data_at(data, ls.p1, true)
 
     steps.times do |step|
+      #TODO move these temps out of the loop once build passes
       tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-      indices << insert_data_at(data, ls.p2.plus(tmp, lsu.scale(step)), true)
+      tmp_s = GVector.xy(0,0) #NOTE temporary vector allocation
+      indices << insert_data_at(data, ls.p2.plus(tmp, lsu.scale(tmp_s, step)), true)
 
     end
 
