@@ -1,6 +1,7 @@
 name: reward
 background_image: game-data/levels/h_level_2_reward/h_level_2_reward.png
 background_music: game-data/music/crappypiano.wav
+heads_up_display: game-data/hud/hud_config_empty.yml
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 320, 240 ]
 
