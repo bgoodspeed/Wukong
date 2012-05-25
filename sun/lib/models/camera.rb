@@ -14,7 +14,8 @@ class Camera
   end
 
   def offset
-    position.minus(GVector.xy(screen_width/2.0, screen_height/2.0))
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    position.minus(tmp, GVector.xy(screen_width/2.0, screen_height/2.0))
   end
 
 
@@ -48,7 +49,8 @@ class Camera
   end
 
   def screen_coordinates_for(p)
-    p.minus(offset)
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    p.minus(tmp, offset)
   end
   def world_coordinates_for(p)
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation

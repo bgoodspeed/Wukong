@@ -57,7 +57,8 @@ class SpatialHash
     add_line_segment(data, Primitives::LineSegment.new(r.p2, r.p4))
   end
   def add_line_segment(data, ls)
-    lsv = ls.p1.minus(ls.p2)
+    tmp_min = GVector.xy(0,0) #NOTE temporary vector allocation
+    lsv = ls.p1.minus(tmp_min, ls.p2)
     lsu = lsv.unit
     steps = (lsv.norm).ceil
     indices = []

@@ -119,7 +119,8 @@ Then /^I should be able to subtract the following vectors$/ do |table|
     v1 = hash['vector1']
     v2 = hash['vector2']
     expected = hash['expected_difference']
-    diff = v1.minus(v2)
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    diff = v1.minus(tmp, v2)
     diff.should be_near(expected)
   }
 

@@ -5,7 +5,7 @@ module MovementUndoable
 
   def undo_last_move
     unless @last_move.nil?
-      @position = @position.minus @last_move
+      @position = @position.minus(@position,  @last_move)
       @last_move = nil
     end
   end

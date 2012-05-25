@@ -40,7 +40,8 @@ class VectorFollower
   #TODO this should be in a collidable module
   def to_collision
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    Primitives::LineSegment.new(current_position.minus(velocity_scaled_vector), current_position.plus(tmp, velocity_scaled_vector)  )
+    tmp_min = GVector.xy(0,0) #NOTE temporary vector allocation
+    Primitives::LineSegment.new(current_position.minus(tmp_min, velocity_scaled_vector), current_position.plus(tmp, velocity_scaled_vector)  )
   end
 
   def collision_type

@@ -55,8 +55,9 @@ class GVector
     scale(scale_factor)
   end
   def distance_from(other)
-    v = self.minus(other)
-    v.norm
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    tmp = self.minus(tmp, other)
+    tmp.norm
   end
 
   #HACK hardcoded to 2d
@@ -65,8 +66,10 @@ class GVector
   end
 
   #HACK 2d specific
-  def minus(other)
-    GVector.xy(self.x - other.x, self.y - other.y)
+  def minus(rv, other)
+    rv.x = self.x - other.x
+    rv.y = self.y - other.y
+    rv
   end
   def plus(rv, other)
     rv.x = self.x + other.x
@@ -145,7 +148,8 @@ end
 
 module PrimitiveIntersectionTests
   def circle_circle_intersection?(c1, c2)
-    from = c1.position.minus(c2.position)
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    from = c1.position.minus(tmp, c2.position)
     dist = from.norm
     rad_sum = c1.radius + c2.radius
     dist <= rad_sum
