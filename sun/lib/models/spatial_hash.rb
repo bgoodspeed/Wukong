@@ -64,8 +64,8 @@ class SpatialHash
     indices << insert_data_at(data, ls.p1, true)
 
     steps.times do |step|
-
-      indices << insert_data_at(data, ls.p2.plus(lsu.scale(step)), true)
+      tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+      indices << insert_data_at(data, ls.p2.plus(tmp, lsu.scale(step)), true)
 
     end
 
@@ -94,16 +94,16 @@ class SpatialHash
 
   def candidate_hashes(radius, vertex)
     hashes = []
-
-    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy(radius, radius))))
-    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy( 0     , radius))))
-    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy(-radius, radius))))
-    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy(radius, 0))))
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    hashes << spatial_hash(cell_index_for(vertex.plus(tmp, GVector.xy(radius, radius))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(tmp, GVector.xy( 0     , radius))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(tmp, GVector.xy(-radius, radius))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(tmp, GVector.xy(radius, 0))))
     hashes << spatial_hash(cell_index_for(vertex))
-    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy(-radius, 0))))
-    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy( radius, -radius))))
-    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy( 0     , -radius))))
-    hashes << spatial_hash(cell_index_for(vertex.plus(GVector.xy(-radius, -radius))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(tmp, GVector.xy(-radius, 0))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(tmp, GVector.xy( radius, -radius))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(tmp, GVector.xy( 0     , -radius))))
+    hashes << spatial_hash(cell_index_for(vertex.plus(tmp, GVector.xy(-radius, -radius))))
     hashes.uniq
 
   end

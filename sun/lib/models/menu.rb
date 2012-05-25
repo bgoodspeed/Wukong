@@ -79,7 +79,8 @@ class Menu
   def cursor_position
 
     cp = current_entry.position
-    return cp.plus(GVector.xy(0, @y_spacing*@menu_scale/2.0)) if cp
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    return cp.plus(tmp, GVector.xy(0, @y_spacing*@menu_scale/2.0)) if cp
     pos = GVector.xy(@x_spacing, @y_spacing)
     pos = pos.scale(@menu_scale)
     cwi = @game.current_menu_index

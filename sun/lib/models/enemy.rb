@@ -129,7 +129,7 @@ class Enemy
     @game.animation_controller.animation_index_by_entity_and_name(self, animation_name).needs_update = true
     @last_move = vector.scale(@velocity)
     @direction = (@base_direction + angle_for(vector)) % 360.0
-    @position = @position.plus(@last_move)
+    @position = @position.plus(@position, @last_move)
   end
 
   def animation_position_by_name(name)

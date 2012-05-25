@@ -69,14 +69,16 @@ class Weapon
   def to_collision
     mv = vector_to_weapon_tip
     p = @equipped_on.position
-    Primitives::LineSegment.new(p, p.plus(mv))
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    Primitives::LineSegment.new(p, p.plus(tmp, mv))
   end
 
   def collision_radius
     @weapon_length
   end
   def collision_center
-    @equipped_on.position.plus(vector_to_weapon_tip)
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    @equipped_on.position.plus(tmp, vector_to_weapon_tip)
   end
 
 end

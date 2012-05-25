@@ -68,8 +68,10 @@ class GVector
   def minus(other)
     GVector.xy(self.x - other.x, self.y - other.y)
   end
-  def plus(other)
-    GVector.xy(self.x + other.x, self.y + other.y)
+  def plus(rv, other)
+    rv.x = self.x + other.x
+    rv.y = self.y + other.y
+    rv
   end
 
 end

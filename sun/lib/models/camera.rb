@@ -51,6 +51,7 @@ class Camera
     p.minus(offset)
   end
   def world_coordinates_for(p)
-    p.plus(offset)
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    p.plus(tmp, offset)
   end
 end

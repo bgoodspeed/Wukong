@@ -104,7 +104,8 @@ Then /^I should be able to add the following vectors$/ do |table|
     v1 = hash['vector1']
     v2 = hash['vector2']
     expected = hash['expected_sum']
-    sum = v1.plus(v2)
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    sum = v1.plus(tmp, v2)
     sum.should be_near(expected)
   }
 

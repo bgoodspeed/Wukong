@@ -24,7 +24,8 @@ class LineOfSightQuery
 
   def collision_center
     c = to_collision
-    c.p2.plus(c.p1.minus(c.p2))
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    c.p2.plus(tmp, c.p1.minus(c.p2))
   end
 
   def collision_type

@@ -30,7 +30,8 @@ class VectorFollower
     @vector.scale(@current_step * @velocity)
   end
   def current_position
-    @start.plus(updated_vector)
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    @start.plus(tmp, updated_vector)
   end
   def distance_from_start
     @start.distance_from(current_position)
@@ -38,7 +39,8 @@ class VectorFollower
 
   #TODO this should be in a collidable module
   def to_collision
-    Primitives::LineSegment.new(current_position.minus(velocity_scaled_vector), current_position.plus(velocity_scaled_vector)  )
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    Primitives::LineSegment.new(current_position.minus(velocity_scaled_vector), current_position.plus(tmp, velocity_scaled_vector)  )
   end
 
   def collision_type
