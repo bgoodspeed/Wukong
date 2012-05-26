@@ -41,7 +41,8 @@ end
 
 Then /^the cell coordinate for vertex (\d+),(\d+) is (\d+),(\d+)$/ do |vx, vy, i, j|
   rv = @spatial_hash.cell_index_for(GVector.xy(vx.to_i,vy.to_i))
-  rv.to_s.should == GVector.xy(i.to_i, j.to_i).to_s
+  rv.x.should be_near(i.to_f)
+  rv.y.should be_near(j.to_f)
 end
 
 

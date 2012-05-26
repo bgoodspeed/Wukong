@@ -65,11 +65,23 @@ static VALUE vector_get_x(VALUE self) {
 
     return rb_float_new(vector->x);
 }
+static VALUE vector_set_x(VALUE self, VALUE x) {
+    ANSIVector *vector;
+    Data_Get_Struct(self, ANSIVector, vector );
+    vector->x = NUM2DBL(x);
+    return self;
+}
 static VALUE vector_get_y(VALUE self) {
     ANSIVector *vector;
     Data_Get_Struct(self, ANSIVector, vector );
 
     return rb_float_new(vector->y);
+}
+static VALUE vector_set_y(VALUE self, VALUE y) {
+    ANSIVector *vector;
+    Data_Get_Struct(self, ANSIVector, vector );
+    vector->y = NUM2DBL(y);
+    return self;
 }
 
 static void av_plus(ANSIVector *rv, ANSIVector *v1, ANSIVector *v2) {
@@ -197,7 +209,9 @@ void Init_haligonia() {
     rb_define_alloc_func(rb_cANSIVector, allocate_vector);
     rb_define_method(rb_cANSIVector, "initialize", vector_initialize, 2);
     rb_define_method(rb_cANSIVector, "x", vector_get_x, 0);
+    rb_define_method(rb_cANSIVector, "x=", vector_set_x, 1);
     rb_define_method(rb_cANSIVector, "y", vector_get_y, 0);
+    rb_define_method(rb_cANSIVector, "y=", vector_set_y, 1);
     rb_define_method(rb_cANSIVector, "plus", vector_plus, 2);
     rb_define_method(rb_cANSIVector, "minus", vector_minus, 2);
     rb_define_method(rb_cANSIVector, "distance_from", vector_distance_from, 1);
@@ -214,7 +228,9 @@ void Init_haligonia() {
     rb_define_alloc_func(rb_cGVector, allocate_vector);
     rb_define_method(rb_cGVector, "initialize", vector_initialize, 2);
     rb_define_method(rb_cGVector, "x", vector_get_x, 0);
+    rb_define_method(rb_cGVector, "x=", vector_set_x, 1);
     rb_define_method(rb_cGVector, "y", vector_get_y, 0);
+    rb_define_method(rb_cGVector, "y=", vector_set_y, 1);
     rb_define_method(rb_cGVector, "plus", vector_plus, 2);
     rb_define_method(rb_cGVector, "minus", vector_minus, 2);
     rb_define_method(rb_cGVector, "distance_from", vector_distance_from, 1);

@@ -77,16 +77,19 @@ class Menu
   end
  #TODO ugly
   def cursor_position
-
-    cp = current_entry.position
-    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    return cp.plus(tmp, GVector.xy(0, @y_spacing*@menu_scale/2.0)) if cp
+    ce = current_entry
+    cp = ce.position
+    if cp
+      tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+      cp.plus(tmp, GVector.xy(0, @y_spacing*@menu_scale/2.0))
+      return tmp
+    end
     pos = GVector.xy(@x_spacing, @y_spacing)
     tmp_s = GVector.xy(0,0) #NOTE temporary vector allocation
-    pos = pos.scale(tmp_s, @menu_scale)
+    pos.scale(tmp_s, @menu_scale)
     cwi = @game.current_menu_index
-    pos.y = pos.y * (cwi + 1)
-    pos
+    tmp_s.y = tmp_s.y * (cwi + 1)
+    tmp_s
   end
   def draw_cursor
     pos = cursor_position

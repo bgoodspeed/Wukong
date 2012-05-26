@@ -20,15 +20,17 @@ class LineOfSightQuery
   def collision_radius
     c = to_collision
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    c.p1.minus(tmp, c.p2).norm
+    c.p1.minus(tmp, c.p2)
+    tmp.norm
   end
 
   def collision_center
     c = to_collision
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     tmp_min = GVector.xy(0,0) #NOTE temporary vector allocation
-    tmp_min = c.p1.minus(tmp_min, c.p2)
+    c.p1.minus(tmp_min, c.p2)
     c.p2.plus(tmp, tmp_min)
+    tmp
   end
 
   def collision_type
@@ -96,7 +98,9 @@ class PathFollowingController
     pt = tracking_point_for(hunter)
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     tmp_u = GVector.xy(0,0) #NOTE temporary vector allocation
-    pt.minus(tmp, hunter.position).unit(tmp_u)
+    pt.minus(tmp, hunter.position)
+    tmp.unit(tmp_u)
+    tmp_u
   end
 
   def remove_tracking(hunter, wayfinding)

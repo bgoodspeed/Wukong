@@ -22,6 +22,7 @@ class VectorFollower
   def velocity_scaled_vector
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     @vector.scale(tmp, @velocity)
+    tmp
   end
 
   def tick
@@ -30,10 +31,12 @@ class VectorFollower
   def updated_vector
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     @vector.scale(tmp, @current_step * @velocity)
+    tmp
   end
   def current_position
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     @start.plus(tmp, updated_vector)
+    tmp
   end
   def distance_from_start
     @start.distance_from(current_position)
@@ -43,7 +46,9 @@ class VectorFollower
   def to_collision
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     tmp_min = GVector.xy(0,0) #NOTE temporary vector allocation
-    Primitives::LineSegment.new(current_position.minus(tmp_min, velocity_scaled_vector), current_position.plus(tmp, velocity_scaled_vector)  )
+    current_position.minus(tmp_min, velocity_scaled_vector)
+    current_position.plus(tmp, velocity_scaled_vector)
+    Primitives::LineSegment.new(tmp_min,tmp )
   end
 
   def collision_type

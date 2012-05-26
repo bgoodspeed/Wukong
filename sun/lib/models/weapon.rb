@@ -63,6 +63,7 @@ class Weapon
   def vector_to_weapon_tip
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     GVector.xy(calculate_offset_x(@equipped_on.direction, @weapon_length), calculate_offset_y(@equipped_on.direction, @weapon_length)).scale(tmp, @weapon_length)
+    tmp
   end
   include GraphicsApi
   include Collidable
@@ -71,7 +72,8 @@ class Weapon
     mv = vector_to_weapon_tip
     p = @equipped_on.position
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    Primitives::LineSegment.new(p, p.plus(tmp, mv))
+    p.plus(tmp, mv)
+    Primitives::LineSegment.new(p, tmp)
   end
 
   def collision_radius
@@ -80,6 +82,7 @@ class Weapon
   def collision_center
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     @equipped_on.position.plus(tmp, vector_to_weapon_tip)
+    tmp
   end
 
 end

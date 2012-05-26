@@ -142,8 +142,15 @@ Feature: CodeCoverage
     Given I create an ansi vector using x,y: 1,9
     Then the ansi vector should have sum2d: 10
 
-  Scenario: ANSI Vectors Sum2d
+  Scenario: ANSI Vectors Min and Max
     Given I create an ansi vector using x,y: 1,9
     Then the ansi vector should have min: 1
     Then the ansi vector should have max: 9
+
+  Scenario: ANSI Vectors Setting X and Y
+    Given I create an ansi vector using x,y: 1,9
+    When I set the ansi vector x value to 66
+    When I set the ansi vector y value to 55
+    Then the ansi vector should have x: 66
+    Then the ansi vector should have y: 55
 

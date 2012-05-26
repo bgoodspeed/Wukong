@@ -4,8 +4,9 @@ Given /^I create a game camera tracking the player$/ do
   @game.camera = @camera
 end
 Then /^the camera should be centered at (\d+), (\d+)$/ do |arg1, arg2|
-  @game.camera_position.x.should == arg1.to_i
-  @game.camera_position.y.should == arg2.to_i
+  cp = @game.camera_position
+  cp.x.should == arg1.to_f
+  cp.y.should == arg2.to_f
 
 end
 

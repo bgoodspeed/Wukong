@@ -71,7 +71,8 @@ end
 module PrimitiveIntersectionTests
   def circle_circle_intersection?(c1, c2)
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    from = c1.position.minus(tmp, c2.position)
+    c1.position.minus(tmp, c2.position)
+    from = tmp
     dist = from.norm
     rad_sum = c1.radius + c2.radius
     dist <= rad_sum

@@ -58,7 +58,8 @@ end
 def check_wayfind_direction(expected)
   dir = @path_controller.current_tracking_direction_for(@enemy)
   tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-  newpos = @enemy.position.plus(tmp, dir)
+  @enemy.position.plus(tmp, dir)
+  newpos = tmp
 
   newd = newpos.distance_from(@player.position)
   dist = @enemy.position.distance_from(@player.position)

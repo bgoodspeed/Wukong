@@ -271,3 +271,11 @@ end
 Then /^the ansi vector should have max: (\d+)$/ do |arg1|
   @ansi_vector.max.should be_near(arg1.to_f)
 end
+
+When /^I set the ansi vector x value to (\d+)$/ do |arg1|
+  @ansi_vector.x = arg1.to_f
+end
+
+When /^I set the ansi vector y value to (\d+)$/ do |arg1|
+  @ansi_vector.y = arg1.to_f
+end

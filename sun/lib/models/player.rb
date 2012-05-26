@@ -148,7 +148,7 @@ class Player
 
   def animation_position_by_name(name)
     #@game.camera.screen_coordinates_for(@position).dup
-    @position.dup
+    GVector.xy(@position.x, @position.y)
   end
 
   def stop_weapon(arg=nil)

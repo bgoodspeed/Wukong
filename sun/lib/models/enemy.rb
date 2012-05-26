@@ -128,7 +128,8 @@ class Enemy
 
     @game.animation_controller.animation_index_by_entity_and_name(self, animation_name).needs_update = true
     tmp_s = GVector.xy(0,0) #NOTE temporary vector allocation
-    @last_move = vector.scale(tmp_s, @velocity)
+    vector.scale(tmp_s, @velocity)
+    @last_move = tmp_s
     @direction = (@base_direction + angle_for(vector)) % 360.0
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     @position.plus(tmp, @last_move)
@@ -136,7 +137,7 @@ class Enemy
   end
 
   def animation_position_by_name(name)
-    @position.dup
+    GVector.xy(@position.x, @position.y)
   end
 
 end

@@ -16,11 +16,12 @@ class Camera
   def offset
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     position.minus(tmp, GVector.xy(screen_width/2.0, screen_height/2.0))
+    tmp
   end
 
 
   def calculate_position(goal)
-    rv = goal.dup
+    rv = GVector.xy(goal.x, goal.y)
     screen_extent = [@game.screen.width/2.0, @game.screen.height/2.0]
     level_min_bounds = [@game.level.minimum_x, @game.level.minimum_y]
     level_max_bounds = [@game.level.maximum_x, @game.level.maximum_y]
@@ -51,9 +52,11 @@ class Camera
   def screen_coordinates_for(p)
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     p.minus(tmp, offset)
+    tmp
   end
   def world_coordinates_for(p)
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     p.plus(tmp, offset)
+    tmp
   end
 end

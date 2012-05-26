@@ -20,10 +20,10 @@ Feature: Game
     And there should be 4 event areas
     And the event areas should be:
         | rectangle_to_s                                        | label          | action                      | description joined       |
-        | Rectangle [10, 10]:[10, 180]:[280, 180]:[280, 10]     | Start New Game | queue_start_new_game_event  | foo barbaz quzafterblank |
-        | Rectangle [360, 10]:[360, 180]:[630, 180]:[630, 10]   | Load Game      | queue_load_game_event       | monkeys                  |
-        | Rectangle [10, 280]:[10, 470]:[280, 470]:[280, 280]   | Settings       | queue_settings_event        | Mystery?                 |
-        | Rectangle [360, 280]:[360, 470]:[630, 470]:[630, 280] | Continue       | continue_last_game        | Mystery?                 |
+        | Rectangle [10.0, 10.0]:[10.0, 180.0]:[280.0, 180.0]:[280.0, 10.0]     | Start New Game | queue_start_new_game_event  | foo barbaz quzafterblank |
+        | Rectangle [360.0, 10.0]:[360.0, 180.0]:[630.0, 180.0]:[630.0, 10.0]   | Load Game      | queue_load_game_event       | monkeys                  |
+        | Rectangle [10.0, 280.0]:[10.0, 470.0]:[280.0, 470.0]:[280.0, 280.0]   | Settings       | queue_settings_event        | Mystery?                 |
+        | Rectangle [360.0, 280.0]:[360.0, 470.0]:[630.0, 470.0]:[630.0, 280.0] | Continue       | continue_last_game        | Mystery?                 |
 
   Scenario: Reward Level
     Given I load the game "reward"
@@ -32,10 +32,10 @@ Feature: Game
     And there should be 4 event areas
     And the event areas should be:
         | rectangle_to_s                                        | label                 | action                      | action_argument      |
-        | Rectangle [10, 10]:[10, 180]:[280, 180]:[280, 10]     | Reward                | take_reward                 |                      |
-        | Rectangle [400, 10]:[400, 180]:[600, 180]:[600, 10]   | Upgrade Player Avatar | upgrade_player              | foo/bar/player42.yml |
-        | Rectangle [360, 280]:[360, 470]:[630, 470]:[630, 280] | Save                  | queue_save_game_event       |                      |
-        | Rectangle [10, 340]:[10, 470]:[630, 470]:[630, 340]   | Load Level            | LOAD_LEVEL                  | some/level.yml       |
+        | Rectangle [10.0, 10.0]:[10.0, 180.0]:[280.0, 180.0]:[280.0, 10.0]     | Reward                | take_reward                 |                      |
+        | Rectangle [400.0, 10.0]:[400.0, 180.0]:[600.0, 180.0]:[600.0, 10.0]   | Upgrade Player Avatar | upgrade_player              | foo/bar/player42.yml |
+        | Rectangle [360.0, 280.0]:[360.0, 470.0]:[630.0, 470.0]:[630.0, 280.0] | Save                  | queue_save_game_event       |                      |
+        | Rectangle [10.0, 340.0]:[10.0, 470.0]:[630.0, 470.0]:[630.0, 340.0]   | Load Level            | LOAD_LEVEL                  | some/level.yml       |
 
   Scenario: New Game Loading Level Invoke Event Area - New Game
     Given I load the game "new_game_load_screen"
