@@ -23,6 +23,7 @@ class Targetable
   def vector_to_target
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     @target.position.minus(tmp, @game.player.position)
+    tmp
   end
 
   def distance_to_target

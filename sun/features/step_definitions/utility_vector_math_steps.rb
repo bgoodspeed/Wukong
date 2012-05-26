@@ -105,8 +105,8 @@ Then /^I should be able to add the following vectors$/ do |table|
     v2 = hash['vector2']
     expected = hash['expected_sum']
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    sum = v1.plus(tmp, v2)
-    sum.should be_near(expected)
+    v1.plus(tmp, v2)
+    tmp.should be_near(expected)
   }
 
 end
@@ -120,8 +120,8 @@ Then /^I should be able to subtract the following vectors$/ do |table|
     v2 = hash['vector2']
     expected = hash['expected_difference']
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    diff = v1.minus(tmp, v2)
-    diff.should be_near(expected)
+    v1.minus(tmp, v2)
+    tmp.should be_near(expected)
   }
 
 end
@@ -172,8 +172,8 @@ Then /^I should be able to get the unit of the following vectors$/ do |table|
     v = hash['vector']
     expected = hash['expected_unit']
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    unit = v.unit(tmp)
-    unit.should be_near(expected)
+    v.unit(tmp)
+    tmp.should be_near(expected)
   }
 
 end

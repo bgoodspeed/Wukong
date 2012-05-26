@@ -15,8 +15,8 @@ When /^the agent in the scene is at (\d+),(\d+)$/ do |x,y|
 end
 
 Then /^the nearest point should be at (\d+),(\d+)$/ do |x,y|
-  "#{@way_finding.nearest_point(@agent_position)}".should == GVector.xy(x,y).to_s
-
+  np = @way_finding.nearest_point(@agent_position)
+  np.should be_within_epsilon_of(GVector.xy(x.to_f,y.to_f))
 end
 Then /^the best point for target (\d+),(\d+) should be at (\d+),(\d+)$/ do |tx, ty, px, py|
   p = @way_finding.best_point(@agent_position, GVector.xy(tx.to_f, ty.to_f))
