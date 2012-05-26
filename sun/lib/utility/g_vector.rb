@@ -51,6 +51,7 @@ class GVector
     scale_factor = 1.0/n
 
     scale(rv, scale_factor)
+    rv
   end
   def distance_from(other)
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation

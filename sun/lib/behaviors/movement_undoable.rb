@@ -5,7 +5,9 @@ module MovementUndoable
 
   def undo_last_move
     unless @last_move.nil?
-      @position = @position.minus(@position,  @last_move)
+      tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+      @position.minus(tmp,  @last_move)
+      @position = tmp
       @last_move = nil
     end
   end

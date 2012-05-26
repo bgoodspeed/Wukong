@@ -139,7 +139,9 @@ class Player
   def move_forward(distance)
     dv = distance * @step_size
     mv = GVector.xy(calculate_offset_x(@direction, dv), calculate_offset_y(@direction, dv))
-    @position = @position.plus(@position, mv)
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    @position.plus(tmp, mv)
+    @position = tmp
     @last_move = mv
     @last_distance = distance
   end

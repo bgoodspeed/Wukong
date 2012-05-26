@@ -180,9 +180,14 @@ static VALUE vector_dot(VALUE self, VALUE other) {
     return  rb_float_new(av_dot(v1, v2));
 }
 static VALUE rb_cANSIVector;
+static VALUE rb_cGVector;
 
 static VALUE vector_xy(VALUE self, VALUE x, VALUE y) {
     VALUE vector = allocate_vector(rb_cANSIVector);
+    return vector_initialize(vector, x, y);
+}
+static VALUE vector_gvxy(VALUE self, VALUE x, VALUE y) {
+    VALUE vector = allocate_vector(rb_cGVector);
     return vector_initialize(vector, x, y);
 }
 
@@ -205,6 +210,22 @@ void Init_haligonia() {
     rb_define_method(rb_cANSIVector, "dot", vector_dot, 1);
     rb_define_singleton_method(rb_cANSIVector, "xy", vector_xy, 2);
 
+    rb_cGVector = rb_define_class("GVector", rb_cObject);
+    rb_define_alloc_func(rb_cGVector, allocate_vector);
+    rb_define_method(rb_cGVector, "initialize", vector_initialize, 2);
+    rb_define_method(rb_cGVector, "x", vector_get_x, 0);
+    rb_define_method(rb_cGVector, "y", vector_get_y, 0);
+    rb_define_method(rb_cGVector, "plus", vector_plus, 2);
+    rb_define_method(rb_cGVector, "minus", vector_minus, 2);
+    rb_define_method(rb_cGVector, "distance_from", vector_distance_from, 1);
+    rb_define_method(rb_cGVector, "scale", vector_scale, 2);
+    rb_define_method(rb_cGVector, "norm", vector_norm, 0);
+    rb_define_method(rb_cGVector, "sum2d", vector_sum, 0);
+    rb_define_method(rb_cGVector, "min", vector_min, 0);
+    rb_define_method(rb_cGVector, "max", vector_max, 0);
+    rb_define_method(rb_cGVector, "unit", vector_unit, 1);
+    rb_define_method(rb_cGVector, "dot", vector_dot, 1);
+    rb_define_singleton_method(rb_cGVector, "xy", vector_gvxy, 2);
 
 
 }

@@ -114,6 +114,16 @@ Feature: Game Clock
     And I run the game loop 5 times
     Then there should be 3 enemies
 
+  Scenario: Enemies don't go away after death bug
+    Given I load the game on level "simple" with screen size 640, 480
+    And I load a player from "player_moved.yml"
+    And I set the property "level.max_enemies" to "20"
+    And I create a condition controller
+    And I stub "foo" on game to return "false"
+    When I add a fake condition that checks "foo" on game named "COND"
+    And I run the game loop 25 times
+    Then there should be 20 enemies
+
   Scenario: Spawn Events Repeating Till Limit - By Level Limit
     Given I load the game on level "simple" with screen size 640, 480
     And I load a player from "player_moved.yml"

@@ -130,7 +130,9 @@ class Enemy
     tmp_s = GVector.xy(0,0) #NOTE temporary vector allocation
     @last_move = vector.scale(tmp_s, @velocity)
     @direction = (@base_direction + angle_for(vector)) % 360.0
-    @position = @position.plus(@position, @last_move)
+    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    @position.plus(tmp, @last_move)
+    @position = tmp
   end
 
   def animation_position_by_name(name)
