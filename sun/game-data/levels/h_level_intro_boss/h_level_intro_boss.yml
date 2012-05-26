@@ -9,7 +9,7 @@ player_start_position: [ 100, 100 ]
 
 anded_completion_conditions:
   - condition: player_health_at_most
-    argument: 10
+    argument: 30
 
 measurements: [ 800, 600 ]
 

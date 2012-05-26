@@ -1,16 +1,29 @@
 ---
 player:
   step_size: 1
-  position:
-  - 448.5650261119326
-  - 205.82230416541842
-  direction: 50
-  health: 45
-  max_health: 50
-  turn_speed: 5
-  movement_distance: 2
+  position: !ruby/object:GVector
+    x: 252.52127043729936
+    y: 156.64634304121262
+  direction: 280
+  turn_speed: 8
+  movement_distance: 5
   menu_action_delay: 12
-  enemies_killed: 1
-  image_path: game-data/sprites/player_grey_scale_circle.png
+  enemies_killed: 0
+  image_path: game-data/sprites/anima_gold_avatar_smaller.png
   collision_priority: 4
   base_accuracy: 100
+  animation_width: 32
+  animation_height: 16
+  image_file: 
+  animation_path: game-data/sprites/anima_gold_avatar_smaller.png
+  main_animation_name: main_player_anim
+  animation_name: main_player_anim
+  footsteps_effect_name: footsteps
+  damage_sound_effect_name: 
+  stats:
+    strength: 10
+    defense: 5
+    health: 1000
+    max_health: 1000
+    speed: 5
+    accuracy: 5

@@ -1,6 +1,7 @@
 name: h_level_3
 background_image: game-data/levels/h_level_3/h_level_3.png
 background_music: game-data/music/drumbeats.wav
+heads_up_display: game-data/hud/hud_config.yml
 wayfinding: game-data/levels/h_level_3/wayfinding.yml
 reward_level: game-data/levels/h_level_3_reward/h_level_3_reward.yml
 player_start_position: [ 35, 888 ]
@@ -17,7 +18,7 @@ declared_enemies:
     name: e1
 spawn_points:
   - point: [ 597, 105 ]
-    name: ant_lvl_1
+    name: white_square
     spawn_schedule: 1 enemies every 100 ticks for 300 total ticks
     spawn_argument: [ e1 ]
 

@@ -1,8 +1,9 @@
 name: reward
 background_image: game-data/levels/h_level_1_reward/h_level_1_reward.png
-background_music: game-data/music/crappypiano.wav
+background_music: game-data/music/silence.wav
+heads_up_display: game-data/hud/hud_config_empty.yml
 wayfinding: game-data/levels/load_screen/wayfinding.yml
-player_start_position: [ 320, 240 ]
+player_start_position: [ 400, 300 ]
 
 measurements: [ 800, 600 ]
 
@@ -24,30 +25,36 @@ line_segments:
     end_x: 800
     end_y: 600
 event_areas:
-  - top_left: [ 71, 121 ]
-    bottom_right: [ 263, 211 ]
+  - top_left: [ 132, 421 ]
+    bottom_right: [ 272, 467 ]
     action: take_reward
     info_window:
       description:
-        - Avatar upgrade!
-    action: upgrade_player
-    action_argument: "game-data/sprites/player_grey_scale_circle.png"
-  - top_left: [ 379, 121 ]
-    bottom_right: [ 572, 211 ]
+        - Install upgrade.
+      position: [ 103, 355 ]
+      size: [ 195, 398 ]
+  - top_left: [ 535, 121 ]
+    bottom_right: [ 675, 165 ]
+    action: queue_load_game_event
+    info_window:
+      description:
+        - Load saved games.
+      position: [ 505, 196 ]
+      size: [ 195, 240 ]
+  - top_left: [ 131, 120 ]
+    bottom_right: [ 272, 167 ]
     action: queue_save_game_event
     info_window:
       description:
         - Save your progress.
-  - top_left: [ 72, 320 ]
-    bottom_right: [ 264, 410 ]
+      position: [ 103, 196 ]
+      size: [ 195, 240 ]
+  - top_left: [ 528, 420 ]
+    bottom_right: [ 667, 466 ]
     action: LOAD_LEVEL
-    info_window:
-      description:
-        - Ready for level 2!
     action_argument: "game-data/levels/h_level_2/h_level_2.yml"
-  - top_left: [ 378, 319 ]
-    bottom_right: [ 571, 409 ]
-    action: queue_load_game_event
     info_window:
       description:
-        - Load previous saved games.
+        - To the next adventure.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
