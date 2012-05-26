@@ -78,4 +78,8 @@ class GVector
     rv
   end
 
+  def to_yaml
+
+    [self.x.to_i, self.y.to_i]
+  end
 end

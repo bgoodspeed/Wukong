@@ -2,7 +2,9 @@ player:
   image_path: test-data/sprites/avatar.bmp
   turn_speed: 90
   movement_distance: 1
-  position: [ 200, 300 ]
+  position:
+    - 200
+    - 300
   stats:
     health: 5
     max_health: 6

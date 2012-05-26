@@ -1,9 +1,9 @@
 --- 
 player: 
   step_size: 1
-  position: !ruby/object:GVector
-    x: 36.0
-    y: 36.0
+  position:
+    - 36
+    - 36
   direction: 0
   stats:
     health: 5
