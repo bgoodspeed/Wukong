@@ -1,14 +1,14 @@
 ---
 player:
   step_size: 1
-  position: !ruby/object:GVector
-    x: 252.52127043729936
-    y: 156.64634304121262
-  direction: 280
+  position:
+  - 221
+  - 159
+  direction: 336
   turn_speed: 8
   movement_distance: 5
   menu_action_delay: 12
-  enemies_killed: 0
+  enemies_killed: 16
   image_path: game-data/sprites/anima_gold_avatar_smaller.png
   collision_priority: 4
   base_accuracy: 100
