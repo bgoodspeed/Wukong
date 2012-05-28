@@ -65,5 +65,5 @@ event_areas:
     info_window:
       description:
         - Change gears?????
-      position: [ 103, 355 ]
-      size: [ 195, 398 ]
+      position: [ 103, 343 ]
+      size: [ 195, 389 ]
