@@ -264,6 +264,13 @@ class Game
       # TODO NOOP, could sleep to free up CPU cycles
     end
   end
+  def enter_targetting
+    @targetting_controller.active = true
+  end
+  def exit_targetting
+    @targetting_controller.active = false
+  end
+
   def enter_menu(name=@main_menu_name, filter=nil)
     @menu_controller.activate(name, filter)
     @hud.menu_mode = true

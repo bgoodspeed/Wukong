@@ -204,6 +204,12 @@ class ActionController
     }
   end
 
+  def default_targetting_behaviors
+    {
+      KeyActions::TARGETTING    => delaying(KeyActions::TARGETTING)    {|game,arg| game.exit_targetting },
+  }
+  end
+
   def default_menu_behaviors
     {
       KeyActions::MENU        => delaying(KeyActions::MENU )        { |game, arg| game.exit_menu },
@@ -216,6 +222,7 @@ class ActionController
   end
   def default_gameplay_behaviors
     {
+      KeyActions::TARGETTING    => delaying(KeyActions::TARGETTING)    {|game,arg| game.enter_targetting },
       KeyActions::INTERACT    => delaying(KeyActions::INTERACT)    {|game,arg| game.interact},
       KeyActions::MENU_ENTER  => delaying(KeyActions::MENU_ENTER)  {|game,arg| game.interact},
       KeyActions::MENU        => delaying(KeyActions::MENU)        {|game,arg| game.enter_menu},
@@ -244,7 +251,7 @@ class ActionController
 
   #TODO unify these interfaces?
   attr_reader :collision_responses, :menu_actions, :event_actions, 
-    :always_available_behaviors, :gameplay_behaviors, :menu_behaviors
+    :always_available_behaviors, :gameplay_behaviors, :menu_behaviors, :targetting_behaviors
   
   def initialize(game)
     @game = game
@@ -254,6 +261,7 @@ class ActionController
     @always_available_behaviors = default_always_available_behaviors
     @gameplay_behaviors = default_gameplay_behaviors
     @menu_behaviors = default_menu_behaviors
+    @targetting_behaviors = default_targetting_behaviors
   end
 
   def all_responses
