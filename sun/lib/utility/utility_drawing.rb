@@ -45,6 +45,13 @@ module UtilityDrawing
   def transparent_red
     Graphics::Color.argb(0x22FF0000)
   end
+  def transparent_yellow
+    Graphics::Color.argb(0x22cdcb15)
+  end
+  def opaque_yellow
+    Graphics::Color.argb(0xEEcdcb15)
+  end
+
   def transparent_red_near_death
     Graphics::Color.argb(0x22FF0000)
   end

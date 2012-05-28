@@ -194,7 +194,7 @@ class ActionController
   #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
   def introduce_delay(game, action, delay)
     te = TimedEvent.new("disable_action", action, "enable_action", action, delay)
-    game.clock.enqueue_event("timeout_down", te)
+    game.clock.enqueue_event("timeout_down_#{action}", te)
   end
 
   def delaying(key,  &block)
@@ -208,12 +208,13 @@ class ActionController
     {
       KeyActions::TARGETTING    => delaying(KeyActions::TARGETTING)    {|game,arg|
         game.rendering_controller.remove_consumable_rendering(game.targetting_controller, RenderingTypes::TARGETTING)
+        game.targetting_controller.target_list = nil
         game.exit_targetting
       },
-      KeyActions::LEFT    => delaying(KeyActions::LEFT)    {|game,arg| game.targetting_controller.move_to_next_lower },
-      KeyActions::DOWN    => delaying(KeyActions::DOWN)    {|game,arg| game.targetting_controller.move_to_next_lower },
-      KeyActions::RIGHT    => delaying(KeyActions::RIGHT)    {|game,arg| game.targetting_controller.move_to_next_higher },
-      KeyActions::UP    => delaying(KeyActions::UP)    {|game,arg| game.targetting_controller.move_to_next_higher },
+      KeyActions::LEFT    => delaying(KeyActions::LEFT)  {|game,arg| game.targetting_controller.move_to_next_lower },
+      KeyActions::DOWN    => delaying(KeyActions::DOWN)  {|game,arg| game.targetting_controller.move_to_next_lower },
+      KeyActions::RIGHT   => delaying(KeyActions::RIGHT) {|game,arg| game.targetting_controller.move_to_next_higher },
+      KeyActions::UP      => delaying(KeyActions::UP)    {|game,arg| game.targetting_controller.move_to_next_higher },
   }
   end
 
@@ -233,8 +234,9 @@ class ActionController
         if game.level.targettable_enemies.empty?
           game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "No enemies to target.","temporary_message=", nil, 60 ))
         else
+          game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "There are #{game.targetting_controller.target_list.size} targets.","temporary_message=", nil, 60 ))
           game.enter_targetting
-          game.rendering_controller.add_indeterminate_consumable_rendering(game.rendering_controller, RenderingTypes::TARGETTING)
+          game.rendering_controller.add_indeterminate_consumable_rendering(game.targetting_controller, RenderingTypes::TARGETTING)
         end
 
       },

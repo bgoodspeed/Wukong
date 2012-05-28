@@ -9,11 +9,18 @@ module KeyActions
   FIRE = "Fire"
   INTERACT = "Interact"
   TARGETTING = "Targetting"
+  EXIT_TARGETTING = "ExitTargetting"
 
   QUIT = "Quit"
   MENU = "Menu"
   MENU_ENTER = "MenuEnter"
   MOUSE_CLICK = "MouseClick"
+end
+
+module BehaviorPriority
+  LOW = 100
+  MED = 0
+  HIGH = -100
 end
 
 class InputController
@@ -32,7 +39,6 @@ class InputController
       Graphics::KbO => KeyActions::INTERACT,
       Graphics::KbQ => KeyActions::QUIT,
       Graphics::KbT => KeyActions::TARGETTING,
-
     }
 
   end
@@ -56,6 +62,13 @@ class InputController
     @mouse = mouse_conf
     #TODO could go into a key repeat controller or something like that
     @disabled = {}
+    @behavior_priority_overrides = {
+        KeyActions::TARGETTING => BehaviorPriority::LOW,
+        KeyActions::LEFT => BehaviorPriority::MED,
+        KeyActions::RIGHT => BehaviorPriority::MED,
+        KeyActions::UP => BehaviorPriority::HIGH,
+        KeyActions::DOWN => BehaviorPriority::HIGH,
+    }
   end
 
   def mouse_world_coordinates
@@ -77,8 +90,15 @@ class InputController
     true
   end
 
+  def behavior_priority(behavior)
+    return 0 unless @behavior_priority_overrides.has_key?(behavior)
+    @behavior_priority_overrides[behavior]
+  end
+
   def run_activated(behaviors)
-    behaviors.each { |action, behavior|
+    ordered_behaviors = behaviors.keys.sort {|a,b| behavior_priority(a) <=> behavior_priority(b)}
+    ordered_behaviors.each { |action|
+      behavior = behaviors[action]
       if @keys[action] && !@disabled[action]
         behavior.call(@game, nil)
       end

@@ -8,10 +8,11 @@ Feature: Player Controls
     Given I load the game on level "trivial" with screen size 640, 480
     And I set the player avatar to "avatar.bmp"
     And I set the player step size to 25
+    Given I set the player position to 100,100
     When I press "Right"
     And I press "Up"
     And I update the game state
-    Then the player should be at position 61,36
+    Then the player should be at position 100,75
     And the following keys should be active: "Right,Up"
 
   Scenario: Mocking Gosu Input
@@ -166,7 +167,7 @@ Feature: Player Controls
     When I press "Targetting"
     And I update the game state
     Then the game property "targetting_controller.active" should be "true"
-    Then the game property "clock.events.size" should be "1"
+    Then the game property "clock.events.size" should be "2"
 
   Scenario: Mapping targetting to activate targetting mode toggle off - enemies
     Given I load the game on level "trivial" with screen size 640, 480
@@ -240,3 +241,23 @@ Feature: Player Controls
     And I update the game state
     Then the game property "targetting_controller.target_index" should be "1"
     When I run the game loop 1 times
+
+  Scenario: Targetting mode exiting bug
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I set the player health to 3000
+    And I add an enemy from "enemy.yml"
+    And I add an enemy from "enemy2.yml"
+    And I add an enemy from "enemy3.yml"
+    Then the player should be at position 36,36
+    When I simulate "Graphics::KbT,Graphics::KbDown"
+    And I run the game loop 1 times
+    Then the game property "targetting_controller.active" should be "true"
+    Then the game property "targetting_controller.target_index" should be "0"
+    Then the player should be at position 36,37
+    When I simulate ""
+    And I run the game loop 10 times
+    When I simulate "Graphics::KbT"
+    And I run the game loop 1 times
+    Then the game property "targetting_controller.active" should be "false"
+
+
