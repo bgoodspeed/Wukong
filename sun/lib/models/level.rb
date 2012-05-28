@@ -87,6 +87,10 @@ class Level
     @declared_enemies[n] = e
   end
 
+  def targettable_enemies
+    @enemies.select {|e| e.position.distance_from(@game.player.position) <= @game.targetting_controller.target_distance_threshold}
+  end
+
   def remove_line_of_sight(los)
     @sight_lines.reject!{|e| e == los}
     @dynamic_elements.reject! {|e|los == e}

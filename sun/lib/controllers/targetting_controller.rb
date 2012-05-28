@@ -36,18 +36,19 @@ class Targetable
 end
 
 class TargettingController
-  attr_accessor :active
+  attr_accessor :active, :target_distance_threshold
   def initialize(game)
     @game = game
     @active = false
     @target_list = nil
+    @target_distance_threshold = 400
   end
 
   def target_list
     return @target_list if @target_list
 
     #TODO maybe we also want destructables to go here
-    @target_list = @game.level.enemies.collect {|e| Targetable.new(@game, e)}
+    @target_list = @game.level.targettable_enemies.collect {|e| Targetable.new(@game, e)}
     @target_list
   end
 end

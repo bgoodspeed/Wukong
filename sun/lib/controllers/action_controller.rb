@@ -222,7 +222,14 @@ class ActionController
   end
   def default_gameplay_behaviors
     {
-      KeyActions::TARGETTING    => delaying(KeyActions::TARGETTING)    {|game,arg| game.enter_targetting },
+      KeyActions::TARGETTING    => delaying(KeyActions::TARGETTING)    {|game,arg|
+        if game.level.targettable_enemies.empty?
+          game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "No enemies to target.","temporary_message=", nil, 60 ))
+        else
+          game.enter_targetting
+        end
+
+      },
       KeyActions::INTERACT    => delaying(KeyActions::INTERACT)    {|game,arg| game.interact},
       KeyActions::MENU_ENTER  => delaying(KeyActions::MENU_ENTER)  {|game,arg| game.interact},
       KeyActions::MENU        => delaying(KeyActions::MENU)        {|game,arg| game.enter_menu},

@@ -265,6 +265,7 @@ class Game
     end
   end
   def enter_targetting
+
     @targetting_controller.active = true
   end
   def exit_targetting

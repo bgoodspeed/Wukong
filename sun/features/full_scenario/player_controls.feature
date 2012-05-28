@@ -146,12 +146,27 @@ Feature: Player Controls
     And I update the key state
     And the following keys should be active: "Targetting"
 
-  Scenario: Mapping targetting to activate targetting mode
+  Scenario: Mapping targetting to activate targetting mode - no enemies
     Given I load the game on level "trivial" with screen size 640, 480
+    Then the game property "level.enemies.size" should be "0"
+    Then the game property "targetting_controller.active" should be "false"
+    Then the game property "clock.events.size" should be "0"
+    When I press "Targetting"
+    And I update the game state
+    Then the game property "targetting_controller.active" should be "false"
+    Then the game property "clock.events.size" should be "2"
+
+
+  Scenario: Mapping targetting to activate targetting mode - enemies
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I add an enemy from "enemy.yml"
+    Then the game property "level.enemies.size" should be "1"
+    Then the game property "clock.events.size" should be "0"
     Then the game property "targetting_controller.active" should be "false"
     When I press "Targetting"
     And I update the game state
     Then the game property "targetting_controller.active" should be "true"
+    Then the game property "clock.events.size" should be "1"
 
   Scenario: Mapping targetting to activate targetting mode
     Given I load the game on level "trivial" with screen size 640, 480
