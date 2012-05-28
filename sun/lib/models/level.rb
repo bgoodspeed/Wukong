@@ -88,7 +88,9 @@ class Level
   end
 
   def targettable_enemies
-    @enemies.select {|e| e.position.distance_from(@game.player.position) <= @game.targetting_controller.target_distance_threshold}
+    tgts = @enemies.select {|e| e.position.distance_from(@game.player.position) <= @game.targetting_controller.target_distance_threshold}
+
+    tgts
   end
 
   def remove_line_of_sight(los)

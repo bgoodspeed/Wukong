@@ -36,7 +36,7 @@ class Targetable
 end
 
 class TargettingController
-  attr_accessor :active, :target_distance_threshold, :target_index
+  attr_accessor :active, :target_distance_threshold, :target_index, :target_list
   def initialize(game)
     @game = game
     @active = false

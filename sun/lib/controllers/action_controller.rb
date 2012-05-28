@@ -194,7 +194,7 @@ class ActionController
   #TODO this is how you can limit repeat rates of keys, might need to do same for mouse clicks etc
   def introduce_delay(game, action, delay)
     te = TimedEvent.new("disable_action", action, "enable_action", action, delay)
-    game.clock.enqueue_event("timeout_down", te)
+    game.clock.enqueue_event("timeout_down_#{action}", te)
   end
 
   def delaying(key,  &block)
@@ -208,10 +208,7 @@ class ActionController
     {
       KeyActions::TARGETTING    => delaying(KeyActions::TARGETTING)    {|game,arg|
         game.rendering_controller.remove_consumable_rendering(game.targetting_controller, RenderingTypes::TARGETTING)
-        game.exit_targetting
-      },
-      KeyActions::EXIT_TARGETTING    => delaying(KeyActions::EXIT_TARGETTING)    {|game,arg|
-        game.rendering_controller.remove_consumable_rendering(game.targetting_controller, RenderingTypes::TARGETTING)
+        game.targetting_controller.target_list = nil
         game.exit_targetting
       },
       KeyActions::LEFT    => delaying(KeyActions::LEFT)  {|game,arg| game.targetting_controller.move_to_next_lower },

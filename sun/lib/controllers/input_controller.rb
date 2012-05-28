@@ -39,7 +39,6 @@ class InputController
       Graphics::KbO => KeyActions::INTERACT,
       Graphics::KbQ => KeyActions::QUIT,
       Graphics::KbT => KeyActions::TARGETTING,
-      Graphics::KbX => KeyActions::EXIT_TARGETTING
     }
 
   end
