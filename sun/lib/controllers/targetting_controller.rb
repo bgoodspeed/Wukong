@@ -46,14 +46,14 @@ class TargettingController
   end
 
   def move_to_next_lower
-    @target_index = (@target_index - 1) % @target_list.size
+    @target_index = (@target_index - 1) % target_list.size
   end
   def move_to_next_higher
-    @target_index = (@target_index + 1) % @target_list.size
+    @target_index = (@target_index + 1) % target_list.size
   end
 
   def current_target
-    @target_list[@target_index]
+    target_list[@target_index]
   end
   def target_list
     return @target_list if @target_list

@@ -206,7 +206,14 @@ class ActionController
 
   def default_targetting_behaviors
     {
-      KeyActions::TARGETTING    => delaying(KeyActions::TARGETTING)    {|game,arg| game.exit_targetting },
+      KeyActions::TARGETTING    => delaying(KeyActions::TARGETTING)    {|game,arg|
+        game.rendering_controller.remove_consumable_rendering(game.targetting_controller, RenderingTypes::TARGETTING)
+        game.exit_targetting
+      },
+      KeyActions::LEFT    => delaying(KeyActions::LEFT)    {|game,arg| game.targetting_controller.move_to_next_lower },
+      KeyActions::DOWN    => delaying(KeyActions::DOWN)    {|game,arg| game.targetting_controller.move_to_next_lower },
+      KeyActions::RIGHT    => delaying(KeyActions::RIGHT)    {|game,arg| game.targetting_controller.move_to_next_higher },
+      KeyActions::UP    => delaying(KeyActions::UP)    {|game,arg| game.targetting_controller.move_to_next_higher },
   }
   end
 
@@ -227,6 +234,7 @@ class ActionController
           game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "No enemies to target.","temporary_message=", nil, 60 ))
         else
           game.enter_targetting
+          game.rendering_controller.add_indeterminate_consumable_rendering(game.rendering_controller, RenderingTypes::TARGETTING)
         end
 
       },

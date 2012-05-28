@@ -212,9 +212,10 @@ class Game
     else
       @rendering_controller.remove_consumable_rendering(@player, RenderingTypes::PLAYER_HEALTH)
     end
+
     @event_controller.handle_events
     @input_controller.respond_to_keys
-    return if menu_mode? 
+    return if menu_mode?
     @animation_controller.tick
     @rendering_controller.tick
     @path_following_controller.tick
@@ -234,6 +235,7 @@ class Game
     @level.draw(@screen)
     @animation_controller.draw(@screen)
     @rendering_controller.draw_temporary_renderings
+
     if menu_mode?
       @menu_controller.draw(@screen)
     else
@@ -265,7 +267,6 @@ class Game
     end
   end
   def enter_targetting
-
     @targetting_controller.active = true
   end
   def exit_targetting

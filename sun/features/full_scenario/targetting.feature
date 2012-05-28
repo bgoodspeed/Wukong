@@ -45,7 +45,7 @@ Feature: Targetting
     Then the hit odds for distance 100 with distance threshold 100 should be 9%
 
 
-  Scenario: Targetting Controller Target List - Multiple Targets
+  Scenario: Targetting Controller Target List - Multiple Targets 2
     Given I load the game "demo"
     And I add an enemy from "enemy.yml"
     And I add an enemy from "enemy2.yml"
@@ -54,7 +54,7 @@ Feature: Targetting
     Then the game property "targetting_controller.target_index" should be "0"
     Then the game property "player.accuracy" should be "100"
 
-  Scenario: Targetting Controller Target List - Multiple Targets
+  Scenario: Targetting Controller Target List - Multiple Targets 3
     Given I load the game "demo"
     And I add an enemy from "enemy.yml"
     And I add an enemy from "enemy2.yml"
@@ -69,3 +69,6 @@ Feature: Targetting
     When I move to the next higher target
     Then the game property "targetting_controller.target_index" should be "1"
     Then the game property "targetting_controller.current_target.target.name" should be "'Test Enemy2'"
+
+
+
