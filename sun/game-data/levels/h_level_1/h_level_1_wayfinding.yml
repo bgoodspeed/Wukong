@@ -1,0 +1,26 @@
+layer:
+  nodes:
+    - name: a
+      position: [ 730, 230 ]
+    - name: b
+      position: [ 620, 70 ]
+    - name: c
+      position: [ 660, 450 ]
+    - name: d
+      position: [ 550, 230 ]
+    - name: e
+      position: [ 295, 235 ]
+    - name: f
+      position: [ 140, 90 ]
+    - name: g
+      position: [ 140, 450 ]
+    - name: h
+      position: [ 60, 250 ]
+  edges:
+    a: [ b, c, d, e ]
+    b: [ d, c ]
+    c: [ d ]
+    d: [ h, e ]
+    e: [ f, g, h ]
+    f: [ h, g]
+    g: [ h ]
