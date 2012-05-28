@@ -8,6 +8,8 @@ module KeyActions
   DOWN = "Down"
   FIRE = "Fire"
   INTERACT = "Interact"
+  TARGETTING = "Targetting"
+
   QUIT = "Quit"
   MENU = "Menu"
   MENU_ENTER = "MenuEnter"
@@ -28,7 +30,10 @@ class InputController
       Graphics::KbReturn => KeyActions::MENU_ENTER,
       Graphics::KbM => KeyActions::MENU,
       Graphics::KbO => KeyActions::INTERACT,
-      Graphics::KbQ => KeyActions::QUIT }
+      Graphics::KbQ => KeyActions::QUIT,
+      Graphics::KbT => KeyActions::TARGETTING,
+
+    }
 
   end
   def self.default_gamepad_config
@@ -87,7 +92,11 @@ class InputController
     end
 
     run_activated @game.action_controller.always_available_behaviors
-    
+    if @game.targetting_controller.active
+      run_activated @game.action_controller.targetting_behaviors
+      return
+    end
+
     if @game.menu_mode?
       run_activated @game.action_controller.menu_behaviors
       if @game.menu_mode?  #TODO ugly, second call because menu behaviors can turn this off

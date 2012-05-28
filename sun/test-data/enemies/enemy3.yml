@@ -1,3 +1,4 @@
 enemy:
+  name: Test Enemy3
   image_path: test-data/sprites/enemy3.png
   health: 30

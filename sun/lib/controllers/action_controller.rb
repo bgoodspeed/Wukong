@@ -204,6 +204,19 @@ class ActionController
     }
   end
 
+  def default_targetting_behaviors
+    {
+      KeyActions::TARGETTING    => delaying(KeyActions::TARGETTING)    {|game,arg|
+        game.rendering_controller.remove_consumable_rendering(game.targetting_controller, RenderingTypes::TARGETTING)
+        game.exit_targetting
+      },
+      KeyActions::LEFT    => delaying(KeyActions::LEFT)    {|game,arg| game.targetting_controller.move_to_next_lower },
+      KeyActions::DOWN    => delaying(KeyActions::DOWN)    {|game,arg| game.targetting_controller.move_to_next_lower },
+      KeyActions::RIGHT    => delaying(KeyActions::RIGHT)    {|game,arg| game.targetting_controller.move_to_next_higher },
+      KeyActions::UP    => delaying(KeyActions::UP)    {|game,arg| game.targetting_controller.move_to_next_higher },
+  }
+  end
+
   def default_menu_behaviors
     {
       KeyActions::MENU        => delaying(KeyActions::MENU )        { |game, arg| game.exit_menu },
@@ -216,6 +229,15 @@ class ActionController
   end
   def default_gameplay_behaviors
     {
+      KeyActions::TARGETTING    => delaying(KeyActions::TARGETTING)    {|game,arg|
+        if game.level.targettable_enemies.empty?
+          game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "No enemies to target.","temporary_message=", nil, 60 ))
+        else
+          game.enter_targetting
+          game.rendering_controller.add_indeterminate_consumable_rendering(game.rendering_controller, RenderingTypes::TARGETTING)
+        end
+
+      },
       KeyActions::INTERACT    => delaying(KeyActions::INTERACT)    {|game,arg| game.interact},
       KeyActions::MENU_ENTER  => delaying(KeyActions::MENU_ENTER)  {|game,arg| game.interact},
       KeyActions::MENU        => delaying(KeyActions::MENU)        {|game,arg| game.enter_menu},
@@ -244,7 +266,7 @@ class ActionController
 
   #TODO unify these interfaces?
   attr_reader :collision_responses, :menu_actions, :event_actions, 
-    :always_available_behaviors, :gameplay_behaviors, :menu_behaviors
+    :always_available_behaviors, :gameplay_behaviors, :menu_behaviors, :targetting_behaviors
   
   def initialize(game)
     @game = game
@@ -254,6 +276,7 @@ class ActionController
     @always_available_behaviors = default_always_available_behaviors
     @gameplay_behaviors = default_gameplay_behaviors
     @menu_behaviors = default_menu_behaviors
+    @targetting_behaviors = default_targetting_behaviors
   end
 
   def all_responses

@@ -115,6 +115,12 @@ module Views
       game.font_controller.draw_with_font("X", pos.x, pos.y, ZOrder.dynamic.value)
     end
   end
+  class TargettingRenderingView < BaseView
+    def call(screen, rendering_controller)
+      puts "need to render targetting"
+
+    end
+  end
 
 
   class NOOPView
@@ -130,6 +136,7 @@ module RenderingTypes
   PLAYER_HEALTH = "RENDER_PLAYER_HEALTH"
   FADE_IN_LEVEL = "RENDER_LEVEL_FADE"
   INFO_WINDOW = "RENDER_INFO_WINDOW"
+  TARGETTING = "RENDER_TARGETTING"
 end
 
 class TemporaryRendering
@@ -170,6 +177,7 @@ class RenderingController
                LineOfSightQuery => Views::NOOPView.new,
                #MouseCollisionWrapper => lambda {|screen, enemy| puts "NOOP, could add a highlight?" },
                VectorFollower => Views::VectorFollowerView.new(@game),
+              RenderingTypes::TARGETTING => Views::TargettingRenderingView.new(@game),
               RenderingTypes::TARGET_DAMAGE => Views::TargetDamageRenderingView.new(@game),
               RenderingTypes::PLAYER_HEALTH => Views::PlayerHealthRenderingView.new(@game),
               RenderingTypes::FADE_IN_LEVEL => Views::FadeInLevelRenderingView.new(@game),
