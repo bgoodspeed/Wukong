@@ -116,8 +116,30 @@ module Views
     end
   end
   class TargettingRenderingView < BaseView
-    def call(screen, rendering_controller)
-      puts "need to render targetting"
+    def call(game, tr)
+
+      ### enemy highlight
+      enemy = tr.entity.current_target.target
+      pos = game.camera.screen_coordinates_for(enemy.position)
+      w = enemy.radius
+      darken_screen(game, pos.x - w, pos.x + w, pos.y - w, pos.y + w, transparent_yellow, ZOrder.hud.value)
+      tr.entity.target_list.each {|tgt|
+        e = tgt.target
+        p1 = game.camera.screen_coordinates_for(e.position)
+        p2 = game.camera.screen_coordinates_for(e.position)
+        p3 = game.camera.screen_coordinates_for(e.position)
+        p4 = game.camera.screen_coordinates_for(e.position)
+
+        p1.x -= w
+        p1.y -= w
+        p2.x += w
+        p2.y -= w
+        p3.x += w
+        p3.y += w
+        p4.x -= w
+        p4.y += w
+        r = Primitives::Rectangle.new(p1, p2, p3, p4)
+        draw_rectangle_as_box(game.screen, r,  ZOrder.dynamic.value, opaque_yellow) }
 
     end
   end
