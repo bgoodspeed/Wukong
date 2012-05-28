@@ -119,10 +119,21 @@ module Views
     def call(game, tr)
 
       ### enemy highlight
-      enemy = tr.entity.current_target.target
+      target = tr.entity.current_target
+      enemy = target.target
       pos = game.camera.screen_coordinates_for(enemy.position)
       w = enemy.radius
       darken_screen(game, pos.x - w, pos.x + w, pos.y - w, pos.y + w, transparent_yellow, ZOrder.hud.value)
+      game.font_controller.draw_with_font("#{enemy.name}", pos.x - w, pos.y - (w + 40), ZOrder.hud.value)
+      odds = target.hit_odds_for_target
+      if odds < 10
+        t = "poor odds"
+      else
+        t = "#{odds}%"
+      end
+      game.font_controller.draw_with_font("#{enemy.stats.health}/#{enemy.stats.max_health} : #{t}", pos.x - w, pos.y - (w + 20), ZOrder.hud.value)
+
+      ### available targets highlight
       tr.entity.target_list.each {|tgt|
         e = tgt.target
         p1 = game.camera.screen_coordinates_for(e.position)
