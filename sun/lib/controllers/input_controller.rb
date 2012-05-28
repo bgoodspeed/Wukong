@@ -92,16 +92,16 @@ class InputController
     end
 
     run_activated @game.action_controller.always_available_behaviors
-    
+    if @game.targetting_controller.active
+      run_activated @game.action_controller.targetting_behaviors
+      return
+    end
+
     if @game.menu_mode?
       run_activated @game.action_controller.menu_behaviors
       if @game.menu_mode?  #TODO ugly, second call because menu behaviors can turn this off
         @game.update_menu_state
       end
-      return
-    end
-    if @game.targetting_controller.active
-      run_activated @game.action_controller.targetting_behaviors
       return
     end
 

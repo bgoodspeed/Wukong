@@ -10,6 +10,7 @@ input_config:
     Graphics::KbM: KeyActions::MENU
     Graphics::KbQ: KeyActions::QUIT
     Graphics::KbO: KeyActions::INTERACT
+    Graphics::KbT: KeyActions::TARGETTING
   gamepad_config:
     Graphics::GpLeft: KeyActions::LEFT
     Graphics::GpRight: KeyActions::RIGHT

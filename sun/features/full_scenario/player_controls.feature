@@ -168,6 +168,19 @@ Feature: Player Controls
     Then the game property "targetting_controller.active" should be "true"
     Then the game property "clock.events.size" should be "1"
 
+  Scenario: Mapping targetting to activate targetting mode toggle off - enemies
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I set the player health to 3000
+    And I add an enemy from "enemy.yml"
+    When I press "Targetting"
+    And I update the game state
+    Then the game property "targetting_controller.active" should be "true"
+    When I run the game loop 10 times
+    When I press "Targetting"
+    And I update the game state
+    Then the game property "targetting_controller.active" should be "false"
+
+
   Scenario: Mapping targetting to activate targetting mode
     Given I load the game on level "trivial" with screen size 640, 480
     When I enter targetting mode
@@ -226,3 +239,4 @@ Feature: Player Controls
     When I press "Up"
     And I update the game state
     Then the game property "targetting_controller.target_index" should be "1"
+    When I run the game loop 1 times

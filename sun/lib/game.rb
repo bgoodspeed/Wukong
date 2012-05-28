@@ -218,6 +218,7 @@ class Game
     return if menu_mode?
     @animation_controller.tick
     @rendering_controller.tick
+    return if @targetting_controller.active
     @path_following_controller.tick
 
     @level.tick
