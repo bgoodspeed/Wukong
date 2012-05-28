@@ -36,14 +36,25 @@ class Targetable
 end
 
 class TargettingController
-  attr_accessor :active, :target_distance_threshold
+  attr_accessor :active, :target_distance_threshold, :target_index
   def initialize(game)
     @game = game
     @active = false
     @target_list = nil
     @target_distance_threshold = 400
+    @target_index = 0
   end
 
+  def move_to_next_lower
+    @target_index = (@target_index - 1) % @target_list.size
+  end
+  def move_to_next_higher
+    @target_index = (@target_index + 1) % @target_list.size
+  end
+
+  def current_target
+    @target_list[@target_index]
+  end
   def target_list
     return @target_list if @target_list
 

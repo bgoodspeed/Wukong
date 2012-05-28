@@ -2,6 +2,13 @@ When /^I enter targetting mode$/ do
   @game.targetting_controller.active = true
 end
 
+
+When /^I move to the next lower target$/ do
+  @game.targetting_controller.move_to_next_lower
+end
+When /^I move to the next higher target$/ do
+  @game.targetting_controller.move_to_next_higher
+end
 Given /^I create an odds calculator$/ do
   @odds_calculator = HitOddsCalculator.new
 end
