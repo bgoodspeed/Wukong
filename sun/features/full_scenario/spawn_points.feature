@@ -9,9 +9,9 @@ Feature: Spawn Points
     When the level is examined
     Then there should be 2 spawn points
     Then the spawn points should be:
-      | point    | name           | spawn_schedule                                        | spawn_argument | enemy_quantity | frequency | total time | condition |
-      | 50, 50   | fiftyfifty     | 2 enemies every 10 ticks for 100 total ticks          | e1             | 2              | 10        | 100        |           |
-      | 100, 100 | hundredhundred | 1 enemies every 5 ticks for 0 total ticks until COND  | e2,e3          | 1              | 5         |            | COND      |
+      | point    | name           | spawn_schedule                                                 | spawn_argument | enemy_quantity | frequency | total time | condition | condition_argument |
+      | 50, 50   | fiftyfifty     | 2 enemies every 10 ticks for 100 total ticks              | e1             | 2              | 10        | 100        |           |                       |
+      | 100, 100 | hundredhundred | 1 enemies every 5 ticks for 0 total ticks until COND 12| e2,e3          | 1              | 5         |            | COND      | 12               |
 
   Scenario: Spawn Point - Spawning
     Given I load the game on level "simple" with screen size 640, 480

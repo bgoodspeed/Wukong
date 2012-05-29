@@ -10,6 +10,7 @@ class ConditionController
     @conditions = {
       "COND" => lambda {|game, arg| true}, #TODO this is pretty much equivalent to COND == NEVER rename
       "number_of_frames" => lambda {|game, frames| @game.clock.frames_rendered >= frames.to_i},
+      "enemies_spawned_at_least" => lambda {|game, expected| @game.level.spawned_enemies >= expected.to_i},
       "player_health_at_least" => lambda {|game, hp| @game.player.health >= hp.to_i},
       "player_health_at_most" => lambda {|game, hp| @game.player.health <= hp.to_i},
       "enemies_killed_at_least" => lambda {|game, dead| @game.player.enemies_killed >= dead.to_i }, 

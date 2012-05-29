@@ -167,6 +167,7 @@ class ActionController
         enemy.tracking_target = game.player
         game.add_enemy(enemy)
         game.path_following_controller.add_tracking(enemy, game.wayfinding)
+        game.level.spawned_enemies += 1
         }
     }
   end

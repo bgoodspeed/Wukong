@@ -107,6 +107,7 @@ Then /^the spawn points should be:$/ do |table|
     points[idx].frequency.to_s.should == hash['frequency'] if hash.has_key?('frequency')
     points[idx].total_time.to_s.should == hash['total_time'] if hash.has_key?('total_time')
     points[idx].condition.to_s.should == hash['condition'] if hash.has_key?('condition')
+    points[idx].condition_argument.to_s.should == hash['condition_argument'] if hash.has_key?('condition_argument')
 
   }
   
