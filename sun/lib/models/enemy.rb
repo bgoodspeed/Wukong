@@ -71,6 +71,10 @@ class Enemy
     @required_attributes = ATTRIBUTES - [:image_file, :animation_path]
 
   end
+  def equip_weapon(w)
+    @inventory.weapon = w
+    @inventory.weapon.equipped_on = self
+  end
 
   def inventory_empty?
     return true unless @inventory

@@ -109,6 +109,14 @@ Feature: Enemy Built
     When I see the first frame
     Then there should be 1 enemies
     Then the game property "level.enemies.first.inventory.class" should be "Inventory"
+    Then the game property "level.enemies.first.inventory.weapon.nil?" should be "true"
+
+  Scenario: Inventory Enemy Equipped
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I add an enemy from "enemy_inventory_equipped.yml"
+    When I see the first frame
+    Then there should be 1 enemies
+    Then the game property "level.enemies.first.inventory.weapon.nil?" should be "false"
 
   Scenario: Enemy tracking North
     Given I create an enemy in isolation
