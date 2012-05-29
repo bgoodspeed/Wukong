@@ -97,6 +97,7 @@ Feature: Targetting
     When I move to the next higher target
     When I queue an attack on the current target
     When I invoke the current attack queue
+    Then the game property "targetting_controller.active" should be "false"
     Then the enemy named "Test Enemy" should have "health" equal to "9"
     Then the enemy named "Test Enemy2" should have "health" equal to "9"
     Then the attack queue results should contain "6" for enemy named "Test Enemy"

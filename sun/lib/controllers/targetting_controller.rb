@@ -87,6 +87,7 @@ class TargettingController
       end
     end
 
+    @target_list = nil
     @action_queue = []
     @active = false
     results

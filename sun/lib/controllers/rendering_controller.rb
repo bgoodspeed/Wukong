@@ -135,6 +135,10 @@ module Views
       game.font_controller.draw_with_font(energy_msg, game.screen.width - 150, 0, ZOrder.hud.value)
       game.font_controller.draw_with_font(queue_msg, game.screen.width - 150, 20, ZOrder.hud.value)
 
+      ### queue proper
+      game.targetting_controller.action_queue.each_with_index do |target_action, idx|
+        game.font_controller.draw_with_font(target_action.target.name, game.screen.width - 150, 40 + (idx * 20), ZOrder.hud.value)
+      end
 
       ### enemy highlight
       target = tr.entity.current_target
