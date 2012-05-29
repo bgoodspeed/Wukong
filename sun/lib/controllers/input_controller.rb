@@ -10,7 +10,8 @@ module KeyActions
   INTERACT = "Interact"
   TARGETTING = "Targetting"
   EXIT_TARGETTING = "ExitTargetting"
-
+  SPEED_UP = "SpeedUp"
+  SPEED_DOWN = "SpeedDown"
   QUIT = "Quit"
   MENU = "Menu"
   MENU_ENTER = "MenuEnter"
@@ -39,6 +40,10 @@ class InputController
       Graphics::KbO => KeyActions::INTERACT,
       Graphics::KbQ => KeyActions::QUIT,
       Graphics::KbT => KeyActions::TARGETTING,
+      Graphics::KbRightAlt => KeyActions::SPEED_UP,
+      Graphics::KbLeftAlt => KeyActions::SPEED_UP,
+      Graphics::KbRightShift => KeyActions::SPEED_DOWN,
+      Graphics::KbLeftShift => KeyActions::SPEED_DOWN,
     }
 
   end
@@ -69,6 +74,14 @@ class InputController
         KeyActions::UP => BehaviorPriority::HIGH,
         KeyActions::DOWN => BehaviorPriority::HIGH,
     }
+  end
+
+  def speed_up_key_down?
+    @keys[KeyActions::SPEED_UP]
+  end
+
+  def speed_down_key_down?
+    @keys[KeyActions::SPEED_DOWN]
   end
 
   def mouse_world_coordinates

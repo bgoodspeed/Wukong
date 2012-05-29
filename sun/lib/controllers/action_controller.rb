@@ -286,16 +286,34 @@ class ActionController
         game.log.info "Mouse click at world: #{mwc.x},#{mwc.y}"
         game.pick_game_element},
       
-      KeyActions::RIGHT => lambda { |game, arg| game.player.turn(game.turn_speed) },
-      KeyActions::LEFT  => lambda { |game, arg| game.player.turn(-game.turn_speed) },
+      KeyActions::RIGHT => lambda { |game, arg|
+        d = game.turn_speed
+        d *= game.speed_factor if game.input_controller.speed_up_key_down?
+        d /= game.speed_factor if game.input_controller.speed_down_key_down?
+        game.player.turn(d)
+      },
+      KeyActions::LEFT  => lambda { |game, arg|
+        d = game.turn_speed
+        d *= game.speed_factor if game.input_controller.speed_up_key_down?
+        d /= game.speed_factor if game.input_controller.speed_down_key_down?
+        game.player.turn(-d)
+      },
       KeyActions::UP    => lambda { |game, arg| 
         game.animation_controller.animation_index_by_entity_and_name(game.player, game.player.main_animation_name).needs_update = true
         game.sound_controller.play_singleton_effect(game.player.footsteps_effect_name)
-        game.player.move_forward(game.movement_distance) },
+        d = game.movement_distance
+        d *= game.speed_factor if game.input_controller.speed_up_key_down?
+        d /= game.speed_factor if game.input_controller.speed_down_key_down?
+        game.player.move_forward(d)
+      },
       KeyActions::DOWN  => lambda { |game, arg|
         game.animation_controller.animation_index_by_entity_and_name(game.player, game.player.main_animation_name).needs_update = true
         game.sound_controller.play_singleton_effect(game.player.footsteps_effect_name)
-        game.player.move_forward(-game.movement_distance) },
+        d = game.movement_distance
+        d *= game.speed_factor if game.input_controller.speed_up_key_down?
+        d /= game.speed_factor if game.input_controller.speed_down_key_down?
+        game.player.move_forward(-d)
+      },
       #TODO need a way to let the weapon determine the length of the delay
       KeyActions::FIRE  => delaying(KeyActions::FIRE) {|game,arg| game.player.use_weapon},
     }

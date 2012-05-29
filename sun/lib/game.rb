@@ -89,7 +89,7 @@ class Game
   REQUIRED_ATTRIBUTES = [:player, :clock, :hud, :screen, :level, :collisions, :main_menu_name, :mouse_drawn,
     :active, :new_game_level, :menu_for_load_game, :game_load_path, :over, :game_over_menu,
     :menu_for_save_game, :log, :menu_for_equipment, :save_slots, :health_display_threshold, :game_over_level,
-    :player_damage_mask, :player_bullet]
+    :player_damage_mask, :player_bullet, :speed_factor]
   OPTIONAL_ATTRIBUTES = [:temporary_message, :old_level_name, :wayfinding ]
   ATTRIBUTES = REQUIRED_ATTRIBUTES + OPTIONAL_ATTRIBUTES + GAME_CONSTRUCTED
 
@@ -142,6 +142,7 @@ class Game
     @save_slots = [1,2,3,4,5,6]
     @menu_for_equipment = GameMenu::EQUIPMENT
     @health_display_threshold = 30
+    @speed_factor = 1.75
     @game_load_path = "UNSET"
     @player_bullet = dependencies['player_bullet']
     @player_damage_mask = dependencies['player_damage_mask']

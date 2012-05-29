@@ -11,6 +11,11 @@ input_config:
     Graphics::KbQ: KeyActions::QUIT
     Graphics::KbO: KeyActions::INTERACT
     Graphics::KbT: KeyActions::TARGETTING
+    Graphics::KbLeftShift: KeyActions::SPEED_DOWN
+    Graphics::KbRightShift: KeyActions::SPEED_DOWN
+    Graphics::KbLeftAlt: KeyActions::SPEED_UP
+    Graphics::KbRightAlt: KeyActions::SPEED_UP
+
   gamepad_config:
     Graphics::GpLeft: KeyActions::LEFT
     Graphics::GpRight: KeyActions::RIGHT
