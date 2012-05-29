@@ -28,13 +28,13 @@ line_segments:
 event_areas:
   - top_left: [ 612, 387 ]
     bottom_right: [ 724, 484 ]
-    action: LOAD_LEVEL
-    action_argument: "game-data/levels/h_level_3_equip/h_level_3_equip.yml"
+    action: noop
+    action_argument: "?"
     info_window:
       description:
-        - not ready
+        - CONSTRUCTION AREA!!!
       position: [ 498, 355 ]
-      size: [ 195, 398 ]
+      size: [ 250, 398 ]
 
   - top_left: [ 39, 378 ]
     bottom_right: [ 179, 425 ]
@@ -45,3 +45,53 @@ event_areas:
         - back to reward level.
       position: [ 12, 454 ]
       size: [ 195, 500 ]
+
+  - top_left: [ 344, 59 ]
+    bottom_right: [ 458, 152 ]
+    action: noop
+    action_argument: "?"
+    info_window:
+      description:
+        - Change Head Gear.
+      position: [ 495, 40 ]
+      size: [ 195, 86 ]
+
+  - top_left: [ 243, 163 ]
+    bottom_right: [ 550, 337 ]
+    action: noop
+    action_argument: "?"
+    info_window:
+      description:
+        - Change Body Gear.
+      position: [ 40, 170 ]
+      size: [ 195, 216 ]
+
+  - top_left: [ 311, 349 ]
+    bottom_right: [ 491, 526 ]
+    action: noop
+    action_argument: "?"
+    info_window:
+      description:
+        - Change Leg Gear.
+      position: [ 311, 540 ]
+      size: [ 195, 586 ]
+
+  - top_left: [ 240, 349 ]
+    bottom_right: [ 290, 526 ]
+    action: noop
+    action_argument: "?"
+    info_window:
+      description:
+        - Change Weapon.
+      position: [ 12, 454 ]
+      size: [ 195, 500 ]
+
+  - top_left: [ 560, 241 ]
+    bottom_right: [ 617, 345 ]
+    action: noop
+    action_argument: "?"
+    info_window:
+      description:
+        - Change Off Hand.
+      position: [ 565, 170 ]
+      size: [ 195, 216 ]
