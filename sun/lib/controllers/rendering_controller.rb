@@ -94,6 +94,7 @@ module Views
     def call(screen, tr)
       pos = game.camera.screen_coordinates_for(tr.position)
       w = tr.radius
+      game.font_controller.draw_with_font("#{tr.entity.last_damage}", pos.x - w, pos.y - (w + 20), ZOrder.hud.value)
       darken_screen(game, pos.x - w, pos.x + w, pos.y - w, pos.y + w, transparent_red, ZOrder.hud.value)
     end
   end

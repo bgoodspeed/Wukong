@@ -31,7 +31,8 @@ class Targetable
   end
 
   def hit_odds_for_target
-    @odds_calculator.odds_for_distance_and_threshold(distance_to_target, @game.player.accuracy)
+    acc = @game.player.effective_accuracy
+    @odds_calculator.odds_for_distance_and_threshold(distance_to_target, acc)
   end
 end
 

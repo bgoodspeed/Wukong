@@ -2,6 +2,7 @@ When /^I add a temporary rendering mock with type "([^"]*)" and duration (\d+)$/
   rendering_mock = Mocha::Mock.new("renderable mock")
   rendering_mock.stubs(:position).returns(GVector.xy(42, 42))
   rendering_mock.stubs(:radius).returns(10)
+  rendering_mock.stubs(:last_damage).returns(5)
   @game.rendering_controller.add_consumable_rendering(rendering_mock, eval(type), duration.to_i)
 end
 

@@ -9,6 +9,7 @@ player:
   stats:
     health: 1000
     max_health: 1000
+    accuracy: 250
   position: [ 320, 240 ]
   menu_action_delay: 12
   weapon_yaml: game-data/equipment/gun.yml

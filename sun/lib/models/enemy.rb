@@ -5,7 +5,7 @@ class Enemy
   ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction,
                 :image_file, :direction, :animation_name, :animation_path, :damage_sound_effect_name
   ]
-  NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range, :inventory]
+  NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range, :inventory, :last_damage]
   (ATTRIBUTES + NON_YAML_ATTRIBUTES).each {|attr| attr_accessor attr }
 
   extend YamlHelper

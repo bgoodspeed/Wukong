@@ -27,7 +27,7 @@ Feature: Targetting
     And the player should be at position 36,36
     Then the game property "targetting_controller.target_list.first.vector_to_target" should be "GVector.xy( -11, -11 )"
     Then the game property "targetting_controller.target_list.first.distance_to_target" should be approximately "15.556"
-    Then the game property "targetting_controller.target_list.first.hit_odds_for_target" should be approximately "97"
+    Then the game property "targetting_controller.target_list.first.hit_odds_for_target" should be approximately "98"
 
   Scenario: Hit Odd Calculation
     Given I create an odds calculator
