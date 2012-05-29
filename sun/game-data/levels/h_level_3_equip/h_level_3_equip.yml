@@ -2,12 +2,9 @@ name: h_level_3_equip
 background_image: game-data/levels/inventory/inventory.png
 background_music: game-data/music/crappypiano.wav
 heads_up_display: game-data/hud/hud_config_empty.yml
-player_start_position: [ 200, 260 ]
-
 player_start_position: [ 100, 300 ]
 
 measurements: [ 800, 600 ]
-
 line_segments:
   - start_x: 0
     start_y: 0
@@ -25,6 +22,7 @@ line_segments:
     start_y: 600
     end_x: 800
     end_y: 600
+
 event_areas:
   - top_left: [ 612, 387 ]
     bottom_right: [ 724, 484 ]
