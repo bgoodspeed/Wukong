@@ -15,7 +15,8 @@ module Health
     [(from.effective_stats.strength - effective_stats.defense) + 1, 0].max
   end
   def take_damage(from)
-    @stats.health -= calculate_damage(from)
+    @last_damage = calculate_damage(from)
+    @stats.health -= @last_damage
     if dead?
       @game.add_event(Event.new(self, EventTypes::DEATH))
     end
