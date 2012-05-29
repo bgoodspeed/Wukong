@@ -31,9 +31,16 @@ When /^I queue an attack on the current target$/ do
 end
 
 When /^I invoke the current attack queue$/ do
-  @game.targetting_controller.invoke_action_queue
+  @attack_queue_results = @game.targetting_controller.invoke_action_queue
 end
 
 When /^I stub hit odds for all targets to be (\d+) percent$/ do |arg1|
   HitOddsCalculator.any_instance.stubs(:odds_for_distance_and_threshold).returns arg1.to_i
+end
+
+
+Then /^the attack queue results should contain "([^"]*)" for enemy named "([^"]*)"$/ do |expected, name|
+  matching = @attack_queue_results.select {|arr| arr[0].target.name ==  name }
+  matching.should_not be_empty
+  matching.first[1].should == eval(expected)
 end

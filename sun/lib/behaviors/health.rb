@@ -20,6 +20,7 @@ module Health
     if dead?
       @game.add_event(Event.new(self, EventTypes::DEATH))
     end
+    @last_damage
   end
   
 end

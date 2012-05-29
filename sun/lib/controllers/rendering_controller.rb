@@ -98,6 +98,15 @@ module Views
       darken_screen(game, pos.x - w, pos.x + w, pos.y - w, pos.y + w, transparent_red, ZOrder.hud.value)
     end
   end
+  class TargetMissRenderingView < BaseView
+    def call(screen, tr)
+      pos = game.camera.screen_coordinates_for(tr.position)
+      w = tr.radius
+      game.font_controller.draw_with_font("missed", pos.x - w, pos.y - (w + 20), ZOrder.hud.value)
+      darken_screen(game, pos.x - w, pos.x + w, pos.y - w, pos.y + w, transparent_red, ZOrder.hud.value)
+    end
+  end
+
   class PlayerHealthRenderingView < BaseView
     def call(screen, tr)
       img = game.image_controller.lookup_image(game.player_damage_mask)
@@ -118,6 +127,14 @@ module Views
   end
   class TargettingRenderingView < BaseView
     def call(game, tr)
+
+      ### energy and queue cost hud
+      energy_msg = "Energy: #{game.player.energy_points}/#{game.player.max_energy_points}"
+      queue_msg = "Queue Cost: #{game.targetting_controller.action_queue_cost}"
+
+      game.font_controller.draw_with_font(energy_msg, game.screen.width - 150, 0, ZOrder.hud.value)
+      game.font_controller.draw_with_font(queue_msg, game.screen.width - 150, 20, ZOrder.hud.value)
+
 
       ### enemy highlight
       target = tr.entity.current_target
@@ -167,6 +184,7 @@ end
 
 module RenderingTypes
   TARGET_DAMAGE = "RENDER_TARGET_DAMAGE"
+  TARGET_MISS = "RENDER_TARGET_MISS"
   PLAYER_HEALTH = "RENDER_PLAYER_HEALTH"
   FADE_IN_LEVEL = "RENDER_LEVEL_FADE"
   INFO_WINDOW = "RENDER_INFO_WINDOW"
@@ -213,6 +231,7 @@ class RenderingController
                VectorFollower => Views::VectorFollowerView.new(@game),
               RenderingTypes::TARGETTING => Views::TargettingRenderingView.new(@game),
               RenderingTypes::TARGET_DAMAGE => Views::TargetDamageRenderingView.new(@game),
+              RenderingTypes::TARGET_MISS => Views::TargetMissRenderingView.new(@game),
               RenderingTypes::PLAYER_HEALTH => Views::PlayerHealthRenderingView.new(@game),
               RenderingTypes::FADE_IN_LEVEL => Views::FadeInLevelRenderingView.new(@game),
               RenderingTypes::INFO_WINDOW => Views::InfoWindowView.new(@game),

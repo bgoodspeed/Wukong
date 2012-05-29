@@ -211,10 +211,29 @@ class ActionController
         game.targetting_controller.target_list = nil
         game.exit_targetting
       },
-      KeyActions::LEFT    => delaying(KeyActions::LEFT)  {|game,arg| game.targetting_controller.move_to_next_lower },
-      KeyActions::DOWN    => delaying(KeyActions::DOWN)  {|game,arg| game.targetting_controller.move_to_next_lower },
-      KeyActions::RIGHT   => delaying(KeyActions::RIGHT) {|game,arg| game.targetting_controller.move_to_next_higher },
-      KeyActions::UP      => delaying(KeyActions::UP)    {|game,arg| game.targetting_controller.move_to_next_higher },
+      KeyActions::INTERACT => delaying(KeyActions::INTERACT) {|game,arg|
+        if game.targetting_controller.queue_attack_on_current
+          game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "Targetted.","temporary_message=", nil, 60 ))
+        else
+          game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "Not enough energy points","temporary_message=", nil, 60 ))
+        end
+
+      },
+      KeyActions::FIRE     => delaying(KeyActions::FIRE)     {|game,arg|
+
+        results = game.targetting_controller.invoke_action_queue
+        results.each do |result|
+          if result[1] =~ /miss/
+            game.rendering_controller.add_consumable_rendering(result[0].target, RenderingTypes::TARGET_MISS, 10)
+          else
+            game.rendering_controller.add_consumable_rendering(result[0].target, RenderingTypes::TARGET_DAMAGE, 10)
+          end
+        end
+      },
+      KeyActions::LEFT     => delaying(KeyActions::LEFT)     {|game,arg| game.targetting_controller.move_to_next_lower },
+      KeyActions::DOWN     => delaying(KeyActions::DOWN)     {|game,arg| game.targetting_controller.move_to_next_lower },
+      KeyActions::RIGHT    => delaying(KeyActions::RIGHT)    {|game,arg| game.targetting_controller.move_to_next_higher },
+      KeyActions::UP       => delaying(KeyActions::UP)       {|game,arg| game.targetting_controller.move_to_next_higher },
   }
   end
 

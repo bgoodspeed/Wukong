@@ -78,16 +78,17 @@ class TargettingController
 
   def invoke_action_queue
     @game.player.energy_points -= action_queue_cost
-    @action_queue.each do |target|
+    results = @action_queue.collect do |target|
       odds = target.hit_odds_for_target
       if rand(100) > odds
-        puts "missed"
+        [target, "miss"]
       else
-        target.target.take_damage(@game.player)
+        [target, target.target.take_damage(@game.player)]
       end
     end
 
     @action_queue = []
     @active = false
+    results
   end
 end
