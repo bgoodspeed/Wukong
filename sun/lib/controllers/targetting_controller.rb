@@ -37,13 +37,15 @@ class Targetable
 end
 
 class TargettingController
-  attr_accessor :active, :target_distance_threshold, :target_index, :target_list
+  attr_accessor :active, :target_distance_threshold, :target_index, :target_list, :action_queue
   def initialize(game)
     @game = game
     @active = false
     @target_list = nil
     @target_distance_threshold = 400
+    @action_energy_cost = 100
     @target_index = 0
+    @action_queue = []
   end
 
   def move_to_next_lower
@@ -53,6 +55,16 @@ class TargettingController
     @target_index = (@target_index + 1) % target_list.size
   end
 
+
+  def action_queue_cost
+    @action_queue.size * @action_energy_cost
+  end
+  def queue_attack_on_current
+    new_cost = action_queue_cost + @action_energy_cost
+    return false if new_cost > @game.player.energy_points
+    @action_queue << current_target
+    true
+  end
   def current_target
     target_list[@target_index]
   end
@@ -62,5 +74,20 @@ class TargettingController
     #TODO maybe we also want destructables to go here
     @target_list = @game.level.targettable_enemies.collect {|e| Targetable.new(@game, e)}
     @target_list
+  end
+
+  def invoke_action_queue
+    @game.player.energy_points -= action_queue_cost
+    @action_queue.each do |target|
+      odds = target.hit_odds_for_target
+      if rand(100) > odds
+        puts "missed"
+      else
+        target.target.take_damage(@game.player)
+      end
+    end
+
+    @action_queue = []
+    @active = false
   end
 end

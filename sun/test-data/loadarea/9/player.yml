@@ -20,6 +20,8 @@ player:
   animation_name: main_player_anim
   footsteps_effect_name: footsteps
   damage_sound_effect_name: !!null 
+  max_energy_points: 1000
+  energy_points: 0
   stats:
     strength: 10
     defense: 5

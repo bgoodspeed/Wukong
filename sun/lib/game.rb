@@ -221,6 +221,7 @@ class Game
     return if @targetting_controller.active
     @path_following_controller.tick
 
+    @player.tick
     @level.tick
     @collisions = @level.check_for_collisions
     @collision_response_controller.handle_collisions(@collisions)

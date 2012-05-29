@@ -147,3 +147,17 @@ end
 Then /^the enemy should not be valid$/ do
   @enemy.valid?.should_not be(ValidationHelper::Validation::VALID)
 end
+
+def first_enemy_named(enemy_name)
+  enemies = @game.level.enemies.select {|e| e.name == enemy_name}
+  enemies.should_not be_empty
+  enemies.first
+end
+
+Then /^the enemy named "([^"]*)" should have "([^"]*)" equal to "([^"]*)"$/ do |enemy_name, property, value|
+  first_enemy_named(enemy_name).send(property).should == eval(value)
+end
+
+And /^I set the property "([^"]*)" to "([^"]*)" on enemy named "([^"]*)"$/ do |property, value, enemy_name|
+  first_enemy_named(enemy_name).send("#{property}=", eval(value))
+end

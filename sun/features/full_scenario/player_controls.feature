@@ -260,4 +260,16 @@ Feature: Player Controls
     And I run the game loop 1 times
     Then the game property "targetting_controller.active" should be "false"
 
+  Scenario: Mapping Interact
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I set the player health to 3000
+    And I add an enemy from "enemy.yml"
+    And I add an enemy from "enemy2.yml"
+    And I add an enemy from "enemy3.yml"
+    When I press "Targetting"
+    And I update the game state
+    Then the game property "targetting_controller.target_index" should be "0"
+    When I press "Right"
+    And I update the game state
+    Then the game property "targetting_controller.target_index" should be "1"
 

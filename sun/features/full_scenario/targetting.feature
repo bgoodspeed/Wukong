@@ -70,5 +70,49 @@ Feature: Targetting
     Then the game property "targetting_controller.target_index" should be "1"
     Then the game property "targetting_controller.current_target.target.name" should be "'Test Enemy2'"
 
+  Scenario: Energy Points Distributed to Player on Game Tick
+    Given I load the game "demo"
+    Then the game property "player.energy_points" should be "0"
+    When I set the player max energy points to 3
+    When I run the game loop 3 times
+    Then the game property "player.energy_points" should be "3"
+    When I run the game loop 3 times
+    Then the game property "player.energy_points" should be "3"
 
-
+  Scenario: Targetting Controller Target List - Action Queue
+    Given I load the game "demo"
+    And I add an enemy from "enemy.yml"
+    And I add an enemy from "enemy2.yml"
+    And I set the property "position" to "GVector.xy(100,100)" on enemy named "Test Enemy"
+    And I set the property "position" to "GVector.xy(100,100)" on enemy named "Test Enemy2"
+    Then the enemy named "Test Enemy" should have "health" equal to "15"
+    Then the enemy named "Test Enemy2" should have "health" equal to "15"
+    When I set the player max energy points to 200
+    When I set the player energy points to 200
+    And I set the player position to 80,80
+    And I stub hit odds for all targets to be 100 percent
+    Then the game property "targetting_controller.action_queue.size" should be "0"
+    When I enter targetting mode
+    Then the game property "targetting_controller.current_target.target.name" should be "'Test Enemy'"
+    Then the game property "targetting_controller.current_target.hit_odds_for_target" should be "100"
+    When I queue an attack on the current target
+    Then the game property "targetting_controller.action_queue.size" should be "1"
+    Then the game property "player.energy_points" should be "200"
+    Then the game property "targetting_controller.action_queue_cost" should be "100"
+    When I move to the next higher target
+    Then the game property "targetting_controller.current_target.target.name" should be "'Test Enemy2'"
+    Then the game property "targetting_controller.current_target.hit_odds_for_target" should be "100"
+    When I queue an attack on the current target
+    Then the game property "targetting_controller.action_queue.size" should be "2"
+    Then the game property "player.energy_points" should be "200"
+    Then the game property "targetting_controller.action_queue_cost" should be "200"
+    When I queue an attack on the current target
+    Then the game property "targetting_controller.action_queue.size" should be "2"
+    Then the game property "player.energy_points" should be "200"
+    Then the game property "targetting_controller.action_queue_cost" should be "200"
+    When I invoke the current attack queue
+    Then the game property "targetting_controller.action_queue.size" should be "0"
+    Then the game property "player.energy_points" should be "0"
+    Then the game property "targetting_controller.active" should be "false"
+    Then the enemy named "Test Enemy" should have "health" equal to "9"
+    Then the enemy named "Test Enemy2" should have "health" equal to "9"

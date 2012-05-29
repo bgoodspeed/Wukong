@@ -10,7 +10,10 @@ class Player
 
   YAML_ATTRIBUTES = [:step_size, :position, :direction, :turn_speed, :movement_distance, :menu_action_delay,
     :enemies_killed, :image_path, :collision_priority, :base_accuracy,   :animation_width, :animation_height,
-    :image_file, :animation_path,  :main_animation_name, :animation_name, :footsteps_effect_name, :damage_sound_effect_name]
+    :image_file, :animation_path,  :main_animation_name, :animation_name, :footsteps_effect_name, :damage_sound_effect_name,
+    :max_energy_points, :energy_points
+
+  ]
   NON_YAML_ATTRIBUTES = [:inventory, :avatar, :is_moving, :animation_name,:animation_paths_by_name, :radius, :last_damage]
 
   ATTRIBUTES = YAML_ATTRIBUTES + NON_YAML_ATTRIBUTES
@@ -37,6 +40,8 @@ class Player
       'menu_action_delay' => 4,
       'enemies_killed' => 0,
       'movement_distance' => 1,
+      'energy_points' => 0,
+      'max_energy_points' => 1000,
       'base_accuracy' => 100,
       'collision_priority' => CollisionPriority::MID,
       'stats' => {
@@ -76,6 +81,11 @@ class Player
     @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
     process_attributes(YAML_ATTRIBUTES, self, conf, {:position => Finalizers::GVectorFinalizer.new} )
     @required_attributes = (YAML_ATTRIBUTES - [:animation_path, :damage_sound_effect_name, :image_path, :image_file]) + [:inventory, :radius, :animation_name]
+  end
+
+  def tick
+    @energy_points += 1
+    @energy_points = [@energy_points, @max_energy_points].min
   end
 
   def effective_stats
