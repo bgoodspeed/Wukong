@@ -39,14 +39,14 @@ class Weapon
 
   def use
     @current_frame = 0
-    p = @game.player
+    owner = @equipped_on
     if @type == "swung"
       te = TimedEvent.new("noop", nil, "stop_weapon", @equipped_on, @swing_frames)
       @game.clock.enqueue_event("stop_swing", te)
       @game.level.add_weapon(self)
 
     else
-      @game.add_projectile(@equipped_on, p.position, p.direction, @velocity)
+      @game.add_projectile(@equipped_on, owner.position, owner.direction, @velocity)
     end
 
     @game.play_effect(@sound_effect_name)

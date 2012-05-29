@@ -187,7 +187,7 @@ class Game
   def remove_projectile(projectile)
     @path_following_controller.remove_projectile(projectile)
     @level.remove_projectile(projectile)
-    @player.inactivate_weapon
+    projectile.owner.inactivate_weapon
   end
 
   def draw

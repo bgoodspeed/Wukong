@@ -27,7 +27,8 @@ Then /^there should be no projectiles$/ do
 end
 
 Then /^there should be projectiles at:$/ do |table|
-  projectiles = @path_controller.vector_following
+  pm = @path_controller ? @path_controller : @game.path_following_controller
+  projectiles = pm.vector_following
   currents = projectiles.collect{|p| p.current_position}
   table.map_column!("expected_position") {|vs| to_vector(vs)}
 

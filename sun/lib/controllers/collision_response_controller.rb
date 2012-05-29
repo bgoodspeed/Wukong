@@ -12,6 +12,8 @@ module ResponseTypes
   REMOVING2 = :removing2
   DAMAGING1 = :damaging1
   DAMAGING2 = :damaging2
+  DAMAGING_SHOWING_AND_REMOVING1 = :damaging_showing_and_removing1
+  DAMAGING_SHOWING_AND_REMOVING2 = :damaging_showing_and_removing2
   SHOW_DAMAGE1 = :show_damage1
   CHECK_HEALTH1 = :check_health1
   SHOW_DAMAGE2 = :show_damage2
@@ -62,7 +64,7 @@ class CollisionResponseController
       },
       "Enemy" => {
         "Enemy" => [],
-        "VectorFollower" => [ResponseTypes::DAMAGING1, ResponseTypes::REMOVING2, ResponseTypes::SHOW_DAMAGE1],
+        "VectorFollower" => [ResponseTypes::DAMAGING_SHOWING_AND_REMOVING1],
         "LineSegment" => [ResponseTypes::BLOCKING1],
         "MouseCollisionWrapper" => [ResponseTypes::MOUSE_PICK1],
         "Weapon" => [ResponseTypes::DAMAGING1],
@@ -79,7 +81,7 @@ class CollisionResponseController
       "Player" => {
         "LineSegment" => [ResponseTypes::BLOCKING1],
         "PickupItem" => [ResponseTypes::TAKE_INVENTORY2],
-        "VectorFollower" => [], #TODO unrealistic
+        "VectorFollower" => [ResponseTypes::DAMAGING_SHOWING_AND_REMOVING1], #TODO unrealistic
         "EventArea" => [ResponseTypes::SHOW_INFO_WINDOW2],
         "Enemy" => [
             ResponseTypes::DAMAGING1, ResponseTypes::DAMAGING2, ResponseTypes::BLOCKING1, ResponseTypes::SHOW_DAMAGE1,

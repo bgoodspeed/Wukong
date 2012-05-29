@@ -12,7 +12,7 @@ collision_response:
     "LineOfSightQuery": [ block_line_of_sight2 ]
   "Enemy":
     "Enemy": [ ]
-    "VectorFollower": [ damaging1, removing2, temporary_message1, show_damage1 ]
+    "VectorFollower": [ damaging_showing_and_removing1,  temporary_message1 ]
     "LineSegment": [ blocking1 ]
     "MouseCollisionWrapper": [ mouse_pick1 ]
     "Weapon": [ damaging1 ]
@@ -25,7 +25,7 @@ collision_response:
   "Player":
     "PickupItem": [ take_inventory2]
     "LineSegment": [ blocking1 ]
-    "VectorFollower": []
+    "VectorFollower": [ damaging_showing_and_removing1 ]
     "Enemy": [ damaging1, damaging2, blocking1, show_damage1, show_damage2, blocking2 ]
     "EventEmitter": [ trigger_event2 ]
     "EventArea": [ show_info_window2 ]

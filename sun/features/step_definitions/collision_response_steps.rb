@@ -28,7 +28,7 @@ Then /^the collision responses should be:$/ do |table|
   table.hashes.each {|hash|
     expected = hash['collision_response_type']
 
-    response_types.should be_include(expected)
+    response_types.should be_include(expected), "Expected #{expected} to be in #{response_types}"
   }
 end
 

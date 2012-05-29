@@ -27,10 +27,17 @@ Feature: Collision Response
     And I create a collision responder
     When a collision occurs between type "Enemy" and type "VectorFollower"
     Then the collision responses should be:
-        | collision_response_type |
-        | damaging1               |
-        | removing2               |
-        
+        | collision_response_type         |
+        | damaging_showing_and_removing1 |
+
+  Scenario: Collision Response Projectile VS Player
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a collision responder
+    When a collision occurs between type "Player" and type "VectorFollower"
+    Then the collision responses should be:
+        | collision_response_type         |
+        | damaging_showing_and_removing1 |
+
   Scenario: Collision Response Linesegment Enemy
     Given I load the game on level "trivial" with screen size 640, 480
     And I create a collision responder
@@ -61,8 +68,7 @@ Feature: Collision Response
     When a collision occurs between type "Enemy" and type "VectorFollower"
     Then the collision responses should be:
         | collision_response_type |
-        | removing2               |
-        | temporary_message1      |
+        | damaging_showing_and_removing1 |
 
   Scenario: Collision Response Messaging
     Given I load the game on level "trivial" with screen size 640, 480

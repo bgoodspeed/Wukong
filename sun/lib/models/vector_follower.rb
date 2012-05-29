@@ -2,7 +2,7 @@
 # and open the template in the editor.
 
 class VectorFollower
-  attr_reader :vector, :velocity, :collision_priority, :current_step
+  attr_reader :vector, :velocity, :collision_priority, :current_step, :owner
   def initialize(start, vector, velocity, owner)
     @owner = owner
     @start = start

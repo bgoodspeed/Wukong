@@ -124,17 +124,48 @@ class Enemy
     rv
   end
 
+  def in_wait_state?
+    @artificial_intelligence.current_state.to_s =~ /wait/
+  end
   def in_chase_state?
     @artificial_intelligence.current_state.to_s =~ /chase/
   end
+  def in_attack_state?
+    @artificial_intelligence.current_state.to_s =~ /attack/
+  end
+
+  def weapon_ready?
+    @inventory and @inventory.weapon
+  end
+
+  def time_since_last_shot_sufficient?
+    return true if @last_shot_time.nil?
+    (@game.clock.frames_rendered - @last_shot_time) > 30 #TODO hardcoded, should be in yaml
+  end
+
+
+  def try_attack
+    return unless weapon_ready?
+    if time_since_last_shot_sufficient?
+      @inventory.weapon.use
+      @last_shot_time = @game.clock.frames_rendered
+    end
+
+  end
+
+  def inactivate_weapon
+    @inventory.weapon.inactivate
+  end
   def tick_tracking(vector)
-    return unless in_chase_state?
+    @direction = (@base_direction + angle_for(vector)) % 360.0
+    return if in_wait_state?
+    return try_attack if in_attack_state?
+
 
     @game.animation_controller.animation_index_by_entity_and_name(self, animation_name).needs_update = true
     tmp_s = GVector.xy(0,0) #NOTE temporary vector allocation
     vector.scale(tmp_s, @velocity)
     @last_move = tmp_s
-    @direction = (@base_direction + angle_for(vector)) % 360.0
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     @position.plus(tmp, @last_move)
     @position = tmp
