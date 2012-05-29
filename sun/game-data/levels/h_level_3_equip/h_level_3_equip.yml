@@ -2,7 +2,7 @@ name: h_level_3_equip
 background_image: game-data/levels/inventory/inventory.png
 background_music: game-data/music/crappypiano.wav
 heads_up_display: game-data/hud/hud_config_empty.yml
-player_start_position: [ 320, 240 ]
+player_start_position: [ 200, 260 ]
 
 player_start_position: [ 100, 300 ]
 
