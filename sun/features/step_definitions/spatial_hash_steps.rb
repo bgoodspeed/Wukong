@@ -40,14 +40,15 @@ end
 
 
 Then /^the cell coordinate for vertex (\d+),(\d+) is (\d+),(\d+)$/ do |vx, vy, i, j|
-  rv = @spatial_hash.cell_index_for(GVector.xy(vx.to_i,vy.to_i))
-  rv.x.should be_near(i.to_f)
-  rv.y.should be_near(j.to_f)
+  rvx = @spatial_hash.cell_x_index_for(vx.to_i)
+  rvy = @spatial_hash.cell_y_index_for(vy.to_i)
+  rvx.should be_near(i.to_f)
+  rvy.should be_near(j.to_f)
 end
 
 
 Then /^the hash for (\d+),(\d+) should be (\d+)$/ do |i,j,hash|
-  rv = @spatial_hash.spatial_hash(GVector.xy(i.to_i, j.to_i))
+  rv = @spatial_hash.spatial_hash(i.to_i, j.to_i, @spatial_hash.x_prime, @spatial_hash.y_prime, @spatial_hash.base_table_size)
   rv.should == hash.to_i
 end
 

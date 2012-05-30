@@ -131,7 +131,7 @@ static VALUE vector_plus(VALUE self, VALUE dest, VALUE other) {
     Data_Get_Struct(other, ANSIVector, v2 );
     Data_Get_Struct(dest, ANSIVector, rv );
     av_plus(rv, v1, v2);
-    return rv;
+    return dest;
 }
 static VALUE vector_minus(VALUE self, VALUE dest, VALUE other) {
     ANSIVector *v1;
@@ -142,7 +142,7 @@ static VALUE vector_minus(VALUE self, VALUE dest, VALUE other) {
     Data_Get_Struct(dest, ANSIVector, rv );
 
     av_minus(rv, v1, v2);
-    return rv;
+    return dest;
 }
 static VALUE vector_scale(VALUE self, VALUE dest, VALUE scale) {
     ANSIVector *v;
@@ -151,7 +151,7 @@ static VALUE vector_scale(VALUE self, VALUE dest, VALUE scale) {
     Data_Get_Struct(dest, ANSIVector, rv );
 
     av_scale(rv, v, NUM2DBL(scale));
-    return rv;
+    return dest;
 }
 static VALUE vector_distance_from(VALUE self, VALUE other) {
     ANSIVector *v1;
@@ -181,7 +181,7 @@ static VALUE vector_unit(VALUE self, VALUE dest) {
 
     av_scale(rv, v, scale_factor);
 
-    return  rv;
+    return  dest;
 }
 static VALUE vector_dot(VALUE self, VALUE other) {
     ANSIVector *v1;
