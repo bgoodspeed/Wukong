@@ -128,6 +128,33 @@ Feature: Targetting
     Then the game property "player.energy_points" should be "200"
     Then the game property "targetting_controller.action_queue_cost" should be "200"
 
+  Scenario: Targetting Controller Target List - Action Queue Removal
+    Given I load the game "demo"
+    And I add an enemy from "enemy.yml"
+    And I add an enemy from "enemy2.yml"
+    When I set the player max energy points to 200
+    When I set the player energy points to 200
+    And I set the player position to 80,80
+    Then the game property "targetting_controller.action_queue.size" should be "0"
+    When I enter targetting mode
+    Then the game property "targetting_controller.current_target.target.name" should be "'Test Enemy'"
+    When I queue an attack on the current target
+    Then the game property "targetting_controller.action_queue.size" should be "1"
+    Then the game property "targetting_controller.action_queue.first.target.name" should be "'Test Enemy'"
+    Then the game property "player.energy_points" should be "200"
+    Then the game property "targetting_controller.action_queue_cost" should be "100"
+    When I move to the next higher target
+    Then the game property "targetting_controller.current_target.target.name" should be "'Test Enemy2'"
+    When I queue an attack on the current target
+    Then the game property "targetting_controller.action_queue.size" should be "2"
+    Then the game property "targetting_controller.action_queue.last.target.name" should be "'Test Enemy2'"
+    Then the game property "player.energy_points" should be "200"
+    Then the game property "targetting_controller.action_queue_cost" should be "200"
+    When I cancel the last attack
+    Then the game property "targetting_controller.action_queue.size" should be "1"
+    Then the game property "targetting_controller.action_queue.first.target.name" should be "'Test Enemy'"
+
+
   Scenario: Targetting Controller Target List - Action Queue Misses
     Given I load the game "demo"
     And I add an enemy from "enemy.yml"

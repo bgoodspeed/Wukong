@@ -64,3 +64,15 @@ Feature: Inventory
     When the player acquires the enemy inventory
     Then the player inventory filtered by "InventoryTypes::WEAPON" should have size 1
 
+  Scenario: Player Inventory Armor Equipping
+    Given I load the game "demo_inventory_larger"
+    Then the game property "inventory_controller.items.size" should be "5"
+    When the player takes reward "test-data/equipment/armor.yml"
+    Then the player stats should have property "defense" equal to "5"
+    Then the equipment stats should have property "defense" equal to "0"
+    Then the effective player stats should have property "defense" equal to "5"
+    When the player equips the armor "test-data/equipment/armor.yml"
+    Then the player inventory armor should not be nil
+    Then the player stats should have property "defense" equal to "5"
+    Then the equipment stats should have property "defense" equal to "10"
+    Then the effective player stats should have property "defense" equal to "15"

@@ -44,6 +44,7 @@ module Graphics
   KbLeftAlt = Gosu::KbLeftAlt
   KbRightAlt = Gosu::KbRightAlt
 
+  KbC = Gosu::KbC
   KbM = Gosu::KbM
   KbO = Gosu::KbO
   KbQ = Gosu::KbQ

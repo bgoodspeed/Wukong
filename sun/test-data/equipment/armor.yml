@@ -1,0 +1,5 @@
+armor:
+  display_name: Armor
+  inventory_type: armor_type
+  stats:
+    defense: 10

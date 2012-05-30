@@ -162,6 +162,15 @@ When /^the player equips the weapon "([^"]*)"$/ do |arg1|
   p.equip_weapon(@game.inventory_controller.item_named(arg1))
 end
 
+When /^the player equips the armor "([^"]*)"$/ do |arg1|
+  p.equip_armor(@game.inventory_controller.item_named(arg1))
+end
+
+
+Then /^the player inventory armor should not be nil$/ do
+  p.inventory.armor.should_not be_nil
+end
+
 Then /^the player inventory weapon should not be nil$/ do
   p.inventory.weapon.should_not be_nil
 end

@@ -30,6 +30,11 @@ When /^I queue an attack on the current target$/ do
   @game.targetting_controller.queue_attack_on_current
 end
 
+When /^I cancel the last attack$/ do
+  @game.targetting_controller.cancel_last_attack
+end
+
+
 When /^I invoke the current attack queue$/ do
   @attack_queue_results = @game.targetting_controller.invoke_action_queue
 end

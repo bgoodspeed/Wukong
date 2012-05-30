@@ -7,6 +7,7 @@ input_config:
     Graphics::KbSpace: KeyActions::FIRE
     Graphics::KbEnter: KeyActions::MENU_ENTER
     Graphics::KbReturn: KeyActions::MENU_ENTER
+    Graphics::KbC: KeyActions::CANCEL
     Graphics::KbM: KeyActions::MENU
     Graphics::KbQ: KeyActions::QUIT
     Graphics::KbO: KeyActions::INTERACT

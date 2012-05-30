@@ -136,6 +136,12 @@ class Player
     @animation_paths_by_name[@inventory.weapon.animation_name] = @inventory.weapon.image_path
     @game.animation_controller.register_animation(self, @inventory.weapon.animation_name, @inventory.weapon.image_path, 24, 24, false) #TODO hardcoded values
   end
+  def equip_armor(a)
+    @inventory.armor = a
+    @inventory.armor.equipped_on = self
+    #@animation_paths_by_name[@inventory.weapon.animation_name] = @inventory.weapon.image_path
+    #@game.animation_controller.register_animation(self, @inventory.weapon.animation_name, @inventory.weapon.image_path, 24, 24, false) #TODO hardcoded values
+  end
 
   #TODO need to add in weapon accuracy
   def effective_accuracy
