@@ -2,7 +2,7 @@
 # and open the template in the editor.
 
 class GameBM
-  attr_accessor :game
+  attr_accessor :game, :prof_loops
   def initialize(f, bm="unknown")
     @name = f
     @prof_loops = 1
@@ -54,7 +54,7 @@ class GameBM
     end
   end
   def benchmark_single(n, s = "")
-    Benchmark.bm(3) do |m|
+    Benchmark.bm(5) do |m|
       m.report("#{s} #{n} loops") {  n.times { @game.simulate}}
     end
   end
