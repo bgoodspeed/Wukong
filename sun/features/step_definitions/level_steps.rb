@@ -124,6 +124,12 @@ Then /^the level should have (\d+) dynamic elements$/ do |arg1|
   @level.dynamic_elements.size.should == arg1.to_i
 end
 
+Then /^the level should have a dynamic element with property "([^"]*)" equal to "([^"]*)"$/ do |prop, value|
+  elems = @level.dynamic_elements.select {|de| de.send(prop) == eval(value)}
+
+  elems.should_not be_empty
+end
+
 Given /^I reload the level "([^"]*)"$/ do |arg1|
   @game.load_level("test-data/levels/#{arg1}/#{arg1}.yml")
 end
