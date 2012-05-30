@@ -5,7 +5,7 @@ class Enemy
   ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction,
                 :image_file, :direction, :animation_name, :animation_path, :damage_sound_effect_name
   ]
-  NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range, :inventory, :last_damage]
+  NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range, :inventory, :last_damage, :line_of_sight]
   (ATTRIBUTES + NON_YAML_ATTRIBUTES).each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -54,7 +54,7 @@ class Enemy
     @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
     #TODO this should be a weapon property
     @attack_range = 4
-
+    @line_of_sight = true
 
     @radius = p.max
     @position = p

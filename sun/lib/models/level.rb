@@ -89,9 +89,10 @@ class Level
   end
 
   def targettable_enemies
-    tgts = @enemies.select {|e| e.position.distance_from(@game.player.position) <= @game.targetting_controller.target_distance_threshold}
-
-    tgts
+    tgts = @enemies.select {|e|
+      (e.position.distance_from(@game.player.position) <= @game.targetting_controller.target_distance_threshold) && (e.line_of_sight)
+    }
+    tgts.sort {|e1,e2|  e1.position.distance_from(@game.player.position) <=> e2.position.distance_from(@game.player.position)}
   end
 
   def remove_line_of_sight(los)
@@ -102,6 +103,7 @@ class Level
     #TODO might need to send an enemy lost query here
     @sight_lines.each {|los|
       los.a.trigger_event(:enemy_sighted)
+      los.a.line_of_sight = true
       @dynamic_elements.reject! {|e|los == e}
     }
     @sight_lines = []

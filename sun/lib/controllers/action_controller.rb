@@ -108,6 +108,7 @@ class ActionController
         los = col.dynamic1
         hunter = los.a
         hunter.trigger_event(:enemy_lost)
+        hunter.line_of_sight = false
         game.level.remove_line_of_sight(los)
 
       },
@@ -115,6 +116,7 @@ class ActionController
         los = col.dynamic2
         hunter = los.a
         hunter.trigger_event(:enemy_lost)
+        hunter.line_of_sight = false
         game.level.remove_line_of_sight(los)
 
       },
