@@ -42,6 +42,8 @@ require 'models/stats'
 require 'models/spatial_hash'
 require 'models/inventory'
 require 'models/pickup_item'
+require 'models/progression'
+require 'controllers/progression_controller'
 require 'controllers/inventory_controller'
 require 'controllers/rendering_controller'
 require 'controllers/menu_controller'
@@ -86,7 +88,7 @@ class Game
     :player_loader, :level_loader, :rendering_controller, :path_following_controller, :menu_controller,
     :condition_controller, :completion_controller, :event_controller, :input_controller, :camera,
     :splash_controller, :sound_controller, :save_loader, :font_controller, :inventory_controller,
-    :level_controller, :collision_response_controller, :targetting_controller ]
+    :level_controller, :collision_response_controller, :targetting_controller, :progression_controller ]
   REQUIRED_ATTRIBUTES = [:player, :clock, :hud, :screen, :level, :collisions, :main_menu_name, :mouse_drawn,
     :active, :new_game_level, :menu_for_load_game, :game_load_path, :over, :game_over_menu,
     :menu_for_save_game, :log, :menu_for_equipment, :save_slots, :health_display_threshold, :game_over_level,
