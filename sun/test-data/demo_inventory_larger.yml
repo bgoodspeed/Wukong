@@ -17,3 +17,4 @@ game:
   game_over_level: "test-data/levels/game_over/game_over.yml"
   player_bullet: "test-data/equipment/bullet.png"
   inventory: "test-data/equipment/all_equip_plus_armor.yml"
+  player_reset: "test-data/players/player.yml"

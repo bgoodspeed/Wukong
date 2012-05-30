@@ -16,5 +16,6 @@ game:
   player_damage_mask: "test-data/sprites/player_damage.png"
   game_over_level: "test-data/levels/game_over/game_over.yml"
   player_bullet: "test-data/equipment/bullet.png"
+  player_reset: "test-data/players/player.yml"
   font_config:
     font_size: 18
