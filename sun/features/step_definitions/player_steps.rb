@@ -14,7 +14,7 @@ Given /^I load a player from "([^"]*)"$/ do |file|
 end
 
 Given /^I set the player direction to (\d+)$/ do |dir|
-  @player.direction = dir.to_i
+  the_player.direction = dir.to_i
 end
 Given /^I set the player step size to (\d+)$/ do |step_size|
   @player.step_size = step_size.to_i
