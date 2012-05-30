@@ -146,7 +146,10 @@ Then /^the player should have yaml matching "([^"]*)"$/ do |arg1|
   end
 end
 
-
+Then /^the player inventory item filtered by "([^"]*)" should have property "([^"]*)" equal to "([^"]*)"$/ do |filter, prop, value|
+  item = p.inventory.items_matching(eval(filter)).first
+  invoke_property_string_on(item, prop).should == eval(value)
+end
 
 Then /^the player inventory filtered by "([^"]*)" should have size (\d+)$/ do |filter, arg2|
   p.inventory.items_matching(eval(filter)).size.should == arg2.to_i

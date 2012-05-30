@@ -6,7 +6,8 @@ module EquipmentTypes
 end
 class GameItem
   ATTRIBUTES = [:display_name, :item_type, :item_subtype, :power_level, :inventory_type, :orig_filename]
-  ATTRIBUTES.each {|at| attr_accessor at }
+  EXTRAS = [ :stats ]
+  (ATTRIBUTES + EXTRAS).each {|at| attr_accessor at }
   def initialize(game, conf)
     @game = game
     cf = conf['stats'] ? conf['stats'] : {}

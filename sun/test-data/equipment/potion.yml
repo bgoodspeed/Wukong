@@ -1,3 +1,5 @@
 item:
   display_name: Potion
   inventory_type: potion_type
+  stats:
+    health: 11
