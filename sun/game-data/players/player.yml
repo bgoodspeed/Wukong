@@ -1,7 +1,7 @@
 player:
   image_path: game-data/sprites/player_white_circle.png
-  animation_width: 30
-  animation_height: 30
+  animation_width: 32
+  animation_height: 16
   animation_rate: 5
   menu_action_delay: 2
   movement_distance: 5
