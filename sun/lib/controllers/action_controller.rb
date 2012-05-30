@@ -174,6 +174,7 @@ class ActionController
         enemy.tracking_target = game.player
         game.add_enemy(enemy)
         game.path_following_controller.add_tracking(enemy, game.wayfinding)
+        game.level.spawned_enemies += 1
         }
     }
   end
@@ -254,6 +255,7 @@ class ActionController
         end
         game.rendering_controller.remove_consumable_rendering(game.targetting_controller, RenderingTypes::TARGETTING)
       },
+      KeyActions::CANCEL   => delaying(KeyActions::CANCEL)   {|game,arg| game.targetting_controller.cancel_last_attack },
       KeyActions::LEFT     => delaying(KeyActions::LEFT)     {|game,arg| game.targetting_controller.move_to_next_lower },
       KeyActions::DOWN     => delaying(KeyActions::DOWN)     {|game,arg| game.targetting_controller.move_to_next_lower },
       KeyActions::RIGHT    => delaying(KeyActions::RIGHT)    {|game,arg| game.targetting_controller.move_to_next_higher },

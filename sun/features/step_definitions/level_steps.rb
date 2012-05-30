@@ -107,6 +107,7 @@ Then /^the spawn points should be:$/ do |table|
     points[idx].frequency.to_s.should == hash['frequency'] if hash.has_key?('frequency')
     points[idx].total_time.to_s.should == hash['total_time'] if hash.has_key?('total_time')
     points[idx].condition.to_s.should == hash['condition'] if hash.has_key?('condition')
+    points[idx].condition_argument.to_s.should == hash['condition_argument'] if hash.has_key?('condition_argument')
 
   }
   
@@ -121,6 +122,12 @@ end
 
 Then /^the level should have (\d+) dynamic elements$/ do |arg1|
   @level.dynamic_elements.size.should == arg1.to_i
+end
+
+Then /^the level should have a dynamic element with property "([^"]*)" equal to "([^"]*)"$/ do |prop, value|
+  elems = @level.dynamic_elements.select {|de| de.send(prop) == eval(value)}
+
+  elems.should_not be_empty
 end
 
 Given /^I reload the level "([^"]*)"$/ do |arg1|

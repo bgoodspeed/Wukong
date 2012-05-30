@@ -7,3 +7,5 @@ weapon:
   type: swung
   sound_effect_name: player_weapon_sound
   velocity: 10
+  stats:
+    strength: 17

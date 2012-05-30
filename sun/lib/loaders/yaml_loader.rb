@@ -107,8 +107,24 @@ class InventoryController
     conf['items'].to_a.each do |item|
       obj.register_item(item, YamlLoader.from_file(GameItem, game, item ))
     end
+    conf['armors'].to_a.each do |item|
+      obj.register_item(item, YamlLoader.from_file(Armor, game, item ))
+    end
     #TODO will need armor here as well
     obj
+  end
+
+end
+
+class Armor
+  extend YamlHelper
+
+  #TODO make YAML utils and pass attributes
+  def self.from_yaml(game, yaml, f=nil)
+    data = YAML.load(yaml)
+    conf = data['armor']
+    obj = self.new(game, conf)
+    process_attributes(ATTRIBUTES, obj, conf)
   end
 
 end

@@ -10,6 +10,7 @@ module KeyActions
   INTERACT = "Interact"
   TARGETTING = "Targetting"
   EXIT_TARGETTING = "ExitTargetting"
+  CANCEL = "Cancel"
   SPEED_UP = "SpeedUp"
   SPEED_DOWN = "SpeedDown"
   QUIT = "Quit"
@@ -39,6 +40,7 @@ class InputController
       Graphics::KbM => KeyActions::MENU,
       Graphics::KbO => KeyActions::INTERACT,
       Graphics::KbQ => KeyActions::QUIT,
+      Graphics::KbC => KeyActions::CANCEL,
       Graphics::KbT => KeyActions::TARGETTING,
       Graphics::KbRightAlt => KeyActions::SPEED_UP,
       Graphics::KbLeftAlt => KeyActions::SPEED_UP,

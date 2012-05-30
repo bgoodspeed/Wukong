@@ -9,15 +9,18 @@ end
 
 class Inventory
   attr_reader :items
-  attr_accessor :weapon
+  attr_accessor :weapon, :armor
   def initialize(game, owner)
     @game, @owner = game, owner
     @items = {}
     @weapon = nil
+    @armor = nil
   end
   def equipped_stats
     #TODO will need to track more than just weapons
-    @weapon.nil? ? Stats.zero : @weapon.stats
+    w = @weapon.nil? ? Stats.zero : @weapon.stats
+    a = @armor.nil? ? Stats.zero : @armor.stats
+    w.plus_stats(a)
   end
 
   def items_matching(filter)

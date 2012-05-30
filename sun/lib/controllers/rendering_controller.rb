@@ -127,7 +127,7 @@ module Views
   end
   class TargettingRenderingView < BaseView
     def call(game, tr)
-
+      return unless game.targetting_controller.active
       ### energy and queue cost hud
       energy_msg = "Energy: #{game.player.energy_points}/#{game.player.max_energy_points}"
       queue_msg = "Queue Cost: #{game.targetting_controller.action_queue_cost}"

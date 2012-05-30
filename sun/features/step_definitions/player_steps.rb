@@ -14,7 +14,7 @@ Given /^I load a player from "([^"]*)"$/ do |file|
 end
 
 Given /^I set the player direction to (\d+)$/ do |dir|
-  @player.direction = dir.to_i
+  the_player.direction = dir.to_i
 end
 Given /^I set the player step size to (\d+)$/ do |step_size|
   @player.step_size = step_size.to_i
@@ -146,7 +146,10 @@ Then /^the player should have yaml matching "([^"]*)"$/ do |arg1|
   end
 end
 
-
+Then /^the player inventory item filtered by "([^"]*)" should have property "([^"]*)" equal to "([^"]*)"$/ do |filter, prop, value|
+  item = p.inventory.items_matching(eval(filter)).first
+  invoke_property_string_on(item, prop).should == eval(value)
+end
 
 Then /^the player inventory filtered by "([^"]*)" should have size (\d+)$/ do |filter, arg2|
   p.inventory.items_matching(eval(filter)).size.should == arg2.to_i
@@ -160,6 +163,15 @@ end
 
 When /^the player equips the weapon "([^"]*)"$/ do |arg1|
   p.equip_weapon(@game.inventory_controller.item_named(arg1))
+end
+
+When /^the player equips the armor "([^"]*)"$/ do |arg1|
+  p.equip_armor(@game.inventory_controller.item_named(arg1))
+end
+
+
+Then /^the player inventory armor should not be nil$/ do
+  p.inventory.armor.should_not be_nil
 end
 
 Then /^the player inventory weapon should not be nil$/ do

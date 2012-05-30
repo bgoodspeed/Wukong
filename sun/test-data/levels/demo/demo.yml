@@ -19,7 +19,7 @@ spawn_points:
     spawn_argument: [ e1 ]
   - point: [ 100, 100 ]
     name: hundredhundred
-    spawn_schedule: 1 enemies every 5 ticks for 0 total ticks until COND
+    spawn_schedule: 1 enemies every 5 ticks for 0 total ticks until COND 12
     spawn_argument: [ e2, e3 ]
 line_segments:
   - start_x: 0

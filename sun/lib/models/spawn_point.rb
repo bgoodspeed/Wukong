@@ -1,5 +1,5 @@
 class SpawnPoint
-  attr_reader :enemy_quantity, :frequency, :total_time, :condition, :start_time
+  attr_reader :enemy_quantity, :frequency, :total_time, :condition, :condition_argument, :start_time
   ATTRIBUTES = [:point, :name, :spawn_schedule, :spawn_argument]
   ATTRIBUTES.each {|attribute| attr_accessor attribute }
   include YamlHelper
@@ -18,10 +18,11 @@ class SpawnPoint
     @total_time = d["tt"].to_i
     @total_time = nil if @total_time == 0
     @start_time = 0
-    cond = /until (?<cnd>\w+)/
+    cond = /until (?<cnd>\w+)\s*(?<cnda>\d*)/
     if s =~ cond
       c = cond.match(s)
       @condition = c['cnd']
+      @condition_argument = c['cnda']
     end
     start_time_frag = /after (?<st>\d+) ticks/
     if s =~ start_time_frag
@@ -45,7 +46,11 @@ class SpawnPoint
   end
   def stopped_by_cond?
     return false if @condition.nil?
-    @game.condition_controller.condition_met?(@condition)
+    if @condition_argument.nil?
+      @game.condition_controller.condition_met?(@condition)
+    else
+      @game.condition_controller.condition_met?(@condition, @condition_argument)
+    end
   end
 
   def enqueue_events

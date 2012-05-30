@@ -36,6 +36,10 @@ class Weapon
   end
   
 
+  def effective_stats
+    @stats
+  end
+
 
   def use
     @current_frame = 0

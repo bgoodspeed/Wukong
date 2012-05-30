@@ -147,6 +147,12 @@ Feature: Player Controls
     And I update the key state
     And the following keys should be active: "Targetting"
 
+  Scenario: Mapping C to cancel
+    Given I load the game on level "trivial" with screen size 640, 480
+    When I simulate "Graphics::KbC"
+    And I update the key state
+    And the following keys should be active: "Cancel"
+
   Scenario: Mapping targetting to activate targetting mode - no enemies
     Given I load the game on level "trivial" with screen size 640, 480
     Then the game property "level.enemies.size" should be "0"
@@ -260,7 +266,7 @@ Feature: Player Controls
     And I run the game loop 1 times
     Then the game property "targetting_controller.active" should be "false"
 
-  Scenario: Mapping Interact To Queue Target
+  Scenario: Mapping Interact To Queue Target And Cancel to Cancel last Attack
     Given I load the game on level "trivial" with screen size 640, 480
     When I set the player max energy points to 200
     When I set the player energy points to 200
@@ -273,6 +279,9 @@ Feature: Player Controls
     When I press "Interact"
     And I update the game state
     Then the game property "targetting_controller.action_queue.size" should be "1"
+    When I press "Cancel"
+    And I update the game state
+    Then the game property "targetting_controller.action_queue.size" should be "0"
 
   Scenario: Mapping Interact To Queue Target
     Given I load the game on level "trivial" with screen size 640, 480

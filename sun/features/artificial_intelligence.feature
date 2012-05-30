@@ -62,4 +62,22 @@ Feature: AI Details
       | expected_position |
       | 118.675,106.026   |
 
+  Scenario: AI Enemy Attack Swung Weapon
+    Given I load the game on level "simple" with screen size 640, 480
+    And I add an enemy from "enemy_ai_weapon_swung.yml"
+    And I set the property "attack_range" to "600" on enemy named "Test AI Enemy Weapon"
+    And I set the property "position" to "GVector.xy(125,125)" on enemy named "Test AI Enemy Weapon"
+    And I set the enemy health to 20000
+    And I set the player health to 20000
+    When I see the first frame
+    Then there should be 1 enemies
+    Given I tell the enemy to track the player
+    Given I register the enemy in the path following controller using wayfinding
+    Then the game property "player.position.x" should be "36"
+    Then the game property "player.position.y" should be "36"
+    Then the level should have 2 dynamic elements
+    When I run the game loop 1 times
+    Then the game property "level.enemies.first.artificial_intelligence.current_state" should be ":attack"
+    Then the level should have 4 dynamic elements
+    Then the level should have a dynamic element with property "class" equal to "Weapon"
 

@@ -83,3 +83,21 @@ Feature: Player Details
     | property            |
     | menu_action_delay |
     | direction          |
+
+
+  Scenario: Player Swung Weapon Usage
+    Given I load the game "new_game_with_swung"
+    Given I set the player position to 100,100
+    Given I set the player direction to 0
+    Given I set the player health to 100
+    Given I add an enemy from "enemy.yml"
+    Given I set the enemy position 100,60
+    Given I set the enemy health to 100
+    When I run the game loop 1 times
+    Then the player health should be 100
+    Then the enemy health should be 100
+    When I use the weapon
+    When I run the game loop 1 times
+    Then the player health should be 100
+    Then the enemy health should be 87
+    #NOTE effective stats is queried on weapon because the weapon is inserted into the scene as a collision volume, might need to delegate to @equipped_on?

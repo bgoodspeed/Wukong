@@ -59,6 +59,11 @@ class TargettingController
   def action_queue_cost
     @action_queue.size * @action_energy_cost
   end
+
+  def cancel_last_attack
+    @action_queue.delete_at(@action_queue.size - 1)
+  end
+
   def queue_attack_on_current
     new_cost = action_queue_cost + @action_energy_cost
     return false if new_cost > @game.player.energy_points

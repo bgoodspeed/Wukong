@@ -1,0 +1,25 @@
+enemy:
+  name: Test AI Enemy Weapon
+  image_path: test-data/sprites/enemy1.png
+  inventory_file: test-data/enemies/one_item_inventory.yml
+  weapon: test-data/equipment/weapon_swung.yml
+  base_direction: 90
+  artificial_intelligence:
+    strategy:
+      start_state: wait
+      states:
+        - wait:
+          - enemy_sighted: chase
+          - enemy_too_far: wait
+          - enemy_lost: wait
+          - enemy_in_range: attack
+        - chase:
+          - enemy_in_range: attack
+          - enemy_lost: wait
+          - enemy_too_far: chase
+          - enemy_sighted: chase
+        - attack:
+          - enemy_too_far: chase
+          - enemy_lost: wait
+          - enemy_sighted: attack
+          - enemy_in_range: attack
