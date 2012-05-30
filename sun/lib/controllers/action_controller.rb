@@ -16,6 +16,7 @@ module BehaviorTypes
   EQUIP_ITEM = "equip_item"
   DEBUG_PRINT = "debug_print"
   NOOP = "noop"
+  RESET_PLAYER_AND_LOAD_LEVEL = "reset_player_and_load_level"
 end
 
 class ActionController
@@ -159,6 +160,12 @@ class ActionController
         game.old_level_name = game.level.orig_filename
         game.load_level(e.argument)
 
+      },
+      BehaviorTypes::RESET_PLAYER_AND_LOAD_LEVEL => lambda { |game, e|
+        player = YamlLoader.from_file(Player, game, game.player_reset)
+        game.set_player player
+        game.old_level_name = game.level.orig_filename
+        game.load_level(e.argument)
       },
       EventTypes::START_NEW_GAME => lambda { |game, e| game.load_level(e.argument)},
       EventTypes::PICK => lambda {|game,e| game.log.warn "TODO: In Action Controller: must implement what to do when #{e.argument}"},

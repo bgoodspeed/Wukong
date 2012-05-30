@@ -51,7 +51,7 @@ class GameLoader
 
   def self.attributes
     [
-      'new_game_level', 'game_load_path', 'menu_for_equipment', 'player_damage_mask', 'player_bullet', 'game_over_level'
+      'new_game_level', 'game_load_path', 'menu_for_equipment', 'player_damage_mask', 'player_bullet', 'game_over_level', 'player_reset'
     ]
   end
   extend ValidationHelper

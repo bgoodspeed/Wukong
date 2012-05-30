@@ -20,3 +20,4 @@ game:
   player_damage_mask: "game-data/sprites/player_damage.png"
   game_over_level: "game-data/levels/game_over/game_over.yml"
   player_bullet: "game-data/equipment/bullet.png"
+  player_reset: "game-data/players/player.yml"

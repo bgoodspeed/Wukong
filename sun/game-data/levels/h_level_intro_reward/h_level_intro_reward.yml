@@ -32,7 +32,7 @@ event_areas:
     action: noop
     info_window:
       description:
-        - "Fragger, ''You are nothing! You will never be able to suceed!"
+        - "Fragger, ''You are nothing! You will never be able to succeed!"
         -
         - "                Might as well quit now and end your miserable existence!"
         -
@@ -49,7 +49,7 @@ event_areas:
         -
         - "         I could with the Kernel copy. It's not perfect but it's a start."
         -
-        - "         The world won't look the same and your current phsyical being "
+        - "         The world won't look the same and your current physical being "
         -
         - "         won't last. Once you continue on from here you'll deteriorate to"
         -
@@ -68,11 +68,11 @@ event_areas:
 
   - top_left: [ 494, 60 ]
     bottom_right: [ 751, 215 ]
-    action: LOAD_LEVEL
+    action: reset_player_and_load_level
     action_argument: "game-data/levels/h_level_1/h_level_1.yml"
     info_window:
       description:
-        - "Your real adventure beggins!"
+        - "Your real adventure begins!"
         -
         - "Destroy your them and take"
         -
