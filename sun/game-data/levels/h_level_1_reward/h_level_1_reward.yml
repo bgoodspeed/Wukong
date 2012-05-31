@@ -24,15 +24,18 @@ line_segments:
     start_y: 600
     end_x: 800
     end_y: 600
+
 event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
-    action: take_reward
+    action: upgrade_player
+    action_argument: "game-data/sprites/enemy1.png"
     info_window:
       description:
         - Install upgrade.
       position: [ 103, 355 ]
       size: [ 195, 398 ]
+
   - top_left: [ 535, 121 ]
     bottom_right: [ 675, 165 ]
     action: queue_load_game_event
@@ -41,6 +44,7 @@ event_areas:
         - Load saved games.
       position: [ 505, 196 ]
       size: [ 195, 240 ]
+
   - top_left: [ 131, 120 ]
     bottom_right: [ 272, 167 ]
     action: queue_save_game_event
@@ -49,6 +53,7 @@ event_areas:
         - Save your progress.
       position: [ 103, 196 ]
       size: [ 195, 240 ]
+
   - top_left: [ 528, 420 ]
     bottom_right: [ 667, 466 ]
     action: LOAD_LEVEL

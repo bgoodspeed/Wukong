@@ -76,8 +76,8 @@ event_areas:
 
   - top_left: [ 240, 349 ]
     bottom_right: [ 290, 526 ]
-    action: noop
-    action_argument: "?"
+    action: equipment_menu
+    action_argument: weapon
     info_window:
       description:
         - Change Weapon.
