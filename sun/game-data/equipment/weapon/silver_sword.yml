@@ -9,6 +9,6 @@ weapon:
 animations:
   - animation_name: silver_sword
     animation_file: game-data/equipment/weapon/silver_sword.png
-    animation_width: 70
-    animation_height: 70
-    animation_position: [ 100 , 100 ]
+    animation_width: 51
+    animation_height: 178
+    animation_position: [ 240 , 349 ]
