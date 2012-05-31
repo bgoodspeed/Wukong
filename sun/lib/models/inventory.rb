@@ -43,7 +43,17 @@ class Inventory
     @items[item] += n
   end
 
+  def remove_item(item, n=1)
+    @items[item] -= n
+    @items.delete(item) if @items[item] <= 0 #TODO this should not be necessary, clients should only passknown good quantities
 
+
+  end
+
+  def combine_items(item_sink, item_source)
+    item_sink.stats = item_sink.stats.plus_stats(item_source.stats)
+    remove_item(item_source)
+  end
   def to_yaml
     cf = []
     @items.each {|item,quantity|

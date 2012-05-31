@@ -150,7 +150,8 @@ end
 
 def first_enemy_named(enemy_name)
   enemies = @game.level.enemies.select {|e| e.name == enemy_name}
-  enemies.should_not be_empty
+  names = @game.level.enemies.collect {|e| e.name }
+  enemies.should_not be_empty, "No enemies named :#{enemy_name}, we have #{names}"
   enemies.first
 end
 

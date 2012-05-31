@@ -148,8 +148,8 @@ class ActionController
           game.over = true
           game.load_level(game.game_over_level)
         else
-          game.player.enemy_killed
           enemy = e.argument
+          game.player.enemy_killed(enemy)
           game.remove_enemy(enemy)
           game.level.add_pickup_item(PickupItem.new(game, enemy.inventory, enemy.position)) if !enemy.inventory_empty?
 

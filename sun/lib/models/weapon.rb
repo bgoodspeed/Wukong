@@ -7,7 +7,7 @@ class Weapon
   ]
   ATTRIBUTES.each {|attr| attr_accessor attr }
   attr_accessor :in_use
-  attr_reader :inventory_type, :stats
+  attr_accessor :inventory_type, :stats
   extend YamlHelper
 
   alias_method :display_text, :display_name

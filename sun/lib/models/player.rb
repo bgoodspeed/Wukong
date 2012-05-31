@@ -197,7 +197,9 @@ class Player
     @inventory.add_item(item)
   end
 
-  def enemy_killed
+  def enemy_killed(enemy)
+    v = enemy.upgrade_point_value
+    add_upgrade_points(v)
     @enemies_killed += 1
   end
 
