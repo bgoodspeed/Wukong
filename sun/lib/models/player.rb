@@ -47,6 +47,9 @@ class Player
       'stats' => {
           'health' => 10,
           'max_health' => 15,
+      },
+      'progression' => {
+          'upgrade_points' => 0
       }
 
     }
@@ -76,11 +79,21 @@ class Player
     @radius = [@avatar.width/2.0, @avatar.height/2.0].max
 
     @last_distance = nil
-    cf = conf['stats'] ? conf['stats'] : {}
-    @stats = Stats.new(cf)
+    scf = conf['stats'] ? conf['stats'] : {}
+    @stats = Stats.new(scf)
+    pcf = conf['progression'] ? conf['progression'] : {}
+    @progression = Progression.new(pcf)
     @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
     process_attributes(YAML_ATTRIBUTES, self, conf, {:position => Finalizers::GVectorFinalizer.new} )
     @required_attributes = (YAML_ATTRIBUTES - [:animation_path, :damage_sound_effect_name, :image_path, :image_file]) + [:inventory, :radius, :animation_name]
+  end
+
+  def upgrade_points
+    @progression.upgrade_points
+  end
+
+  def add_upgrade_points(n)
+    @progression.upgrade_points += n
   end
 
   def tick
