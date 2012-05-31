@@ -24,7 +24,7 @@ class Level
   ARRAY_ATTRIBUTES = [:enemies, :measurements, :line_segments, :triangles,
     :circles, :rectangles, :dynamic_elements, :enemies, :event_emitters,
     :spawn_points, :ored_completion_conditions, :anded_completion_conditions,
-    :event_areas, :animations, :sight_lines
+    :event_areas, :animations, :sight_lines, :equipment_renderables
     ]
   HASH_ATTRIBUTES = [
     :declared_enemies,
@@ -86,6 +86,10 @@ class Level
   end
   def add_declared_enemy(n,e)
     @declared_enemies[n] = e
+  end
+
+  def add_equipment_renderable(er)
+    @equipment_renderables << er
   end
 
   def targettable_enemies

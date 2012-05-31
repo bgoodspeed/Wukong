@@ -44,6 +44,7 @@ Feature: Game
     And the event areas should be:
         | label                 | action                      | action_argument      |
         | Equip Weapon         | equipment_menu             | weapon                |
+    And the game property "level.equipment_renderables.size" should be "2"
 
   Scenario: Multiple Event Areas
     Given I load the game "multiple_event_area_actions"

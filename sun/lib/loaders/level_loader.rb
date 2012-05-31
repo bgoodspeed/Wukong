@@ -30,6 +30,7 @@ class LevelLoader
         "event_emitters" => ArrayFinalizers::EventEmitters.new(@game, @which_level),
         "ored_completion_conditions" => ArrayFinalizers::OredCompletionConditions.new(@game, @which_level),
         "anded_completion_conditions" => ArrayFinalizers::AndedCompletionConditions.new(@game, @which_level),
+        "equipment_renderables" => ArrayFinalizers::EquipmentRenderables.new(@game, @which_level),
     }
 
     yaml_finalizers = {

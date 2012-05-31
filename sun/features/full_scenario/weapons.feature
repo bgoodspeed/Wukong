@@ -53,4 +53,17 @@ Feature: Weapons
     When I use the weapon
     And I run the game loop 1 times
     Then the weapon should not be in use
-    
+
+
+  Scenario: Weapons in YAML Equipment Image
+    Given I load the game on level "equip" with screen size 640, 480
+    And I create an animation controller with a ratio of one animation tick to 1 game ticks
+    And I create a sound controller
+    And I set the player avatar to "avatar.bmp"
+    And I add a sound effect from "weapon.wav" called "player_weapon_sound"
+    And I load and equip the weapon defined in "weapon_equipment_image.yml"
+    Then the game property "player.inventory.weapon.equipment_image_path" should be "'test-data/equipment/weapon.png'"
+    When I use the weapon
+    And I run the game loop 1 times
+    Then the weapon should be in use and on frame 1
+
