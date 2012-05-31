@@ -13,7 +13,9 @@ end
 When /^the agent in the scene is at (\d+),(\d+)$/ do |x,y|
   @agent_position = GVector.xy(x.to_f, y.to_f)
 end
-
+When /^I set the wayfinding close enough threshold to (\d+)$/ do |arg1|
+  @way_finding.close_enough_threshold= arg1.to_i
+end
 Then /^the nearest point should be at (\d+),(\d+)$/ do |x,y|
   np = @way_finding.nearest_point(@agent_position)
   np.should be_within_epsilon_of(GVector.xy(x.to_f,y.to_f))

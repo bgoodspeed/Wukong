@@ -192,12 +192,24 @@ static VALUE vector_dot(VALUE self, VALUE other) {
     return  rb_float_new(av_dot(v1, v2));
 }
 static VALUE rb_cGVector;
+static VALUE rb_cSpatialHash;
 
 static VALUE vector_gvxy(VALUE self, VALUE x, VALUE y) {
     VALUE vector = allocate_vector(rb_cGVector);
     return vector_initialize(vector, x, y);
 }
 
+static int sh_spatial_hash(int x,int y, int x_prime, int y_prime, int base_table_size) {
+    // TODO could unroll this exponentiation because it is modular
+    int p = (x_prime * x) ^ (y_prime * y);
+    int bt = base_table_size;
+    int rv = p % bt;
+    return  rv;
+}
+static VALUE rb_sh_spatial_hash(VALUE self, VALUE x,VALUE y, VALUE x_prime, VALUE y_prime, VALUE base_table_size) {
+
+    return INT2NUM(sh_spatial_hash(NUM2INT(x),NUM2INT(y), NUM2INT(x_prime), NUM2INT(y_prime), NUM2INT(base_table_size)));
+}
 
 void Init_haligonia() {
 
@@ -220,6 +232,8 @@ void Init_haligonia() {
     rb_define_method(rb_cGVector, "dot", vector_dot, 1);
     rb_define_singleton_method(rb_cGVector, "xy", vector_gvxy, 2);
 
+    rb_cSpatialHash = rb_define_class("SpatialHash", rb_cObject);
+    rb_define_method(rb_cSpatialHash, "spatial_hash", rb_sh_spatial_hash, 5);
 
 }
 

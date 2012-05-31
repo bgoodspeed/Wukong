@@ -178,3 +178,16 @@ Feature: Wayfinding Details
     When the agent in the scene is at 11,11
     Then the nearest point should be at 9,10
     And the best point for target 10,10 should be undefined
+
+  Scenario: Wayfinding A-Star Algorithm Wayfinding Abandoning Track For Direct 2
+    Given I load wayfinding layer "wayfinding/wayfinding2.yml"
+    When the agent in the scene is at 2,4
+    Then the nearest point should be at 1,4
+    And the best point for target 7,4 should be at 8,4
+
+  Scenario: Wayfinding A-Star Algorithm Wayfinding Abandoning Track For Direct 3
+    Given I load wayfinding layer "wayfinding/wayfinding2.yml"
+    When I set the wayfinding close enough threshold to 0
+    When the agent in the scene is at 2,4
+    Then the nearest point should be at 1,4
+    And the best point for target 7,4 should be at 4,4

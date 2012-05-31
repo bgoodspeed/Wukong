@@ -1,6 +1,6 @@
 
 class WayfindingGraph
-  attr_accessor :nodes
+  attr_accessor :nodes, :close_enough_threshold
   def initialize()
     @nodes = {}
     @edge_weights = {}
@@ -31,21 +31,23 @@ class WayfindingGraph
   end
 
   def best_point(position, target)
-    pn = closest_node_to(position)
-    tn = closest_node_to(target)
+    target_dist = position.distance_from(target)
+    closer = @nodes.select {|k| @nodes[k].distance_from(target) <  target_dist }
+    pn = closest_node_to(position, closer)
+    tn = closest_node_to(target, closer)
 #    current_dist = position.distance_from(target)
 #    return nil if current_dist < @close_enough_threshold
-
+    return nil if pn.nil? or tn.nil?
     path = a_star(pn, tn)
 #    nil if path.empty?
     pt = @nodes[path.first]
-    pt = @nodes[1] if pt.distance_from(position) < @close_enough_threshold
+    pt = @nodes[path[1]] if pt.distance_from(position) < @close_enough_threshold
     pt
 
   end
-  def closest_node_to(position)
-    nodes = @nodes.keys.sort{|n1, n2| @nodes[n1].distance_from(position) <=> @nodes[n2].distance_from(position)}
-    nodes.first
+  def closest_node_to(position, nodes=@nodes)
+    ns = nodes.keys.sort{|n1, n2| nodes[n1].distance_from(position) <=> nodes[n2].distance_from(position)}
+    ns.first
   end
 
   def neighbors_for(name)
@@ -53,7 +55,9 @@ class WayfindingGraph
   end
 
   def heuristic(start, goal)
-    @nodes[start].distance_from(@nodes[goal])
+    sn = @nodes[start]
+    gn = @nodes[goal]
+    sn.distance_from(gn)
   end
 
   def open_node_with_lowest_fscore(open_set, f_score)

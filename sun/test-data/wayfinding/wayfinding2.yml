@@ -1,0 +1,12 @@
+layer:
+  nodes:
+    - name: a
+      position: [ 1, 4 ]
+    - name: b
+      position: [ 4, 4 ]
+    - name: c
+      position: [ 8, 4 ]
+  edges:
+    a: [ b ]
+    b: [ c ]
+    c: [ ]
