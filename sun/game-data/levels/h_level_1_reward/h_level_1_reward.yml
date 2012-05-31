@@ -29,7 +29,11 @@ event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
     action: upgrade_player
-    action_argument: "game-data/sprites/enemy1.png"
+    action_argument:
+      animation_file: game-data/sprites/enemy1.png
+      animation_width: 50
+      animation_height: 50
+      animation_rate: 5
     info_window:
       description:
         - Install upgrade.
