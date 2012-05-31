@@ -104,7 +104,7 @@ Feature: Enemy Built
     Then the game property "level.enemies.first.artificial_intelligence.class" should be "ArtificialIntelligence"
 
   Scenario: Inventory Enemy
-    Given I load the game on level "trivial" with screen size 640, 480
+    Given I load the game "demo_inventory"
     And I add an enemy from "enemy_inventory.yml"
     When I see the first frame
     Then there should be 1 enemies
@@ -112,7 +112,7 @@ Feature: Enemy Built
     Then the game property "level.enemies.first.inventory.weapon.nil?" should be "true"
 
   Scenario: Inventory Enemy Equipped
-    Given I load the game on level "trivial" with screen size 640, 480
+    Given I load the game "demo_inventory"
     And I add an enemy from "enemy_inventory_equipped.yml"
     When I see the first frame
     Then there should be 1 enemies

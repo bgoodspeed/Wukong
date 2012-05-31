@@ -84,3 +84,8 @@ end
 And /^I set the stat "([^"]*)" on "([^"]*)" to "([^"]*)"$/ do |stat, which_stats_object, value|
   @all_stats[which_stats_object].send("#{stat}=", eval(value))
 end
+
+
+Then /^the inventory hash of stats "([^"]*)" should be "([^"]*)"$/ do |which_stats_object, value|
+  @all_stats[which_stats_object].inventory_hash.to_s.should == value
+end

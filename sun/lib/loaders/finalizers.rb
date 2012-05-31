@@ -29,6 +29,12 @@ module ArrayFinalizers
       level.add_declared_enemy(e['name'], enemy)
     end
   end
+  class EquipmentRenderables < BaseFinalizer
+    def call(level, data, erc)
+      er = EquipmentRenderable.new(erc)
+      level.add_equipment_renderable(er)
+    end
+  end
   class OredCompletionConditions < BaseFinalizer
     def call(level, data, cc)
       c = CompletionCondition.new(cc)

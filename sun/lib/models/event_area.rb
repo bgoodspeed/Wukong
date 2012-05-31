@@ -3,7 +3,7 @@
 class EventArea
   #TODO use ATTRIBUTES and process with yaml as usual
   REQUIRED_ATTRIBUTES = [:rect, :action]
-  YAML_ATTRIBUTES = REQUIRED_ATTRIBUTES + [:label, :action_argument,  :required_attributes]
+  YAML_ATTRIBUTES = REQUIRED_ATTRIBUTES + [:label, :action_argument,  :required_attributes, :extra_actions ]
   ATTRIBUTES = [:info_window ]
 
   (ATTRIBUTES + YAML_ATTRIBUTES).each {|attribute| attr_accessor attribute }
@@ -20,6 +20,7 @@ class EventArea
   def initialize(game, conf_in)
     conf = self.class.defaults.merge(conf_in)
     @game = game
+    @extra_actions = []
     process_attributes(YAML_ATTRIBUTES, self, conf)
     @info_window = InfoWindow.new(game, conf['info_window'])
     @collision_type = @rect
@@ -43,5 +44,9 @@ class EventArea
     else
       @game.action_controller.invoke(@action)
     end
+
+    @extra_actions.each {|action_conf|
+      @game.action_controller.invoke(action_conf['action'], action_conf['action_argument'])
+    }
   end
 end

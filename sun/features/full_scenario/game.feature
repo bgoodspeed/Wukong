@@ -37,6 +37,35 @@ Feature: Game
         | Save                  | queue_save_game_event       |                      |
         | Load Level            | LOAD_LEVEL                  | some/level.yml       |
 
+  Scenario: Equip Level
+    Given I load the game "equip"
+    When I see the first frame
+    And there should be 2 event areas
+    And the event areas should be:
+        | label                 | action                      | action_argument      |
+        | Equip Weapon         | equipment_menu             | weapon                |
+    And the game property "level.equipment_renderables.size" should be "2"
+
+  Scenario: Multiple Event Areas
+    Given I load the game "multiple_event_area_actions"
+    When I see the first frame
+    And there should be 1 event areas
+    And the event areas should be:
+        | label                 | action                        | action_argument      |
+        | Start New Game       | queue_start_new_game_event |                        |
+    And the game property "level.event_areas.first.extra_actions.size" should be "2"
+
+  Scenario: Multiple Event Areas Invocation
+    Given I load the game "multiple_event_area_actions"
+    And I set the player position to 100,100
+    Then the game property "player.upgrade_points" should be "0"
+    When I simulate "Graphics::KbO"
+    When I run the game loop 1 times
+    Then a "EventTypes::START_NEW_GAME" event should be queued
+    And the game property "player.upgrade_points" should be "77"
+
+
+
   Scenario: New Game Loading Level Invoke Event Area - New Game
     Given I load the game "new_game_load_screen"
     And I set the player position to 100,100

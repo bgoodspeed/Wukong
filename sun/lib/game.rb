@@ -4,7 +4,8 @@
 require "logger"
 require 'statemachine'
 require 'models/collision_priority'
-
+require 'helpers/validation_helper'
+require 'helpers/init_helper'
 begin
   platform = "linux"
   platform = "win" if ENV['OS'] =~ /Windows/ or RUBY_PLATFORM =~ /(win|w)32$/
@@ -17,8 +18,7 @@ rescue Exception => e
   puts "could not load native extensions for platform #{platform}: \n#{e}"
 end
 
-require 'helpers/init_helper'
-require 'helpers/validation_helper'
+
 require 'behaviors/movement_undoable'
 require 'behaviors/health'
 require 'behaviors/collidable'
@@ -36,6 +36,7 @@ require 'models/zorder'
 
 require 'utility/utility_drawing'
 require 'models/menu'
+require 'models/equipment_renderable'
 require 'controllers/event_controller'
 require 'models/spawn_point'
 require 'controllers/image_controller'

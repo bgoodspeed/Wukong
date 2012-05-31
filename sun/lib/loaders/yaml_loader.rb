@@ -77,7 +77,8 @@ class Inventory
       raise "bad inventory yaml " unless hash.size == 1
       item_name =  hash.keys.first
       item_quantity = hash.values.first
-      obj.add_item(game.inventory_controller.item_named(item_name),item_quantity )
+      item = game.inventory_controller.item_named(item_name)
+      obj.add_item(item,item_quantity )
     }
     if conf['weapon']
       obj.weapon = game.inventory_controller.item_named(conf['weapon'])
@@ -209,6 +210,10 @@ class Weapon
     conf = data['weapon']
     obj = self.new(game, nil, conf)
     obj.orig_filename = fn
+
+    game.image_controller.register_image(conf['equipment_image_path']) if conf['equipment_image_path']
+
+
     process_attributes(ATTRIBUTES, obj, conf)
   end
 

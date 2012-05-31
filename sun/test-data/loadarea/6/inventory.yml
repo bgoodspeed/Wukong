@@ -1,4 +1,4 @@
 ---
 inventory:
   items:
-  - test-data/equipment/weapon.yml: 1
+  - test-data/equipment/weapon.yml: !!null 

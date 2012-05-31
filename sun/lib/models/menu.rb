@@ -45,13 +45,6 @@ class Menu
 
 
 
-  def move_down
-    @current_index = (@current_index + 1) % @entries.size
-  end
-  #TODO: Tung's hacking move up in menus
-  def move_up
-    @current_index = (@current_index - 1) % @entries.size
-  end
 
   def add_header(header)
     @headers << header

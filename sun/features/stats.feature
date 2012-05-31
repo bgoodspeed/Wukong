@@ -27,3 +27,14 @@ Feature: Stats
     And I set the stat "defense" on "b" to "5"
     Then the effective damage "a" can do to "b" is "6"
     Then the effective damage "b" can do to "a" is "0"
+
+  Scenario: Stats Hash Equivalence
+    Given I create a stats object called "a"
+    Given I create a stats object called "b"
+    And I set the stat "strength" on "a" to "5"
+    And I set the stat "strength" on "b" to "5"
+    Then the inventory hash of stats "a" should be "5,5,10,12,5,5,"
+    Then the inventory hash of stats "b" should be "5,5,10,12,5,5,"
+    Given I set the stat "strength" on "a" to "99"
+    Then the inventory hash of stats "a" should be "99,5,10,12,5,5,"
+    Then the inventory hash of stats "b" should be "5,5,10,12,5,5,"

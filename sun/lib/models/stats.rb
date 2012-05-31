@@ -35,4 +35,10 @@ class Stats
     rv
   end
 
+  def inventory_hash
+    rv = ""
+    ATTRIBUTES.each {|attr| rv += self.send(attr).to_s + ","}
+    rv
+  end
+
 end

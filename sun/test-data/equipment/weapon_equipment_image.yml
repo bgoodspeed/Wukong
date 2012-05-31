@@ -1,0 +1,10 @@
+weapon:
+  display_name: TestWeaponEquipmentLevelImage
+  swing_start: 0
+  swing_sweep: 0
+  swing_frames: 0
+  image_path: test-data/equipment/weapon.png
+  equipment_image_path: test-data/equipment/weapon.png
+  type: projectile
+  sound_effect_name: player_weapon_sound
+  velocity: 10

@@ -3,7 +3,7 @@ class Enemy
 
   attr_accessor :tracking_target
   ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction,
-                :image_file, :direction, :animation_name, :animation_path, :damage_sound_effect_name
+                :image_file, :direction, :animation_name, :animation_path, :damage_sound_effect_name, :upgrade_point_value
   ]
   NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range, :inventory, :last_damage, :line_of_sight]
   (ATTRIBUTES + NON_YAML_ATTRIBUTES).each {|attr| attr_accessor attr }
@@ -23,6 +23,7 @@ class Enemy
       'animation_width' => 50,
       'animation_height' => 50,
       'animation_rate' => 10,
+      'upgrade_point_value' => 1,
       'velocity' => 5,
       'direction' => 0.0,
       'base_direction' => 0.0,

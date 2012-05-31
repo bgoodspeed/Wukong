@@ -38,3 +38,9 @@ event_areas:
     info_window:
       description:
         - Something
+
+equipment_renderables:
+  - position: [ 100, 200 ]
+    equipment_type: weapon
+  - position: [ 300, 400 ]
+    equipment_type: armor

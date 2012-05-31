@@ -7,6 +7,14 @@ module InventoryTypes
   POTION = "potion_type"
 end
 
+class InventoryItem
+  attr_accessor :quantity, :item
+  def initialize(item)
+    @item = item
+    @quantity = 0
+  end
+end
+
 class Inventory
   attr_reader :items
   attr_accessor :weapon, :armor
@@ -24,27 +32,45 @@ class Inventory
   end
 
   def items_matching(filter)
-    return @items.keys unless filter
+    items = @items.values.collect {|inv_item| inv_item.item}
+    items += [@weapon] if @weapon
+    items += [@armor] if @armor
+    return items unless filter
 
-    @items.keys.select {|item| item.inventory_type == filter}
+    items.select {|item| item.inventory_type == filter}
   end
 
   def add_all(inventory)
-    inventory.items.each {|item, quantity|  add_item(item, quantity.to_i)}
+    inventory.items.each {|key, inv_item|  add_item(inv_item.item, inv_item.quantity)}
   end
 
   def add_item(item, n=1)
-    unless @items.has_key?(item)
-      @items[item] = 0
+    unless @items.has_key?(item.inventory_hash)
+      @items[item.inventory_hash] = InventoryItem.new(item)
     end
-    @items[item] += n
+    @items[item.inventory_hash].quantity += n
   end
 
+  def remove_item(item, n=1)
+    @items[item.inventory_hash].quantity -= n
+    @items.delete(item.inventory_hash) if @items[item.inventory_hash].quantity <= 0 #TODO this should not be necessary, clients should only passknown good quantities
 
+
+  end
+
+  def combine_items(item_sink, item_source)
+    stats = item_sink.stats.plus_stats(item_source.stats)
+    s = item_sink.dup
+    s.stats = stats
+    add_item(s)
+    remove_item(item_sink)
+    remove_item(item_source)
+  end
   def to_yaml
     cf = []
-    @items.each {|item,quantity|
-      cf << {item.orig_filename => quantity }
+    #TODO this will have to handle customized items, perhaps fully re-serialize the items
+    @items.values.each {|item,quantity|
+      cf << {item.item.orig_filename => quantity }
     }
     if @weapon
       mr = {"weapon" => @weapon.orig_filename}

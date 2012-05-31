@@ -77,7 +77,7 @@ event_areas:
   - top_left: [ 240, 349 ]
     bottom_right: [ 290, 526 ]
     action: equipment_menu
-    action_argument: weapon
+    action_argument: weapon_type
     info_window:
       description:
         - Change Weapon.
@@ -93,3 +93,9 @@ event_areas:
         - Change Off Hand.
       position: [ 565, 170 ]
       size: [ 195, 216 ]
+
+equipment_renderables:
+  - position: [ 265, 450 ]
+    equipment_type: weapon
+  - position: [ 400, 250 ]
+    equipment_type: armor

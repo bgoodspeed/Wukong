@@ -3,6 +3,7 @@
 #TODO how to make this configurable? maybe not needed since input->action is configurable
 
 module BehaviorTypes
+  GIVE_UPGRADE_POINTS = "give_upgrade_points"
   QUEUE_NEW_GAME_EVENT = "queue_start_new_game_event"
   QUEUE_LOAD_GAME_EVENT = "queue_load_game_event"
   QUEUE_SAVE_GAME_EVENT = "queue_save_game_event"
@@ -147,8 +148,8 @@ class ActionController
           game.over = true
           game.load_level(game.game_over_level)
         else
-          game.player.enemy_killed
           enemy = e.argument
+          game.player.enemy_killed(enemy)
           game.remove_enemy(enemy)
           game.level.add_pickup_item(PickupItem.new(game, enemy.inventory, enemy.position)) if !enemy.inventory_empty?
 
@@ -206,6 +207,10 @@ class ActionController
         game.player.image_path = arg.argument
         game.player.image_file = arg.argument
 
+      },
+
+      BehaviorTypes::GIVE_UPGRADE_POINTS => lambda {|game, arg|
+        game.player.add_upgrade_points(arg.to_i)
       },
       BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(game.new_game_level, EventTypes::START_NEW_GAME))},
       #TODO figure out which game to load from menu?

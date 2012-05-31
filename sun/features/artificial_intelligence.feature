@@ -44,7 +44,7 @@ Feature: AI Details
     Then the game property "level.enemies.first.artificial_intelligence.current_state" should be ":attack"
 
   Scenario: AI Enemy Attack
-    Given I load the game on level "simple" with screen size 640, 480
+    Given I load the game "demo_inventory"
     And I add an enemy from "enemy_ai_weapon.yml"
     And I set the property "attack_range" to "600" on enemy named "Test AI Enemy Weapon"
     And I set the property "position" to "GVector.xy(125,125)" on enemy named "Test AI Enemy Weapon"
@@ -63,7 +63,7 @@ Feature: AI Details
       | 118.675,106.026   |
 
   Scenario: AI Enemy Attack Swung Weapon
-    Given I load the game on level "simple" with screen size 640, 480
+    Given I load the game "demo_inventory"
     And I add an enemy from "enemy_ai_weapon_swung.yml"
     And I set the property "attack_range" to "600" on enemy named "Test AI Enemy Weapon"
     And I set the property "position" to "GVector.xy(125,125)" on enemy named "Test AI Enemy Weapon"
