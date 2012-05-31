@@ -24,9 +24,12 @@ class Inventory
   end
 
   def items_matching(filter)
-    return @items.keys unless filter
+    items = @items.keys
+    items += [@weapon] if @weapon
+    items += [@armor] if @armor
+    return items unless filter
 
-    @items.keys.select {|item| item.inventory_type == filter}
+    items.select {|item| item.inventory_type == filter}
   end
 
   def add_all(inventory)

@@ -3,6 +3,8 @@ weapon:
   swing_sweep: 0
   swing_frames: 0
   image_path: game-data/equipment/weapon_black2.png
+  equipment_image_path: game-data/equipment/weapon_black2.png
   type: projectile
   sound_effect_name: shoot
   velocity: 16
+

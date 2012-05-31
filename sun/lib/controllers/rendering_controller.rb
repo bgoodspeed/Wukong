@@ -133,7 +133,7 @@ module Views
 
       if eqp
         img = game.image_controller.lookup_image(eqp.equipment_image_path)
-        raise "unregistered image #{eqp.equipment_image_path} for #{eqp}" unless img
+        raise "unregistered image #{eqp.equipment_image_path} for #{eqp} #{eqp.orig_filename}" unless img
         img.draw(cp.x,cp.y, ZOrder.dynamic.value)
       else
         game.font_controller.draw_with_font("#{item.equipment_type} open", cp.x, cp.y, ZOrder.hud.value)
