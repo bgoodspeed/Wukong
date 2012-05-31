@@ -4,4 +4,4 @@ heads_up_display:
   menu_mode: false
   menu_scale: 2
   lines:
-
+    - "{{temporary_message}}"

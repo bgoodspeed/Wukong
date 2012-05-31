@@ -15,7 +15,6 @@ Feature: Action
    | EventTypes::LOAD_LEVEL               | level.name                 | 'load_screen'                          | 'demo'                                         | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
    | EventTypes::LOAD_LEVEL               | old_level_name             | nil                                    | 'test-data/levels/load_screen/load_screen.yml' | argument:test-data/levels/demo/demo.yml         |         | event_actions                |
    | BehaviorTypes::UPGRADE_PLAYER        | player.image_path          | 'test-data/sprites/player20120411.png' | 'test-data/sprites/avatar2.bmp'                | argument:test-data/sprites/avatar2.bmp          |         | always_available_behaviors   |
-   | BehaviorTypes::EQUIPMENT_MENU        | menu_mode?                 | false                                  | true                                           | argument:SOMEEQUIPMENTTYPE                      |         | always_available_behaviors   |
    | EventTypes::PICK                     | nil?                       | false                                  | false                                          | argument:SOMEEQUIPMENTTYPE                      |         |                              |
    | BehaviorTypes::QUEUE_SAVE_GAME_EVENT | menu_mode?                 | false                                  | true                                           |                                                 |         | always_available_behaviors   |
 

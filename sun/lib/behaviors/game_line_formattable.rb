@@ -15,7 +15,7 @@ module GameLineFormattable
   end
 
   def format_line(l, dataholder=nil)
-    line = l.dup
+    line = "#{l}".dup
     tokens = tokens_from_line(line)
 
     tokens.each {|token|

@@ -23,6 +23,9 @@ require 'behaviors/movement_undoable'
 require 'behaviors/health'
 require 'behaviors/collidable'
 require 'behaviors/game_line_formattable'
+require 'behaviors/menu_cursor'
+require 'behaviors/menu_positioned'
+require 'behaviors/menu_images'
 require 'controllers/game_item_controller'
 require 'helpers/yaml_helper'
 require 'utility/graphics'
@@ -281,9 +284,14 @@ class Game
   end
 
   def enter_menu(name=@main_menu_name, filter=nil)
-    @menu_controller.activate(name, filter)
-    @hud.menu_mode = true
-    @hud.swap_copy
+
+    if @menu_controller.activate(name, filter)
+      @hud.menu_mode = true
+      @hud.swap_copy
+    else
+      @clock.enqueue_event("message", TimedEvent.new("temporary_message=", "No lines in menu #{name}. #{filter}" ,"temporary_message=", nil, 60 ))
+    end
+
   end
   
   def exit_menu

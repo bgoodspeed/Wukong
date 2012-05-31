@@ -13,8 +13,16 @@ module GameMenu
 end
 
 class EquipmentMenuItem
-  def initialize(item)
+  def initialize(item, index)
+    @index = index
     @item = item
+  end
+
+  def position
+    nil
+  end
+  def image
+    nil
   end
   def display_text
     @item.display_name
@@ -31,22 +39,39 @@ class EquipmentMenuItem
   end
 end
 class EquipmentMenu
-  attr_accessor :filter, :current_entry_index, :menu_id
+
+  attr_accessor :filter, :current_entry_index, :menu_id, :headers
+  ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width, :header_text, :header_position]
+  ATTRIBUTES.each {|attr| attr_accessor attr}
+
+  alias_method :current_index, :current_entry_index
+  include MenuCursor
+  include MenuPositioned
+  include MenuImages
+
   def initialize(game)
     @game = game
     @filter = nil
     @current_entry_index = 0
     @menu_id = "Equipment Menu"
-
+    @x_spacing = 10
+    @y_spacing = 10
+    @menu_scale = 2
+    @menu_width = 300
+    @headers = []
   end
+
 
   def current_entry
     lines[@current_entry_index]
   end
   def lines
     items = @game.player.inventory.items_matching(@filter)
-    items.collect {|i| EquipmentMenuItem.new(i)}
+    menu_items = []
+    items.each_with_index {|item, index| menu_items << EquipmentMenuItem.new(item, index)}
+    menu_items
   end
+  alias_method :entries, :lines
 end
 
 class MenuController
@@ -117,11 +142,24 @@ class MenuController
     current_menu.move_up
   end
   def activate(name, filter=nil)
+
     @active_menu_name = name
+    cm =  current_menu
+    if !cm
+      @active_menu_name = nil
+      return false
+    end
+    ls = cm.lines
+    if ls.empty?
+      @active_menu_name = nil
+      return false
+    end
     if !filter.nil?
       current_menu.filter = filter
     end
+
     @active = true
+    true
   end
   def inactivate
     @active = false

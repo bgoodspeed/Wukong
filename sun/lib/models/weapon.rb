@@ -8,7 +8,7 @@ class Weapon
   attr_reader :inventory_type, :stats
   extend YamlHelper
 
-
+  alias_method :display_text, :display_name
   def self.defaults
     {
         'stats' => {

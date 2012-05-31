@@ -114,24 +114,27 @@ Feature: Menu
     And I create a menu controller
     When I enter the menu "equipment" with filter "nil"
     Then the game property "player.inventory.items.size" should be "0"
-    Then the game property "menu_controller.current_menu.lines.size" should be "0"
+    Then the game property "menu_mode?" should be "false"
+    Then the game property "temporary_message" should be "'No lines in menu equipment. '"
+    When I run the game loop 1 times
 
 
 
   Scenario: Equipment Menu - Non Empty
     Given I load the game "demo_inventory"
-    When I enter the menu "equipment" with filter "nil"
     When the player takes reward "test-data/equipment/weapon.yml"
+    When I enter the menu "equipment" with filter "nil"
     Then the game property "player.inventory.items.size" should be "1"
     Then the game property "menu_controller.current_menu.lines.size" should be "1"
     Then the current menu entry should have:
       | display_text    | action         | argument                |
       | TestWeaponAlpha | equip_item     | test-data/equipment/weapon.yml |
+    When I run the game loop 1 times
 
   Scenario: Equipment Menu - Invocation
     Given I load the game "demo_inventory"
-    When I enter the menu "equipment" with filter "nil"
     When the player takes reward "test-data/equipment/weapon_swung.yml"
+    When I enter the menu "equipment" with filter "nil"
     Then the game property "player.inventory.items.size" should be "1"
     Then the game property "menu_controller.current_menu.lines.size" should be "1"
     Then the game property "player.inventory.weapon.nil?" should be "true"

@@ -5,3 +5,4 @@ heads_up_display:
   menu_scale: 2
   lines:
     - "Player HP: {{player.health}}/{{player.max_health}}"
+    - "{{temporary_message}}"
