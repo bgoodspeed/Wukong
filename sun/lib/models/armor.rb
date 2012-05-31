@@ -12,4 +12,10 @@ class Armor
     @stats = Stats.new(cf)
   end
 
+  def inventory_hash
+    rv = "#{@display_name}:#{@orig_filename}:#{@stats.inventory_hash}"
+
+    rv
+  end
+
 end
