@@ -135,6 +135,8 @@ Feature: Menu
     Given I load the game "demo_inventory"
     When the player takes reward "test-data/equipment/weapon_swung.yml"
     When I enter the menu "equipment" with filter "nil"
+    And I move down in the menu
+    And I move up in the menu
     Then the game property "player.inventory.items.size" should be "1"
     Then the game property "menu_controller.current_menu.lines.size" should be "1"
     Then the game property "player.inventory.weapon.nil?" should be "true"

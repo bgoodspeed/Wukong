@@ -23,4 +23,12 @@ module MenuCursor
                                pos.x - 20, base_y + 10, Graphics::Color::WHITE, ZOrder.hud.value)
   end
 
+  def move_down
+    @current_index = (@current_index + 1) % entries.size
+  end
+  def move_up
+    @current_index = (@current_index - 1) % entries.size
+  end
+
+
 end

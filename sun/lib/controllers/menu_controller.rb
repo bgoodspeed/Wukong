@@ -37,14 +37,17 @@ class EquipmentMenuItem
   def argument
     @item.orig_filename
   end
+
+  def to_s
+    "#{@item.class}:#{@item.display_name}"
+  end
 end
 class EquipmentMenu
 
-  attr_accessor :filter, :current_entry_index, :menu_id, :headers
+  attr_accessor :filter, :current_index, :menu_id, :headers
   ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width, :header_text, :header_position]
   ATTRIBUTES.each {|attr| attr_accessor attr}
 
-  alias_method :current_index, :current_entry_index
   include MenuCursor
   include MenuPositioned
   include MenuImages
@@ -52,7 +55,7 @@ class EquipmentMenu
   def initialize(game)
     @game = game
     @filter = nil
-    @current_entry_index = 0
+    @current_index = 0
     @menu_id = "Equipment Menu"
     @x_spacing = 10
     @y_spacing = 10
@@ -63,7 +66,7 @@ class EquipmentMenu
 
 
   def current_entry
-    lines[@current_entry_index]
+    lines[@current_index]
   end
   def lines
     items = @game.player.inventory.items_matching(@filter)
