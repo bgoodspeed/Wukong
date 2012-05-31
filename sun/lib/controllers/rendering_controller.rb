@@ -125,6 +125,24 @@ module Views
       game.font_controller.draw_with_font("X", pos.x, pos.y, ZOrder.dynamic.value)
     end
   end
+  class EquipmentRenderableView < BaseView
+    def call(screen, item)
+      eqp = game.player.inventory.weapon
+      eqp = game.player.inventory.armor if item.equipment_type == "armor"
+      cp = game.camera.screen_coordinates_for(item.position)
+
+      if eqp
+        img = game.image_controller.lookup_image(eqp.equipment_image_path)
+        raise "unregistered image #{eqp.equipment_image_path} for #{eqp}" unless img
+        img.draw(cp.x,cp.y, ZOrder.dynamic.value)
+      else
+        game.font_controller.draw_with_font("#{item.equipment_type} open", cp.x, cp.y, ZOrder.hud.value)
+      end
+
+    end
+  end
+
+
   class TargettingRenderingView < BaseView
     def call(game, tr)
       return unless game.targetting_controller.active
@@ -230,6 +248,7 @@ class RenderingController
                InfoWindow => Views::InfoWindowView.new(@game),
                Weapon => Views::WeaponView.new(@game),
                PickupItem => Views::PickupItemView.new(@game),
+               EquipmentRenderable => Views::EquipmentRenderableView.new(@game),
                LineOfSightQuery => Views::NOOPView.new,
                #MouseCollisionWrapper => lambda {|screen, enemy| puts "NOOP, could add a highlight?" },
                VectorFollower => Views::VectorFollowerView.new(@game),

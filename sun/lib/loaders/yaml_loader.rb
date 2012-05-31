@@ -209,6 +209,10 @@ class Weapon
     conf = data['weapon']
     obj = self.new(game, nil, conf)
     obj.orig_filename = fn
+
+    game.image_controller.register_image(conf['equipment_image_path']) if conf['equipment_image_path']
+
+
     process_attributes(ATTRIBUTES, obj, conf)
   end
 
