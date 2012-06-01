@@ -46,7 +46,7 @@ Feature: Game
         | Equip Weapon         | equipment_menu             | weapon                |
     And the game property "level.equipment_renderables.size" should be "2"
 
-  Scenario: Multiple Event Areas
+  Scenario: Multiple Event Area Actions
     Given I load the game "multiple_event_area_actions"
     When I see the first frame
     And there should be 1 event areas
@@ -54,8 +54,18 @@ Feature: Game
         | label                 | action                        | action_argument      |
         | Start New Game       | queue_start_new_game_event |                        |
     And the game property "level.event_areas.first.extra_actions.size" should be "2"
+    And the game property "level.event_areas.first.access_allowed?" should be "true"
 
-  Scenario: Multiple Event Areas Invocation
+  Scenario: Event Area Access Control
+    Given I load the game "event_area_access"
+    When I see the first frame
+    And there should be 2 event areas
+    And the game property "level.event_areas.first.conditions.size" should be "1"
+    And the game property "level.event_areas.first.access_allowed?" should be "false"
+    And the game property "level.event_areas.last.conditions.size" should be "2"
+    And the game property "level.event_areas.last.access_allowed?" should be "true"
+
+  Scenario: Multiple Event Area Actions Invocation
     Given I load the game "multiple_event_area_actions"
     And I set the player position to 100,100
     Then the game property "player.upgrade_points" should be "0"

@@ -1,0 +1,19 @@
+game:
+  width: 640
+  height: 480
+  collision_response: "test-data/collision_response/collision_response.yml"
+  level: "test-data/levels/event_area_access/event_area_access.yml"
+  input_controller: "test-data/input/input_config.yml"
+  player: "test-data/players/player.yml"
+  sound_controller: "test-data/sounds/sound_config.yml"
+  heads_up_display: "test-data/hud/hud_config.yml"
+  new_game_level: "test-data/levels/demo/demo.yml"
+  menu_for_load_game: "test-data/menus/load_game.yml"
+  menu_for_save_game: "test-data/menus/save_game.yml"
+  game_load_path: "test-data/loads/"
+  game_over_menu: "test-data/menus/game_over.yml"
+  menu_for_main: "test-data/menus/main.yml"
+  player_damage_mask: "test-data/sprites/player_damage.png"
+  game_over_level: "test-data/levels/game_over/game_over.yml"
+  player_bullet: "test-data/equipment/bullet.png"
+  player_reset: "test-data/players/player.yml"

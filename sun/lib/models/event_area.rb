@@ -3,7 +3,7 @@
 class EventArea
   #TODO use ATTRIBUTES and process with yaml as usual
   REQUIRED_ATTRIBUTES = [:rect, :action]
-  YAML_ATTRIBUTES = REQUIRED_ATTRIBUTES + [:label, :action_argument,  :required_attributes, :extra_actions ]
+  YAML_ATTRIBUTES = REQUIRED_ATTRIBUTES + [:label, :action_argument,  :required_attributes, :extra_actions, :conditions ]
   ATTRIBUTES = [:info_window ]
 
   (ATTRIBUTES + YAML_ATTRIBUTES).each {|attribute| attr_accessor attribute }
@@ -38,7 +38,16 @@ class EventArea
     circle_rectangle_intersection?(circle, @rect)
   end
 
+  def access_allowed?
+    return true if @conditions.nil?
+    @conditions.each {|cond| return false unless @game.condition_controller.condition_met?(cond['condition_name'], cond['condition_argument'])}
+    true
+  end
   def invoke
+    if !access_allowed?
+      puts "TODO event area: forbidden access to event area, should put temporary message"
+      return
+    end
     if @action_argument
       @game.action_controller.invoke(@action, self)
     else

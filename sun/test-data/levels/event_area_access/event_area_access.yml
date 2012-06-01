@@ -1,0 +1,48 @@
+name: load_screen
+background_image: test-data/levels/load_screen_with_images/grass.jpg
+background_music: test-data/music/music.wav
+wayfinding: test-data/levels/load_screen_with_images/wayfinding.yml
+measurements: [ 640, 480 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+
+event_areas:
+  - top_left: [ 10, 10 ]
+    bottom_right: [ 280, 180 ]
+    label: A
+    action: queue_start_new_game_event
+    conditions:
+      - condition_name: enemies_killed_at_least
+        condition_argument: 50
+    info_window:
+      description:
+        - foo bar
+  - top_left: [ 10, 10 ]
+    bottom_right: [ 280, 180 ]
+    label: B
+    action: queue_start_new_game_event
+    conditions:
+      - condition_name: player_health_at_least
+        condition_argument: 1
+      - condition_name: enemies_killed_at_least
+        condition_argument: 0
+
+    info_window:
+      description:
+        - foo bar
