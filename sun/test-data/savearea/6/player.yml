@@ -9,24 +9,24 @@ player:
   movement_distance: 2
   menu_action_delay: 12
   enemies_killed: 0
-  image_path: test-data/sprites/anima_gold_avatar_smaller.png
+  image_path: test-data/sprites/enemy1gd.png
   collision_priority: 4
   base_accuracy: 100
-  animation_width: 32
-  animation_height: 16
-  image_file: !!null 
-  animation_path: test-data/sprites/anima_gold_avatar_smaller.png
+  animation_width: 30
+  animation_height: 30
+  image_file: test-data/sprites/enemy1gd.png
+  animation_path: test-data/sprites/player20120411.png
   main_animation_name: main_player_anim
   animation_name: main_player_anim
   footsteps_effect_name: footsteps
   damage_sound_effect_name: !!null 
   max_energy_points: 1000
   energy_points: 0
-  radius: 64.0
+  radius: 25.0
   stats:
     strength: 10
     defense: 5
-    health: 1000
-    max_health: 1000
+    health: 10
+    max_health: 15
     speed: 5
     accuracy: 5

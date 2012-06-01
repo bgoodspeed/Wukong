@@ -11,10 +11,10 @@ class Player
   YAML_ATTRIBUTES = [:step_size, :position, :direction, :turn_speed, :movement_distance, :menu_action_delay,
     :enemies_killed, :image_path, :collision_priority, :base_accuracy,   :animation_width, :animation_height,
     :image_file, :animation_path,  :main_animation_name, :animation_name, :footsteps_effect_name, :damage_sound_effect_name,
-    :max_energy_points, :energy_points
+    :max_energy_points, :energy_points, :radius
 
   ]
-  NON_YAML_ATTRIBUTES = [:inventory, :avatar, :is_moving, :animation_name,:animation_paths_by_name, :radius, :last_damage]
+  NON_YAML_ATTRIBUTES = [:inventory, :avatar, :is_moving, :animation_name,:animation_paths_by_name,  :last_damage]
 
   ATTRIBUTES = YAML_ATTRIBUTES + NON_YAML_ATTRIBUTES
   ATTRIBUTES.each {|attr| attr_accessor attr }
@@ -61,12 +61,8 @@ class Player
     conf = self.class.defaults.merge(in_conf)
     @game = game
     #TODO move register image calls into loaders/yaml parsers
-    @avatar = @game.image_controller.register_image(conf['image_path'])
-    p = GVector.xy(@avatar.width/2.0, @avatar.height/2.0)
-    @radius = p.min
-    @position = p
-    @collision_type = Primitives::Circle.new(@position, @radius)
-
+    @position = conf['start_position']
+    @collision_type = conf['collision_primitive']
     @main_animation_name = conf['animation_name']
     @animation_path = conf.has_key?('animation_path') ? conf['animation_path'] : conf['image_path'] #TODO hackity hack
     @animation_paths_by_name = {
@@ -76,7 +72,6 @@ class Player
                              conf['animation_width'], conf['animation_height'], false,false, conf['animation_rate'])
 
     self.is_moving=(false)
-    @radius = [@avatar.width/2.0, @avatar.height/2.0].max
 
     @last_distance = nil
     scf = conf['stats'] ? conf['stats'] : {}

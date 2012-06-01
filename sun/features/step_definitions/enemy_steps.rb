@@ -1,5 +1,15 @@
 Given /^I set the enemy avatar to "([^"]*)"$/ do |enemy_avatar|
   conf = { 'image_path' => "test-data/sprites/#{enemy_avatar}"}
+  conf['enemy_avatar'] = @game.image_controller.register_image(conf['image_path'])
+  if conf.has_key?('animation_width')
+    p = GVector.xy(conf['animation_width']/2.0, conf['animation_height']/2.0)
+  else
+    p = GVector.xy(conf['enemy_avatar'].width/2.0, conf['enemy_avatar'].height/2.0 )
+  end
+  conf['radius'] = p.max
+  conf['position'] = p
+  conf['collision_primitive'] = Primitives::Circle.new(p, conf['radius'])
+
   @enemy = Enemy.new(@game, conf )
   @game.add_enemy @enemy
 end
@@ -104,7 +114,7 @@ Then /^the enemy should have hud message "([^"]*)"$/ do |arg1|
 end
 
 Given /^I create an enemy in isolation$/ do
-  @enemy = Enemy.new(mock_game, {})
+  @enemy = Enemy.new(mock_game, {:position => [10,10], :radius => 10})
 end
 
 When /^I tick tracking with vector "([^"]*)"$/ do |arg1|

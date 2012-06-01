@@ -3,6 +3,7 @@ class Armor
   EXTRAS = [ :stats ]
   (ATTRIBUTES + EXTRAS).each {|attr| attr_accessor attr }
 
+  include InventoryStorable
   def initialize(game, conf_in={})
     conf = conf_in
     @game = game
@@ -12,10 +13,5 @@ class Armor
     @stats = Stats.new(cf)
   end
 
-  def inventory_hash
-    rv = "#{@display_name}:#{@orig_filename}:#{@stats.inventory_hash}"
-
-    rv
-  end
 
 end

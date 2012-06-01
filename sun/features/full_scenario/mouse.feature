@@ -109,6 +109,7 @@ Feature: Mouse
     And I set the mouse position to 200, 200 in screen coords
     And I load a player from "player.yml"
     And I add an enemy from "enemyp.yml"
+    Then the enemy named "DefaultEnemyName" should have "position" equal to "GVector.xy(200,200)"
     When I see the first frame
     When I press "MouseClick"
     And I update the game state

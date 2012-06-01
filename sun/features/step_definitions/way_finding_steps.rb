@@ -1,5 +1,5 @@
 Given /^I create a new Wayfinding Layer:$/ do |yaml|
-  @way_finding = WayFinding.from_yaml(@game, yaml)
+  @way_finding = WayFindingLoader.from_yaml(@game, yaml)
 end
 
 

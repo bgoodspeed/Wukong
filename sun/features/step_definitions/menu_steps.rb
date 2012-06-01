@@ -6,7 +6,7 @@ end
 
 Given /^I create a new menu called "([^"]*)":$/ do |name, string|
 
-  @menu = Menu.from_yaml(@game, string)
+  @menu = MenuLoader.from_yaml(@game, string)
   @menu_controller.add_menu(name, @menu)
   
 end

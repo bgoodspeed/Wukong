@@ -86,9 +86,6 @@ Feature: Loading
     Then the game property "player.inventory.items.size" should be "2"
     Then the game property "player.inventory.weapon.nil?" should be "false"
 
-
-
-
   Scenario: Menu Save Slot Filtering Unsaved
     Given I load the game "demo_inventory"
     And I create a menu controller

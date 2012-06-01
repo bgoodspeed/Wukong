@@ -1,5 +1,5 @@
 
-class ArtificialIntelligence
+class ArtificialIntelligenceLoader
 
 
   def self.from_conf(data)
@@ -15,16 +15,40 @@ class ArtificialIntelligence
       end
     end
 
-    self.new(statemachine)
+    ArtificialIntelligence.new(statemachine)
 
   end
 
   def self.from_yaml(yaml)
     data = YAML.load(yaml)
-    ArtificialIntelligence.from_conf(data)
+    ArtificialIntelligenceLoader.from_conf(data)
   end
 end
-class InputController
+class SoundControllerLoader
+  extend YamlHelper
+
+  #TODO make YAML utils and pass attributes
+  def self.from_yaml(game, yaml, f=nil)
+    data = YAML.load(yaml)
+    conf = data['sound_controller']
+    obj = SoundController.new(game)
+
+    process_sound_array(game, obj, conf, 'effects', 'sound effect', "add_effect")
+    process_sound_array(game, obj, conf, 'songs', 'song', "add_song")
+
+    obj
+  end
+
+  def self.process_sound_array(game, obj, conf, conf_name, type, add_method)
+    conf[conf_name].each {|effect|
+      game.log.info("Adding #{type} named #{effect['name']} from file #{effect['filename']}")
+      obj.send(add_method, effect['filename'], effect['name'])
+    }
+
+  end
+
+end
+class InputControllerLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
@@ -32,7 +56,7 @@ class InputController
     kbd_conf = evaluated_config(conf, 'keyboard_config')
     gp_conf = evaluated_config(conf, 'gamepad_config')
 
-    obj = self.new(game , kbd_conf, gp_conf)
+    obj = InputController.new(game , kbd_conf, gp_conf)
 
     obj
   end
@@ -44,7 +68,7 @@ class InputController
     rv
   end
 end
-class CollisionResponseController
+class CollisionResponseControllerLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
@@ -60,19 +84,19 @@ class CollisionResponseController
       }
     }
 
-    obj = self.new(game, cr)
+    obj = CollisionResponseController.new(game, cr)
 
     obj
   end
 end
-class Inventory
+class InventoryLoader
   extend YamlHelper
   #TODO make YAML utils and pass attributes
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
 
     conf = data['inventory']
-    obj = self.new( game, nil) #TODO we don't know who the owner is at this point
+    obj = Inventory.new( game, nil) #TODO we don't know who the owner is at this point
     conf['items'].to_a.each {|hash|
       raise "bad inventory yaml " unless hash.size == 1
       item_name =  hash.keys.first
@@ -87,21 +111,21 @@ class Inventory
   end
 end
 
-class GameItem
+class GameItemLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['item']
-    obj = self.new(game, conf)
-    process_attributes(ATTRIBUTES, obj, conf)
+    obj = GameItem.new(game, conf)
+    process_attributes(GameItem::ATTRIBUTES, obj, conf)
   end
 end
 
-class InventoryController
+class InventoryControllerLoader
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['inventory']
-    obj = self.new(game)
+    obj = InventoryController.new(game)
     conf['weapons'].to_a.each do |item|
       obj.register_item(item, YamlLoader.from_file(Weapon, game, item ))
     end
@@ -117,32 +141,44 @@ class InventoryController
 
 end
 
-class Armor
+class ArmorLoader
   extend YamlHelper
 
   #TODO make YAML utils and pass attributes
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['armor']
-    obj = self.new(game, conf)
-    process_attributes(ATTRIBUTES, obj, conf)
+    obj = Armor.new(game, conf)
+    process_attributes(Armor::ATTRIBUTES, obj, conf)
   end
 
 end
-class HeadsUpDisplay
+class HeadsUpDisplayLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
-    process_attributes(ATTRIBUTES, self.new(game), YAML.load(yaml)['heads_up_display'])
+    process_attributes(HeadsUpDisplay::ATTRIBUTES, HeadsUpDisplay.new(game), YAML.load(yaml)['heads_up_display'])
   end
 end
 
-class Enemy
+class EnemyLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['enemy']
     inventory = YamlLoader.from_file(Inventory, game,conf['inventory_file']) if conf['inventory_file']
     conf['inventory'] = inventory
+
+    img = game.image_controller.register_image(conf['image_path'])
+    conf['enemy_avatar'] = img
+    if conf.has_key?('animation_width')
+      p = GVector.xy(conf['animation_width']/2.0, conf['animation_height']/2.0)
+    else
+      p = GVector.xy(img.width/2.0, img.height/2.0 )
+    end
+    conf['radius'] = p.max
+    conf['start_position'] = p
+    conf['collision_primitive'] = Primitives::Circle.new(p, conf['radius'])
+
     e = Enemy.new(game, conf )
     if conf['weapon']
       w = YamlLoader.from_file(Weapon, game, conf['weapon'])
@@ -156,12 +192,12 @@ class Enemy
   end
 end
 
-class Menu
+class MenuLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['menu']
-    obj = process_attributes(ATTRIBUTES, self.new(game, conf['menu_id']), conf,  {:header_position => Finalizers::GVectorFinalizer.new})
+    obj = process_attributes(Menu::ATTRIBUTES, Menu.new(game, conf['menu_id']), conf,  {:header_position => Finalizers::GVectorFinalizer.new})
     conf['entries'].each_with_index do |entry, index|
       game.image_controller.register_image(entry['image']) if entry['image']
       obj.add_entry(MenuEntry.new(game, index, entry))
@@ -174,14 +210,23 @@ class Menu
   end
 end
 
-class Player
+class PlayerLoader
   extend YamlHelper
   #TODO make YAML utils and pass attributes
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
     conf = data['player']
     conf['inventory'] = YamlLoader.from_file(Inventory, game,conf['inventory_file']) if conf['inventory_file']
-    obj = self.new(game, conf)
+
+    avatar = game.image_controller.register_image(conf['image_path'])
+    p = GVector.xy(avatar.width/2.0, avatar.height/2.0)
+    radius = p.min
+    position = p
+    conf['radius'] = p.max
+    conf['start_position'] = p
+    conf['collision_primitive'] = Primitives::Circle.new(position, radius)
+
+    obj = Player.new(game, conf)
     if conf['weapon_yaml']
       w = YamlLoader.from_file(Weapon, game, conf['weapon_yaml'])
       w.orig_filename = conf['weapon_yaml']
@@ -193,36 +238,36 @@ class Player
   end
 end
 
-class SaveData
+class SaveDataLoader
   extend YamlHelper
   include YamlHelper
   def self.from_yaml(game, yaml, f=nil)
-    process_attributes(ATTRIBUTES, self.new, YAML.load(yaml)['savedata'])
+    process_attributes(SaveData::ATTRIBUTES, SaveData.new, YAML.load(yaml)['savedata'])
   end
 end
 
-class Weapon
+class WeaponLoader
   extend YamlHelper
 
   #TODO make YAML utils and pass attributes
   def self.from_yaml(game, yaml, fn="unknown")
     data = YAML.load(yaml)
     conf = data['weapon']
-    obj = self.new(game, nil, conf)
+    obj = Weapon.new(game, nil, conf)
     obj.orig_filename = fn
 
     game.image_controller.register_image(conf['equipment_image_path']) if conf['equipment_image_path']
 
 
-    process_attributes(ATTRIBUTES, obj, conf)
+    process_attributes(Weapon::ATTRIBUTES, obj, conf)
   end
 
 end
 
-class WayFinding
+class WayFindingLoader
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
-    wf = self.new(game)
+    wf = WayFinding.new(game)
     if data['layer']['points']
       data['layer']['points'].each do |point|
         wf.add_point(GVector.xy(point[0], point[1]))
@@ -230,16 +275,16 @@ class WayFinding
       return wf
     end
     if data['layer']['nodes']
-      return WayfindingGraph.from_yaml(game, yaml)
+      return WayfindingGraphLoader.from_yaml(game, yaml)
     end
 
   end
 
 end
-class WayfindingGraph
+class WayfindingGraphLoader
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
-    wf = self.new
+    wf = WayfindingGraph.new
     data['layer']['nodes'].each do |node|
       wf.add_node(node['name'], GVector.xy(node["position"][0], node["position"][1]))
     end
@@ -256,7 +301,8 @@ class WayfindingGraph
 end
 class YamlLoader
   def self.from_file(klass, game, f)
-    klass.from_yaml(game, IO.readlines(f).join(""), f)
+    c = const_get("#{klass}Loader".to_sym)
+    c.from_yaml(game, IO.readlines(f).join(""), f)
   end
 
   def self.game_from_file(f)

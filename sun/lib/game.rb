@@ -20,6 +20,7 @@ end
 
 
 require 'behaviors/movement_undoable'
+require 'behaviors/inventory_storable'
 require 'behaviors/health'
 require 'behaviors/collidable'
 require 'behaviors/game_line_formattable'

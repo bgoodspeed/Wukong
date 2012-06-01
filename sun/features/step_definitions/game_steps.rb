@@ -167,3 +167,26 @@ end
 Then /^the game should not be valid$/ do
   @game.valid?.should_not be(ValidationHelper::Validation::VALID)
 end
+
+
+When /^we reset the player to "([^"]*)" and load the level "([^"]*)"$/ do |reset_player, level|
+  orig = @game.player_reset
+  @game.player_reset = "test-data/players/#{reset_player}.yml"
+  mock_arg = Mocha::Mock.new("arg holder mock")
+  mock_arg.stubs(:argument).returns("test-data/levels/#{level}/#{level}.yml")
+  @game.action_controller.invoke(BehaviorTypes::RESET_PLAYER_AND_LOAD_LEVEL, mock_arg)
+end
+
+
+When /^we upgrade the player with animation config$/ do
+  conf = {
+      "animation_file" => "test-data/sprites/enemy1gd.png",
+      "animation_width" => 50,
+      "animation_height" => 50,
+      "animation_rate" => 5
+  }
+  mock_arg = Mocha::Mock.new("arg holder mock")
+  mock_arg.stubs(:argument).returns(conf)
+
+  @game.action_controller.invoke(BehaviorTypes::UPGRADE_PLAYER, mock_arg)
+end
