@@ -196,16 +196,17 @@ class ActionController
           f = hash['animation_file']
           w = hash['animation_width']
           h = hash['animation_height']
-
+          r = hash['animation_rate']
         else
           f = arg.argument
           w = orig_animation.width
           h = orig_animation.height
+          r = orig_animation.animation_rate
         end
         animation = game.animation_controller.register_animation(game.player, game.player.animation_name,
-            f, w, h, false, false,orig_animation.animation_rate)
-        game.player.image_path = arg.argument
-        game.player.image_file = arg.argument
+            f, w, h, false, false,r)
+        game.player.image_path = f
+        game.player.image_file = f
 
       },
 

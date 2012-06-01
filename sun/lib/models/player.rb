@@ -61,6 +61,7 @@ class Player
     conf = self.class.defaults.merge(in_conf)
     @game = game
     #TODO move register image calls into loaders/yaml parsers
+
     @avatar = @game.image_controller.register_image(conf['image_path'])
     p = GVector.xy(@avatar.width/2.0, @avatar.height/2.0)
     @radius = p.min
