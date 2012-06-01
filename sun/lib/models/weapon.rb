@@ -9,7 +9,7 @@ class Weapon
   attr_accessor :in_use
   attr_accessor :inventory_type, :stats
   extend YamlHelper
-
+  include InventoryStorable
   alias_method :display_text, :display_name
   def self.defaults
     {
@@ -91,9 +91,5 @@ class Weapon
     tmp
   end
 
-  def inventory_hash
-    rv = "#{@display_name}:#{@orig_filename}:#{@stats.inventory_hash}"
 
-    rv
-  end
 end
