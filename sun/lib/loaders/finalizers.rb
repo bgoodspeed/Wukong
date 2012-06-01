@@ -92,7 +92,7 @@ module ArrayFinalizers
           GVector.xy(tl[0], br[1]),
           GVector.xy(br[0], br[1]),
           GVector.xy(br[0], tl[1]))
-
+      ea_conf['info_window'].to_hash['images'].to_a.each {|img| @game.image_controller.register_image(img['image_name'])} if ea_conf['info_window']
       eva = EventArea.new(@game, ea_conf)
 
       check_validation_error(eva, "Fix event area yaml", EventArea::REQUIRED_ATTRIBUTES)
