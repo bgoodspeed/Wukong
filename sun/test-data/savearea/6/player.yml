@@ -1,0 +1,31 @@
+---
+player:
+  step_size: 1
+  position:
+  - 320
+  - 240
+  direction: 0
+  turn_speed: 5
+  movement_distance: 2
+  menu_action_delay: 12
+  enemies_killed: 0
+  image_path: test-data/sprites/enemy1gd.png
+  collision_priority: 4
+  base_accuracy: 100
+  animation_width: 30
+  animation_height: 30
+  image_file: test-data/sprites/enemy1gd.png
+  animation_path: test-data/sprites/player20120411.png
+  main_animation_name: main_player_anim
+  animation_name: main_player_anim
+  footsteps_effect_name: footsteps
+  damage_sound_effect_name: !!null 
+  max_energy_points: 1000
+  energy_points: 0
+  stats:
+    strength: 10
+    defense: 5
+    health: 10
+    max_health: 15
+    speed: 5
+    accuracy: 5
