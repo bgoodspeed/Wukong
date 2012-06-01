@@ -90,7 +90,7 @@ Feature: Collision Detection
     And I set the enemy defense to 10
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbUp"
-    And I run the game loop 18 times
+    And I run the game loop 17 times
     And the enemy health should be 4
     And the player health should be 9
 
@@ -111,8 +111,8 @@ Feature: Collision Detection
     And I set the game clock to 60 fps
     When I simulate "Graphics::KbUp"
     And I run the game loop 18 times
-    And the player health should be 9
-    And the enemy health should be 4
+    And the player health should be 8
+    And the enemy health should be 3
 
   Scenario: Event Emitting Collisions
     Given I load the game on level "emitter" with screen size 640, 480

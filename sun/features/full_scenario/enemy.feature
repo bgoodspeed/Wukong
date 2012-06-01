@@ -9,7 +9,7 @@ Feature: Enemy Built
     And I set the enemy avatar to "enemy_avatar.bmp"
     When I see the first frame
     Then the enemy should be in the scene
-    And the enemy should be at position 25,25.0
+    And the enemy should be at position 35,35.5
     And the enemy should have hud message "Enemy : 15HP"
     And the game property "level.enemies.first.position.class" should be "GVector"
 
@@ -20,19 +20,18 @@ Feature: Enemy Built
     And I create the path following controller
     And I set the enemy avatar to "enemy_avatar.bmp"
     And I set the player avatar to "avatar.bmp"
-    And I set the player position to 300,300
+    And I set the player position to 310,310
     And I tell the enemy to track the player
     And I tell the enemy velocity to 5
     And I register the enemy in the path following controller using wayfinding
     When I see the first frame
     And I step the path following controller
     Then the enemy should be in the scene
-    And the player should be at position 300,300
     And the path following controller should be tracking the enemy
     And the next wayfinding point for enemy should be 50,50
-    And the next wayfinding direction for enemy should be 0.7071, 0.7071
-    And the enemy should be at position 28.5355,28.5355
-    Then the enemy direction should be 45
+    And the enemy should be at position 38.5949,38.97511
+    And the next wayfinding direction for enemy should be 0.7189, 0.6950
+    Then the enemy direction should be 44.02897
 
   Scenario: Enemy Chasing Player B
     Given I load the game on level "trivial" with screen size 640, 480
@@ -68,8 +67,8 @@ Feature: Enemy Built
     Then the enemy should be in the scene
     And the path following controller should be tracking the enemy
     And the next wayfinding point for enemy should be 50,50
-    And the next wayfinding direction for enemy should be 0.7071, 0.7071
-    And the enemy should be at position 25,25
+    And the next wayfinding direction for enemy should be 0.7189, 0.69502
+    And the enemy should be at position 35,35.5
     Then the enemy direction should be 0
 
   Scenario: Multiple Enemies

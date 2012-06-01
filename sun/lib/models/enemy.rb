@@ -2,7 +2,7 @@
 class Enemy
 
   attr_accessor :tracking_target
-  ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction,
+  ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction, :radius, :enemy_avatar,
                 :image_file, :direction, :animation_name, :animation_path, :damage_sound_effect_name, :upgrade_point_value
   ]
   NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range, :inventory, :last_damage, :line_of_sight]
@@ -23,6 +23,8 @@ class Enemy
       'animation_width' => 50,
       'animation_height' => 50,
       'animation_rate' => 10,
+      'position' => [ 25, 25 ],
+      'radius' => 10,
       'upgrade_point_value' => 1,
       'velocity' => 5,
       'direction' => 0.0,
@@ -35,7 +37,7 @@ class Enemy
 
     }
   end
-  attr_reader :radius, :required_attributes
+  attr_reader :required_attributes
   def initialize(game, conf_in)
     conf = self.class.defaults.merge(conf_in)
     @game = game
@@ -45,21 +47,16 @@ class Enemy
     raise "bad anim name: #{conf['animation_name']}" unless conf['animation_name']
     @enemy_animation = @game.animation_controller.register_animation(self, conf['animation_name'],
       @animation_path, conf['animation_width'], conf['animation_height'], false, false, conf['animation_rate'])
-    @enemy_avatar = @game.image_controller.register_image(conf['image_path'])
-    if conf.has_key?('animation_width')
-      p = GVector.xy(conf['animation_width']/2.0, conf['animation_height']/2.0)
+    @enemy_avatar = conf['enemy_avatar']
 
-    else
-      p = GVector.xy(@enemy_avatar.width/2.0, @enemy_avatar.height/2.0 )
-    end
     @inventory = conf.has_key?('inventory') ? conf['inventory'] : Inventory.new(game, self)
     #TODO this should be a weapon property
     @attack_range = 4
     @line_of_sight = true
+    @position = conf['start_position']
+    @collision_type = conf['collision_primitive']
 
-    @radius = p.max
-    @position = p
-    @collision_type = Primitives::Circle.new(@position, @radius)
+
     cf = conf['stats'] ? conf['stats'] : {}
     @stats = Stats.new(cf)
     if conf['artificial_intelligence']
@@ -69,7 +66,7 @@ class Enemy
     end
     @game.animation_controller.animation_index_by_entity_and_name(self, conf['animation_name']).needs_update = true
     process_attributes(ATTRIBUTES, self, conf, {:position => Finalizers::GVectorFinalizer.new})
-    @required_attributes = ATTRIBUTES - [:image_file, :animation_path]
+    @required_attributes = ATTRIBUTES - [:image_file, :animation_path, :enemy_avatar]
 
   end
   def equip_weapon(w)

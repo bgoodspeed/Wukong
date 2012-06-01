@@ -166,7 +166,9 @@ module Views
       end
 
       ### enemy highlight
+
       target = tr.entity.current_target
+      return unless target
       enemy = target.target
       pos = game.camera.screen_coordinates_for(enemy.position)
       w = enemy.radius

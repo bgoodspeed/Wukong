@@ -167,6 +167,18 @@ class EnemyLoader
     conf = data['enemy']
     inventory = YamlLoader.from_file(Inventory, game,conf['inventory_file']) if conf['inventory_file']
     conf['inventory'] = inventory
+
+    img = game.image_controller.register_image(conf['image_path'])
+    conf['enemy_avatar'] = img
+    if conf.has_key?('animation_width')
+      p = GVector.xy(conf['animation_width']/2.0, conf['animation_height']/2.0)
+    else
+      p = GVector.xy(img.width/2.0, img.height/2.0 )
+    end
+    conf['radius'] = p.max
+    conf['start_position'] = p
+    conf['collision_primitive'] = Primitives::Circle.new(p, conf['radius'])
+
     e = Enemy.new(game, conf )
     if conf['weapon']
       w = YamlLoader.from_file(Weapon, game, conf['weapon'])
