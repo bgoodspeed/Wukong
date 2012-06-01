@@ -8,7 +8,6 @@ class InfoWindowImage
   def initialize(game, conf)
     @game = game
     process_attributes(ATTRIBUTES, self, conf)
-    @game.image_controller.register_image(self.image_name)
   end
 end
 
@@ -33,7 +32,11 @@ class InfoWindow
     conf = self.class.defaults.merge(conf_in)
     process_attributes(YAML_ATTRIBUTES, self, conf)
     @images = []
-    conf['images'].each {|img| @images << InfoWindowImage.new(@game, img)}
+    conf['images'].each {|img|
+
+      @images << InfoWindowImage.new(@game, img)
+
+    }
   end
   def required_attributes; REQUIRED_ATTRIBUTES; end
 end

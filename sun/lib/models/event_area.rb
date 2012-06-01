@@ -22,6 +22,8 @@ class EventArea
     @game = game
     @extra_actions = []
     process_attributes(YAML_ATTRIBUTES, self, conf)
+    conf['info_window'].to_hash['images'].to_a.each {|img| @game.image_controller.register_image(img['image_name'])}
+
     @info_window = InfoWindow.new(game, conf['info_window'])
     @collision_type = @rect
   end
