@@ -63,7 +63,7 @@ class Enemy
     cf = conf['stats'] ? conf['stats'] : {}
     @stats = Stats.new(cf)
     if conf['artificial_intelligence']
-      @artificial_intelligence = ArtificialIntelligence.from_conf(conf['artificial_intelligence'])
+      @artificial_intelligence = ArtificialIntelligenceLoader.from_conf(conf['artificial_intelligence'])
     else
       @artificial_intelligence = ArtificialIntelligence.default
     end

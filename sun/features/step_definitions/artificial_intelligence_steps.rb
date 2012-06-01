@@ -1,6 +1,6 @@
 
 Given /^I create a new AI Strategy called "([^"]*)":$/ do |name, yaml_text|
-  @ai = ArtificialIntelligence.from_yaml(yaml_text)
+  @ai = ArtificialIntelligenceLoader.from_yaml(yaml_text)
 end
 When /^the event "([^"]*)" occurs$/ do |event|
   @ai.trigger_event(event)
