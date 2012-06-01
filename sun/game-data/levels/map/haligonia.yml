@@ -32,7 +32,7 @@ event_areas:
     action_argument: "game-data/levels/map/haligonia.yml"
     info_window:
       description:
-        - The Enchanged Forest.
+        - The Pleasant Grove.
       position: [ 498, 355 ]
       size: [ 195, 398 ]
 
@@ -53,5 +53,45 @@ event_areas:
     info_window:
       description:
         - The Fields.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
+
+  - top_left: [ 605, 69 ]
+    bottom_right: [ 655, 103 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/map/haligonia.yml"
+    info_window:
+      description:
+        - Gimly's Hideout.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
+
+  - top_left: [ 279, 24 ]
+    bottom_right: [ 319, 103 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/map/haligonia.yml"
+    info_window:
+      description:
+        - The Narrow Bridge.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
+
+  - top_left: [ 11, 64 ]
+    bottom_right: [ 56, 161 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/map/haligonia.yml"
+    info_window:
+      description:
+        - The Wide Bridge.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
+
+  - top_left: [ 210, 350 ]
+    bottom_right: [ 292, 433 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/map/haligonia.yml"
+    info_window:
+      description:
+        - The Bazaar.
       position: [ 498, 355 ]
       size: [ 195, 398 ]
