@@ -59,19 +59,23 @@ class ActionController
   def default_collision_responses
     {
       ResponseTypes::DAMAGING_SHOWING_AND_REMOVING1 => lambda {|game, col|
-        return if col.dynamic1 == col.dynamic2.owner
+        attacker = col.dynamic2
+        target = col.dynamic1
 
-        col.dynamic1.take_damage(col.dynamic2)
-        game.rendering_controller.add_consumable_rendering(col.dynamic1, RenderingTypes::TARGET_DAMAGE, 10)
-        game.remove_projectile(col.dynamic2)
+        return if target == attacker.owner
+
+        target.take_damage(attacker)
+        game.rendering_controller.add_consumable_rendering(target, RenderingTypes::TARGET_DAMAGE, 10)
+        game.remove_projectile(attacker)
 
       },
       ResponseTypes::DAMAGING_SHOWING_AND_REMOVING2 => lambda {|game, col|
-        return if col.dynamic2 == col.dynamic1.owner
-
-        col.dynamic2.take_damage(col.dynamic1)
-        game.rendering_controller.add_consumable_rendering(col.dynamic2, RenderingTypes::TARGET_DAMAGE, 10)
-        game.remove_projectile(col.dynamic1)
+        attacker = col.dynamic1
+        target = col.dynamic2
+        return if target == attacker.owner
+        target.take_damage(attacker)
+        game.rendering_controller.add_consumable_rendering(target, RenderingTypes::TARGET_DAMAGE, 10)
+        game.remove_projectile(attacker)
 
       },
       ResponseTypes::DAMAGING1 => lambda {|game, col|

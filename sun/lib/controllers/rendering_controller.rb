@@ -90,20 +90,27 @@ module Views
       img.draw(cp.x,cp.y, ZOrder.dynamic.value)
     end
   end
-  class TargetDamageRenderingView < BaseView
-    def call(screen, tr)
-      pos = game.camera.screen_coordinates_for(tr.position)
-      w = tr.radius
-      game.font_controller.draw_with_font("#{tr.entity.last_damage}", pos.x - w, pos.y - (w + 20), ZOrder.hud.value)
+
+  class BaseTargetRenderingView < BaseView
+    def highlight_target(pos, w)
       darken_screen(game, pos.x - w, pos.x + w, pos.y - w, pos.y + w, transparent_red, ZOrder.hud.value)
     end
+    def message_for_target(pos, w, msg)
+      game.font_controller.draw_with_font(msg, pos.x - w, pos.y - (w + 20), ZOrder.hud.value)
+    end
+    def render_target(pos,w, msg)
+      highlight_target(pos,w)
+      message_for_target(pos,w, msg)
+    end
   end
-  class TargetMissRenderingView < BaseView
+  class TargetDamageRenderingView < BaseTargetRenderingView
     def call(screen, tr)
-      pos = game.camera.screen_coordinates_for(tr.position)
-      w = tr.radius
-      game.font_controller.draw_with_font("missed", pos.x - w, pos.y - (w + 20), ZOrder.hud.value)
-      darken_screen(game, pos.x - w, pos.x + w, pos.y - w, pos.y + w, transparent_red, ZOrder.hud.value)
+      render_target(game.camera.screen_coordinates_for(tr.position), tr.radius, "#{tr.entity.last_damage}")
+    end
+  end
+  class TargetMissRenderingView < BaseTargetRenderingView
+    def call(screen, tr)
+      render_target(game.camera.screen_coordinates_for(tr.position), tr.radius, "missed")
     end
   end
 
