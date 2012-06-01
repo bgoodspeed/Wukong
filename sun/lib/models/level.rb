@@ -29,7 +29,7 @@ class Level
   HASH_ATTRIBUTES = [
     :declared_enemies,
   ]
-  SCALAR_ATTRIBUTES = [ :spawned_enemies
+  SCALAR_ATTRIBUTES = [ :spawned_enemies, :background
 
   ]
   YAML_ATTRIBUTES = [ :orig_filename, :cell_size, :background_image, :background_music, :reward_level,
@@ -67,7 +67,7 @@ class Level
     @static_hash = SpatialHash.new(@cell_size)
     @dynamic_hash = SpatialHash.new(@cell_size)
     @spawned_enemies = 0
-    @background = @game.image_controller.register_image(@background_image)   if @background_image
+
     @music = @game.sound_controller.add_song(@background_music, @background_music) if @background_music
     @required_attributes = YAML_ATTRIBUTES - [:player_start_position, :player_start_health,
                                               :background_music, :background_image, :reward_level]

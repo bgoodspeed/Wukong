@@ -21,6 +21,8 @@ class LevelLoader
     @which_level = which_level
     data['orig_filename'] = which_level
     level = Level.new(@game, data)
+
+    level.background = @game.image_controller.register_image(level.background_image)   if level.background_image
     array_finalizers = {
         "line_segments" => ArrayFinalizers::LineSegments.new(@game, @which_level),
         "declared_enemies" => ArrayFinalizers::DeclaredEnemies.new(@game, @which_level),
