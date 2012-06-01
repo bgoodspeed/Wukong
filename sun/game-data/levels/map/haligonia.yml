@@ -1,0 +1,57 @@
+name: map_screen
+background_image: game-data/levels/map/haligonia.png
+background_music: game-data/music/drumbeats.wav
+heads_up_display: game-data/hud/hud_config_empty.yml
+player_start_position: [ 364, 225 ]
+player_start_health: 100
+
+measurements: [ 800, 600 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 800
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 600
+  - start_x: 800
+    start_y: 0
+    end_x: 800
+    end_y: 600
+  - start_x: 0
+    start_y: 600
+    end_x: 800
+    end_y: 600
+
+event_areas:
+  - top_left: [ 691, 247 ]
+    bottom_right: [ 781, 330 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/map/haligonia.yml"
+    info_window:
+      description:
+        - The Enchanged Forest.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
+
+  - top_left: [ 432, 140 ]
+    bottom_right: [ 501, 193 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/map/haligonia.yml"
+    info_window:
+      description:
+        - The Fort.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
+
+  - top_left: [ 367, 176 ]
+    bottom_right: [ 423, 221 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/map/haligonia.yml"
+    info_window:
+      description:
+        - The Fields.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
