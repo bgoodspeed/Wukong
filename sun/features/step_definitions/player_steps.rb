@@ -5,6 +5,13 @@ Given /^I set the player avatar to "([^"]*)"$/ do |avatar_image|
       'image_path' => "test-data/sprites/#{avatar_image}",
       'animation_path' => "test-data/animations/hack.png"
   }
+  avatar = @game.image_controller.register_image(conf['image_path'])
+  p = GVector.xy(avatar.width/2.0, avatar.height/2.0)
+  radius = p.min
+  position = p
+  conf['radius'] = p.max
+  conf['start_position'] = p
+  conf['collision_primitive'] = Primitives::Circle.new(position, radius)
   @player = Player.new(@game, conf )
   @game.set_player @player
 end
@@ -196,7 +203,11 @@ When /^I invoke the damage action$/ do
 end
 
 Given /^I create a valid player$/ do
-  @player = Player.new(mock_game, Player.defaults)
+  conf = Player.defaults
+  conf['radius'] = 9
+  conf['start_position'] = GVector.xy(1,2)
+  conf['collision_primitive'] = Primitives::Circle.new(conf['start_position'], conf['radius'])
+  @player = Player.new(mock_game, conf)
 end
 
 

@@ -13,6 +13,15 @@ class PlayerLoader
   end
 
   def load_player
-    Player.new(@game, config )
+    conf = config
+    avatar = @game.image_controller.register_image(conf['image_path'])
+    p = GVector.xy(avatar.width/2.0, avatar.height/2.0)
+    radius = p.min
+    position = p
+    conf['radius'] = p.max
+    conf['start_position'] = p
+    conf['collision_primitive'] = Primitives::Circle.new(position, radius)
+
+    Player.new(@game, conf )
   end
 end

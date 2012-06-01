@@ -22,6 +22,7 @@ player:
   damage_sound_effect_name: !!null 
   max_energy_points: 1000
   energy_points: 0
+  radius: 15.0
   stats:
     strength: 10
     defense: 5

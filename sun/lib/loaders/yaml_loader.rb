@@ -217,6 +217,15 @@ class PlayerLoader
     data = YAML.load(yaml)
     conf = data['player']
     conf['inventory'] = YamlLoader.from_file(Inventory, game,conf['inventory_file']) if conf['inventory_file']
+
+    avatar = game.image_controller.register_image(conf['image_path'])
+    p = GVector.xy(avatar.width/2.0, avatar.height/2.0)
+    radius = p.min
+    position = p
+    conf['radius'] = p.max
+    conf['start_position'] = p
+    conf['collision_primitive'] = Primitives::Circle.new(position, radius)
+
     obj = Player.new(game, conf)
     if conf['weapon_yaml']
       w = YamlLoader.from_file(Weapon, game, conf['weapon_yaml'])
