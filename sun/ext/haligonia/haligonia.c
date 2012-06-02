@@ -193,22 +193,30 @@ static VALUE vector_dot(VALUE self, VALUE other) {
 }
 static VALUE rb_cGVector;
 static VALUE rb_cSpatialHash;
+static VALUE rb_cFoobar;
 
 static VALUE vector_gvxy(VALUE self, VALUE x, VALUE y) {
     VALUE vector = allocate_vector(rb_cGVector);
     return vector_initialize(vector, x, y);
 }
 
+static int plus_forty_two(int x) {
+    return x + 42;
+}
+
+static VALUE rb_plus_forty_two(VALUE self, VALUE x) {
+    int rv = plus_forty_two(NUM2INT(x));
+    return INT2NUM(rv);
+}
 static int sh_spatial_hash(int x,int y, int x_prime, int y_prime, int base_table_size) {
-    // TODO could unroll this exponentiation because it is modular
-    int p = (x_prime * x) ^ (y_prime * y);
+    unsigned long p = (x_prime * x) ^ (y_prime * y);
     int bt = base_table_size;
     int rv = p % bt;
     return  rv;
 }
 static VALUE rb_sh_spatial_hash(VALUE self, VALUE x,VALUE y, VALUE x_prime, VALUE y_prime, VALUE base_table_size) {
-
-    return INT2NUM(sh_spatial_hash(NUM2INT(x),NUM2INT(y), NUM2INT(x_prime), NUM2INT(y_prime), NUM2INT(base_table_size)));
+    int hash = sh_spatial_hash(NUM2INT(x),NUM2INT(y), NUM2INT(x_prime), NUM2INT(y_prime), NUM2INT(base_table_size));
+    return INT2NUM(hash);
 }
 
 void Init_haligonia() {
@@ -234,6 +242,11 @@ void Init_haligonia() {
 
     rb_cSpatialHash = rb_define_class("SpatialHash", rb_cObject);
     rb_define_method(rb_cSpatialHash, "spatial_hash", rb_sh_spatial_hash, 5);
+
+    // TODO remove this:
+    rb_cFoobar = rb_define_class("Foobar", rb_cObject);
+    rb_define_method(rb_cFoobar, "plus_forty_two", rb_plus_forty_two, 1);
+    rb_define_method(rb_cFoobar, "sh", rb_sh_spatial_hash, 5);
 
 }
 
