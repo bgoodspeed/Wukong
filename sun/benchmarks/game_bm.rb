@@ -26,16 +26,31 @@ class GameBM
     end
 
   end
-  def profile_rbprof(s="")
-    require 'ruby-prof'
+
+  def do_profile_loops
     RubyProf.start
     @prof_loops.times { @game.simulate }
-    result = RubyProf.stop
+    RubyProf.stop
+  end
+  def profile_rbprof(s="")
+    require 'ruby-prof'
+
+    RubyProf.measure_mode = RubyProf::PROCESS_TIME
+    result = do_profile_loops
     printer = RubyProf::MultiPrinter.new(result)
 
     Dir.mkdir "profile" unless File.exists?("profile")
     f = @name.gsub("/","_").gsub(" ", "_")
-    p = "bm_#{@bm}_#{@prof_loops}_#{f}_#{s}"
+    p = "proctime_#{@bm}_#{@prof_loops}_#{f}_#{s}"
+    printer.print(:path => "profile", :profile => p)
+
+    RubyProf.measure_mode = RubyProf::CPU_TIME
+    result = do_profile_loops
+    printer = RubyProf::MultiPrinter.new(result)
+
+    Dir.mkdir "profile" unless File.exists?("profile")
+    f = @name.gsub("/","_").gsub(" ", "_")
+    p = "cputime_#{@bm}_#{@prof_loops}_#{f}_#{s}"
     printer.print(:path => "profile", :profile => p)
 
   end

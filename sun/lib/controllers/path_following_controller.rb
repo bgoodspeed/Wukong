@@ -8,6 +8,8 @@ class LineOfSightQuery
     @a = a
     @b = b
     @collision_priority = CollisionPriority::LOW
+    @tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    @tmp_min = GVector.xy(0,0)
   end
 
   def collision_response_type
@@ -19,18 +21,15 @@ class LineOfSightQuery
   end
   def collision_radius
     c = to_collision
-    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    c.p1.minus(tmp, c.p2)
-    tmp.norm
+    c.p1.minus(@tmp, c.p2)
+    @tmp.norm
   end
 
   def collision_center
     c = to_collision
-    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    tmp_min = GVector.xy(0,0) #NOTE temporary vector allocation
-    c.p1.minus(tmp_min, c.p2)
-    c.p2.plus(tmp, tmp_min)
-    tmp
+    c.p1.minus(@tmp_min, c.p2)
+    c.p2.plus(@tmp, @tmp_min)
+    @tmp
   end
 
   def collision_type
@@ -46,6 +45,10 @@ class PathFollowingController
     @vector_following = []
     @tracking = {}
     @distance_threshold = 500 #TODO make this configurable
+
+    @tmp = GVector.xy(0,0) #NOTE temporary vector allocation
+    @tmp_u = GVector.xy(0,0) #NOTE temporary vector allocation
+
   end
 
   def tick
@@ -96,11 +99,9 @@ class PathFollowingController
 
   def current_tracking_direction_for(hunter)
     pt = tracking_point_for(hunter)
-    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    tmp_u = GVector.xy(0,0) #NOTE temporary vector allocation
-    pt.minus(tmp, hunter.position)
-    tmp.unit(tmp_u)
-    tmp_u
+    pt.minus(@tmp, hunter.position)
+    @tmp.unit(@tmp_u)
+    @tmp_u
   end
 
   def remove_tracking(hunter, wayfinding)

@@ -18,12 +18,12 @@ class Targetable
     @game = game
     @target = target
     @odds_calculator = HitOddsCalculator.new
+    @tmp  = GVector.xy(0,0) #NOTE temporary vector allocation
   end
 
   def vector_to_target
-    tmp = GVector.xy(0,0) #NOTE temporary vector allocation
-    @target.position.minus(tmp, @game.player.position)
-    tmp
+    @target.position.minus(@tmp, @game.player.position)
+    @tmp
   end
 
   def distance_to_target
