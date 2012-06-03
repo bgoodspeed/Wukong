@@ -26,7 +26,7 @@ include PrimitiveIntersectionTests
 # Based on Optimized Spatial Hashing for Collision Detection of Deformable Objects
 # by Matthias Teschner Bruno Heidelberger Matthias M¨uller Danat Pomeranets Markus Gross
 class SpatialHash
-  attr_reader :data
+  attr_reader :data, :cell_size
   attr_accessor :x_prime, :y_prime, :base_table_size
   def initialize(cell_size)
     @cell_size = cell_size
@@ -40,11 +40,11 @@ class SpatialHash
   def clear
     @data = []
   end
-  def cell_x_index_for(x)
-    (x/@cell_size).floor
+  def cell_x_index_for(x, cs)
+    (x/cs).floor
   end
-  def cell_y_index_for(y)
-    (y/@cell_size).floor
+  def cell_y_index_for(y, cs)
+    (y/cs).floor
   end
 
   def spatial_hash(x,y, x_prime, y_prime, base_table_size)
@@ -91,8 +91,8 @@ class SpatialHash
     end
   end
   def insert_data_at(data, vertex, unique=false)
-    cx = cell_x_index_for(vertex.x)
-    cy = cell_x_index_for(vertex.y)
+    cx = cell_x_index_for(vertex.x, @cell_size)
+    cy = cell_x_index_for(vertex.y, @cell_size)
     idx = spatial_hash(cx, cy, @x_prime, @y_prime, @base_table_size)
     data_at(idx) << data if !unique or !data_at(idx).include?(data)
     idx
@@ -109,22 +109,22 @@ class SpatialHash
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     vertex.plus(tmp, GVector.xy(radius, radius))
 
-    hashes << spatial_hash(cell_x_index_for(tmp.x), cell_y_index_for(tmp.y), @x_prime, @y_prime, @base_table_size)
+    hashes << spatial_hash(cell_x_index_for(tmp.x, @cell_size), cell_y_index_for(tmp.y, @cell_size), @x_prime, @y_prime, @base_table_size)
     vertex.plus(tmp, GVector.xy( 0     , radius))
-    hashes << spatial_hash(cell_x_index_for(tmp.x), cell_y_index_for(tmp.y), @x_prime, @y_prime, @base_table_size)
+    hashes << spatial_hash(cell_x_index_for(tmp.x, @cell_size), cell_y_index_for(tmp.y, @cell_size), @x_prime, @y_prime, @base_table_size)
     vertex.plus(tmp, GVector.xy(-radius, radius))
-    hashes << spatial_hash(cell_x_index_for(tmp.x), cell_y_index_for(tmp.y), @x_prime, @y_prime, @base_table_size)
+    hashes << spatial_hash(cell_x_index_for(tmp.x, @cell_size), cell_y_index_for(tmp.y, @cell_size), @x_prime, @y_prime, @base_table_size)
     vertex.plus(tmp, GVector.xy(radius, 0))
-    hashes << spatial_hash(cell_x_index_for(tmp.x), cell_y_index_for(tmp.y), @x_prime, @y_prime, @base_table_size)
-    hashes << spatial_hash(cell_x_index_for(vertex.x), cell_y_index_for(vertex.y), @x_prime, @y_prime, @base_table_size)
+    hashes << spatial_hash(cell_x_index_for(tmp.x, @cell_size), cell_y_index_for(tmp.y, @cell_size), @x_prime, @y_prime, @base_table_size)
+    hashes << spatial_hash(cell_x_index_for(vertex.x, @cell_size), cell_y_index_for(vertex.y, @cell_size), @x_prime, @y_prime, @base_table_size)
     vertex.plus(tmp, GVector.xy(-radius, 0))
-    hashes << spatial_hash(cell_x_index_for(tmp.x), cell_y_index_for(tmp.y), @x_prime, @y_prime, @base_table_size)
+    hashes << spatial_hash(cell_x_index_for(tmp.x, @cell_size), cell_y_index_for(tmp.y, @cell_size), @x_prime, @y_prime, @base_table_size)
     vertex.plus(tmp, GVector.xy( radius, -radius))
-    hashes << spatial_hash(cell_x_index_for(tmp.x), cell_y_index_for(tmp.y), @x_prime, @y_prime, @base_table_size)
+    hashes << spatial_hash(cell_x_index_for(tmp.x, @cell_size), cell_y_index_for(tmp.y, @cell_size), @x_prime, @y_prime, @base_table_size)
     vertex.plus(tmp, GVector.xy( 0     , -radius))
-    hashes << spatial_hash(cell_x_index_for(tmp.x), cell_y_index_for(tmp.y), @x_prime, @y_prime, @base_table_size)
+    hashes << spatial_hash(cell_x_index_for(tmp.x, @cell_size), cell_y_index_for(tmp.y, @cell_size), @x_prime, @y_prime, @base_table_size)
     vertex.plus(tmp, GVector.xy(-radius, -radius))
-    hashes << spatial_hash(cell_x_index_for(tmp.x), cell_y_index_for(tmp.y), @x_prime, @y_prime, @base_table_size)
+    hashes << spatial_hash(cell_x_index_for(tmp.x, @cell_size), cell_y_index_for(tmp.y, @cell_size), @x_prime, @y_prime, @base_table_size)
     hashes.uniq
 
   end

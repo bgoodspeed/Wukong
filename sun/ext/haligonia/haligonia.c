@@ -219,6 +219,13 @@ static VALUE rb_sh_spatial_hash(VALUE self, VALUE x,VALUE y, VALUE x_prime, VALU
     long hash = sh_spatial_hash(NUM2LONG(x),NUM2LONG(y), NUM2LONG(x_prime), NUM2LONG(y_prime), NUM2LONG(base_table_size));
     return LONG2NUM(hash);
 }
+static long sh_cell_index_for(long e, long cs) {
+    return (e/cs);
+}
+
+static VALUE rb_sh_cell_index_for(VALUE self, VALUE x, VALUE cs) {
+    return LONG2NUM(sh_cell_index_for(NUM2LONG(x), NUM2LONG(cs)));
+}
 
 void Init_haligonia() {
 
@@ -243,10 +250,12 @@ void Init_haligonia() {
 
     rb_cSpatialHash = rb_define_class("SpatialHash", rb_cObject);
     rb_define_method(rb_cSpatialHash, "spatial_hash", rb_sh_spatial_hash, 5);
+    rb_define_method(rb_cSpatialHash, "cell_x_index_for", rb_sh_cell_index_for, 2);
+    rb_define_method(rb_cSpatialHash, "cell_y_index_for", rb_sh_cell_index_for, 2);
 
     // TODO remove this:
     rb_cFoobar = rb_define_class("Foobar", rb_cObject);
-    rb_define_method(rb_cFoobar, "plus_forty_two", rb_plus_forty_two, 1);
+    rb_define_method(rb_cFoobar, "plus_forty_two", rb_plus_forty_two, 2);
     rb_define_method(rb_cFoobar, "sh", rb_sh_spatial_hash, 5);
 
     rb_mPrimitiveIntersectionTests = rb_define_module("PrimitiveIntersectionTests");
