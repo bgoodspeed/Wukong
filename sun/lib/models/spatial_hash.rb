@@ -48,7 +48,7 @@ class SpatialHash
   end
 
   def spatial_hash(x,y, x_prime, y_prime, base_table_size)
-    (x_prime * x.to_i ^ y_prime * y.to_i) % base_table_size
+    ((x_prime * x.to_i) ^ (y_prime * y.to_i)) % base_table_size
   end
 
   def add_rectangle(data, r)

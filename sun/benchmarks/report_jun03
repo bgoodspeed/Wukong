@@ -1,0 +1,21 @@
+#########################################################
+# before c
+#########################################################
+`--> be ruby benchmarks/bm_citadel.rb
+could not load native extensions for platform linux:
+no such file to load -- haligonia/haligonia
+           user     system      total        real
+one_k_frames 1000 loops  0.160000   0.010000   0.170000 (  0.168828)
+           user     system      total        real
+one_k_frames_after_profile 1000 loops  0.180000   0.000000   0.180000 (  0.171110)
+
+
+#########################################################
+# after c
+#########################################################
+`--> be ruby benchmarks/bm_citadel.rb
+successfully loaded native extensions for platform linux
+                                 user     system      total        real
+one_k_frames 1000 loops      0.170000   0.000000   0.170000 (  0.167234)
+                                           user     system      total        real
+one_k_frames_after_profile 1000 loops  0.170000   0.010000   0.180000 (  0.170110)
