@@ -2,23 +2,23 @@
 #include <ruby.h>
 
 
-int primitive_circle_line_segment_intersection_cpp(float cx, float cy,float cr, float ls1x, float ls1y, float ls2x, float ls2y) {
-    float seg_vx = ls2x - ls1x;
-    float seg_vy = ls2y - ls1y;
+int pi_circle_line_segment_intersection(double cx, double cy,double cr, double ls1x, double ls1y, double ls2x, double ls2y) {
+    double seg_vx = ls2x - ls1x;
+    double seg_vy = ls2y - ls1y;
 
-    float pt_vx = cx - ls1x;
-    float pt_vy = cy - ls1y;
+    double pt_vx = cx - ls1x;
+    double pt_vy = cy - ls1y;
 
-    float seg_v_norm = sqrt(seg_vx * seg_vx + seg_vy * seg_vy);
-    float seg_vux = seg_vx/seg_v_norm;
-    float seg_vuy = seg_vy/seg_v_norm;
+    double seg_v_norm = sqrt(seg_vx * seg_vx + seg_vy * seg_vy);
+    double seg_vux = seg_vx/seg_v_norm;
+    double seg_vuy = seg_vy/seg_v_norm;
 
-    float proj_len = pt_vx * seg_vux + pt_vy * seg_vuy;
-    float projx = seg_vux * proj_len;
-    float projy = seg_vuy * proj_len;
+    double proj_len = pt_vx * seg_vux + pt_vy * seg_vuy;
+    double projx = seg_vux * proj_len;
+    double projy = seg_vuy * proj_len;
 
-    float closestx = -1;
-    float closesty = -1;
+    double closestx = -1;
+    double closesty = -1;
     if (proj_len < 0) {
       closestx = ls1x;
       closesty = ls1y;
@@ -30,10 +30,11 @@ int primitive_circle_line_segment_intersection_cpp(float cx, float cy,float cr, 
       closesty = ls1y + projy;
     }
 
-    float dist_vx = cx - closestx;
-    float dist_vy = cy - closesty;
+    double dist_vx = cx - closestx;
+    double dist_vy = cy - closesty;
 
-    return (dist_vx * dist_vx + dist_vy * dist_vy) <= cr * cr;
+    if ((dist_vx * dist_vx + dist_vy * dist_vy) <= cr * cr) return 1;
+    return -1;
 }
 
 
@@ -227,6 +228,16 @@ static VALUE rb_sh_cell_index_for(VALUE self, VALUE x, VALUE cs) {
     return LONG2NUM(sh_cell_index_for(NUM2LONG(x), NUM2LONG(cs)));
 }
 
+static VALUE rb_pi_circle_line_segment_intersection(VALUE self, VALUE cx,VALUE cy,VALUE cr, VALUE ls1x, VALUE ls1y,VALUE ls2x,VALUE ls2y) {
+    int rv = pi_circle_line_segment_intersection(NUM2DBL(cx), NUM2DBL(cy), NUM2DBL(cr), NUM2DBL(ls1x), NUM2DBL(ls1y), NUM2DBL(ls2x), NUM2DBL(ls2y));
+    if (rv < 0) {
+        return Qfalse;
+    }
+
+    return Qtrue;
+}
+
+
 void Init_haligonia() {
 
     rb_cGVector = rb_define_class("GVector", rb_cObject);
@@ -259,6 +270,7 @@ void Init_haligonia() {
     rb_define_method(rb_cFoobar, "sh", rb_sh_spatial_hash, 5);
 
     rb_mPrimitiveIntersectionTests = rb_define_module("PrimitiveIntersectionTests");
+    rb_define_method(rb_mPrimitiveIntersectionTests, "primitive_circle_line_segment_intersection?", rb_pi_circle_line_segment_intersection, 7);
 
 }
 
