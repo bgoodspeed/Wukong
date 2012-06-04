@@ -305,6 +305,10 @@ class PathFixer
   def fix(f)
     $:.each {|d|
       src = File.join(d, "src")
+      if Dir.exists?(File.join(d,"game-data"))
+        return File.join(d, f)
+      end
+
       if Dir.exists?(src) and Dir.exists?(File.join(src, "game-data"))
         return "src/#{f}"
       end
