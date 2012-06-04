@@ -26,7 +26,7 @@ line_segments:
 event_areas:
   - top_left: [ 612, 387 ]
     bottom_right: [ 724, 484 ]
-    action: noop
+    action: equip_item
     action_argument: "?"
     info_window:
       description:
