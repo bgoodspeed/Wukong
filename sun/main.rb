@@ -1,6 +1,8 @@
 $LOAD_PATH.unshift File.dirname($0)
 $LOAD_PATH.unshift File.join(File.dirname($0), "lib")
+$LOAD_PATH.unshift File.join(File.dirname($0), "lib", "patches")
 $LOAD_PATH.unshift File.join(File.dirname($0), "src")
+$LOAD_PATH.unshift File.join(File.dirname($0), "src", "patches")
 $: << "lib"
 
 require "game"

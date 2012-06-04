@@ -13,5 +13,5 @@ def do_ocra
 end
 
 if $0 == __FILE__
-	do_ocra
+	puts do_ocra
 end
