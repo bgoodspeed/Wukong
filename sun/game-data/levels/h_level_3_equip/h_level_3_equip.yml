@@ -95,7 +95,7 @@ event_areas:
       size: [ 195, 216 ]
 
 equipment_renderables:
-  - position: [ 265, 450 ]
+  - position: [ 240, 349 ]
     equipment_type: weapon
-  - position: [ 400, 250 ]
+  - position: [ 243, 163 ]
     equipment_type: armor
