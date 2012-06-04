@@ -4,6 +4,8 @@ OUTPUT_ARTIFACT="haligonia_installer.exe"
 
 # OCRA steps:   ocra main.rb # just exit the game once it loads
 
+
+# ocra --output haligonia.exe --innosetup haligonia.iss main.rb
 def do_ocra
 	`rm #{GAME_EXE}`
 	`ocra main.rb`
