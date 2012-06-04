@@ -10,9 +10,10 @@ class ImageController
   def register_image(filepath)
     @game.log.info { "Registering image from #{filepath}"}
     begin
-    img = Graphics::Image.new(@game.window, filepath, false)
+      f = PathFixer.new.fix(filepath)
+      img = Graphics::Image.new(@game.window, f, false)
     rescue Exception => e
-      puts "Error exception caught trying to load image :#{filepath}"
+      puts "Error exception caught trying to load image :#{f}"
     end
     @images[filepath] = img
     img

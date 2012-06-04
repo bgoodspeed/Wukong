@@ -12,8 +12,9 @@ class SoundController
 
   end
 
-  def add_effect(file_name, name)
-    @effects_by_name[name] = Graphics::Sample.new(@game.window, file_name)
+  def add_effect(filepath, name)
+    f = PathFixer.new.fix(filepath)
+    @effects_by_name[name] = Graphics::Sample.new(@game.window, f)
   end
 
 
@@ -37,8 +38,9 @@ class SoundController
     end
   end
 
-  def add_song(sound_file, sound_name)
-    @song_by_name[sound_name] = Graphics::Song.new(@game.window, sound_file)
+  def add_song(filepath, sound_name)
+    f = PathFixer.new.fix(filepath)
+    @song_by_name[sound_name] = Graphics::Song.new(@game.window, f)
   end
 
   def play_song(sound_name, loops = false)

@@ -299,13 +299,28 @@ class WayfindingGraphLoader
   end
 
 end
+
+class PathFixer
+
+  def fix(f)
+    if Dir.exists?("src/game-data")
+      puts "Appending path for #{f}"
+      "src/#{f}"
+    end
+    f
+  end
+
+end
+
 class YamlLoader
-  def self.from_file(klass, game, f)
+  def self.from_file(klass, game, in_file)
+    f = PathFixer.new.fix(in_file)
     c = const_get("#{klass}Loader".to_sym)
     c.from_yaml(game, IO.readlines(f).join(""), f)
   end
 
-  def self.game_from_file(f)
+  def self.game_from_file(in_file)
+    f = PathFixer.new.fix(in_file)
     GameLoader.game_from_yaml(IO.readlines(f).join(""), f)
   end
 end

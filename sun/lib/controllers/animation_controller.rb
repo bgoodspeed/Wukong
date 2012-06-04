@@ -115,8 +115,9 @@ class AnimationController
     play_animation(entity, name)
   end
   
-  def register_animation(entity, name, animation,w=25, h=25, tiles=false, active=false, rate=1)
-     gi = Graphics::Image::load_tiles(@game.window, animation, w,h,tiles)
+  def register_animation(entity, name, animation_path,w=25, h=25, tiles=false, active=false, rate=1)
+    animation = PathFixer.new.fix(animation_path)
+     gi = Graphics::Image::load_tiles(@game.window, animation , w,h,tiles)
     raise "Error registering animation #{animation} with w=#{w} h=#{h}" unless gi and !gi.first.nil?
     anim = Animation.new(gi, entity, active, rate)
     @game.log.info { "Registered animation for #{entity.class} as #{name} got #{anim.frames} frames"}
