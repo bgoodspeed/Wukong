@@ -81,6 +81,8 @@ task "build_artifact" do |t|
   `cp -r rgloader #{path}`
   `cp main.rb #{path}`
   puts "TODO: Encoding"
+  `cd #{path}; rubyencoder lib/ lib/**/* main.rb --ruby 1.9.2`
+  `cd #{path}; find '*.bak' | xargs rm `
   puts "TODO: Licence gen"
   puts "Zipping"
   `cd #{target_dir} ; zip -r #{filename}.zip #{filename}`
