@@ -5,7 +5,7 @@ require 'hoe'
 require 'rake/testtask'
 HOE = Hoe.spec 'haligonia' do
   developer('Ben Goodspeed', 'b.goodspeed@gmail.com')
-  self.version   = '0.7.0'
+  self.version   = '0.7.5'
   self.readme_file   = 'README.rdoc'
   self.history_file  = 'CHANGELOG.rdoc'
   self.extra_rdoc_files  = FileList['*.rdoc']
@@ -47,20 +47,46 @@ Cucumber::Rake::Task.new("fast_specs") do |t|
   t.libs << ['lib']
   t.cucumber_opts = %w{--format progress --tags ~@slow}
 end
+
 Cucumber::Rake::Task.new("slow_specs") do |t|
   t.libs << ['lib']
   t.cucumber_opts = %w{--format progress --tags @slow}
 end
+
 Cucumber::Rake::Task.new("gosu_specs") do |t|
   t.libs << ['lib']
   t.cucumber_opts = %w{--format progress --tags @needs_full_gosu}
 end
+
 Cucumber::Rake::Task.new("non_gosu_specs") do |t|
   t.libs << ['lib']
   t.cucumber_opts = %w{--format progress --tags ~@needs_full_gosu}
 end
 
 multitask :test_parallel => ["gosu_specs", "non_gosu_specs"]
+
+
+task "build_artifact" do |t|
+  target_dir = "/home/bg/builds"
+  version = HOE.version
+  name = "Haligonia"
+  filename = "#{name}-#{version}"
+  path = File.join(target_dir, filename)
+  raise "#{name} version #{version} already exists in #{target_dir} (#{path})" if File.exists?(path) or Dir.exists?(path)
+  puts "Building #{name} version #{version} in #{path}"
+  Dir.mkdir(path)
+  `cp -r game-data #{path}`
+  `cp -r lib #{path}`
+  `cp -r patches #{path}`
+  `cp -r rgloader #{path}`
+  `cp main.rb #{path}`
+  puts "TODO: Encoding"
+  puts "TODO: Licence gen"
+  puts "Zipping"
+  `cd #{target_dir} ; zip -r #{filename}.zip #{filename}`
+  puts "Done"
+
+end
 
 task :start_profile do |t|
   puts "starting profile"

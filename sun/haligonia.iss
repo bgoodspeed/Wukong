@@ -1,6 +1,6 @@
 [Setup]
 AppName=Haligonia
-AppVersion=0.1
+AppVersion=0.7.5
 DefaultDirName={pf}\Haligonia
 DefaultGroupName=Haligonia
 OutputBaseFilename=HaligoniaInstaller

@@ -2,12 +2,8 @@ GAME_EXE="haligonia.exe"
 OUTPUT_ARTIFACT="HaligoniaInstaller.exe"
 
 
-# OCRA steps:   ocra main.rb # just exit the game once it loads
 
-
-#
-
-def do_ocra
+def build_win32_installer
 	`rm #{GAME_EXE}`
   `cp patches/glut32.dll .`
   `cp patches/OpenAL32.dll .`
@@ -15,5 +11,7 @@ def do_ocra
 end
 
 if $0 == __FILE__
-	puts do_ocra
+	puts build_win32_installer
 end
+
+
