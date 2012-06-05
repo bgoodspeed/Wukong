@@ -11,20 +11,20 @@ class SpawnPoint
   end
   def required_attributes; ATTRIBUTES; end
   def calculate_properties_from(s)
-    re = /(?<eq>\d+) enemies every (?<fr>\d+) ticks for (?<tt>\d+) total ticks/
+    re = Regexp.new('(?<eq>\d+) enemies every (?<fr>\d+) ticks for (?<tt>\d+) total ticks')
     d = re.match(s)
     @enemy_quantity = d["eq"].to_i
     @frequency = d["fr"].to_i
     @total_time = d["tt"].to_i
     @total_time = nil if @total_time == 0
     @start_time = 0
-    cond = /until (?<cnd>\w+)\s*(?<cnda>\d*)/
+    cond = Regexp.new('until (?<cnd>\w+)\s*(?<cnda>\d*)')
     if s =~ cond
       c = cond.match(s)
       @condition = c['cnd']
       @condition_argument = c['cnda']
     end
-    start_time_frag = /after (?<st>\d+) ticks/
+    start_time_frag = Regexp.new('after (?<st>\d+) ticks')
     if s =~ start_time_frag
       c = start_time_frag.match(s)
       @start_time = c['st'].to_i
