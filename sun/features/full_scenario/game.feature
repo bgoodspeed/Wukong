@@ -65,14 +65,26 @@ Feature: Game
     And the game property "level.event_areas.last.conditions.size" should be "2"
     And the game property "level.event_areas.last.access_allowed?" should be "true"
 
+  Scenario: One-Time Event Area Actions Invocation
+    Given I load the game "one_time_event_area_actions"
+    And I set the player position to 100,100
+    Then the game property "player.upgrade_points" should be "0"
+    And the game property "level.event_areas.first.one_time" should be "true"
+    When I simulate "Graphics::KbO"
+    When I run the game loop 1 times
+    And the game property "player.upgrade_points" should be "77"
+    And the game property "level.event_areas.size" should be "0"
+
   Scenario: Multiple Event Area Actions Invocation 1
     Given I load the game "multiple_event_area_actions"
     And I set the player position to 100,100
     Then the game property "player.upgrade_points" should be "0"
+    And the game property "level.event_areas.first.one_time" should be "false"
     When I simulate "Graphics::KbO"
     When I run the game loop 1 times
     Then a "EventTypes::START_NEW_GAME" event should be queued
     And the game property "player.upgrade_points" should be "77"
+    And the game property "level.event_areas.size" should be "1"
 
   Scenario: Multiple Event Area Actions Invocation 2
     Given I load the game "multiple_event_area_actions2"

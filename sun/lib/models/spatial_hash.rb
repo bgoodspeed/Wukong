@@ -51,6 +51,10 @@ class SpatialHash
     ((x_prime * x.to_i) ^ (y_prime * y.to_i)) % base_table_size
   end
 
+  def remove_rectangle(data, r)
+
+  end
+
   def add_rectangle(data, r)
     add_line_segment(data, Primitives::LineSegment.new(r.p1, r.p2))
     add_line_segment(data, Primitives::LineSegment.new(r.p2, r.p3))

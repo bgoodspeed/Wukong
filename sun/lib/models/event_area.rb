@@ -3,7 +3,7 @@
 class EventArea
   #TODO use ATTRIBUTES and process with yaml as usual
   REQUIRED_ATTRIBUTES = [:rect, :action]
-  YAML_ATTRIBUTES = REQUIRED_ATTRIBUTES + [:label, :action_argument,  :required_attributes, :extra_actions, :conditions ]
+  YAML_ATTRIBUTES = REQUIRED_ATTRIBUTES + [:label, :action_argument,  :required_attributes, :extra_actions, :conditions, :one_time ]
   ATTRIBUTES = [:info_window ]
 
   (ATTRIBUTES + YAML_ATTRIBUTES).each {|attribute| attr_accessor attribute }
@@ -21,6 +21,7 @@ class EventArea
     conf = self.class.defaults.merge(conf_in)
     @game = game
     @extra_actions = []
+    @one_time = false
     process_attributes(YAML_ATTRIBUTES, self, conf)
 
 
