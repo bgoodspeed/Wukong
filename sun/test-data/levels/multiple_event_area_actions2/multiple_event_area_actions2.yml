@@ -1,4 +1,4 @@
-name: multiple_event_area_actions
+name: multiple_event_area_actions2
 background_image: test-data/levels/load_screen_with_images/grass.jpg
 background_music: test-data/music/music.wav
 wayfinding: test-data/levels/load_screen_with_images/wayfinding.yml
@@ -27,10 +27,10 @@ event_areas:
     label: Start New Game
     action: queue_start_new_game_event
     extra_actions:
-      - action: give_upgrade_points
-        action_argument: 70
-      - action: give_upgrade_points
-        action_argument: 7
+      - action: upgrade_progression
+        action_argument:
+          progression_type: level_background_rank
+          progression_amount: 1
     info_window:
       description:
         - foo bar

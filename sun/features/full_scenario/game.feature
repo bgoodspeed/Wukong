@@ -65,7 +65,7 @@ Feature: Game
     And the game property "level.event_areas.last.conditions.size" should be "2"
     And the game property "level.event_areas.last.access_allowed?" should be "true"
 
-  Scenario: Multiple Event Area Actions Invocation
+  Scenario: Multiple Event Area Actions Invocation 1
     Given I load the game "multiple_event_area_actions"
     And I set the player position to 100,100
     Then the game property "player.upgrade_points" should be "0"
@@ -73,6 +73,14 @@ Feature: Game
     When I run the game loop 1 times
     Then a "EventTypes::START_NEW_GAME" event should be queued
     And the game property "player.upgrade_points" should be "77"
+
+  Scenario: Multiple Event Area Actions Invocation 2
+    Given I load the game "multiple_event_area_actions2"
+    And I set the player position to 100,100
+    Then the game property "player.progression.level_background_rank" should be "0"
+    When I simulate "Graphics::KbO"
+    When I run the game loop 1 times
+    Then the game property "player.progression.level_background_rank" should be "1"
 
 
 

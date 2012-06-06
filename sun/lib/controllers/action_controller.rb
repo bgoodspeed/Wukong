@@ -13,6 +13,7 @@ module BehaviorTypes
   CONTINUE_LAST_GAME = "continue_last_game"
   TAKE_REWARD = "take_reward"
   UPGRADE_PLAYER = "upgrade_player"
+  UPGRADE_PROGRESSION = "upgrade_progression"
   EQUIPMENT_MENU = "equipment_menu"
   EQUIP_ITEM = "equip_item"
   DEBUG_PRINT = "debug_print"
@@ -221,6 +222,17 @@ class ActionController
 
       BehaviorTypes::GIVE_UPGRADE_POINTS => lambda {|game, arg|
         game.player.add_upgrade_points(arg.to_i)
+      },
+      BehaviorTypes::UPGRADE_PROGRESSION => lambda {|game, arg|
+        if arg.kind_of?(Hash)
+          ptype = arg['progression_type']
+          amount = arg['progression_amount']
+          raise "unknown progression type: #{ptype}" unless ptype =~ /level_background_rank/
+          raise "unknown progression amount: #{amount}" unless amount
+          game.player.progression.level_background_rank += amount.to_i
+        else
+          raise "TODO upgrade_progression Must take a hash"
+        end
       },
       BehaviorTypes::QUEUE_NEW_GAME_EVENT => lambda {|game, arg| game.add_event(Event.new(game.new_game_level, EventTypes::START_NEW_GAME))},
       #TODO figure out which game to load from menu?
