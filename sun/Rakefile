@@ -5,7 +5,7 @@ require 'hoe'
 require 'rake/testtask'
 HOE = Hoe.spec 'haligonia' do
   developer('Ben Goodspeed', 'b.goodspeed@gmail.com')
-  self.version   = '0.7.8'
+  self.version   = '0.8.2'
   self.readme_file   = 'README.rdoc'
   self.history_file  = 'CHANGELOG.rdoc'
   self.extra_rdoc_files  = FileList['*.rdoc']
@@ -68,7 +68,7 @@ multitask :test_parallel => ["gosu_specs", "non_gosu_specs"]
 
 task "build_artifact" do |t|
   target_dir = "/home/bg/builds"
-  rubyenc = "/home/bg/Downloads/rubyencoder-1.3-eval/bin/rubyencoder"
+  rubyenc = "/home/bg/bin/rubyencoder-1.3/bin/rubyencoder"
   version = HOE.version
   name = "Haligonia"
   filename = "#{name}-#{version}"
@@ -80,11 +80,11 @@ task "build_artifact" do |t|
   `cp -r lib #{path}`
   `cp -r patches #{path}`
   `cp -r rgloader #{path}`
-  `cp main.rb distribute.rb haligonia.iss #{path}`
-  puts "TODO: Encoding"
-  `cd #{path}; #{rubyenc} lib/ lib/**/* main.rb --ruby 1.9.2`
+  `cp Gemfile main.rb distribute.rb haligonia.iss #{path}`
+  puts "Encoding"
+  puts `cd #{path}; #{rubyenc} lib/ lib/**/* main.rb --ruby 1.9.2`
   `cd #{path}; find #{path} -iname '*.bak' | xargs rm `
-  puts "TODO: Licence gen"
+  puts "TODO: Licence gen if needed"
   puts "Zipping"
   `cd #{target_dir} ; zip -r #{filename}.zip #{filename}`
   puts "Done"
