@@ -64,6 +64,7 @@ class SpawnPoint
         enemy = orig_enemy.dup
         enemy.stats = orig_enemy.stats.dup
         enemy.position = @point
+        enemy.age = 0
         #TODO get rid of this, shouldn't be needed
         @game.animation_controller.add_entity_equivalance(enemy, orig_enemy)
         @game.animation_controller.animation_index_by_entity_and_name(enemy, enemy.animation_name).needs_update = true

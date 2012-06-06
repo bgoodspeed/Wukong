@@ -26,7 +26,14 @@ module Views
 
   class EnemyView < BaseView
     def call(screen, enemy)
-      game.animation_controller.draw_one_rotated(screen, enemy, enemy.animation_name)
+      enemy.age += 1
+      @max_fade_in_age = 30
+      if enemy.age < @max_fade_in_age
+        game.animation_controller.draw_one_rotated_faded(screen, enemy, enemy.animation_name, (enemy.age.to_f/@max_fade_in_age.to_f))
+      else
+        game.animation_controller.draw_one_rotated(screen, enemy, enemy.animation_name)
+      end
+
       
     end
   end

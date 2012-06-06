@@ -18,10 +18,14 @@ Feature: Events
     And I create a condition controller
     And I stub "foo" on game to return "false"
     When I add a fake condition that checks "foo" on game named "COND"
+    And there should be 1 temporary renderings
     And I run the game loop 1 times
     And handle events
     Then there should be 1 enemies
     And the path following controller should be tracking 1 element
+    Then the enemy named "Test Enemy" should have "age" equal to "0"
+    And I run the game loop 1 times
+    Then the enemy named "Test Enemy" should have "age" equal to "1"
 
   Scenario: Event Areas Validation
     Given I create a valid event area

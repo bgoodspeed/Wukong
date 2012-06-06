@@ -5,7 +5,7 @@ class Enemy
   ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction, :radius, :enemy_avatar,
                 :image_file, :direction, :animation_name, :animation_path, :damage_sound_effect_name, :upgrade_point_value
   ]
-  NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range, :inventory, :last_damage, :line_of_sight]
+  NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range, :inventory, :last_damage, :line_of_sight, :age]
   (ATTRIBUTES + NON_YAML_ATTRIBUTES).each {|attr| attr_accessor attr }
 
   extend YamlHelper
@@ -55,7 +55,7 @@ class Enemy
     @line_of_sight = true
     @position = conf['start_position']
     @collision_type = conf['collision_primitive']
-
+    @age = 0
 
     cf = conf['stats'] ? conf['stats'] : {}
     @stats = Stats.new(cf)

@@ -90,6 +90,15 @@ class AnimationController
     draw_animation_rotated_at(screen, position, entity.direction, animation)
 
   end
+  def draw_one_rotated_faded(screen, entity, name, fade_percent)
+    animation = animations_for(entity, name)[name]
+    world_position = position_for(entity, name)
+    position = @game.camera.screen_coordinates_for(world_position)
+    draw_animation_rotated_faded_at(screen, position, entity.direction, animation, fade_percent)
+
+  end
+
+
   def draw_one(screen, entity, name)
     animation = animations_for(entity, name)[name]
     world_position = position_for(entity, name)
