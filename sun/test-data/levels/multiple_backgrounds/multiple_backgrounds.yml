@@ -1,0 +1,25 @@
+name: multiple_backgrounds
+background_image: test-data/levels/multiple_backgrounds/grass.jpg
+wayfinding: test-data/levels/multiple_backgrounds/wayfinding.yml
+measurements: [ 640, 480 ]
+extra_backgrounds:
+  - test-data/levels/multiple_backgrounds/grass2.jpg
+  - test-data/levels/multiple_backgrounds/grass3.jpg
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+

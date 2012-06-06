@@ -60,6 +60,12 @@ module ArrayFinalizers
       level.add_event_emitter(event_emitter)
     end
   end
+  class ExtraBackgrounds < BaseFinalizer
+    def call(level, data, eb)
+      bg = @game.image_controller.register_image(eb)
+      level.extra_backgrounds << bg
+    end
+  end
   class Animations < BaseFinalizer
     def call(level, data, animation)
       la = LevelAnimation.new(@game, animation)

@@ -190,3 +190,7 @@ When /^we upgrade the player with animation config$/ do
 
   @game.action_controller.invoke(BehaviorTypes::UPGRADE_PLAYER, mock_arg)
 end
+
+When /^I set the player level progress rank to (\d+)$/ do |arg1|
+  @game.player.progression.level_background_rank = arg1.to_i
+end

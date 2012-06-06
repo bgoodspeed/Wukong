@@ -24,7 +24,7 @@ class Level
   ARRAY_ATTRIBUTES = [:enemies, :measurements, :line_segments, :triangles,
     :circles, :rectangles, :dynamic_elements, :enemies, :event_emitters,
     :spawn_points, :ored_completion_conditions, :anded_completion_conditions,
-    :event_areas, :animations, :sight_lines, :equipment_renderables
+    :event_areas, :animations, :sight_lines, :equipment_renderables, :extra_backgrounds
     ]
   HASH_ATTRIBUTES = [
     :declared_enemies,
@@ -71,8 +71,22 @@ class Level
     @music = @game.sound_controller.add_song(@background_music, @background_music) if @background_music
     @required_attributes = YAML_ATTRIBUTES - [:player_start_position, :player_start_health,
                                               :background_music, :background_image, :reward_level]
+
   end
 
+  def all_backgrounds
+    if @background
+      all = [@background]
+    else
+      all = []
+    end
+
+    all + @extra_backgrounds
+  end
+
+  def backgrounds_defined
+    all_backgrounds.size
+  end
 
   def update_minimax(sx,sy,ex,ey)
     @minimum_x = [sx, ex, @minimum_x].min
@@ -248,10 +262,17 @@ class Level
   end
 
 
+
+  def current_background
+    all = all_backgrounds
+    level_idx = [all.size - 1, @game.player.progression.level_background_rank].min
+    all[level_idx]
+  end
+
   def draw(screen)
-    unless @background.nil?
+    unless current_background.nil?
       coords = @game.camera.screen_coordinates_for(GVector.xy(0,0)) #TODO is this always 0,0?
-      @background.draw(coords.x,coords.y,ZOrder.background.value)
+      current_background.draw(coords.x,coords.y,ZOrder.background.value)
     end
     static_bodies.each {|body| @game.rendering_controller.draw_function_for(body).call(screen, body)}
     dynamic_elements.each {|body| @game.rendering_controller.draw_function_for(body).call(screen, body)}

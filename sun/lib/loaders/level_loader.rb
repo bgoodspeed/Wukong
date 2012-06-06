@@ -30,6 +30,7 @@ class LevelLoader
         "spawn_points" => ArrayFinalizers::SpawnPoints.new(@game, @which_level),
         "animations" => ArrayFinalizers::Animations.new(@game, @which_level),
         "event_emitters" => ArrayFinalizers::EventEmitters.new(@game, @which_level),
+        "extra_backgrounds" => ArrayFinalizers::ExtraBackgrounds.new(@game, @which_level),
         "ored_completion_conditions" => ArrayFinalizers::OredCompletionConditions.new(@game, @which_level),
         "anded_completion_conditions" => ArrayFinalizers::AndedCompletionConditions.new(@game, @which_level),
         "equipment_renderables" => ArrayFinalizers::EquipmentRenderables.new(@game, @which_level),

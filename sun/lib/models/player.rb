@@ -55,7 +55,7 @@ class Player
     }
   end
 
-  attr_reader :player_animation, :stats, :required_attributes
+  attr_reader :player_animation, :stats, :required_attributes, :progression
 
   def initialize(game, in_conf={})
     conf = self.class.defaults.merge(in_conf)
