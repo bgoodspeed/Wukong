@@ -9,7 +9,7 @@ require 'game_bm'
 bm = GameBM.new("test-data/new_game_load_screen.yml", "blockagewayfinding")
 
 LevelLoader.new(bm.game).load_level("test-data/levels/blockage/blockage.yml")
-
+bm.game.player.position = GVector.xy(450, 270)
 
 if $0 == __FILE__
   
