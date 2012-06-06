@@ -12,7 +12,12 @@ class GameItem
   include InventoryStorable
   def initialize(game, conf)
     @game = game
-    cf = conf['stats'] ? conf['stats'] : {}
+    if conf['stats']
+      cf = Stats.zero_config.merge(conf['stats'])
+    else
+      cf = Stats.zero_config
+    end
+
     @stats = Stats.new(cf)
   end
 

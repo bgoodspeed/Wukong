@@ -226,3 +226,11 @@ end
 When /^the player acquires the enemy inventory$/ do
   @game.player.acquire_inventory(@enemy.inventory)
 end
+
+When /^the player uses his only inventory item$/ do
+  potions = @game.player.inventory.items_matching(InventoryTypes::POTION)
+  potions.should_not be_empty
+  potion = potions.first
+
+  @game.player.use_item(potion)
+end

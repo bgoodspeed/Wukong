@@ -188,6 +188,13 @@ class Player
   def acquire_inventory(inventory)
     @inventory.add_all(inventory)
   end
+
+  def use_item(item)
+    s = item.stats
+    @stats = @stats.plus_stats(s)
+    @inventory.remove_item(item)
+
+  end
   def take_reward(item)
     @inventory.add_item(item)
   end

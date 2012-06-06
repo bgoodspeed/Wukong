@@ -115,10 +115,25 @@ Feature: Menu
     When I enter the menu "equipment" with filter "nil"
     Then the game property "player.inventory.items.size" should be "0"
     Then the game property "menu_mode?" should be "false"
-    Then the game property "temporary_message" should be "'No lines in menu equipment. '"
+    Then the game property "temporary_message" should be "'No equipment. '"
     When I run the game loop 1 times
 
+  Scenario: Items Menu - Empty
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a menu controller
+    When I enter the menu "items" with filter "InventoryTypes::POTION"
+    Then the game property "player.inventory.items.size" should be "0"
+    Then the game property "menu_mode?" should be "false"
+    Then the game property "temporary_message" should be "'No items with potion_type.'"
+    When I run the game loop 1 times
 
+  Scenario: Items Menu - Non Empty
+    Given I load the game "demo_inventory"
+    When the player takes reward "test-data/equipment/potion.yml"
+    When I enter the menu "items" with filter "InventoryTypes::POTION"
+    Then the game property "player.inventory.items.size" should be "1"
+    Then the game property "menu_mode?" should be "true"
+    When I run the game loop 1 times
 
   Scenario: Equipment Menu - Non Empty
     Given I load the game "demo_inventory"

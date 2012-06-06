@@ -16,6 +16,7 @@ module BehaviorTypes
   EQUIPMENT_MENU = "equipment_menu"
   EQUIP_ITEM = "equip_item"
   DEBUG_PRINT = "debug_print"
+  CONSUME_ITEM = "consume_item"
   NOOP = "noop"
   RESET_PLAYER_AND_LOAD_LEVEL = "reset_player_and_load_level"
 end
@@ -32,6 +33,10 @@ class ActionController
       BehaviorTypes::EQUIP_ITEM => lambda {|game, arg|
         w = game.inventory_controller.item_named(arg.argument)
         game.player.equip_weapon(w)},
+      BehaviorTypes::CONSUME_ITEM => lambda {|game, arg|
+        item = game.inventory_controller.item_named(arg.argument)
+        game.player.use_item(item) },
+
       BehaviorTypes::SAVE_GAME_SLOT => lambda {|game, arg| 
         game.clock.set_last_save_time
         game.save_game_slot(arg)

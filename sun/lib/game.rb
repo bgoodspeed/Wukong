@@ -291,7 +291,9 @@ class Game
       @hud.menu_mode = true
       @hud.swap_copy
     else
-      @clock.enqueue_event("message", TimedEvent.new("temporary_message=", "No lines in menu #{name}. #{filter}" ,"temporary_message=", nil, 60 ))
+      m = ". "
+      m = " with #{filter}." if filter
+      @clock.enqueue_event("message", TimedEvent.new("temporary_message=", "No #{name}#{m}" ,"temporary_message=", nil, 60 ))
     end
 
   end

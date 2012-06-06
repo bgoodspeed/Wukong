@@ -10,8 +10,39 @@ end
 
 module GameMenu
   EQUIPMENT = "equipment"
+  ITEMS = "items"
 end
 
+class ItemMenuItem
+  def initialize(item, index)
+    @index = index
+    @item = item
+  end
+  def position
+    nil
+  end
+  def image
+    nil
+  end
+  def display_text
+    @item.display_name
+  end
+  def action
+    BehaviorTypes::CONSUME_ITEM
+  end
+  def action_argument
+    self
+  end
+
+  def argument
+    @item.orig_filename
+  end
+
+  def to_s
+    "#{@item.class}:#{@item.display_name}"
+  end
+
+end
 class EquipmentMenuItem
   def initialize(item, index)
     @index = index
@@ -41,6 +72,41 @@ class EquipmentMenuItem
   def to_s
     "#{@item.class}:#{@item.display_name}"
   end
+end
+
+class ItemsMenu
+  attr_accessor :filter, :current_index, :menu_id, :headers
+  ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width, :header_text, :header_position]
+  ATTRIBUTES.each {|attr| attr_accessor attr}
+
+  include MenuCursor
+  include MenuPositioned
+  include MenuImages
+
+  def initialize(game)
+    @game = game
+    @filter = nil
+    @current_index = 0
+    @menu_id = "Equipment Menu"
+    @x_spacing = 10
+    @y_spacing = 10
+    @menu_scale = 2
+    @menu_width = 300
+    @headers = []
+  end
+
+
+  def current_entry
+    lines[@current_index]
+  end
+  def lines
+    items = @game.player.inventory.items_matching(@filter)
+    menu_items = []
+    items.each_with_index {|item, index| menu_items << ItemMenuItem.new(item, index)}
+    menu_items
+  end
+  alias_method :entries, :lines
+
 end
 class EquipmentMenu
 
@@ -85,7 +151,8 @@ class MenuController
   def initialize(game)
     @game = game
     @menus = {
-      GameMenu::EQUIPMENT => EquipmentMenu.new(@game)
+      GameMenu::EQUIPMENT => EquipmentMenu.new(@game),
+      GameMenu::ITEMS => ItemsMenu.new(@game)
     }
     @active = false
     @active_menu_name = nil

@@ -41,6 +41,7 @@ Feature: Inventory
     Then the player inventory filtered by "InventoryTypes::POTION" should have size 1
     Then the player inventory item filtered by "InventoryTypes::POTION" should have property "stats.health" equal to "11"
 
+
   Scenario: Player Inventory Yaml
     Given I load the game "demo_inventory"
     Then the player inventory filtered by "nil" should have size 0
@@ -94,3 +95,14 @@ Feature: Inventory
     Then the player stats should have property "defense" equal to "5"
     Then the equipment stats should have property "defense" equal to "10"
     Then the effective player stats should have property "defense" equal to "15"
+
+  Scenario: Item Usage Consumes Item and Updates Stats
+    Given I load the game "demo_inventory"
+    When the player takes reward "test-data/equipment/potion.yml"
+    Then the player inventory filtered by "InventoryTypes::POTION" should have size 1
+    And the game property "player.health" should be "5"
+    And the game property "player.max_health" should be "6"
+    When the player uses his only inventory item
+    Then the player inventory filtered by "InventoryTypes::POTION" should have size 0
+    And the game property "player.health" should be "16"
+    And the game property "player.max_health" should be "6"

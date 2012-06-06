@@ -11,6 +11,16 @@ class Stats
         'accuracy' => 5,
     }
   end
+def self.zero_config
+    {
+        'strength' => 0,
+        'defense' => 0,
+        'health' => 0,
+        'max_health' => 0,
+        'speed' => 0,
+        'accuracy' => 0,
+    }
+  end
 
   def self.zero
     s = Stats.new
