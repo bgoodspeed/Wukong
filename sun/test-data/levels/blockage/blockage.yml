@@ -1,0 +1,68 @@
+name: blockage
+background_image: test-data/levels/blockage/blockage.png
+background_music: test-data/music/silence.wav
+heads_up_display: test-data/hud/hud_config.yml
+wayfinding: test-data/levels/blockage/blockage_wayfinding.yml
+reward_level: test-data/levels/blockage_reward/blockage_reward.yml
+player_start_position: [ 100, 320 ]
+
+measurements: [ 800, 600 ]
+
+anded_completion_conditions:
+  - condition: player_health_at_least
+    argument: 1
+  - condition: player_near
+    argument: [ 730, 230 ]
+
+declared_enemies:
+  - enemy_yaml: test-data/enemies/white_square.yml
+    name: e1
+spawn_points:
+  - point: [ 730, 230 ]
+    name: white_blocks
+    spawn_schedule: 1 enemies every 100 ticks for 900 total ticks
+    spawn_argument: [ e1 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 800
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 600
+  - start_x: 800
+    start_y: 0
+    end_x: 800
+    end_y: 600
+  - start_x: 0
+    start_y: 600
+    end_x: 800
+    end_y: 600
+    
+  - start_x: 300
+    start_y: 0
+    end_x: 300
+    end_y: 161
+  - start_x: 300
+    start_y: 161
+    end_x: 518
+    end_y: 161
+  - start_x: 518
+    start_y: 161
+    end_x: 518
+    end_y: 0
+
+  - start_x: 300
+    start_y: 600
+    end_x: 300
+    end_y: 322
+  - start_x: 300
+    start_y: 322
+    end_x: 518
+    end_y: 322
+  - start_x: 518
+    start_y: 322
+    end_x: 518
+    end_y: 600

@@ -5,7 +5,7 @@ gem "hoe", "2.16.0"
 gem "opengl"
 gem "gosu"
 #gem "texplay", :platforms => [:mswin, :mingw, :ruby]
-
+gem "memoize"
 gem "rake-compiler"
 gem "rdoc"
 #gem "devil", :platforms => [:ruby, :mingw]

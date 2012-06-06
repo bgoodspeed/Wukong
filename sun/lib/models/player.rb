@@ -191,7 +191,7 @@ class Player
 
   def use_item(item)
     s = item.stats
-    @stats = @stats.plus_stats(s)
+    @stats = @stats.plus_stats_clamped(s)
     @inventory.remove_item(item)
 
   end

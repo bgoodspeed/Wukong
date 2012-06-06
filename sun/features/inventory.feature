@@ -100,9 +100,18 @@ Feature: Inventory
     Given I load the game "demo_inventory"
     When the player takes reward "test-data/equipment/potion.yml"
     Then the player inventory filtered by "InventoryTypes::POTION" should have size 1
+    When I set the player max health to 20
     And the game property "player.health" should be "5"
-    And the game property "player.max_health" should be "6"
     When the player uses his only inventory item
     Then the player inventory filtered by "InventoryTypes::POTION" should have size 0
     And the game property "player.health" should be "16"
-    And the game property "player.max_health" should be "6"
+
+  Scenario: Item Usage Consumes Item and Updates Stats Clamped to Max Health
+    Given I load the game "demo_inventory"
+    When the player takes reward "test-data/equipment/potion.yml"
+    Then the player inventory filtered by "InventoryTypes::POTION" should have size 1
+    When I set the player max health to 15
+    And the game property "player.health" should be "5"
+    When the player uses his only inventory item
+    Then the player inventory filtered by "InventoryTypes::POTION" should have size 0
+    And the game property "player.health" should be "15"

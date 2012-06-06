@@ -1,0 +1,26 @@
+enemy:
+  image_path: test-data/sprites/white_square.png
+  animation_width: 30
+  animation_height: 30
+  animation_rate: 10
+  position: [ 100 , 100 ]
+  health: 5
+  velocity: 2
+  artificial_intelligence:
+    strategy:
+      start_state: wait
+      states:
+        - wait:
+          - enemy_sighted: chase
+            enemy_too_far: wait
+            enemy_lost: wait
+        - chase:
+          - enemy_in_range: attack
+          - enemy_lost: wait
+          - enemy_too_far: chase
+          - enemy_sighted: chase
+        - attack:
+          - enemy_too_far: chase
+          - enemy_lost: wait
+          - enemy_sighted: attack
+          - enemy_in_range: attack

@@ -39,6 +39,9 @@ When /^stats "([^"]*)" and "([^"]*)" are added$/ do |arg1, arg2|
   @result_stats = @all_stats[arg1].plus_stats(@all_stats[arg2])
 end
 
+When /^stats "([^"]*)" and "([^"]*)" are added with clamping$/ do |arg1, arg2|
+  @result_stats = @all_stats[arg1].plus_stats_clamped(@all_stats[arg2])
+end
 
 Then /^the stats result should have property "([^"]*)" equal to "([^"]*)"$/ do |arg1, arg2|
   @result_stats.send(arg1).should == arg2.to_i

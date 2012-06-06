@@ -18,6 +18,23 @@ Feature: Stats
     When stats "a" and "b" are added
     Then the stats result should have property "strength" equal to "20"
 
+  Scenario: Stats Summation Clamped
+    Given I create a stats object called "a"
+    Given I create a stats object called "b"
+    And I set the stat "max_health" on "b" to "0"
+    When stats "a" and "b" are added with clamping
+    Then the stats result should have property "strength" equal to "20"
+    Then the stats result should have property "health" equal to "12"
+
+  Scenario: Stats Summation Clamped 2
+    Given I create a stats object called "a"
+    Given I create a stats object called "b"
+    And I set the stat "max_health" on "b" to "1"
+    When stats "a" and "b" are added with clamping
+    Then the stats result should have property "strength" equal to "20"
+    Then the stats result should have property "health" equal to "13"
+    Then the stats result should have property "max_health" equal to "13"
+
   Scenario: Damage Calculation
     Given I create a stats object called "a"
     Given I create a stats object called "b"

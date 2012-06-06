@@ -1,0 +1,21 @@
+#########################################################
+# before memoization of astar method
+#########################################################
+`--> be ruby benchmarks/bm_blockage.rb
+could not load native extensions for platform linux:
+no such file to load -- haligonia/haligonia
+                                            user     system      total        real
+one_k_frames 1000 loops                 0.770000   0.030000   0.800000 (  0.793688)
+one_k_frames_after_profile 1000 loops   0.740000   0.020000   0.760000 (  0.737878)
+
+
+#########################################################
+# after memoization of astar method
+#########################################################
+`--> be ruby benchmarks/bm_blockage.rb
+could not load native extensions for platform linux:
+no such file to load -- haligonia/haligonia
+           user     system      total        real
+one_k_frames 1000 loops  0.790000   0.020000   0.810000 (  0.795520)
+           user     system      total        real
+one_k_frames_after_profile 1000 loops  0.740000   0.020000   0.760000 (  0.757571)

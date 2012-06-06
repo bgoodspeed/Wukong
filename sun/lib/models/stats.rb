@@ -45,6 +45,12 @@ def self.zero_config
     rv
   end
 
+  def plus_stats_clamped(other)
+    new_stats = self.plus_stats(other)
+    new_stats.health = [new_stats.health, new_stats.max_health].min
+    new_stats
+  end
+
   def inventory_hash
     rv = ""
     ATTRIBUTES.each {|attr| rv += self.send(attr).to_s + ","}

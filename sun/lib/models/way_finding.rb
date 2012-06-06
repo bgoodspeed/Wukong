@@ -1,10 +1,14 @@
 
+require 'memoize'
+
 class WayfindingGraph
+  include Memoize
   attr_accessor :nodes, :close_enough_threshold
   def initialize()
     @nodes = {}
     @edge_weights = {}
     @close_enough_threshold = 5 #TODO this is dependant on the velocity of the tracker -- eg enemy
+    memoize(:a_star)
   end
 
   def add_node(name, position)

@@ -22,6 +22,7 @@ GEM
     hoe (2.16.0)
       rake (~> 0.8)
     json (1.6.6)
+    memoize (1.3.1)
     metaclass (0.0.1)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
@@ -54,6 +55,7 @@ DEPENDENCIES
   cucumber
   gosu
   hoe (= 2.16.0)
+  memoize
   mocha
   opengl
   rake-compiler
