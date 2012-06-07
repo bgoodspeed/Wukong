@@ -12,7 +12,7 @@ anded_completion_conditions:
   - condition: player_health_at_least
     argument: 1
   - condition: enemies_killed_at_least
-    argument: 12
+    argument: 20
 
 declared_enemies:
   - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
@@ -21,20 +21,33 @@ declared_enemies:
     name: e2
   - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
     name: e3
+  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
+    name: e4
+  - enemy_yaml: game-data/enemies/baby_horned_pig_anim.yml
+    name: e5
+
 
 spawn_points:
   - point: [ 330, 575 ]
     name: baby 1
-    spawn_schedule: after 0 ticks 1 enemies every 100 ticks for 0 total ticks until enemies_spawned_at_least 3
+    spawn_schedule: after 0 ticks 1 enemies every 100 ticks for 0 total ticks until enemies_spawned_at_least 6
     spawn_argument: [ e1 ]
   - point: [ 755, 520 ]
     name: baby 2
-    spawn_schedule: after 180 ticks 1 enemies every 200 ticks for 0 total ticks until enemies_spawned_at_least 7
-    spawn_argument: [ e2 ]
+    spawn_schedule: after 180 ticks 1 enemies every 150 ticks for 0 total ticks until enemies_spawned_at_least 6
+    spawn_argument: [ e1 ]
   - point: [ 770, 185 ]
     name: baby 3
-    spawn_schedule: after 360 ticks 1 enemies every 300 ticks for 0 total ticks until enemies_spawned_at_least 12
-    spawn_argument: [ e3 ]
+    spawn_schedule: after 60 ticks 1 enemies every 175 ticks for 0 total ticks until enemies_spawned_at_least 3
+    spawn_argument: [ e1 ]
+  - point: [ 50, 500 ]
+    name: baby 4
+    spawn_schedule: after 0 ticks 1 enemies every 50 ticks for 0 total ticks until enemies_spawned_at_least 6
+    spawn_argument: [ e4 ]
+  - point: [ 550, 75 ]
+    name: baby 5
+    spawn_schedule: after 0 ticks 1 enemies every 200 ticks for 0 total ticks until enemies_spawned_at_least 6
+    spawn_argument: [ e5 ]
 
     
 event_areas:

@@ -33,6 +33,7 @@ event_areas:
         - ENTER or O to open.
       position: [ 276, 373 ]
       size: [ 252, 419 ]
+
   - top_left: [ 565, 104 ]
     bottom_right: [ 719, 159 ]
     action: queue_load_game_event
@@ -41,6 +42,7 @@ event_areas:
         - Load saved games.
       position: [ 516, 206 ]
       size: [ 252, 252 ]
+
   - top_left: [ 87, 106 ]
     bottom_right: [ 246, 160 ]
     action: continue_last_game
@@ -49,6 +51,7 @@ event_areas:
         - Continue recent game.
       position: [ 41, 206 ]
       size: [ 252, 252 ]
+
   - top_left: [ 349, 205 ]
     bottom_right: [ 380, 242 ]
     action: noop

@@ -3,12 +3,12 @@ enemy:
   image_path: game-data/sprites/baby_horned_pig_animation.png
   animation_width: 41
   animation_height: 48
-  animation_rate: 2
+  animation_rate: 1
   position: [ 100 , 100 ]
   base_direction: 90
-  velocity: 1
+  velocity: 0.25
   stats:
-    health: 30
-    max_health: 30
-    defense: 15
-    strength: 10
+    health: 27
+    max_health: 27
+    defense: 7
+    strength: 7
