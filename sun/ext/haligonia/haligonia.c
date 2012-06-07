@@ -302,7 +302,7 @@ void Init_haligonia() {
 
     rb_mPrimitiveIntersectionTests = rb_define_module("PrimitiveIntersectionTests");
     rb_define_method(rb_mPrimitiveIntersectionTests, "primitive_circle_line_segment_intersection?", rb_pi_circle_line_segment_intersection, 7);
-
+    // primitive_circle_inside_rectangle?
 }
 
 

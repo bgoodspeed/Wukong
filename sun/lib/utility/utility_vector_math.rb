@@ -140,15 +140,19 @@ module PrimitiveIntersectionTests
      dir > c2 ||
      dir > c3 )
   end
+  def primitive_circle_inside_rectangle?(cpx, cpy, cr, rl, rr, rt, rb)
+    minx = cpx - cr
+    maxx = cpx + cr
+    return false unless in_on_less(rl, cpx, minx, maxx)
+    return false unless in_on_more(rr, cpx, minx, maxx)
+    miny = cpy - cr
+    maxy = cpy + cr
+    return false unless in_on_more(rt, cpy, miny, maxy)
+    in_on_less(rb, cpy, miny, maxy)
+  end
+  
   def circle_inside_rectangle?(circle, rectangle)
-    minx = circle.position.x - circle.radius
-    maxx = circle.position.x + circle.radius
-    return false unless in_on_less(rectangle.left, circle.position.x, minx, maxx)
-    return false unless in_on_more(rectangle.right, circle.position.x, minx, maxx)
-    miny = circle.position.y - circle.radius
-    maxy = circle.position.y + circle.radius
-    return false unless in_on_more(rectangle.top, circle.position.y, miny, maxy)
-    in_on_less(rectangle.bottom, circle.position.y, miny, maxy)
+    primitive_circle_inside_rectangle?(circle.position.x, circle.position.y, circle.radius, rectangle.left, rectangle.right, rectangle.top, rectangle.bottom)
   end
 
   def circle_triangle_intersection?(circle, triangle)

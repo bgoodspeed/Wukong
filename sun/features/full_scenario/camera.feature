@@ -32,7 +32,7 @@ Feature: Camera Description
     Then the camera should be centered at 320, 240
     And the camera offset should be 0,0
     And the enemy screen coordinates should be 400,300
-    
+
   Scenario: Huge Level enemy offset
     Given I load the game on level "huge" with screen size 640, 480
     And I create a game camera tracking the player
