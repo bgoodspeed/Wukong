@@ -256,6 +256,13 @@ class ActionController
       yield game,arg
     }
   end
+  def delaying_by_speed(key,  &block)
+    lambda {|game, arg|
+      #TODO need to introduce a mapping between a range of speed values and a range of delays, this is going to be too fast/slow
+      introduce_delay(game, key, 50 - game.player.effective_stats.speed )
+      yield game,arg
+    }
+  end
 
   def default_targetting_behaviors
     {
@@ -353,7 +360,7 @@ class ActionController
         game.player.move_forward(-d)
       },
       #TODO need a way to let the weapon determine the length of the delay
-      KeyActions::FIRE  => delaying(KeyActions::FIRE) {|game,arg| game.player.use_weapon},
+      KeyActions::FIRE  => delaying_by_speed(KeyActions::FIRE) {|game,arg| game.player.use_weapon},
     }
   end
 
