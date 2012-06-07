@@ -93,6 +93,7 @@ Feature: Game
     And the game property "player.upgrade_points" should be "77"
     And the game property "level.event_areas.size" should be "1"
     And the game property "level.event_areas.first.image_file.nil?" should be "true"
+    And there should be 2 temporary renderings
 
   Scenario: Multiple Event Area Actions Invocation 2
     Given I load the game "multiple_event_area_actions2"
