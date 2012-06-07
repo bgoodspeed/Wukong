@@ -1,5 +1,5 @@
 class Armor
-  ATTRIBUTES = [ :display_name, :equipped_on]
+  ATTRIBUTES = [ :display_name, :equipped_on, :orig_filename]
   EXTRAS = [ :stats ]
   (ATTRIBUTES + EXTRAS).each {|attr| attr_accessor attr }
 

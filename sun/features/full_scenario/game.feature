@@ -70,10 +70,11 @@ Feature: Game
     And I set the player position to 100,100
     Then the game property "player.upgrade_points" should be "0"
     And the game property "level.event_areas.first.one_time" should be "true"
+    And the game property "level.event_areas.first.active?" should be "true"
     When I simulate "Graphics::KbO"
     When I run the game loop 1 times
     And the game property "player.upgrade_points" should be "77"
-    And the game property "level.event_areas.size" should be "0"
+    And the game property "level.event_areas.first.active?" should be "false"
 
   Scenario: Event Area Image
     Given I load the game "event_area_image"

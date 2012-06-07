@@ -1,0 +1,9 @@
+---
+inventory:
+  items:
+  - test-data/equipment/weapon.yml: 1
+  - test-data/equipment/weapon_swung.yml: 2
+  - test-data/equipment/armor.yml: 3
+  - test-data/equipment/potion.yml: 3
+  weapon: test-data/equipment/weapon_swung.yml
+  armor: test-data/equipment/armor.yml

@@ -39,6 +39,7 @@ module Views
   end
   class EventAreaView < BaseView
     def call(screen, ea)
+      return unless ea.active?
       r = ea.rect
       rect = Primitives::Rectangle.new(game.camera.screen_coordinates_for(r.p1), game.camera.screen_coordinates_for(r.p2), game.camera.screen_coordinates_for(r.p3), game.camera.screen_coordinates_for(r.p4))
       #TODO this is getting messy

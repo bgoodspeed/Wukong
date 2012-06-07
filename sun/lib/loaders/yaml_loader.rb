@@ -107,6 +107,9 @@ class InventoryLoader
     if conf['weapon']
       obj.weapon = game.inventory_controller.item_named(conf['weapon'])
     end
+    if conf['armor']
+      obj.armor = game.inventory_controller.item_named(conf['armor'])
+    end
     obj
   end
 end
@@ -117,6 +120,7 @@ class GameItemLoader
     data = YAML.load(yaml)
     conf = data['item']
     obj = GameItem.new(game, conf)
+    obj.orig_filename = f
     process_attributes(GameItem::ATTRIBUTES, obj, conf)
   end
 end
@@ -149,6 +153,7 @@ class ArmorLoader
     data = YAML.load(yaml)
     conf = data['armor']
     obj = Armor.new(game, conf)
+    obj.orig_filename = f
     process_attributes(Armor::ATTRIBUTES, obj, conf)
   end
 

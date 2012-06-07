@@ -22,6 +22,7 @@ class EventArea
     @game = game
     @extra_actions = []
     @one_time = false
+    @active = true
     process_attributes(YAML_ATTRIBUTES, self, conf)
 
 
@@ -35,6 +36,10 @@ class EventArea
     p1_to_p3.scale(p1_to_p3s, 0.5)
     @rect.p1.plus(midpoint, p1_to_p3s)
     @position = midpoint
+  end
+
+  def active?
+    @active
   end
 
   def description_joined
@@ -74,5 +79,9 @@ class EventArea
     @extra_actions.each {|action_conf|
       @game.action_controller.invoke(action_conf['action'], action_conf['action_argument'])
     }
+
+    if one_time
+      @active = false
+    end
   end
 end

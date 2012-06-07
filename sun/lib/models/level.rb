@@ -161,16 +161,12 @@ class Level
   end
 
   def add_event_area(ea)
-    # @static_hash.add_rectangle(ea, ea.rect)
+    @static_hash.add_rectangle(ea, ea.rect)
     @event_areas << ea
   end
 
-  def remove_event_area(ea)
-    # @static_hash.remove_rectangle(ea, ea.rect)
-    @event_areas -= [ea]
-  end
   def active_event_areas(collision_volume=@game.player.to_collision)
-    @event_areas.select {|ea| ea.intersects?(collision_volume)}
+    @event_areas.select {|ea| ea.active? and ea.intersects?(collision_volume)}
   end
   def interact(collision_volume)
     areas = active_event_areas(collision_volume)
@@ -181,9 +177,6 @@ class Level
     end
     ea = areas.first #TODO can actually be on multiple at once
     rv = ea.invoke
-    if ea.one_time
-      remove_event_area(ea)
-    end
 
     rv
   end
