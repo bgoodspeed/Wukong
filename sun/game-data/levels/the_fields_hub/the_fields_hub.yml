@@ -1,0 +1,69 @@
+name: reward
+background_image: game-data/levels/h_level_1_reward/h_level_1_reward.png
+background_music: game-data/music/silence.wav
+heads_up_display: game-data/hud/hud_config_empty.yml
+wayfinding: game-data/levels/load_screen/wayfinding.yml
+player_start_position: [ 400, 300 ]
+
+measurements: [ 800, 600 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 800
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 600
+  - start_x: 800
+    start_y: 0
+    end_x: 800
+    end_y: 600
+  - start_x: 0
+    start_y: 600
+    end_x: 800
+    end_y: 600
+
+event_areas:
+  - top_left: [ 132, 421 ]
+    bottom_right: [ 272, 467 ]
+    action: upgrade_player
+    action_argument:
+      animation_file: game-data/sprites/enemy1.png
+      animation_width: 50
+      animation_height: 50
+      animation_rate: 5
+    info_window:
+      description:
+        - Install upgrade.
+      position: [ 103, 355 ]
+      size: [ 195, 398 ]
+
+  - top_left: [ 535, 121 ]
+    bottom_right: [ 675, 165 ]
+    action: queue_load_game_event
+    info_window:
+      description:
+        - Load saved games.
+      position: [ 505, 196 ]
+      size: [ 195, 240 ]
+
+  - top_left: [ 131, 120 ]
+    bottom_right: [ 272, 167 ]
+    action: queue_save_game_event
+    info_window:
+      description:
+        - Save your progress.
+      position: [ 103, 196 ]
+      size: [ 195, 240 ]
+
+  - top_left: [ 528, 420 ]
+    bottom_right: [ 667, 466 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/h_level_2/h_level_2.yml"
+    info_window:
+      description:
+        - To the next adventure.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
