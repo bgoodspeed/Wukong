@@ -45,6 +45,7 @@ module Views
       msg_offset = GVector.xy(15,15)
       game.font_controller.draw_with_font(ea.label, rect.p1.x + msg_offset.x, rect.p1.y + msg_offset.y, ZOrder.hud.value)
       draw_rectangle_as_box(screen, rect,  ZOrder.static.value, color=Graphics::Color::BLACK)
+      game.image_controller.draw_in_screen_coords(ea) if ea.image_file
     end
   end
 

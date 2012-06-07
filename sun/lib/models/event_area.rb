@@ -3,7 +3,7 @@
 class EventArea
   #TODO use ATTRIBUTES and process with yaml as usual
   REQUIRED_ATTRIBUTES = [:rect, :action]
-  YAML_ATTRIBUTES = REQUIRED_ATTRIBUTES + [:label, :action_argument,  :required_attributes, :extra_actions, :conditions, :one_time ]
+  YAML_ATTRIBUTES = REQUIRED_ATTRIBUTES + [:label, :action_argument,  :required_attributes, :extra_actions, :conditions, :one_time, :image_file ]
   ATTRIBUTES = [:info_window ]
 
   (ATTRIBUTES + YAML_ATTRIBUTES).each {|attribute| attr_accessor attribute }
@@ -27,6 +27,14 @@ class EventArea
 
     @info_window = InfoWindow.new(game, conf['info_window'])
     @collision_type = @rect
+    p1_to_p3 = GVector.xy(0,0)
+    p1_to_p3s = GVector.xy(0,0)
+    midpoint = GVector.xy(0,0)
+
+    @rect.p3.minus(p1_to_p3, @rect.p1)
+    p1_to_p3.scale(p1_to_p3s, 0.5)
+    @rect.p1.plus(midpoint, p1_to_p3s)
+    @position = midpoint
   end
 
   def description_joined
@@ -41,6 +49,12 @@ class EventArea
     circle_rectangle_intersection?(circle, @rect)
   end
 
+  def direction
+    0
+  end
+  def position
+    @position
+  end
   def access_allowed?
     return true if @conditions.nil?
     @conditions.each {|cond| return false unless @game.condition_controller.condition_met?(cond['condition_name'], cond['condition_argument'])}

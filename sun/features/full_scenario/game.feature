@@ -75,6 +75,12 @@ Feature: Game
     And the game property "player.upgrade_points" should be "77"
     And the game property "level.event_areas.size" should be "0"
 
+  Scenario: Event Area Image
+    Given I load the game "event_area_image"
+    When I run the game loop 1 times
+    And the game property "level.event_areas.first.image_file.nil?" should be "false"
+
+
   Scenario: Multiple Event Area Actions Invocation 1
     Given I load the game "multiple_event_area_actions"
     And I set the player position to 100,100
@@ -85,6 +91,7 @@ Feature: Game
     Then a "EventTypes::START_NEW_GAME" event should be queued
     And the game property "player.upgrade_points" should be "77"
     And the game property "level.event_areas.size" should be "1"
+    And the game property "level.event_areas.first.image_file.nil?" should be "true"
 
   Scenario: Multiple Event Area Actions Invocation 2
     Given I load the game "multiple_event_area_actions2"

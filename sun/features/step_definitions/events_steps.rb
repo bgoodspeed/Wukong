@@ -19,7 +19,7 @@ end
 
 def valid_event_area_conf
   {
-      'rect' => "LIESRECTANGLES",
+      'rect' => Primitives::Rectangle.new(GVector.xy(0,0), GVector.xy(0,1), GVector.xy(1,1), GVector.xy(1,0)),
       'action' => 'fakeaction',
       'action_argument' => 'fakeactionargument',
       'label' => 'fakelabel',

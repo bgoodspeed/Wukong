@@ -52,7 +52,7 @@ end
 
 Given /^I create an event area$/ do
   @mock_game = mock_game
-  conf = { 'action' => 'action', 'action_argument' => 'action_argument'}
+  conf = { 'action' => 'action', 'action_argument' => 'action_argument','rect' => Primitives::Rectangle.new(GVector.xy(0,0), GVector.xy(0,1), GVector.xy(1,1), GVector.xy(1,0)), }
   @event_area = EventArea.new(@mock_game,conf)
 end
 
