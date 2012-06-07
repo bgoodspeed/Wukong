@@ -20,30 +20,43 @@ class Camera
   end
 
 
-  def calculate_position(goal)
-    rv = GVector.xy(goal.x, goal.y)
-    screen_extent = [@game.screen.width/2.0, @game.screen.height/2.0]
-    level_min_bounds = [@game.level.minimum_x, @game.level.minimum_y]
-    level_max_bounds = [@game.level.maximum_x, @game.level.maximum_y]
+  def calculate_position_primitive(rv, goal, ext_x, ext_y, min_x, min_y, max_x, max_y)
+    minx = min_x + ext_x
+    maxx = max_x - ext_x
 
-    minx = level_min_bounds[0] + screen_extent[0]
-    maxx = level_max_bounds[0] - screen_extent[0]
     if (goal.x < minx)
       rv.x = minx
     elsif (goal.x > maxx)
       rv.x = maxx
     end
 
-    miny = level_min_bounds[1] + screen_extent[1]
-    maxy = level_max_bounds[1] - screen_extent[1]
+    miny = min_y + ext_y
+    maxy = max_y - ext_y
     if (goal.y < miny)
       rv.y = miny
     elsif (goal.y > maxy)
       rv.y = maxy
     end
-
     rv
+  end
 
+  def extent_x
+    if @extent_x.nil?
+      @extent_x = @game.screen.width/2.0
+    end
+    @extent_x
+  end
+  def extent_y
+    if @extent_y.nil?
+      @extent_y = @game.screen.height/2.0
+    end
+    @extent_y
+  end
+
+  def calculate_position(goal)
+    rv = GVector.xy(goal.x, goal.y)
+    calculate_position_primitive(rv, goal, extent_x, extent_y, @game.level.minimum_x, @game.level.minimum_y, @game.level.maximum_x, @game.level.maximum_y)
+    rv
   end
   def position
     calculate_position(@game.player.position)
