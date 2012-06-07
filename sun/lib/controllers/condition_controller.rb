@@ -13,7 +13,8 @@ class ConditionController
       "enemies_spawned_at_least" => lambda {|game, expected| @game.level.spawned_enemies >= expected.to_i},
       "player_health_at_least" => lambda {|game, hp| @game.player.health >= hp.to_i},
       "player_health_at_most" => lambda {|game, hp| @game.player.health <= hp.to_i},
-      "enemies_killed_at_least" => lambda {|game, dead| @game.player.enemies_killed >= dead.to_i }, 
+      "enemies_killed_at_least" => lambda {|game, dead| @game.player.enemies_killed >= dead.to_i },
+      "is_level_complete" => lambda {|game, level_name| @game.player.progression.level_completed?(level_name)},
       "player_near" => lambda {|game, point|
         #@game.player.position.distance_from(point) <= @nearness
         @game.player.position.distance_from(GVector.xy(point[0], point[1])) <= @nearness

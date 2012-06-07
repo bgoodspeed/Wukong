@@ -1,6 +1,10 @@
 module YamlHelper
 
   def process_attributes(attrlist, instance, yaml_data, finalizers={})
+    #extra_data = (yaml_data.keys - attrlist)
+
+    #extra_data.each {|ed| puts "Got unexpected key #{ed} creating #{instance.class} : #{instance}"}
+
     defined = attrlist.select{|attr| yaml_data.has_key? attr.to_s}
     defined.each {|attr|
       v = yaml_data[attr.to_s]

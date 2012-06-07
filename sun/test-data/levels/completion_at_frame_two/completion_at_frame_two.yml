@@ -1,7 +1,7 @@
 name: completion_at_frame_two
 background_image: test-data/levels/completion_at_frame_two/grass.jpg
 wayfinding: test-data/levels/completion_at_frame_two/wayfinding.yml
-reward_level: test-data/levels/bar/bar.yml
+reward_level: test-data/levels/demo/demo.yml
 measurements: [ 640, 480 ]
 
 declared_enemies:

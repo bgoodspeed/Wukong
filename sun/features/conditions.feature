@@ -38,3 +38,28 @@ Feature: Conditions
     And I update the game state
     Then asking if game condition player near with arg "[200, 200]" should be "true"
     Then asking if game condition player near with arg "[200, 300]" should be "false"
+
+
+  Scenario: Level Complete Checks Progression - None Completed
+    Given I load the game "demo"
+    Then the game property "player.progression.levels_completed.size" should be "0"
+    Then the condition "is_level_complete" with argument "Level Name" should be "false"
+
+  Scenario: Level Complete Checks Progression - Setting Names to Completed
+    Given I load the game "demo"
+    Then the game property "player.progression.levels_completed.size" should be "0"
+    When I mark the level "Level Name" as completed
+    Then the condition "is_level_complete" with argument "Level Name" should be "true"
+
+  Scenario: Level Complete Checks Progression - Completing levels notifies progression
+    Given I load the game on level "completion_at_frame_two" with screen size 640, 480
+    And I set the player max health to 1000
+    And I set the player health to 1000
+    Then the game property "level.name" should be "'completion_at_frame_two'"
+    Then the game property "player.progression.levels_completed.size" should be "0"
+    Then the condition "is_level_complete" with argument "completion_at_frame_two" should be "false"
+    When I run the game loop 3 times
+    Then the game property "level.name" should be "'demo'"
+    Then the condition "is_level_complete" with argument "completion_at_frame_two" should be "true"
+
+

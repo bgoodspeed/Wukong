@@ -33,3 +33,4 @@ player:
   progression:
     upgrade_points: 0
     level_background_rank: 69
+    levels_completed: []

@@ -239,6 +239,7 @@ class Level
     update_spawn_points
     if completed?
       raise "need to set reward level for completable levels: #{self} #{@name}" unless @reward_level
+      @game.player.progression.level_completed(@name)
       e = Event.new( @reward_level, EventTypes::LOAD_LEVEL)
       #e = LambdaEvent.new(@game, lambda{|game, arg| puts "decide what to do now that you've beaten this level. #{arg}"}, "argumentblahblah")
       @game.add_event(e)

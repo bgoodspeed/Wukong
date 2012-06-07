@@ -46,3 +46,12 @@ end
 Then /^asking if game condition player near with arg "([^"]*)" should be "([^"]*)"$/ do |arg1, arg2|
   @game.condition_controller.condition_met?("player_near", eval(arg1)).should == eval(arg2)
 end
+
+Then /^the condition "([^"]*)" with argument "([^"]*)" should be "([^"]*)"$/ do |cond_name, cond_arg, expected|
+  @game.condition_controller.condition_met?(cond_name, cond_arg).should == eval(expected)
+end
+
+
+When /^I mark the level "([^"]*)" as completed$/ do |arg1|
+  @game.player.progression.level_completed(arg1)
+end
