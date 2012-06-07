@@ -67,3 +67,21 @@ event_areas:
         - To the next adventure.
       position: [ 498, 355 ]
       size: [ 195, 398 ]
+
+  - top_left: [ 10, 10 ]
+    bottom_right: [ 280, 180 ]
+    label: Upgrade Points Bleh
+    action: noop
+    one_time: true
+    image_file: test-data/sprites/treasurebox.gif
+    extra_actions:
+      - action: give_upgrade_points
+        action_argument: 70
+      - action: give_upgrade_points
+        action_argument: 7
+    info_window:
+      description:
+        - foo bar
+        - baz quz
+        -
+        - afterblank
