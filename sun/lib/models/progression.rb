@@ -9,4 +9,10 @@ class Progression
     process_attributes(YAML_ATTRIBUTES, self, conf )
   end
 
+  def to_yaml
+    rv = {}
+    YAML_ATTRIBUTES.each {|attr| rv[attr.to_s] = self.send(attr) }
+    rv
+  end
+
 end

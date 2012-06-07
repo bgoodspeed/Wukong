@@ -60,3 +60,11 @@ Feature: Saving
    Then the game property "player.inventory.items.size" should be "4"
 
 
+ Scenario: Saving a game saves player progression
+   Given I load the game "demo_inventory_larger"
+   And I set the property "game_load_path" to "test-data/savearea"
+   When I set the player level progress rank to 69
+   And I save slot 4
+   And I load slot 4
+   Then the game property "player.progression.level_background_rank" should be "69"
+
