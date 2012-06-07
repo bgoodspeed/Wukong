@@ -68,7 +68,7 @@ event_areas:
   - top_left: [ 494, 60 ]
     bottom_right: [ 751, 215 ]
     action: reset_player_and_load_level
-    action_argument: "game-data/levels/map/haligonia.yml"
+    action_argument: "game-data/levels/h_level_1/h_level_1.yml"
     info_window:
       description:
         - "Your real adventure begins!"

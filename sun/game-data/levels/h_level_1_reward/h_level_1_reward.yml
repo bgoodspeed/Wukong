@@ -61,7 +61,7 @@ event_areas:
   - top_left: [ 528, 420 ]
     bottom_right: [ 667, 466 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/h_level_2/h_level_2.yml"
+    action_argument: "game-data/levels/map/haligonia.yml"
     info_window:
       description:
         - To the next adventure.

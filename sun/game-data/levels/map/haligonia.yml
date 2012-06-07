@@ -49,7 +49,7 @@ event_areas:
   - top_left: [ 367, 176 ]
     bottom_right: [ 423, 221 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/map/haligonia.yml"
+    action_argument: "game-data/levels/the_fields_hub/the_fields_hub.yml"
     info_window:
       description:
         - The Fields.

@@ -1,5 +1,5 @@
 name: reward
-background_image: game-data/levels/h_level_1_reward/h_level_1_reward.png
+background_image: game-data/levels/the_fields_hub/the_fields_hub.png
 background_music: game-data/music/silence.wav
 heads_up_display: game-data/hud/hud_config_empty.yml
 wayfinding: game-data/levels/load_screen/wayfinding.yml
