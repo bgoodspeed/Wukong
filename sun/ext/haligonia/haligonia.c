@@ -193,6 +193,7 @@ static VALUE vector_dot(VALUE self, VALUE other) {
     return  rb_float_new(av_dot(v1, v2));
 }
 static VALUE rb_cGVector;
+static VALUE rb_cCamera;
 static VALUE rb_cSpatialHash;
 static VALUE rb_cFoobar;
 static VALUE rb_mPrimitiveIntersectionTests;
@@ -238,6 +239,34 @@ static VALUE rb_pi_circle_line_segment_intersection(VALUE self, VALUE cx,VALUE c
 }
 
 
+static void camera_calculate_position_primitive(ANSIVector *rv, ANSIVector *goal, double ext_x, double ext_y, double min_x, double min_y, double max_x, double max_y) {
+    double minx = min_x + ext_x;
+    double maxx = max_x - ext_x;
+
+    if (goal->x < minx) {
+      rv->x = minx;
+    } else if (goal->x > maxx) {
+      rv->x = maxx;
+    }
+
+
+    double miny = min_y + ext_y;
+    double maxy = max_y - ext_y;
+    if (goal->y < miny) {
+      rv->y = miny;
+    } else if (goal->y > maxy) {
+      rv->y = maxy;
+    }
+}
+
+static VALUE rb_camera_calculate_position_primitive(VALUE self, VALUE rv, VALUE goal, VALUE ext_x, VALUE ext_y, VALUE min_x, VALUE min_y, VALUE max_x, VALUE max_y) {
+    ANSIVector *rvv, *goalv;
+    Data_Get_Struct(rv, ANSIVector, rvv );
+    Data_Get_Struct(goal, ANSIVector, goalv );
+    camera_calculate_position_primitive(rvv, goalv, NUM2DBL(ext_x), NUM2DBL(ext_y), NUM2DBL(min_x), NUM2DBL(min_y), NUM2DBL(max_x), NUM2DBL(max_y));
+    return rv;
+}
+
 void Init_haligonia() {
 
     rb_cGVector = rb_define_class("GVector", rb_cObject);
@@ -264,6 +293,8 @@ void Init_haligonia() {
     rb_define_method(rb_cSpatialHash, "cell_x_index_for", rb_sh_cell_index_for, 2);
     rb_define_method(rb_cSpatialHash, "cell_y_index_for", rb_sh_cell_index_for, 2);
 
+    rb_cCamera = rb_define_class("Camera", rb_cObject);
+    rb_define_method(rb_cCamera, "calculate_position_primitive", rb_camera_calculate_position_primitive, 8);
     // TODO remove this:
     rb_cFoobar = rb_define_class("Foobar", rb_cObject);
     rb_define_method(rb_cFoobar, "plus_forty_two", rb_plus_forty_two, 2);

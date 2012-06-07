@@ -12,6 +12,7 @@ begin
   require 'utility/g_vector'
   require 'utility/utility_vector_math'
   require 'models/spatial_hash'
+  require 'models/camera'
   require "haligonia/haligonia"
   puts "successfully loaded native extensions for platform #{platform}"
 rescue Exception => e
@@ -62,7 +63,7 @@ require 'models/armor'
 require 'models/player'
 require 'models/enemy'
 require 'models/clock'
-require 'models/camera'
+
 require 'models/heads_up_display'
 require 'models/info_window'
 require 'controllers/action_controller'

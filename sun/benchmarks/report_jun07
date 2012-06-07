@@ -1,0 +1,120 @@
+#########################################################
+# before c
+#########################################################
+`--> ber2
+...
+223 scenarios (223 passed)
+1810 steps (1810 passed)
+0m26.377s
+...
+180 scenarios (180 passed)
+974 steps (974 passed)
+0m13.922s
+
+`--> be ruby benchmarks/bm_load.rb
+could not load native extensions for platform linux:
+no such file to load -- haligonia/haligonia
+           user     system      total        real
+first 1  0.010000   0.000000   0.010000 (  0.013110)
+next 10  0.010000   0.000000   0.010000 (  0.004918)
+last 100  0.060000   0.000000   0.060000 (  0.063396)
+           user     system      total        real
+afterlevelfirst 1  0.020000   0.000000   0.020000 (  0.019996)
+afterlevelnext 10  0.020000   0.000000   0.020000 (  0.026211)
+afterlevellast 100  0.780000   0.060000   0.840000 (  0.816706)
+
+`--> be ruby benchmarks/bm_citadel.rb
+could not load native extensions for platform linux:
+no such file to load -- haligonia/haligonia
+                                        user     system      total        real
+one_k_frames 1000 loops                0.180000   0.000000   0.180000 (  0.172168)
+one_k_frames_after_profile 1000 loops  0.180000   0.000000   0.180000 (  0.180729)
+
+`--> be ruby benchmarks/bm_enemies.rb
+could not load native extensions for platform linux:
+no such file to load -- haligonia/haligonia
+                                user     system      total        real
+withdefaultlimit10 100 loops    0.950000   0.090000   1.040000 (  1.030035)
+withlimit15 100 loops           1.130000   0.060000   1.190000 (  1.178191)
+withlimit50 100 loops           1.070000   0.110000   1.180000 (  1.167455)
+
+
+#########################################################
+# after c (before camera)
+#########################################################
+`--> ber2
+...
+223 scenarios (223 passed)
+1810 steps (1810 passed)
+0m24.133s
+...
+180 scenarios (180 passed)
+974 steps (974 passed)
+0m12.494s
+
+`--> be ruby benchmarks/bm_load.rb
+successfully loaded native extensions for platform linux
+          user     system      total        real
+first 1  0.000000   0.000000   0.000000 (  0.004656)
+next 10  0.020000   0.000000   0.020000 (  0.013224)
+last 100  0.060000   0.000000   0.060000 (  0.066700)
+          user     system      total        real
+afterlevelfirst 1  0.020000   0.010000   0.030000 (  0.018023)
+afterlevelnext 10  0.020000   0.000000   0.020000 (  0.022369)
+afterlevellast 100  0.600000   0.060000   0.660000 (  0.662760)
+
+`--> be ruby benchmarks/bm_citadel.rb
+successfully loaded native extensions for platform linux
+           user     system      total        real
+one_k_frames 1000 loops  0.140000   0.000000   0.140000 (  0.137634)
+           user     system      total        real
+one_k_frames_after_profile 1000 loops  0.140000   0.020000   0.160000 (  0.158655)
+
+`--> be ruby benchmarks/bm_enemies.rb
+successfully loaded native extensions for platform linux
+        user     system      total        real
+withdefaultlimit10 100 loops  0.810000   0.080000   0.890000 (  0.882946)
+        user     system      total        real
+withlimit15 100 loops  0.960000   0.100000   1.060000 (  1.049000)
+        user     system      total        real
+withlimit50 100 loops  0.980000   0.080000   1.060000 (  1.039301)
+
+#########################################################
+# after c (with camera)
+#########################################################
+`--> ber2
+...
+223 scenarios (223 passed)
+1810 steps (1810 passed)
+0m24.018s
+...
+180 scenarios (180 passed)
+974 steps (974 passed)
+0m12.365s
+
+`--> be ruby benchmarks/bm_load.rb
+successfully loaded native extensions for platform linux
+          user     system      total        real
+first 1  0.010000   0.000000   0.010000 (  0.003965)
+next 10  0.000000   0.000000   0.000000 (  0.003738)
+last 100  0.070000   0.000000   0.070000 (  0.061229)
+          user     system      total        real
+afterlevelfirst 1  0.010000   0.000000   0.010000 (  0.008974)
+afterlevelnext 10  0.020000   0.000000   0.020000 (  0.023052)
+afterlevellast 100  0.620000   0.030000   0.650000 (  0.647771)
+
+`--> be ruby benchmarks/bm_citadel.rb
+successfully loaded native extensions for platform linux
+        user     system      total        real
+one_k_frames 1000 loops  0.140000   0.000000   0.140000 (  0.137170)
+        user     system      total        real
+one_k_frames_after_profile 1000 loops  0.140000   0.010000   0.150000 (  0.137770)
+
+`--> be ruby benchmarks/bm_enemies.rb
+successfully loaded native extensions for platform linux
+        user     system      total        real
+withdefaultlimit10 100 loops  0.830000   0.090000   0.920000 (  0.903877)
+        user     system      total        real
+withlimit15 100 loops  0.980000   0.070000   1.050000 (  1.040365)
+        user     system      total        real
+withlimit50 100 loops  1.000000   0.040000   1.040000 (  1.037753)
