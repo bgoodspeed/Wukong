@@ -1,7 +1,7 @@
 # Copyright 2012 Ben Goodspeed
 class Weapon
   ATTRIBUTES = [:swing_start , :swing_sweep ,  :swing_frames, :weapon_length,
-    :image_path, :type, :sound_effect_name, :velocity, :equipped_on, 
+    :image_path, :type, :sound_effect_name, :equipped_on,
     :orig_filename, :animation_name, :collision_priority, :display_name,
     :equipment_image_path
   ]
@@ -14,7 +14,7 @@ class Weapon
   def self.defaults
     {
         'stats' => {
-
+          'speed' => 10
         }
     }
   end
@@ -27,7 +27,6 @@ class Weapon
     @current_frame = 0
     @weapon_length = 10
     @collision_priority = CollisionPriority::HIGH
-    @velocity = 10
     @type = "swung"
     @game = game
     @inventory_type = InventoryTypes::WEAPON
@@ -52,7 +51,7 @@ class Weapon
       @game.level.add_weapon(self)
 
     else
-      @game.add_projectile(@equipped_on, owner.position, owner.direction, @velocity)
+      @game.add_projectile(@equipped_on, owner.position, owner.direction, @stats.speed)
     end
 
     @game.play_effect(@sound_effect_name)
