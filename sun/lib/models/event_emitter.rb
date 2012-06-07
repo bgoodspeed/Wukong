@@ -1,7 +1,7 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
-
+# Copyright 2012 Ben Goodspeed
 class LambdaEvent
   def initialize(game, lambda, arg)
     @game = game
@@ -16,7 +16,7 @@ class LambdaEvent
   end
 end
 
-
+# Copyright 2012 Ben Goodspeed
 class EventEmitter
 
   ATTRIBUTES = [:event_name, :event_argument, :collision_primitive]

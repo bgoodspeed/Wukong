@@ -1,5 +1,5 @@
 # To change this template, choose Tools | Templates
-# and open the template in the editor.
+# and open the template in the editor.# Copyright 2012 Ben Goodspeed
 class InfoWindowImage
   include YamlHelper
   ATTRIBUTES = [:position, :image_name]
@@ -10,7 +10,7 @@ class InfoWindowImage
     process_attributes(ATTRIBUTES, self, conf)
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class InfoWindow
   YAML_ATTRIBUTES = [:description, :position, :size]
   REQUIRED_ATTRIBUTES = [:description]

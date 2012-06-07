@@ -10,19 +10,19 @@ def to_vector(vs)
   vals = vs.split(",").collect {|v| v.to_f }
   GVector.xy(vals[0], vals[1])
 end
-
+# Copyright 2012 Ben Goodspeed
 class Array
   def near?(expected, max_delta = 0.005)
     BeNear.new(max_delta).of(expected).matches?(self)
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class GVector
   def near?(expected, max_delta = 0.005)
     BeNearGV.new(max_delta).of(expected).matches?(self)
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class BeNear
   def initialize(max_delta)
     @max_delta = max_delta
@@ -49,7 +49,7 @@ class BeNear
   def failure_message_for_should_not
     "expected #{@target.inspect} not to be within #{@max_delta} of #{@expected}"
   end
-end
+end# Copyright 2012 Ben Goodspeed
 class BeNearGV
   def initialize(max_delta)
     @max_delta = max_delta
@@ -69,7 +69,7 @@ class BeNearGV
     "expected #{@target.inspect} not to be within #{@max_delta} of #{@expected}"
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class Float
   def near?(other, max_delta=0.005)
     cond = (self - other).abs > max_delta
@@ -77,7 +77,7 @@ class Float
 
     !cond
   end
-end
+end# Copyright 2012 Ben Goodspeed
 class Fixnum
   def near?(other, max_delta=0.005)
     cond = (self - other).abs > max_delta

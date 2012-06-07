@@ -1,18 +1,18 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 class Breadcrumb
   attr_reader :menu_id, :action, :action_argument, :action_result
   def initialize(menu_id, action, action_argument, action_result)
     @menu_id, @action, @action_argument, @action_result = menu_id, action, action_argument, action_result
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 module GameMenu
   EQUIPMENT = "equipment"
   ITEMS = "items"
 end
-
+# Copyright 2012 Ben Goodspeed
 class ItemMenuItem
   def initialize(item, index)
     @index = index
@@ -42,7 +42,7 @@ class ItemMenuItem
     "#{@item.class}:#{@item.display_name}"
   end
 
-end
+end# Copyright 2012 Ben Goodspeed
 class EquipmentMenuItem
   def initialize(item, index)
     @index = index
@@ -73,7 +73,7 @@ class EquipmentMenuItem
     "#{@item.class}:#{@item.display_name}"
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class ItemsMenu
   attr_accessor :filter, :current_index, :menu_id, :headers
   ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width, :header_text, :header_position]
@@ -107,7 +107,7 @@ class ItemsMenu
   end
   alias_method :entries, :lines
 
-end
+end# Copyright 2012 Ben Goodspeed
 class EquipmentMenu
 
   attr_accessor :filter, :current_index, :menu_id, :headers
@@ -142,7 +142,7 @@ class EquipmentMenu
   end
   alias_method :entries, :lines
 end
-
+# Copyright 2012 Ben Goodspeed
 class MenuController
   attr_reader :active, :breadcrumbs, :active_menu_name
 

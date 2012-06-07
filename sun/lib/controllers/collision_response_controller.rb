@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 module ResponseTypes
   TRIGGER_EVENT1 = :trigger_event1
   TRIGGER_EVENT2 = :trigger_event2
@@ -25,7 +25,7 @@ module ResponseTypes
   SHOW_INFO_WINDOW1 = :show_info_window1
   SHOW_INFO_WINDOW2 = :show_info_window2
 end
-
+# Copyright 2012 Ben Goodspeed
 class Collision
   attr_reader :dynamic1, :dynamic2
   def initialize(dynamic, dynamic2)
@@ -39,7 +39,7 @@ class Collision
   alias_method :dynamic, :dynamic2
 end
 
-
+# Copyright 2012 Ben Goodspeed
 class CollisionResponseController
   extend YamlHelper
 

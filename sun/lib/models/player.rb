@@ -2,7 +2,7 @@
 # and open the template in the editor.
 
 require 'yaml'
-
+# Copyright 2012 Ben Goodspeed
 class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360

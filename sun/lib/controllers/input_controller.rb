@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 module KeyActions
   UP = "Up"
   RIGHT = "Right"
@@ -18,13 +18,13 @@ module KeyActions
   MENU_ENTER = "MenuEnter"
   MOUSE_CLICK = "MouseClick"
 end
-
+# Copyright 2012 Ben Goodspeed
 module BehaviorPriority
   LOW = 100
   MED = 0
   HIGH = -100
 end
-
+# Copyright 2012 Ben Goodspeed
 class InputController
   attr_accessor :keyboard, :gamepad
 

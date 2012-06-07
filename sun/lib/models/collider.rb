@@ -1,6 +1,6 @@
 
 
-
+# Copyright 2012 Ben Goodspeed
 class Collider
   def initialize
     @config = {

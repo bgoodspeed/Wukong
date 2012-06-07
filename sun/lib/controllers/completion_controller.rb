@@ -1,4 +1,4 @@
-
+# Copyright 2012 Ben Goodspeed
 class CompletionCondition
   ATTRIBUTES = [:condition, :argument]
   ATTRIBUTES.each {|attribute| attr_accessor attribute }
@@ -11,7 +11,7 @@ class CompletionCondition
     @required_attributes = ATTRIBUTES
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class CompletionController
   def initialize(game)
     @game = game

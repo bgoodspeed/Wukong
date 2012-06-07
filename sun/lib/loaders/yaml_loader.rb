@@ -1,4 +1,4 @@
-
+# Copyright 2012 Ben Goodspeed
 class ArtificialIntelligenceLoader
 
 
@@ -23,7 +23,7 @@ class ArtificialIntelligenceLoader
     data = YAML.load(yaml)
     ArtificialIntelligenceLoader.from_conf(data)
   end
-end
+end# Copyright 2012 Ben Goodspeed
 class SoundControllerLoader
   extend YamlHelper
 
@@ -47,7 +47,7 @@ class SoundControllerLoader
 
   end
 
-end
+end# Copyright 2012 Ben Goodspeed
 class InputControllerLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
@@ -67,7 +67,7 @@ class InputControllerLoader
     conf[name].each {|k,v| rv[eval(k)] = eval(v)}
     rv
   end
-end
+end# Copyright 2012 Ben Goodspeed
 class CollisionResponseControllerLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
@@ -88,7 +88,7 @@ class CollisionResponseControllerLoader
 
     obj
   end
-end
+end# Copyright 2012 Ben Goodspeed
 class InventoryLoader
   extend YamlHelper
   #TODO make YAML utils and pass attributes
@@ -113,7 +113,7 @@ class InventoryLoader
     obj
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class GameItemLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
@@ -124,7 +124,7 @@ class GameItemLoader
     process_attributes(GameItem::ATTRIBUTES, obj, conf)
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class InventoryControllerLoader
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
@@ -144,7 +144,7 @@ class InventoryControllerLoader
   end
 
 end
-
+# Copyright 2012 Ben Goodspeed
 class ArmorLoader
   extend YamlHelper
 
@@ -157,14 +157,14 @@ class ArmorLoader
     process_attributes(Armor::ATTRIBUTES, obj, conf)
   end
 
-end
+end# Copyright 2012 Ben Goodspeed
 class HeadsUpDisplayLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
     process_attributes(HeadsUpDisplay::ATTRIBUTES, HeadsUpDisplay.new(game), YAML.load(yaml)['heads_up_display'])
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class EnemyLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
@@ -196,7 +196,7 @@ class EnemyLoader
     e
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class MenuLoader
   extend YamlHelper
   def self.from_yaml(game, yaml, f=nil)
@@ -214,7 +214,7 @@ class MenuLoader
     obj
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class PlayerLoader
   extend YamlHelper
   #TODO make YAML utils and pass attributes
@@ -242,7 +242,7 @@ class PlayerLoader
     obj
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class SaveDataLoader
   extend YamlHelper
   include YamlHelper
@@ -250,7 +250,7 @@ class SaveDataLoader
     process_attributes(SaveData::ATTRIBUTES, SaveData.new, YAML.load(yaml)['savedata'])
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class WeaponLoader
   extend YamlHelper
 
@@ -268,7 +268,7 @@ class WeaponLoader
   end
 
 end
-
+# Copyright 2012 Ben Goodspeed
 class WayFindingLoader
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
@@ -285,7 +285,7 @@ class WayFindingLoader
 
   end
 
-end
+end# Copyright 2012 Ben Goodspeed
 class WayfindingGraphLoader
   def self.from_yaml(game, yaml, f=nil)
     data = YAML.load(yaml)
@@ -304,7 +304,7 @@ class WayfindingGraphLoader
   end
 
 end
-
+# Copyright 2012 Ben Goodspeed
 class PathFixer
 
   def fix(f)
@@ -322,7 +322,7 @@ class PathFixer
   end
 
 end
-
+# Copyright 2012 Ben Goodspeed
 class YamlLoader
   def self.from_file(klass, game, in_file)
     f = PathFixer.new.fix(in_file)

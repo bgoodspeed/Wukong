@@ -6,7 +6,7 @@ module InventoryTypes
   ARMOR = "armor_type"
   POTION = "potion_type"
 end
-
+# Copyright 2012 Ben Goodspeed
 class InventoryItem
   attr_accessor :quantity, :item
   def initialize(item)
@@ -14,7 +14,7 @@ class InventoryItem
     @quantity = 0
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class Inventory
   attr_reader :items
   attr_accessor :weapon, :armor

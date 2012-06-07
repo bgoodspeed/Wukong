@@ -87,7 +87,7 @@ require 'controllers/level_controller'
 
 
 
-require 'forwardable'
+require 'forwardable'# Copyright 2012 Ben Goodspeed
 class Game
   extend Forwardable
   GAME_CONSTRUCTED = [ :game_item_controller, :animation_controller,:action_controller, :image_controller,

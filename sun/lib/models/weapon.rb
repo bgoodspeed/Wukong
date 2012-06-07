@@ -1,4 +1,4 @@
-
+# Copyright 2012 Ben Goodspeed
 class Weapon
   ATTRIBUTES = [:swing_start , :swing_sweep ,  :swing_frames, :weapon_length,
     :image_path, :type, :sound_effect_name, :velocity, :equipped_on, 

@@ -1,6 +1,6 @@
 
 require 'memoize'
-
+# Copyright 2012 Ben Goodspeed
 class WayfindingGraph
   include Memoize
   attr_accessor :nodes, :close_enough_threshold
@@ -120,7 +120,7 @@ class WayfindingGraph
     []
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class WayFinding
   def initialize(game, points = [])
     @game = game

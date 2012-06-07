@@ -1,5 +1,5 @@
 # To change this template, choose Tools | Templates
-# and open the template in the editor.
+# and open the template in the editor.# Copyright 2012 Ben Goodspeed
 class Splash
   attr_accessor :name, :position
   alias_method :image_file, :name
@@ -7,7 +7,7 @@ class Splash
     @name = name
     @position = [0,0]
   end
-end
+end# Copyright 2012 Ben Goodspeed
 class SplashController
   attr_accessor :splash_mode, :splash, :splashes, :splash_rate, :splash_fade
   def initialize(game)

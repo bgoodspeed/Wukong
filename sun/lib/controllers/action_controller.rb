@@ -1,7 +1,7 @@
 
 
 #TODO how to make this configurable? maybe not needed since input->action is configurable
-
+# Copyright 2012 Ben Goodspeed# Copyright 2012 Ben Goodspeed
 module BehaviorTypes
   GIVE_UPGRADE_POINTS = "give_upgrade_points"
   QUEUE_NEW_GAME_EVENT = "queue_start_new_game_event"
@@ -21,7 +21,7 @@ module BehaviorTypes
   NOOP = "noop"
   RESET_PLAYER_AND_LOAD_LEVEL = "reset_player_and_load_level"
 end
-
+# Copyright 2012 Ben Goodspeed# Copyright 2012 Ben Goodspeed
 class ActionController
   def default_menu_actions
     {

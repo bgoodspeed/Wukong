@@ -5,7 +5,7 @@ class MenuHeader
     @header_position = header_position
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class MenuEntry
   attr_accessor :display_text, :action, :action_argument, :image, :position
   def initialize(game, index, conf)
@@ -21,7 +21,7 @@ class MenuEntry
   end
   
 end
-
+# Copyright 2012 Ben Goodspeed
 class Menu
   attr_reader :current_index, :menu_id, :entries, :headers
 

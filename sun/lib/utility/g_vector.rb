@@ -1,4 +1,4 @@
-
+# Copyright 2012 Ben Goodspeed
 class GVector
   attr_accessor :x,:y
 

@@ -6,7 +6,7 @@ include Gl
 include Glu
 
 require 'gosu'
-#require 'devil/gosu'
+#require 'devil/gosu'# Copyright 2012 Ben Goodspeed
 class GameWindow < Graphics::Window
   def width; @w; end
   def height; @h; end
@@ -30,7 +30,7 @@ class GameWindow < Graphics::Window
 end
 
 
-
+# Copyright 2012 Ben Goodspeed
 class Screen
   def initialize(game, width, height)
     @game = game

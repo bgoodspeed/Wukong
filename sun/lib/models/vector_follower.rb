@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 class VectorFollower
   attr_reader :vector, :velocity, :collision_priority, :current_step, :owner
   def initialize(start, vector, velocity, owner)

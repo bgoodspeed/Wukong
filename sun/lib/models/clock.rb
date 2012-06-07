@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 class Clock
   attr_accessor :throttle
   attr_reader :frames_rendered, :events, :last_save_time

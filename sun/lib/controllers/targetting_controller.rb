@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 class HitOddsCalculator
   #NOTE: N(t) = N_0 e^(-lambda*t)
   def decay_at(distance, distance_threshold)
@@ -11,7 +11,7 @@ class HitOddsCalculator
   def odds_for_distance_and_threshold(distance, distance_threshold)
     (decay_at(distance, distance_threshold)).to_i
   end
-end
+end# Copyright 2012 Ben Goodspeed
 class Targetable
   attr_accessor :target
   def initialize(game, target)
@@ -35,7 +35,7 @@ class Targetable
     @odds_calculator.odds_for_distance_and_threshold(distance_to_target, acc)
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class TargettingController
   attr_accessor :active, :target_distance_threshold, :target_index, :target_list, :action_queue
   def initialize(game)

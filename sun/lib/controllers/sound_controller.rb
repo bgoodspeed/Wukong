@@ -1,4 +1,4 @@
-
+# Copyright 2012 Ben Goodspeed
 class SoundController
 
 

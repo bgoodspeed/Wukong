@@ -1,5 +1,5 @@
 # To change this template, choose Tools | Templates
-# and open the template in the editor.
+# and open the template in the editor.# Copyright 2012 Ben Goodspeed
 class String
   def camelize
     segs = self.split("_")

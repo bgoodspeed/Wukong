@@ -15,7 +15,7 @@ end
 SimpleCov.start 'only_lib_code'
 
 require 'game'
-require 'models/spatial_hash'
+require 'models/spatial_hash'# Copyright 2012 Ben Goodspeed
 class SHolder
   include Health
   attr_accessor :stats
