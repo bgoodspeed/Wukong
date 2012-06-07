@@ -9,8 +9,8 @@ gem "memoize"
 gem "rake-compiler"
 gem "rdoc"
 #gem "devil", :platforms => [:ruby, :mingw]
-gem "chunky_png"
-gem "chipmunk"
+#gem "chunky_png"
+#gem "chipmunk"
 gem "statemachine"
 
 gem 'simplecov', :require => false, :group => :test
@@ -18,8 +18,6 @@ gem "mocha"
 gem "rspec-expectations"
 gem "cucumber"
 gem "ruby-prof"
-gem "rake-compiler"
-gem "rice"
 
 #gem 'linecache19'
 #gem 'ruby-debug-base19'

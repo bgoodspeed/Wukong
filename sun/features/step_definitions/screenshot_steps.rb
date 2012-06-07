@@ -1,8 +1,11 @@
 
 module PNGComparer
-  require 'chunky_png'
+
 
   def diff_images(pic1, pic2, outfile='diff.png')
+    require 'chunky_png'
+
+
     images = [
       ChunkyPNG::Image.from_file(pic1),
       ChunkyPNG::Image.from_file(pic2)
