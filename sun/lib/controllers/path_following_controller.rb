@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 class LineOfSightQuery
   attr_accessor :a, :b, :vector, :radius, :collision_priority
   def initialize(game, a, b)
@@ -36,7 +36,7 @@ class LineOfSightQuery
     to_collision.collision_type
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class PathFollowingController
   attr_accessor :distance_threshold
   attr_reader :vector_following, :tracking

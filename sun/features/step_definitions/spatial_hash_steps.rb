@@ -13,7 +13,7 @@ end
 When /^I override the y prime to (\d+)$/ do |arg1|
   @spatial_hash.y_prime = arg1.to_i
 end
-
+# Copyright 2012 Ben Goodspeed
 class FakeCollisionParticipant
   attr_accessor :user_data, :prim
 

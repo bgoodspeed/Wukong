@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 class TimedEvent
   attr_accessor :data, :lifespan, :enqueued_at, :start_action
   def initialize(start_action, start_data, end_action, end_data, lifespan)

@@ -1,7 +1,7 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 require 'yaml'
-
+# Copyright 2012 Ben Goodspeed
 class LevelLoader
   def initialize(game = nil)
     @game = game

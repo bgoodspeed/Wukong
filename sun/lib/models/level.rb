@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 class LevelAnimation
   include YamlHelper
   ATTRIBUTES = [:animation_name, :animation_file, :animation_width,
@@ -19,7 +19,7 @@ class LevelAnimation
     @animation_position
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class Level
   ARRAY_ATTRIBUTES = [:enemies, :measurements, :line_segments, :triangles,
     :circles, :rectangles, :dynamic_elements, :enemies, :event_emitters,

@@ -1,6 +1,6 @@
  
 #TODO reconsider this design
-
+# Copyright 2012 Ben Goodspeed
 class MouseCollisionWrapper
   attr_reader :position, :radius, :collision_priority
   def initialize(game, pos, r = 5)

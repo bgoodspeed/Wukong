@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 module Views
   class BaseView
     include UtilityDrawing
@@ -221,7 +221,7 @@ module Views
   end
 
 end
-
+# Copyright 2012 Ben Goodspeed
 module RenderingTypes
   TARGET_DAMAGE = "RENDER_TARGET_DAMAGE"
   TARGET_MISS = "RENDER_TARGET_MISS"
@@ -230,7 +230,7 @@ module RenderingTypes
   INFO_WINDOW = "RENDER_INFO_WINDOW"
   TARGETTING = "RENDER_TARGETTING"
 end
-
+# Copyright 2012 Ben Goodspeed
 class TemporaryRendering
   attr_reader :entity, :type, :time_to_live, :start_time_to_live
   def initialize(entity, type, time_to_live)
@@ -254,7 +254,7 @@ class TemporaryRendering
 
 end
 
-
+# Copyright 2012 Ben Goodspeed
 class RenderingController
   attr_reader :temporary_renderings
   def initialize(game)

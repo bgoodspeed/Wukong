@@ -1,7 +1,7 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
-#TODO this class is getting messy, deals with hud stuff, formatting, drawing fonts, drawing menu stuff and intersection testing with screen elements.
+#TODO this class is getting messy, deals with hud stuff, formatting, drawing fonts, drawing menu stuff and intersection testing with screen elements.# Copyright 2012 Ben Goodspeed
 class HeadsUpDisplay
   ATTRIBUTES = [:x_spacing, :y_spacing, :menu_mode, :menu_scale, :lines, :menu_width ]
   ATTRIBUTES.each {|attr| attr_accessor attr }

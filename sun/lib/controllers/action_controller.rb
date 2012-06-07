@@ -1,7 +1,7 @@
 
 
 #TODO how to make this configurable? maybe not needed since input->action is configurable
-
+# Copyright 2012 Ben Goodspeed# Copyright 2012 Ben Goodspeed
 module BehaviorTypes
   GIVE_UPGRADE_POINTS = "give_upgrade_points"
   QUEUE_NEW_GAME_EVENT = "queue_start_new_game_event"
@@ -21,7 +21,7 @@ module BehaviorTypes
   NOOP = "noop"
   RESET_PLAYER_AND_LOAD_LEVEL = "reset_player_and_load_level"
 end
-
+# Copyright 2012 Ben Goodspeed# Copyright 2012 Ben Goodspeed
 class ActionController
   def default_menu_actions
     {
@@ -256,6 +256,13 @@ class ActionController
       yield game,arg
     }
   end
+  def delaying_by_speed(key,  &block)
+    lambda {|game, arg|
+      #TODO need to introduce a mapping between a range of speed values and a range of delays, this is going to be too fast/slow
+      introduce_delay(game, key, 50 - game.player.effective_stats.speed )
+      yield game,arg
+    }
+  end
 
   def default_targetting_behaviors
     {
@@ -353,7 +360,7 @@ class ActionController
         game.player.move_forward(-d)
       },
       #TODO need a way to let the weapon determine the length of the delay
-      KeyActions::FIRE  => delaying(KeyActions::FIRE) {|game,arg| game.player.use_weapon},
+      KeyActions::FIRE  => delaying_by_speed(KeyActions::FIRE) {|game,arg| game.player.use_weapon},
     }
   end
 

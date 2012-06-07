@@ -2,7 +2,7 @@
 ## and open the template in the editor.
 #
 
-#TODO move this to utility module
+#TODO move this to utility module# Copyright 2012 Ben Goodspeed
 class Array
   # define an iterator over each pair of indexes in an array
   def each_pair_index
@@ -24,7 +24,7 @@ end
 include PrimitiveIntersectionTests
 
 # Based on Optimized Spatial Hashing for Collision Detection of Deformable Objects
-# by Matthias Teschner Bruno Heidelberger Matthias M¨uller Danat Pomeranets Markus Gross
+# by Matthias Teschner Bruno Heidelberger Matthias M¨uller Danat Pomeranets Markus Gross# Copyright 2012 Ben Goodspeed
 class SpatialHash
   attr_reader :data, :cell_size
   attr_accessor :x_prime, :y_prime, :base_table_size

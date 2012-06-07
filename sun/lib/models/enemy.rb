@@ -1,8 +1,8 @@
-
+# Copyright 2012 Ben Goodspeed
 class Enemy
 
   attr_accessor :tracking_target
-  ATTRIBUTES = [:position, :velocity, :name, :collision_priority, :base_direction, :radius, :enemy_avatar,
+  ATTRIBUTES = [:position, :name, :collision_priority, :base_direction, :radius, :enemy_avatar,
                 :image_file, :direction, :animation_name, :animation_path, :damage_sound_effect_name, :upgrade_point_value
   ]
   NON_YAML_ATTRIBUTES = [:stats, :artificial_intelligence, :attack_range, :inventory, :last_damage, :line_of_sight, :age]
@@ -26,13 +26,13 @@ class Enemy
       'position' => [ 25, 25 ],
       'radius' => 10,
       'upgrade_point_value' => 1,
-      'velocity' => 5,
       'direction' => 0.0,
       'base_direction' => 0.0,
       'collision_priority' => CollisionPriority::LOW,
       'stats' => {
           'health' => 15,
           'max_health' => 15,
+          'speed' => 5,
       }
 
     }
@@ -122,6 +122,10 @@ class Enemy
     rv
   end
 
+  def velocity=(v)
+    @stats.speed = v
+  end
+
   def in_wait_state?
     @artificial_intelligence.current_state.to_s =~ /wait/
   end
@@ -162,7 +166,7 @@ class Enemy
 
     @game.animation_controller.animation_index_by_entity_and_name(self, animation_name).needs_update = true
     tmp_s = GVector.xy(0,0) #NOTE temporary vector allocation
-    vector.scale(tmp_s, @velocity)
+    vector.scale(tmp_s, @stats.speed)
     @last_move = tmp_s
     tmp = GVector.xy(0,0) #NOTE temporary vector allocation
     @position.plus(tmp, @last_move)

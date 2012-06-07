@@ -1,9 +1,9 @@
 module GameItemTypes
   EQUIPPABLE = "EQUIPPABLE"
-end
+end# Copyright 2012 Ben Goodspeed
 module EquipmentTypes
   SWORD = "SWORD"
-end
+end# Copyright 2012 Ben Goodspeed
 class GameItem
   ATTRIBUTES = [:display_name, :item_type, :item_subtype, :power_level, :inventory_type, :orig_filename]
   EXTRAS = [ :stats ]
@@ -22,7 +22,7 @@ class GameItem
   end
 
 
-end
+end# Copyright 2012 Ben Goodspeed
 class GameItemController
   attr_accessor :registered
   def initialize(game)

@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 class Animation
   attr_accessor:active, :needs_update
   attr_reader :animation_index, :width, :height, :entity, :animation_rate, :ticks
@@ -32,7 +32,7 @@ class Animation
     end
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class AnimationController
   attr_reader :animations
   def initialize(game, animation_rate=1)

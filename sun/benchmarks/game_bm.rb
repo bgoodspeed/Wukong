@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-
+# Copyright 2012 Ben Goodspeed
 class GameBM
   attr_accessor :game, :prof_loops
   def initialize(f, bm="unknown")

@@ -1,5 +1,5 @@
 
-
+# Copyright 2012 Ben Goodspeed
 module EventTypes
   LAMBDA = "LAMBDA"
   PICK = "PICK"
@@ -11,7 +11,7 @@ module EventTypes
   LOAD_LEVEL = "LOAD_LEVEL"
   BACK_TO_LEVEL = "BACK_TO_LEVEL"
 end
-
+# Copyright 2012 Ben Goodspeed
 class Event
   attr_reader :argument, :event_type
   def initialize(argument, event_type)
@@ -22,7 +22,7 @@ class Event
     "Event:#{event_type} arg(#{argument})"
   end
 end
-
+# Copyright 2012 Ben Goodspeed
 class EventController
   attr_accessor :events
   def initialize(game)

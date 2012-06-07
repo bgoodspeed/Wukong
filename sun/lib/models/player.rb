@@ -2,7 +2,7 @@
 # and open the template in the editor.
 
 require 'yaml'
-
+# Copyright 2012 Ben Goodspeed
 class Player
   include TransparencyUtils
   MAX_TURN_DEGREES = 360
@@ -210,6 +210,7 @@ class Player
     cf = attr_to_yaml(YAML_ATTRIBUTES)
     cf['stats'] = @stats.to_yaml
     cf['position'] = @position.to_yaml
+    cf['progression'] = @progression.to_yaml
     {"player" => cf}.to_yaml(:UseHeader => true)
   end
 end

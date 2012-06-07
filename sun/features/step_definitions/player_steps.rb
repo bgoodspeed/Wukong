@@ -63,7 +63,7 @@ Then /^the player should be in the scene$/ do
   cs.should be_include(Player)
   
 end
-
+# Copyright 2012 Ben Goodspeed
 class GVector
   def within_epsilon_of?(other, epsilon = 0.0005)
     rv = ((x - other.x).abs < epsilon) && ((y - other.y).abs < epsilon)
@@ -74,7 +74,7 @@ class GVector
   end
 
 end
-
+# Copyright 2012 Ben Goodspeed
 class Array
   def within_epsilon_of?(other, epsilon = 0.0005)
     self.each_with_index do |this_value, index|

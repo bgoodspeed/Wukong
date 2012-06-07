@@ -30,3 +30,6 @@ player:
     max_health: 100
     speed: 5
     accuracy: 250
+  progression:
+    upgrade_points: 0
+    level_background_rank: 0
