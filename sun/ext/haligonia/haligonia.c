@@ -37,6 +37,21 @@ int pi_circle_line_segment_intersection(double cx, double cy,double cr, double l
     return -1;
 }
 
+int pi_circle_inside_rectangle(double cpx, double cpy,double cr, double rl, double rr, double rt, double rb) {
+    double minx = cpx - cr;
+    double maxx = cpx + cr;
+
+    if (!(rl < cpx || rl < minx || rl < maxx)) return -1;
+    if (!(rr > cpx || rr > minx || rr > maxx)) return -1;
+
+    double miny = cpy - cr;
+    double maxy = cpy + cr;
+
+    if (!(rt > cpy || rt > miny || rt > maxy)) return -1;
+    if (!(rb < cpy || rb < miny || rb < maxy)) return -1;
+
+    return 1;
+}
 
 typedef struct ANSIVector_s {
     double x,y;
@@ -238,6 +253,15 @@ static VALUE rb_pi_circle_line_segment_intersection(VALUE self, VALUE cx,VALUE c
     return Qtrue;
 }
 
+static VALUE rb_pi_circle_inside_rectangle(VALUE self, VALUE cpx,VALUE cpy,VALUE cpr, VALUE rl, VALUE rr,VALUE rt,VALUE rb) {
+    int rv = pi_circle_inside_rectangle(NUM2DBL(cpx), NUM2DBL(cpy), NUM2DBL(cpr), NUM2DBL(rl), NUM2DBL(rr), NUM2DBL(rt), NUM2DBL(rb));
+    if (rv < 0) {
+        return Qfalse;
+    }
+
+    return Qtrue;
+}
+
 
 static void camera_calculate_position_primitive(ANSIVector *rv, ANSIVector *goal, double ext_x, double ext_y, double min_x, double min_y, double max_x, double max_y) {
     double minx = min_x + ext_x;
@@ -302,6 +326,7 @@ void Init_haligonia() {
 
     rb_mPrimitiveIntersectionTests = rb_define_module("PrimitiveIntersectionTests");
     rb_define_method(rb_mPrimitiveIntersectionTests, "primitive_circle_line_segment_intersection?", rb_pi_circle_line_segment_intersection, 7);
+    rb_define_method(rb_mPrimitiveIntersectionTests, "primitive_circle_inside_rectangle?", rb_pi_circle_inside_rectangle, 7);
     // primitive_circle_inside_rectangle?
 }
 
