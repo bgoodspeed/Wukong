@@ -37,6 +37,7 @@ class SaveLoader
       i = YamlLoader.from_file(Inventory, @game, sd.player_inventory)
       p.inventory = i
       p.equip_weapon(i.weapon) if i.weapon
+      p.equip_armor(i.armor) if i.armor
     end
     @game.load_level(sd.level)
     @game.set_player(p)

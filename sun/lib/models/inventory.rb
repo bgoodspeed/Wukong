@@ -69,13 +69,16 @@ class Inventory
   def to_yaml
     cf = []
     #TODO this will have to handle customized items, perhaps fully re-serialize the items
-    @items.values.each {|item,quantity|
-      cf << {item.item.orig_filename => quantity }
+    @items.values.each {|item, ii|
+      cf << {item.item.orig_filename => item.quantity }
     }
     if @weapon
       mr = {"weapon" => @weapon.orig_filename}
     else
       mr = {}
+    end
+    if @armor
+      mr.merge!({"armor" => @armor.orig_filename})
     end
     {"inventory" => {
         "items" => cf,
