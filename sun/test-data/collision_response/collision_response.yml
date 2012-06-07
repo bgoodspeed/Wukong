@@ -16,6 +16,7 @@ collision_response:
     "LineSegment": [ blocking1 ]
     "MouseCollisionWrapper": [ mouse_pick1 ]
     "Weapon": [ damaging1 ]
+    "LineOfSightQuery": []
   "VectorFollower":
     "Player": []
     "Enemy": [ damaging2, removing1 ]
