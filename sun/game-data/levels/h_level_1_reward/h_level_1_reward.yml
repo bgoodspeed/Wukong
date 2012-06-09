@@ -29,15 +29,10 @@ line_segments:
 event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
-    action: upgrade_player
-    action_argument:
-      animation_file: game-data/sprites/enemy1.png
-      animation_width: 50
-      animation_height: 50
-      animation_rate: 5
+    action: noop
     info_window:
       description:
-        - Install upgrade.
+        - Pick up weapon.
       position: [ 103, 355 ]
       size: [ 195, 398 ]
 
@@ -65,6 +60,6 @@ event_areas:
     action_argument: "game-data/levels/map/haligonia.yml"
     info_window:
       description:
-        - To the next adventure.
+        - See the world!
       position: [ 498, 355 ]
       size: [ 195, 398 ]
