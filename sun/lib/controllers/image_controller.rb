@@ -31,8 +31,8 @@ class ImageController
     lookup_image(e.image_file).draw(coords[0] , coords[1] , ZOrder.dynamic.value)
   end
 
-  def draw_in_screen_coords(e)
+  def draw_in_screen_coords(e, zo=ZOrder.dynamic.value)
     coords = @game.camera.screen_coordinates_for(e.position)
-    lookup_image(e.image_file).draw_rot(coords.x , coords.y , ZOrder.dynamic.value, e.direction)
+    lookup_image(e.image_file).draw_rot(coords.x , coords.y , zo, e.direction)
   end
 end
