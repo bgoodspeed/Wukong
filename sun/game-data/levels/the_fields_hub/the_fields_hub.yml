@@ -1,7 +1,7 @@
 name: reward
 background_image: game-data/levels/the_fields_hub/the_fields_hub.png
 background_music: game-data/music/silence.wav
-heads_up_display: game-data/hud/hud_config_empty.yml
+heads_up_display: game-data/hud/hud_temp_msg_only.yml
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 400, 300 ]
 
@@ -26,38 +26,6 @@ line_segments:
     end_y: 600
 
 event_areas:
-  - top_left: [ 132, 421 ]
-    bottom_right: [ 272, 467 ]
-    action: upgrade_player
-    action_argument:
-      animation_file: game-data/sprites/enemy1.png
-      animation_width: 50
-      animation_height: 50
-      animation_rate: 5
-    info_window:
-      description:
-        - Install upgrade.
-      position: [ 103, 355 ]
-      size: [ 195, 398 ]
-
-  - top_left: [ 535, 121 ]
-    bottom_right: [ 675, 165 ]
-    action: queue_load_game_event
-    info_window:
-      description:
-        - Load saved games.
-      position: [ 505, 196 ]
-      size: [ 195, 240 ]
-
-  - top_left: [ 131, 120 ]
-    bottom_right: [ 272, 167 ]
-    action: queue_save_game_event
-    info_window:
-      description:
-        - Save your progress.
-      position: [ 103, 196 ]
-      size: [ 195, 240 ]
-
   - top_left: [ 528, 420 ]
     bottom_right: [ 667, 466 ]
     action: LOAD_LEVEL
@@ -68,12 +36,12 @@ event_areas:
       position: [ 498, 355 ]
       size: [ 195, 398 ]
 
-  - top_left: [ 10, 10 ]
-    bottom_right: [ 280, 180 ]
+  - top_left: [ 50, 25 ]
+    bottom_right: [ 100, 50 ]
     label: Upgrade Points Bleh
     action: noop
     one_time: true
-    image_file: test-data/sprites/treasurebox.gif
+    image_file: game-data/icons/h_red_icon.png
     extra_actions:
       - action: give_upgrade_points
         action_argument: 70
