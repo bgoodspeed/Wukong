@@ -36,9 +36,8 @@ event_areas:
       position: [ 498, 355 ]
       size: [ 195, 398 ]
 
-  - top_left: [ 50, 25 ]
-    bottom_right: [ 100, 50 ]
-    label: Upgrade Points Bleh
+  - top_left: [ 70, 90 ]
+    bottom_right: [ 120, 135 ]
     action: noop
     one_time: true
     image_file: game-data/icons/h_red_icon.png
@@ -49,7 +48,6 @@ event_areas:
         action_argument: 7
     info_window:
       description:
-        - foo bar
-        - baz quz
-        -
-        - afterblank
+        - foo ba
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
