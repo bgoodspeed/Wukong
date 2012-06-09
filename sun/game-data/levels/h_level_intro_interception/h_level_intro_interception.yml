@@ -1,7 +1,7 @@
 name: h_level_intro_interception
 background_image: game-data/levels/h_level_intro_interception/h_level_intro_interception.png
 background_music: game-data/music/silence.wav
-heads_up_display: game-data/hud/hud_config_empty.yml
+heads_up_display: game-data/hud/hud_temp_msg_only.yml
 reward_level: game-data/levels/h_level_1/h_level_1.yml
 player_start_position: [ 340, 300 ]
 player_start_health: 100
@@ -25,6 +25,7 @@ line_segments:
     start_y: 600
     end_x: 800
     end_y: 600
+
 event_areas:
   - top_left: [ 80, 125 ]
     bottom_right: [ 236, 182 ]
@@ -34,6 +35,7 @@ event_areas:
         - Save your progress.
       position: [ 32, 228 ]
       size: [ 252, 266 ]
+
   - top_left: [ 560, 455 ]
     bottom_right: [ 715, 510 ]
     action: LOAD_LEVEL
@@ -43,6 +45,7 @@ event_areas:
         - Copy Kernel and continue.
       position: [ 513, 368 ]
       size: [252, 409 ]
+
   - top_left: [ 392, 290 ]
     bottom_right: [ 425, 329 ]
     action: noop
