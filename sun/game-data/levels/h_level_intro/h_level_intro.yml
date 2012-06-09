@@ -1,6 +1,7 @@
 name: h_level_intro_b
 background_image: game-data/levels/h_level_intro/h_level_intro.png
 background_music: game-data/music/silence.wav
+heads_up_display: game-data/hud/hud_config.yml
 wayfinding: game-data/levels/h_level_1/wayfinding.yml
 reward_level: game-data/levels/h_level_intro_interception/h_level_intro_interception.yml
 
