@@ -4,6 +4,7 @@ background_music: game-data/music/silence.wav
 heads_up_display: game-data/hud/hud_temp_msg_only.yml
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 400, 300 ]
+player_start_health: 100
 
 measurements: [ 800, 600 ]
 
