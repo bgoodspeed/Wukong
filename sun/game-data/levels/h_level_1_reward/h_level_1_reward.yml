@@ -1,7 +1,7 @@
-name: reward
+name: h_level_1_reward
 background_image: game-data/levels/h_level_1_reward/h_level_1_reward.png
 background_music: game-data/music/silence.wav
-heads_up_display: game-data/hud/hud_config_empty.yml
+heads_up_display: game-data/hud/hud_temp_msg_only.yml
 wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 400, 300 ]
 
