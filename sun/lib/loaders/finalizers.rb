@@ -35,6 +35,18 @@ module ArrayFinalizers
       level.add_equipment_renderable(er)
     end
   end
+  class PushableElements < BaseFinalizer
+    def call(level, data, pec)
+      pe = PushableElement.new(pec)
+      level.pushable_elements << pe
+    end
+  end
+  class PushTargets < BaseFinalizer
+    def call(level, data, ptc)
+      pt = PushTarget.new(ptc)
+      level.push_targets << pt
+    end
+  end
   class OredCompletionConditions < BaseFinalizer
     def call(level, data, cc)
       c = CompletionCondition.new(cc)

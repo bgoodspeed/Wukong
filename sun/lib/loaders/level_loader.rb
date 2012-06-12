@@ -34,6 +34,8 @@ class LevelLoader
         "ored_completion_conditions" => ArrayFinalizers::OredCompletionConditions.new(@game, @which_level),
         "anded_completion_conditions" => ArrayFinalizers::AndedCompletionConditions.new(@game, @which_level),
         "equipment_renderables" => ArrayFinalizers::EquipmentRenderables.new(@game, @which_level),
+        "pushable_elements" => ArrayFinalizers::PushableElements.new(@game, @which_level),
+        "push_targets" => ArrayFinalizers::PushTargets.new(@game, @which_level),
     }
 
     yaml_finalizers = {

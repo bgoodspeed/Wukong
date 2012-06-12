@@ -24,7 +24,8 @@ class Level
   ARRAY_ATTRIBUTES = [:enemies, :measurements, :line_segments, :triangles,
     :circles, :rectangles, :dynamic_elements, :enemies, :event_emitters,
     :spawn_points, :ored_completion_conditions, :anded_completion_conditions,
-    :event_areas, :animations, :sight_lines, :equipment_renderables, :extra_backgrounds
+    :event_areas, :animations, :sight_lines, :equipment_renderables, :extra_backgrounds,
+      :pushable_elements, :push_targets
     ]
   HASH_ATTRIBUTES = [
     :declared_enemies,

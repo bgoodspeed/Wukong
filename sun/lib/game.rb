@@ -38,6 +38,8 @@ require 'loaders/yaml_loader'
 require 'models/zorder'
 
 require 'utility/utility_drawing'
+require 'models/pushable_element'
+require 'models/push_target'
 require 'models/menu'
 require 'models/equipment_renderable'
 require 'controllers/event_controller'

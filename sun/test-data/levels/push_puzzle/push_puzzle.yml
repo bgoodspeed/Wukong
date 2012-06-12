@@ -1,0 +1,34 @@
+name: push puzzle
+background_image: test-data/levels/trivial/grass.jpg
+wayfinding: test-data/levels/trivial/wayfinding.yml
+measurements: [ 640, 480 ]
+pushable_elements:
+  - position: [ 50, 50 ]
+    width: 10
+    height: 5
+  - position: [ 100, 100 ]
+    width: 6
+    height: 7
+
+push_targets:
+  - position: [ 200, 200 ]
+  - position: [ 300, 300 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+
