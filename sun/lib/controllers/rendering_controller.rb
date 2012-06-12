@@ -72,7 +72,7 @@ module Views
       end
       darken_screen(game, xp, xpw, yp, ypw)
       #TODO fix this ZOrder stupidity
-      iw.description.each_with_index do |desc, idx|
+      iw.info_window.descriptions_formatted.each_with_index do |desc, idx|
         game.font_controller.draw_with_font(desc, xp + dp, yp + dp*(idx + 1), ZOrder.hud.value)
       end
 

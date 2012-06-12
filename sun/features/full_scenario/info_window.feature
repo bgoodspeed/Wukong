@@ -42,6 +42,15 @@ Feature: Info Window
     Then there should be 1 active event areas
     And the event area info window images size should be "1"
 
+  Scenario: Game Formattable Info Window Labels
+    Given I load the game on level "info_window_formatting" with screen size 640, 480
+    And I set the player position to 50,50
+    When I run the game loop 1 times
+    Then there should be 1 active event areas
+    Then the game property "level.event_areas.first.info_window.descriptions_formatted.first" should be "'640,480,1'"
+    When I run the game loop 1 times
+    Then the game property "level.event_areas.first.info_window.descriptions_formatted.first" should be "'640,480,2'"
+
 
   Scenario: Info Window Validation
     Given I create a valid info window

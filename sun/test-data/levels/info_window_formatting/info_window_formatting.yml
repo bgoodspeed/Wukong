@@ -1,0 +1,32 @@
+name: info_window_formatting
+background_image: test-data/levels/load_screen_with_images/grass.jpg
+background_music: test-data/music/music.wav
+wayfinding: test-data/levels/load_screen_with_images/wayfinding.yml
+measurements: [ 640, 480 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+event_areas:
+  - top_left: [ 10, 10 ]
+    bottom_right: [ 280, 180 ]
+    label: Info Window formatting Variables
+    action: noop
+    image_file: test-data/sprites/treasurebox.gif
+    info_window:
+      description:
+        - "{{screen.width}},{{screen.height}},{{clock.frames_rendered}}"
