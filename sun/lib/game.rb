@@ -20,6 +20,7 @@ rescue Exception => e
 end
 
 
+require 'behaviors/stats_mapping'
 require 'behaviors/movement_undoable'
 require 'behaviors/inventory_storable'
 require 'behaviors/health'
