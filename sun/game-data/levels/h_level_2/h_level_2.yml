@@ -2,7 +2,7 @@ name: h_level_2
 background_image: game-data/levels/h_level_2/h_level_2.png
 background_music: game-data/music/drumbeats.wav
 heads_up_display: game-data/hud/hud_config.yml
-wayfinding: game-data/levels/h_level_1/wayfinding.yml
+wayfinding: game-data/levels/h_level_2/wayfinding.yml
 reward_level: game-data/levels/h_level_2_reward/h_level_2_reward.yml
 player_start_position: [ 125, 495 ]
 
