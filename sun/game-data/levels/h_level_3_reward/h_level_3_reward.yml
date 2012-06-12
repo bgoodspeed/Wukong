@@ -49,19 +49,21 @@ event_areas:
         - Save your progress.
       position: [ 103, 196 ]
       size: [ 195, 240 ]
+
   - top_left: [ 528, 420 ]
     bottom_right: [ 667, 466 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/h_level_3/h_level_3.yml"
+    action_argument: "game-data/levels/map/map.yml"
     info_window:
       description:
-        - To the next adventure.
+        - Return to World Map.
       position: [ 498, 355 ]
       size: [ 195, 398 ]
+
   - top_left: [ 132, 269 ]
     bottom_right: [ 272, 316 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/h_level_3_equip/h_level_3_equip.yml"
+    action_argument: "game-data/levels/inventory/inventory.yml"
     info_window:
       description:
         - Change gears?????
