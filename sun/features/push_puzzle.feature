@@ -12,3 +12,12 @@ Feature: Push Puzzle
     Then the game property "level.pushable_elements.last.height" should be "7"
     Then the game property "level.push_targets.size" should be "2"
     Then the game property "level.push_targets.first.position" should be "GVector.xy(200,200)"
+
+  Scenario: Push Puzzle Elements Collision Conf - No Collisions
+    Given I load the game on level "push_puzzle" with screen size 640, 480
+    When I set the player position to 600,400
+    And I run the game loop 1 times
+
+  Scenario: Push Puzzle Elements Collision Conf - With Collisions
+    Given I load the game on level "push_puzzle" with screen size 640, 480
+    And I run the game loop 1 times
