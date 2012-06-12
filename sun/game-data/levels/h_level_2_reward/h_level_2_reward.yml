@@ -1,8 +1,9 @@
-name: reward
+name: h_level_2_reward
 background_image: game-data/levels/h_level_2_reward/h_level_2_reward.png
 background_music: game-data/music/crappypiano.wav
-heads_up_display: game-data/hud/hud_config_empty.yml
+heads_up_display: game-data/hud/hud_temp_msg_only.yml
 player_start_position: [ 400, 300 ]
+player_start_health: 100
 
 measurements: [ 800, 600 ]
 
@@ -51,9 +52,9 @@ event_areas:
   - top_left: [ 528, 420 ]
     bottom_right: [ 667, 466 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/h_level_3/h_level_3.yml"
+    action_argument: "game-data/levels/map/haligonia.yml"
     info_window:
       description:
-        - To the next adventure.
+        - Return to World Map.
       position: [ 498, 355 ]
       size: [ 195, 398 ]
