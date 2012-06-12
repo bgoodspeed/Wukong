@@ -174,6 +174,10 @@ class Player
     @last_distance = distance
   end
 
+  def last_move
+    @last_move
+  end
+
   def animation_position_by_name(name)
     #@game.camera.screen_coordinates_for(@position).dup
     GVector.xy(@position.x, @position.y)

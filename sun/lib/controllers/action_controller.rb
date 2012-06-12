@@ -131,6 +131,15 @@ class ActionController
         game.level.remove_line_of_sight(los)
 
       },
+      ResponseTypes::PUSH1_OR_BLOCK_BOTH => lambda {|game,col|
+        mv = col.dynamic2.last_move
+        return unless mv
+        col.dynamic1.move(mv)
+      },
+      ResponseTypes::BLOCK_PLAYER_PUSH1 => lambda {|game,col|
+        col.dynamic1.undo_last_move
+        game.player.undo_last_move
+      },
       ResponseTypes::REMOVING1 => lambda {|game, col| game.remove_projectile(col.dynamic1)},
       ResponseTypes::REMOVING2 => lambda {|game, col| game.remove_projectile(col.dynamic2)},
       ResponseTypes::BLOCKING1 => lambda {|game, col|
