@@ -1,0 +1,36 @@
+name: push puzzle blocked by pushable
+background_image: test-data/levels/trivial/grass.jpg
+wayfinding: test-data/levels/trivial/wayfinding.yml
+measurements: [ 640, 480 ]
+pushable_elements:
+  - position: [ 1, 1 ]
+    width: 60
+    height: 30
+  - position: [ 1, 30 ]
+    width: 60
+    height: 30
+
+push_targets:
+  - position: [ 300, 300 ]
+push_targets:
+  - position: [ 200, 200 ]
+  - position: [ 300, 300 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+

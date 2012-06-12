@@ -99,6 +99,24 @@ module Views
       img.draw(cp.x,cp.y, ZOrder.dynamic.value)
     end
   end
+  class PushTargetView < BaseView
+    def call(screen, pt)
+      #TODO these should be adjusted to screen coords
+      draw_rectangle_as_box(screen, pt.to_collision,  ZOrder.dynamic.value, color=Graphics::Color::BLACK)
+      #cp = game.camera.screen_coordinates_for(vf.current_position)
+      #img = game.image_controller.lookup_image(game.player_bullet)
+      #img.draw(cp.x,cp.y, ZOrder.dynamic.value)
+    end
+  end
+  class PushableElementView < BaseView
+    def call(screen, pt)
+      #TODO these should be adjusted to screen coords
+      draw_rectangle_as_box(screen, pt.to_collision,  ZOrder.dynamic.value, color=Graphics::Color::BLACK)
+      #cp = game.camera.screen_coordinates_for(vf.current_position)
+      #img = game.image_controller.lookup_image(game.player_bullet)
+      #img.draw(cp.x,cp.y, ZOrder.dynamic.value)
+    end
+  end
 
   class BaseTargetRenderingView < BaseView
     def highlight_target(pos, w)
@@ -270,6 +288,8 @@ class RenderingController
                LineOfSightQuery => Views::NOOPView.new,
                #MouseCollisionWrapper => lambda {|screen, enemy| puts "NOOP, could add a highlight?" },
                VectorFollower => Views::VectorFollowerView.new(@game),
+               PushableElement => Views::PushableElementView.new(@game),
+               PushTarget => Views::PushTargetView.new(@game),
               RenderingTypes::TARGETTING => Views::TargettingRenderingView.new(@game),
               RenderingTypes::TARGET_DAMAGE => Views::TargetDamageRenderingView.new(@game),
               RenderingTypes::TARGET_MISS => Views::TargetMissRenderingView.new(@game),
