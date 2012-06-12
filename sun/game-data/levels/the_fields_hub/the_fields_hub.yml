@@ -39,3 +39,20 @@ event_areas:
         - Go to next level.
       position: [ 498, 355 ]
       size: [ 195, 398 ]
+
+  - top_left: [ 70, 152 ]
+    bottom_right: [ 120, 198 ]
+    conditions:
+      - condition_name: is_level_complete
+        condition_argument: h_level_2.yml
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/h_level_3/h_level_3.yml"
+    one_time: false
+    image_file: game-data/icons/h_red_icon.png
+    extra_actions:
+      - action: noop
+    info_window:
+      description:
+        - Go to next level.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
