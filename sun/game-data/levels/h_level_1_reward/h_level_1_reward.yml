@@ -57,9 +57,9 @@ event_areas:
   - top_left: [ 528, 420 ]
     bottom_right: [ 667, 466 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/map/haligonia.yml"
+    action_argument: "game-data/levels/map/map.yml"
     info_window:
       description:
-        - See the world!
+        - See the big picture!
       position: [ 498, 355 ]
       size: [ 195, 398 ]

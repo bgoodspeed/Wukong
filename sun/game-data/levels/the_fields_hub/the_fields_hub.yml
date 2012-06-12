@@ -1,4 +1,4 @@
-name: reward
+name: the_fields_hub
 background_image: game-data/levels/the_fields_hub/the_fields_hub.png
 background_music: game-data/music/silence.wav
 heads_up_display: game-data/hud/hud_temp_msg_only.yml
@@ -26,28 +26,33 @@ line_segments:
     end_y: 600
 
 event_areas:
-  - top_left: [ 528, 420 ]
-    bottom_right: [ 667, 466 ]
+  - top_left: [ 70, 90 ]
+    bottom_right: [ 120, 135 ]
     action: LOAD_LEVEL
     action_argument: "game-data/levels/h_level_2/h_level_2.yml"
+    one_time: false
+    image_file: game-data/icons/h_red_icon.png
+    extra_actions:
+      - action: noop
     info_window:
       description:
-        - To the next adventure.
+        - Go to next level.
       position: [ 498, 355 ]
       size: [ 195, 398 ]
 
-  - top_left: [ 70, 90 ]
-    bottom_right: [ 120, 135 ]
-    action: noop
-    one_time: true
+  - top_left: [ 70, 152 ]
+    bottom_right: [ 120, 198 ]
+    conditions:
+      - condition_name: is_level_complete
+        condition_argument: h_level_2.yml
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/h_level_3/h_level_3.yml"
+    one_time: false
     image_file: game-data/icons/h_red_icon.png
     extra_actions:
-      - action: give_upgrade_points
-        action_argument: 70
-      - action: give_upgrade_points
-        action_argument: 7
+      - action: noop
     info_window:
       description:
-        - foo ba
+        - Go to next level.
       position: [ 498, 355 ]
       size: [ 195, 398 ]
