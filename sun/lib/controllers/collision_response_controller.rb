@@ -54,7 +54,8 @@ class CollisionResponseController
       },
       "PushableElement" => {
         "Player" => [ResponseTypes::PUSH1_OR_BLOCK_BOTH],
-        "LineSegment" => [ResponseTypes::BLOCK_PLAYER_PUSH1]
+        "LineSegment" => [ResponseTypes::BLOCK_PLAYER_PUSH1],
+        "PushableElement" => [ResponseTypes::BLOCK_PLAYER_PUSH1]
       },
       "LineOfSightQuery" => {
         "LineSegment" => [ResponseTypes::BLOCKED_LINE_OF_SIGHT1],

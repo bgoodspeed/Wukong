@@ -138,6 +138,20 @@ Feature: Vector Math
       | 0,-1:0,1:1,1:1,-1          | 0,-1:0,1:1,1:1,-1         | true        |
       | 0,-1:0,1:1,1:1,-1          | 5,10:5,-10:6,-10:6,10     | false       |
 
+  Scenario: Rectangle Rectangle Intersection
+    Given we import vector math on arrays
+    Then I should be able to test intersection of the following rectangles
+      | rectangle1                 | rectangle2                | intersects? |
+      | 0,-1:0,1:1,1:1,-1          | 0,-1:0,1:1,1:1,-1         | true        |
+      | 1,1:61,1:61,31:1,31        | 1,1:61,1:61,31:1,31       | true        |
+      | 1,1:61,1:61,31:1,31        | 1,30:61,30:61,60:1,60     | true        |
+      | 1,1:61,1:61,31:1,31        | 1,31:61,31:61,60:1,60     | true        |
+      | 1,1:61,1:61,31:1,31        | 1,28:61,28:61,60:1,60     | true        |
+      | 1,1:61,1:61,31:1,31        | 1,27:61,27:61,57:1,57     | true        |
+      | 0,-1:0,1:1,1:1,-1          | 5,10:5,-10:6,-10:6,10     | false       |
+
+
+
   Scenario: Rectangle Point Intersection
     Given we import vector math on arrays
     Then I should be able to test intersection of the following rectangles and points
