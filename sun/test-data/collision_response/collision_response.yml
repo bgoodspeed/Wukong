@@ -28,7 +28,7 @@ collision_response:
     "PickupItem": [ take_inventory2]
     "LineSegment": [ blocking1 ]
     "VectorFollower": [ damaging_showing_and_removing1 ]
-    "Enemy": [ damaging1, damaging2, blocking1 ]
+    "Enemy": [ damaging1, damaging2 ]
     "EventEmitter": [ trigger_event2 ]
     "MouseCollisionWrapper": [ mouse_pick1 ]
     "Weapon": [  ]

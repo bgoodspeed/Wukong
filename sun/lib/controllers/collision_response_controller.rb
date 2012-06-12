@@ -85,7 +85,7 @@ class CollisionResponseController
         "EventArea" => [ResponseTypes::SHOW_INFO_WINDOW2],
         "Enemy" => [
             ResponseTypes::DAMAGING1, ResponseTypes::DAMAGING2, ResponseTypes::BLOCKING1, ResponseTypes::SHOW_DAMAGE1,
-                  ResponseTypes::SHOW_DAMAGE2
+            ResponseTypes::SHOW_DAMAGE2
         ],
         "EventEmitter" => [ResponseTypes::TRIGGER_EVENT2],
         "MouseCollisionWrapper" => [ResponseTypes::MOUSE_PICK1],
