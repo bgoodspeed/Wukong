@@ -52,3 +52,27 @@ Feature: Push Puzzle
     And I run the game loop 1 times
     And the game property "level.pushable_elements.first.position" should be "GVector.xy(1,1)"
     Then the player should be at position 37,96
+
+  Scenario: Push Puzzle - Blocked by Other Pushable Push
+    Given I load the game on level "push_puzzle_blocked_by_pushable" with screen size 640, 480
+    When I set the player position to 37,96
+    And I simulate "Graphics::KbUp"
+    And I run the game loop 1 times
+    And I simulate ""
+    And I run the game loop 1 times
+    And the game property "level.pushable_elements.first.position" should be "GVector.xy(1,1)"
+    And the game property "level.pushable_elements.last.position" should be "GVector.xy(1,1)"
+    Then the player should be at position 37,95
+
+  Scenario: Push Puzzle - Blocked by Other Pushable Double Push
+    Given I load the game on level "push_puzzle_blocked_by_pushable" with screen size 640, 480
+    When I set the player position to 37,96
+    And I simulate "Graphics::KbUp"
+    And I run the game loop 1 times
+    And I simulate "Graphics::KbUp"
+    And I run the game loop 1 times
+    And I simulate ""
+    And I run the game loop 1 times
+    And the game property "level.pushable_elements.first.position" should be "GVector.xy(1,1)"
+    And the game property "level.pushable_elements.last.position" should be "GVector.xy(1,1)"
+    Then the player should be at position 37,94

@@ -137,7 +137,7 @@ class ActionController
         col.dynamic1.move(mv)
       },
       ResponseTypes::BLOCK_PLAYER_PUSH1 => lambda {|game,col|
-        col.dynamic1.undo_last_move
+        col.dynamic1.undo_last_move_and_update_rectangle
         game.player.undo_last_move(2)
       },
       ResponseTypes::REMOVING1 => lambda {|game, col| game.remove_projectile(col.dynamic1)},
