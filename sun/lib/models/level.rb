@@ -133,6 +133,16 @@ class Level
 
   end
 
+  def add_pushable_element(e)
+    @dynamic_elements << e
+    @pushable_elements << e
+  end
+
+  def add_push_target(e)
+    @dynamic_elements << e
+    @push_targets << e
+  end
+
   def add_pickup_item(pickup_item)
     @dynamic_elements << pickup_item
   end

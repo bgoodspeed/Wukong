@@ -3,8 +3,12 @@ collision_response:
     "Player": [ trigger_event1 ]
   "Weapon":
     "LineSegment": []
+    "EventArea": []
   "LineOfSightQuery":
     "LineSegment": [ block_line_of_sight1  ]
+    "EventArea": []
+    "VectorFollower": []
+    "Weapon": []
   "LineSegment":
     "Player": [ blocking2 ]
     "VectorFollower": [ removing2 ]
@@ -17,13 +21,16 @@ collision_response:
     "MouseCollisionWrapper": [ mouse_pick1 ]
     "Weapon": [ damaging1 ]
     "LineOfSightQuery": []
+    "EventArea": []
   "VectorFollower":
     "Player": []
     "Enemy": [ damaging2, removing1 ]
     "LineSegment": [ removing1 ]
-
+    "EventArea": []
+    "LineOfSightQuery": []
   "PickupItem":
     "Player": [ take_inventory1]
+    "EventArea": []
   "Player":
     "PickupItem": [ take_inventory2]
     "LineSegment": [ blocking1 ]
@@ -33,6 +40,7 @@ collision_response:
     "MouseCollisionWrapper": [ mouse_pick1 ]
     "Weapon": [  ]
     "EventArea": [ show_info_window2 ]
+    "LineOfSightQuery": []
 #TODO note that player vs weapon collisions will need to be handled, eg check to see if it's your weapon
   "MouseCollisionWrapper":
     "Player": [ mouse_pick2 ]

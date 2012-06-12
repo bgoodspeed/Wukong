@@ -38,13 +38,13 @@ module ArrayFinalizers
   class PushableElements < BaseFinalizer
     def call(level, data, pec)
       pe = PushableElement.new(pec)
-      level.pushable_elements << pe
+      level.add_pushable_element pe
     end
   end
   class PushTargets < BaseFinalizer
     def call(level, data, ptc)
       pt = PushTarget.new(ptc)
-      level.push_targets << pt
+      level.add_push_target  pt
     end
   end
   class OredCompletionConditions < BaseFinalizer

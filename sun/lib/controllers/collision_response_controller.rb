@@ -52,9 +52,12 @@ class CollisionResponseController
       },
       "LineOfSightQuery" => {
         "LineSegment" => [ResponseTypes::BLOCKED_LINE_OF_SIGHT1],
+        "EventArea" => [],
+        "VectorFollower" => [],
       },
       "Weapon" => {
-        "LineSegment" => []
+        "LineSegment" => [],
+        "EventArea" => []
       },
       "LineSegment" => {
         "Player" => [ResponseTypes::BLOCKING2],
@@ -68,15 +71,20 @@ class CollisionResponseController
         "LineSegment" => [ResponseTypes::BLOCKING1],
         "MouseCollisionWrapper" => [ResponseTypes::MOUSE_PICK1],
         "Weapon" => [ResponseTypes::DAMAGING1],
-        "LineOfSightQuery" => []
+        "LineOfSightQuery" => [],
+        "EventArea" => []
       },
       "VectorFollower" => {
         "Player" => [],
         "Enemy" => [ResponseTypes::DAMAGING2, ResponseTypes::REMOVING1, ResponseTypes::SHOW_DAMAGE2],
-        "LineSegment" => [ResponseTypes::REMOVING1]
+        "LineSegment" => [ResponseTypes::REMOVING1],
+        "EventArea" => [],
+        "LineOfSightQuery" => [],
+
       },
       "PickupItem" => {
-          "Player" => [ResponseTypes::TAKE_INVENTORY1]
+          "Player" => [ResponseTypes::TAKE_INVENTORY1],
+          "EventArea" => [],
       },
       "Player" => {
         "LineSegment" => [ResponseTypes::BLOCKING1],
@@ -100,6 +108,7 @@ class CollisionResponseController
   end
 
   def empty_collision (c1,c2)
+    puts "using empty collision: #{c1} vs #{c2}"
     @game.log.error "Error: unknown response pair #{c1} <-> #{c2}"
     []
   end
