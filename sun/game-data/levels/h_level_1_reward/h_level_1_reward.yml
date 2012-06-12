@@ -60,6 +60,6 @@ event_areas:
     action_argument: "game-data/levels/map/haligonia.yml"
     info_window:
       description:
-        - See the world!
+        - See the bigger picture!
       position: [ 498, 355 ]
       size: [ 195, 398 ]
