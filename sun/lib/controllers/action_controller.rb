@@ -138,7 +138,7 @@ class ActionController
       },
       ResponseTypes::BLOCK_PLAYER_PUSH1 => lambda {|game,col|
         col.dynamic1.undo_last_move
-        game.player.undo_last_move
+        game.player.undo_last_move(2)
       },
       ResponseTypes::REMOVING1 => lambda {|game, col| game.remove_projectile(col.dynamic1)},
       ResponseTypes::REMOVING2 => lambda {|game, col| game.remove_projectile(col.dynamic2)},
