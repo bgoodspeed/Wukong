@@ -1,5 +1,5 @@
 name: map_screen
-background_image: game-data/levels/map/haligonia.png
+background_image: game-data/levels/map/map.png
 background_music: game-data/music/drumbeats.wav
 heads_up_display: game-data/hud/hud_config_empty.yml
 player_start_position: [ 364, 225 ]
@@ -29,7 +29,7 @@ event_areas:
   - top_left: [ 691, 247 ]
     bottom_right: [ 781, 330 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/map/haligonia.yml"
+    action_argument: "game-data/levels/map/map.yml"
     info_window:
       description:
         - The Pleasant Grove.
@@ -39,7 +39,7 @@ event_areas:
   - top_left: [ 432, 140 ]
     bottom_right: [ 501, 193 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/map/haligonia.yml"
+    action_argument: "game-data/levels/map/map.yml"
     info_window:
       description:
         - The Fort.
@@ -59,7 +59,7 @@ event_areas:
   - top_left: [ 605, 69 ]
     bottom_right: [ 655, 103 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/map/haligonia.yml"
+    action_argument: "game-data/levels/map/map.yml"
     info_window:
       description:
         - Gimly's Hideout.
@@ -69,7 +69,7 @@ event_areas:
   - top_left: [ 279, 24 ]
     bottom_right: [ 319, 103 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/map/haligonia.yml"
+    action_argument: "game-data/levels/map/map.yml"
     info_window:
       description:
         - The Narrow Bridge.
@@ -79,7 +79,7 @@ event_areas:
   - top_left: [ 11, 64 ]
     bottom_right: [ 56, 161 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/map/haligonia.yml"
+    action_argument: "game-data/levels/map/map.yml"
     info_window:
       description:
         - The Wide Bridge.
@@ -89,7 +89,7 @@ event_areas:
   - top_left: [ 210, 350 ]
     bottom_right: [ 292, 433 ]
     action: LOAD_LEVEL
-    action_argument: "game-data/levels/map/haligonia.yml"
+    action_argument: "game-data/levels/map/map.yml"
     info_window:
       description:
         - The Bazaar.
