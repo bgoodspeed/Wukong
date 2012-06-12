@@ -1,0 +1,35 @@
+name: push puzzle
+background_image: game-data/levels/push_puzzle/white.png
+#TODO clean this up, don't use bad wayfinding etc
+wayfinding: game-data/levels/h_level_1/wayfinding.yml
+measurements: [ 800, 600 ]
+pushable_elements:
+  - position: [ 50, 50 ]
+    width: 10
+    height: 5
+  - position: [ 100, 100 ]
+    width: 6
+    height: 7
+
+push_targets:
+  - position: [ 200, 200 ]
+  - position: [ 400, 400 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 800
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 600
+  - start_x: 800
+    start_y: 0
+    end_x: 800
+    end_y: 600
+  - start_x: 0
+    start_y: 600
+    end_x: 800
+    end_y: 600
+

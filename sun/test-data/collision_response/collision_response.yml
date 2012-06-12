@@ -1,6 +1,10 @@
 collision_response:
   "EventEmitter":
     "Player": [ trigger_event1 ]
+  "PushableElement":
+    "Player": [ push1_or_block_both ]
+    "LineSegment": [ block_player_push1 ]
+    "PushableElement": [ block_player_push1 ]
   "Weapon":
     "LineSegment": []
     "EventArea": []
