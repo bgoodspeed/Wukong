@@ -29,12 +29,22 @@ module GameLineFormattable
   #TODO this is probably going to be hard to move to c++ as-is, need to get rid of obj.send() calls
   def game_evaluate(token, dataholder=nil)
     obj = @game
-    token.split(".").each {|elem|
+    token.split(".").each {|elem_arged|
+      eas = elem_arged.split("(")
+      arg = eas.last.split(")").first
+      elem = eas.first
+
       raise "must implement #{elem} on #{obj}" unless obj.respond_to? elem
+
       if obj.method(elem).parameters.size == 0
         obj = obj.send(elem)
       else
-        obj = obj.send(elem, dataholder.action_argument)
+        if arg == elem
+          obj = obj.send(elem, dataholder.action_argument)
+        else
+          obj = obj.send(elem, arg)
+        end
+
       end
     }
     obj

@@ -29,7 +29,7 @@ class InfoWindow
 
   include GameLineFormattable
   def descriptions_formatted
-    description.collect {|d| format_line(d, @game)}
+    description.collect {|d| format_line(d, self)}
   end
   def initialize(game, conf_in)
     @game = game

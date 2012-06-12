@@ -30,3 +30,4 @@ event_areas:
     info_window:
       description:
         - "{{screen.width}},{{screen.height}},{{clock.frames_rendered}}"
+        - "a:{{player.progression.level_status(a)}},b:{{player.progression.level_status(b)}},c:{{player.progression.level_status(c)}}"
