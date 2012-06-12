@@ -92,3 +92,27 @@ end
 Then /^the inventory hash of stats "([^"]*)" should be "([^"]*)"$/ do |which_stats_object, value|
   @all_stats[which_stats_object].inventory_hash.to_s.should == value
 end
+
+
+
+Given /^I set the stat range to (\d+), (\d+)$/ do |arg1, arg2|
+  @s_min = arg1.to_i
+  @s_max = arg2.to_i
+end
+
+
+Given /^I set the target range to (\d+), (\d+)$/ do |arg1, arg2|
+  @d_min = arg1.to_i
+  @d_max = arg2.to_i
+end
+
+
+include StatsMapping
+Then /^the direct mapping for stat (\d+) should be (\d+)$/ do |arg1, arg2|
+
+  map_direct(arg1.to_i, @s_min, @s_max, @d_min, @d_max).should == arg2.to_i
+end
+
+Then /^the inverse mapping for stat (\d+) should be (\d+)$/ do |arg1, arg2|
+  map_inverse(arg1.to_i, @s_min, @s_max, @d_min, @d_max).should == arg2.to_i
+end

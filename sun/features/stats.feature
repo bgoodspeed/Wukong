@@ -55,3 +55,17 @@ Feature: Stats
     Given I set the stat "strength" on "a" to "99"
     Then the inventory hash of stats "a" should be "99,5,10,12,5,5,"
     Then the inventory hash of stats "b" should be "5,5,10,12,5,5,"
+
+  Scenario: Stats mapping direct
+    Given I set the stat range to 0, 100
+    Given I set the target range to 0, 10
+    Then the direct mapping for stat 0 should be 0
+    Then the direct mapping for stat 100 should be 10
+    Then the direct mapping for stat 90 should be 9
+
+  Scenario: Stats mapping inverse
+    Given I set the stat range to 0, 100
+    Given I set the target range to 0, 10
+    Then the inverse mapping for stat 0 should be 10
+    Then the inverse mapping for stat 100 should be 0
+    Then the inverse mapping for stat 90 should be 1
