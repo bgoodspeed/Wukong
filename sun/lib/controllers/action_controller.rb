@@ -131,14 +131,20 @@ class ActionController
         game.level.remove_line_of_sight(los)
 
       },
-      ResponseTypes::PUSH1_OR_BLOCK_BOTH => lambda {|game,col|
+      ResponseTypes::PUSH_ELEMENT1 => lambda {|game,col|
         mv = col.dynamic2.last_move
         return unless mv
         col.dynamic1.move(mv)
       },
-      ResponseTypes::BLOCK_PLAYER_PUSH1 => lambda {|game,col|
-        col.dynamic1.undo_last_move_and_update_rectangle
-        game.player.undo_last_move(2)
+      ResponseTypes::FIZZLE_ELEMENT1 => lambda {|game,col|
+        game.level.remove_pushable_element(col.dynamic1)
+        game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "Fizzled.","temporary_message=", nil, 60 ))
+
+      },
+      ResponseTypes::FIZZLE_ELEMENT2 => lambda {|game,col|
+        game.level.remove_pushable_element(col.dynamic2)
+        game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "Fizzled.","temporary_message=", nil, 60 ))
+
       },
       ResponseTypes::REMOVING1 => lambda {|game, col| game.remove_projectile(col.dynamic1)},
       ResponseTypes::REMOVING2 => lambda {|game, col| game.remove_projectile(col.dynamic2)},

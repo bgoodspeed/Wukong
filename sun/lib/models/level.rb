@@ -138,6 +138,11 @@ class Level
     @pushable_elements << e
   end
 
+  def remove_pushable_element(e)
+    @dynamic_elements.reject!{|el| e == el}
+    @pushable_elements.reject!{|el| e == el}
+  end
+
   def add_push_target(e)
     @dynamic_elements << e
     @push_targets << e

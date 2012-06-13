@@ -221,3 +221,24 @@ Feature: Data Structure for Storing Visual Data
       | 2274     | 1221       |  16     | d                       |
       | 2274     | 1221       |  8      | d                       |
       | 2285     | 1228       |  8     | d                      |
+
+  Scenario: Collision Detection Push Puzzle Bug
+    Given I create a spatial hash with cell size 100
+    When I override the table size to 100
+    And I add line segment 150,150:190,150 with data "p1p2"
+    And I add line segment 190,150:190,230 with data "p2p3"
+    And I add line segment 190,230:150,230 with data "p3p4"
+    And I add line segment 150,230:150,150 with data "p4p1"
+    And I add line segment 150,150:190,230 with data "p1p3"
+    And I add line segment 190,150:150,230 with data "p2p4"
+    Then asking for collision candidates yields:
+      | center_x | center_y | radius | candidate_data           |
+      | 150      | 210      | 2      | p2p3,p3p4,p4p1,p1p3,p2p4 |
+      | 190      | 210      | 2      | p2p3,p3p4,p4p1,p1p3,p2p4 |
+
+    Then asking for collision pairs yields:
+      | center_x | center_y | radius | candidate_data           |
+      | 150      | 210      | 2      | p4p1                     |
+      | 190      | 210      | 2      | p2p3                     |
+      | 190      | 210      | 16     | p2p3,p1p3                |
+      | 170      | 210      | 16     | p1p3,p2p4                |

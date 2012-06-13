@@ -5,15 +5,18 @@ wayfinding: game-data/levels/h_level_1/wayfinding.yml
 measurements: [ 800, 600 ]
 pushable_elements:
   - position: [ 50, 50 ]
-    width: 10
-    height: 5
-  - position: [ 100, 100 ]
-    width: 6
-    height: 7
+    width: 50
+    height: 50
+  - position: [ 150, 150 ]
+    width: 40
+    height: 80
+  - position: [ 350, 350 ]
+    width: 40
+    height: 40
 
 push_targets:
-  - position: [ 200, 200 ]
-  - position: [ 400, 400 ]
+  - position: [ 500, 200 ]
+  - position: [ 500, 400 ]
 
 line_segments:
   - start_x: 0

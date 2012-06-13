@@ -2,8 +2,9 @@
 # and open the template in the editor.
 # Copyright 2012 Ben Goodspeed
 module ResponseTypes
-  PUSH1_OR_BLOCK_BOTH = :push1_or_block_both
-  BLOCK_PLAYER_PUSH1 = :block_player_push1
+  PUSH_ELEMENT1 = :push_element1
+  FIZZLE_ELEMENT1 = :fizzle_element1
+  FIZZLE_ELEMENT2 = :fizzle_element2
   TRIGGER_EVENT1 = :trigger_event1
   TRIGGER_EVENT2 = :trigger_event2
   BLOCKED_LINE_OF_SIGHT1 = :block_line_of_sight1
@@ -53,9 +54,9 @@ class CollisionResponseController
         "Player" => [ResponseTypes::TRIGGER_EVENT1]
       },
       "PushableElement" => {
-        "Player" => [ResponseTypes::PUSH1_OR_BLOCK_BOTH],
-        "LineSegment" => [ResponseTypes::BLOCK_PLAYER_PUSH1],
-        "PushableElement" => [ResponseTypes::BLOCK_PLAYER_PUSH1]
+        "Player" => [ResponseTypes::PUSH_ELEMENT1],
+        "LineSegment" => [ResponseTypes::FIZZLE_ELEMENT1],
+        "PushableElement" => [ResponseTypes::FIZZLE_ELEMENT1, ResponseTypes::FIZZLE_ELEMENT2 ]
       },
       "LineOfSightQuery" => {
         "LineSegment" => [ResponseTypes::BLOCKED_LINE_OF_SIGHT1],

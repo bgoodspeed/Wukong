@@ -27,7 +27,7 @@ Feature: Push Puzzle
     Then the player should be at position 50,91
     And the game property "level.pushable_elements.first.position" should be "GVector.xy(50,49)"
 
-  Scenario: Push Puzzle - Blocked Push
+  Scenario: Push Puzzle - Blocked Push Fizzles Element
     Given I load the game on level "push_puzzle_blocked" with screen size 640, 480
     When I set the player position to 37,96
     And I simulate "Graphics::KbUp"
@@ -36,8 +36,7 @@ Feature: Push Puzzle
     Then the player should be at position 37,95
     And I simulate ""
     And I run the game loop 1 times
-    And the game property "level.pushable_elements.first.position" should be "GVector.xy(1,1)"
-    Then the player should be at position 37,97
+    Then the game property "level.pushable_elements.size" should be "0"
 
   Scenario: Push Puzzle - Blocked Double Push
     Given I load the game on level "push_puzzle_blocked" with screen size 640, 480
@@ -50,17 +49,17 @@ Feature: Push Puzzle
     And I run the game loop 1 times
     And I simulate ""
     And I run the game loop 1 times
-    And the game property "level.pushable_elements.first.position" should be "GVector.xy(1,1)"
-    Then the player should be at position 37,96
+    Then the game property "level.pushable_elements.size" should be "0"
 
-  Scenario: Push Puzzle - Blocked by Other Pushable Push
+  Scenario: Push Puzzle - Blocked by Other Pushable Push Both Fizzled
     Given I load the game on level "push_puzzle_blocked_by_pushable" with screen size 640, 480
     When I set the player position to 37,96
     And I simulate "Graphics::KbUp"
     And I run the game loop 1 times
     And I simulate ""
     And I run the game loop 1 times
-    Then the player should be at position 37,97
+    Then the game property "level.pushable_elements.size" should be "0"
+    Then the player should be at position 37,95
 
   Scenario: Push Puzzle - Blocked by Other Pushable Double Push
     Given I load the game on level "push_puzzle_blocked_by_pushable" with screen size 640, 480
@@ -71,4 +70,5 @@ Feature: Push Puzzle
     And I run the game loop 1 times
     And I simulate ""
     And I run the game loop 1 times
-    Then the player should be at position 37,98
+    Then the game property "level.pushable_elements.size" should be "0"
+    Then the player should be at position 37,94
