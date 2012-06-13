@@ -56,6 +56,7 @@ class SpatialHash
   end
 
   def add_rectangle(data, r)
+
     add_line_segment(data, Primitives::LineSegment.new(r.p1, r.p2))
     add_line_segment(data, Primitives::LineSegment.new(r.p2, r.p3))
     add_line_segment(data, Primitives::LineSegment.new(r.p3, r.p4))

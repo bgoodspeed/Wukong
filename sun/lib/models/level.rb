@@ -318,7 +318,15 @@ class Level
     cols = @static_hash.dynamic_collisions(@dynamic_elements )
     @dynamic_hash.clear
     
-    @dynamic_elements.each {|e| @dynamic_hash.insert_circle_type_collider(e)}
+    @dynamic_elements.each {|e|
+      if e.kind_of?(PushableElement)
+        @dynamic_hash.add_rectangle(e, e.to_collision)
+      else
+        @dynamic_hash.insert_circle_type_collider(e)
+      end
+
+
+    }
     all = @dynamic_hash.all_collisions
     rv = collect_collisions(all) + collect_collisions(cols)
     rv.sort {|a,b| a.collision_priority <=> b.collision_priority}
