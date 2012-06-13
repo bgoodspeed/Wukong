@@ -26,7 +26,6 @@ line_segments:
 event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
-    action: upgrade_player
     action: noop #take_reward
     info_window:
       description:
