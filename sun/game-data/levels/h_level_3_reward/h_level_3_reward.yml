@@ -2,11 +2,9 @@ name: h_level_3_reward
 background_image: game-data/levels/h_level_3_reward/h_level_3_reward.png
 background_music: game-data/music/crappypiano.wav
 heads_up_display: game-data/hud/hud_config_empty.yml
-wayfinding: game-data/levels/load_screen/wayfinding.yml
 player_start_position: [ 400, 300 ]
 
 measurements: [ 800, 600 ]
-
 line_segments:
   - start_x: 0
     start_y: 0
@@ -24,6 +22,7 @@ line_segments:
     start_y: 600
     end_x: 800
     end_y: 600
+
 event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
@@ -33,6 +32,7 @@ event_areas:
         - Install upgrade.
       position: [ 103, 355 ]
       size: [ 195, 398 ]
+
   - top_left: [ 535, 121 ]
     bottom_right: [ 675, 165 ]
     action: queue_load_game_event
@@ -41,6 +41,7 @@ event_areas:
         - Load saved games.
       position: [ 505, 196 ]
       size: [ 195, 240 ]
+
   - top_left: [ 131, 120 ]
     bottom_right: [ 272, 167 ]
     action: queue_save_game_event

@@ -1,12 +1,11 @@
 name: map_screen
 background_image: game-data/levels/map/map.png
 background_music: game-data/music/drumbeats.wav
-heads_up_display: game-data/hud/hud_config_empty.yml
+heads_up_display: game-data/hud/hud_temp_msg_only.yml
 player_start_position: [ 364, 225 ]
 player_start_health: 100
 
 measurements: [ 800, 600 ]
-
 line_segments:
   - start_x: 0
     start_y: 0

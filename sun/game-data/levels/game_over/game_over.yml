@@ -2,7 +2,6 @@ name: game_over
 background_image: game-data/levels/game_over/game_over.png
 background_music: game-data/music/crappypiano.wav
 heads_up_display: game-data/hud/hud_temp_msg_only.yml
-wayfinding: game-data/levels/game_over/wayfinding.yml
 player_start_position: [ 400, 300 ]
 
 measurements: [ 800, 600 ]
