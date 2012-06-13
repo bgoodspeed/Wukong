@@ -36,12 +36,13 @@ module UtilityDrawing
     draw_line_segment(screen, Primitives::LineSegment.new(r.p4, r.p1), zorder, color)
   end
 
-  def draw_rectangle(screen, r)
+  def draw_rectangle(screen, r, c=Graphics::Color::BLACK, zo=ZOrder.dynamic.value )
     screen.draw_quad(
-      r.p1.x, r.p1.y, Graphics::Color::BLACK,
-      r.p2.x, r.p2.y, Graphics::Color::BLACK,
-      r.p3.x, r.p3.y, Graphics::Color::BLACK,
-      r.p4.x, r.p4.y, Graphics::Color::BLACK
+      r.p1.x, r.p1.y, c,
+      r.p2.x, r.p2.y, c,
+      r.p3.x, r.p3.y, c,
+      r.p4.x, r.p4.y, c,
+      zo
     )
   end
 

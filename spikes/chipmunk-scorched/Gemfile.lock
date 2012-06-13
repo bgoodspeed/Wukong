@@ -1,0 +1,10 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    chipmunk (5.3.4.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  chipmunk

@@ -21,8 +21,7 @@ class PushableElement
   end
 
   def move(v)
-    @last_move = v
-    @position.plus(@position, @last_move)
+    @position.plus(@position, v)
     p2 = GVector.xy(0,0)
     p3 = GVector.xy(0,0)
     p4 = GVector.xy(0,0)
@@ -32,20 +31,10 @@ class PushableElement
     @position.plus(p4, GVector.xy(0, @height))
     @collision_type = Primitives::Rectangle.new(@position, p2, p3, p4)
 
-  end
-
-  def undo_last_move_and_update_rectangle
-    undo_last_move
-    p2 = GVector.xy(0,0)
-    p3 = GVector.xy(0,0)
-    p4 = GVector.xy(0,0)
-
-    @position.plus(p2, GVector.xy(@width, 0))
-    @position.plus(p3, GVector.xy(@width, @height))
-    @position.plus(p4, GVector.xy(0, @height))
-    @collision_type = Primitives::Rectangle.new(@position, p2, p3, p4)
 
   end
+
+
   include Collidable
-  include MovementUndoable
+
 end

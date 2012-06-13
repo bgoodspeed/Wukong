@@ -123,11 +123,17 @@ module PrimitiveIntersectionTests
   end
 
   def circle_rectangle_intersection?(circle, rectangle)
-    circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p1, rectangle.p2)) ||
-      circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p2, rectangle.p3)) ||
-      circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p3, rectangle.p4)) ||
-      circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p4, rectangle.p1)) ||
-      circle_inside_rectangle?(circle, rectangle)
+    p1p2 = circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p1, rectangle.p2))
+    p2p3 = circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p2, rectangle.p3))
+    p3p4 = circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p3, rectangle.p4))
+    p4p1 = circle_line_segment_intersection?(circle, Primitives::LineSegment.new(rectangle.p4, rectangle.p1))
+
+    inside = circle_inside_rectangle?(circle, rectangle)
+
+
+    rv = p1p2 || p2p3 || p3p4 || p4p1 || inside
+
+    rv
   end
 
   def in_on_less(dir, c1, c2, c3)

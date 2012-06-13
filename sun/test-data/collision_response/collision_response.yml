@@ -2,9 +2,12 @@ collision_response:
   "EventEmitter":
     "Player": [ trigger_event1 ]
   "PushableElement":
-    "Player": [ push1_or_block_both ]
-    "LineSegment": [ block_player_push1 ]
-    "PushableElement": [ block_player_push1 ]
+    "Player": [ push_element1 ]
+    "LineSegment": [ fizzle_element1 ]
+    "PushableElement": [ fizzle_element1, fizzle_element2 ]
+    "PushTarget": [ seated_element1, satisfying_target2 ]
+  "PushTarget":
+    "Player": []
   "Weapon":
     "LineSegment": []
     "EventArea": []

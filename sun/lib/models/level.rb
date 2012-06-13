@@ -138,6 +138,15 @@ class Level
     @pushable_elements << e
   end
 
+  def remove_pushable_element(e)
+    @dynamic_elements.reject!{|el| e == el}
+    @pushable_elements.reject!{|el| e == el}
+  end
+
+  def push_targets_satisfied
+    @push_targets.select {|e| e.satisfied? }
+  end
+
   def add_push_target(e)
     @dynamic_elements << e
     @push_targets << e
@@ -157,6 +166,8 @@ class Level
   end
 
   def completed?
+    return true if !push_targets.empty? and push_targets_satisfied.size == push_targets.size
+
     if @ored_completion_conditions.empty? and @anded_completion_conditions.empty?
       #TODO handle level being unbounded
       return false
@@ -307,7 +318,15 @@ class Level
     cols = @static_hash.dynamic_collisions(@dynamic_elements )
     @dynamic_hash.clear
     
-    @dynamic_elements.each {|e| @dynamic_hash.insert_circle_type_collider(e)}
+    @dynamic_elements.each {|e|
+      if e.kind_of?(PushableElement)
+        @dynamic_hash.add_rectangle(e, e.to_collision)
+      else
+        @dynamic_hash.insert_circle_type_collider(e)
+      end
+
+
+    }
     all = @dynamic_hash.all_collisions
     rv = collect_collisions(all) + collect_collisions(cols)
     rv.sort {|a,b| a.collision_priority <=> b.collision_priority}

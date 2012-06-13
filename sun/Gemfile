@@ -10,7 +10,7 @@ gem "rake-compiler"
 gem "rdoc"
 #gem "devil", :platforms => [:ruby, :mingw]
 #gem "chunky_png"
-#gem "chipmunk"
+gem "chipmunk"
 gem "statemachine"
 
 gem 'simplecov', :require => false, :group => :test
