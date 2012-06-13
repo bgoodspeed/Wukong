@@ -4,15 +4,15 @@ background_image: game-data/levels/push_puzzle/grey.png
 wayfinding: game-data/levels/h_level_1/wayfinding.yml
 measurements: [ 800, 600 ]
 pushable_elements:
-#  - position: [ 50, 50 ]
-#    width: 50
-#    height: 50
+  - position: [ 50, 50 ]
+    width: 50
+    height: 50
   - position: [ 150, 150 ]
     width: 40
     height: 80
-#  - position: [ 350, 350 ]
-#    width: 40
-#    height: 40
+  - position: [ 350, 350 ]
+    width: 40
+    height: 40
 
 push_targets:
   - position: [ 500, 200 ]
