@@ -1,0 +1,13 @@
+player:
+  image_path: game-data/sprites/player_grey_scale_circle.png
+  animation_width: 30
+  animation_height: 30
+  animation_rate: 5
+  menu_action_delay: 2
+  movement_distance: 5
+  turn_speed: 5
+  stats:
+    health: 100
+    max_health: 100
+    accuracy: 250
+  position: [ 100, 100 ]

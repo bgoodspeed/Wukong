@@ -26,10 +26,11 @@ line_segments:
 event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
-    action: take_reward
+    action: upgrade_player
+    action_argument: "game-data/sprites/player_grey_scale_circle.png"
     info_window:
       description:
-        - Install upgrade.
+        - Avatar upgrade.
       position: [ 103, 355 ]
       size: [ 195, 398 ]
 
