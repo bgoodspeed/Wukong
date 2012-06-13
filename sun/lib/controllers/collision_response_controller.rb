@@ -2,6 +2,8 @@
 # and open the template in the editor.
 # Copyright 2012 Ben Goodspeed
 module ResponseTypes
+  SEATED_ELEMENT1 = :seated_element1
+  SATISFYING_TARGET2 = :satisfying_target2
   PUSH_ELEMENT1 = :push_element1
   FIZZLE_ELEMENT1 = :fizzle_element1
   FIZZLE_ELEMENT2 = :fizzle_element2
@@ -56,7 +58,11 @@ class CollisionResponseController
       "PushableElement" => {
         "Player" => [ResponseTypes::PUSH_ELEMENT1],
         "LineSegment" => [ResponseTypes::FIZZLE_ELEMENT1],
-        "PushableElement" => [ResponseTypes::FIZZLE_ELEMENT1, ResponseTypes::FIZZLE_ELEMENT2 ]
+        "PushableElement" => [ResponseTypes::FIZZLE_ELEMENT1, ResponseTypes::FIZZLE_ELEMENT2 ],
+        "PushTarget" => [ ResponseTypes::SEATED_ELEMENT1, ResponseTypes::SATISFYING_TARGET2 ]
+      },
+      "PushTarget" => {
+        "Player" => [],
       },
       "LineOfSightQuery" => {
         "LineSegment" => [ResponseTypes::BLOCKED_LINE_OF_SIGHT1],

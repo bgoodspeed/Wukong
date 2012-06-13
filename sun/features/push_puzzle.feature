@@ -72,3 +72,15 @@ Feature: Push Puzzle
     And I run the game loop 1 times
     Then the game property "level.pushable_elements.size" should be "0"
     Then the player should be at position 37,94
+
+  Scenario: Push Puzzle - Solving
+    Given I load the game on level "push_puzzle_solvable" with screen size 640, 480
+    And the game property "level.pushable_elements.size" should be "1"
+    And the game property "level.push_targets_satisfied.size" should be "0"
+    And the game property "level.name" should be "'push puzzle solvable'"
+    And I run the game loop 1 times
+    And the game property "level.pushable_elements.size" should be "0"
+    And the game property "level.push_targets_satisfied.size" should be "1"
+    And the game property "level.name" should be "'push puzzle solvable'"
+    And I run the game loop 2 times
+    And the game property "level.name" should be "'demo'"

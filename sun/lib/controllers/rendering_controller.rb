@@ -102,19 +102,14 @@ module Views
   class PushTargetView < BaseView
     def call(screen, pt)
       #TODO these should be adjusted to screen coords
-      draw_rectangle_as_box(screen, pt.to_collision,  ZOrder.dynamic.value, color=Graphics::Color::BLACK)
-      #cp = game.camera.screen_coordinates_for(vf.current_position)
-      #img = game.image_controller.lookup_image(game.player_bullet)
-      #img.draw(cp.x,cp.y, ZOrder.dynamic.value)
+      color = pt.satisfied? ? Graphics::Color::GREEN : Graphics::Color::RED
+      draw_rectangle(screen, pt.to_collision, color, ZOrder.dynamic.value)
     end
   end
   class PushableElementView < BaseView
     def call(screen, pt)
       #TODO these should be adjusted to screen coords
       draw_rectangle_as_box(screen, pt.to_collision,  ZOrder.dynamic.value, color=Graphics::Color::BLACK)
-      #cp = game.camera.screen_coordinates_for(vf.current_position)
-      #img = game.image_controller.lookup_image(game.player_bullet)
-      #img.draw(cp.x,cp.y, ZOrder.dynamic.value)
     end
   end
 

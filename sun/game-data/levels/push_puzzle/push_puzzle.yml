@@ -1,5 +1,5 @@
 name: push puzzle
-background_image: game-data/levels/push_puzzle/white.png
+background_image: game-data/levels/push_puzzle/grey.png
 #TODO clean this up, don't use bad wayfinding etc
 wayfinding: game-data/levels/h_level_1/wayfinding.yml
 measurements: [ 800, 600 ]

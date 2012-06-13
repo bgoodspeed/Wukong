@@ -1,0 +1,32 @@
+name: push puzzle solvable
+background_image: test-data/levels/trivial/grass.jpg
+wayfinding: test-data/levels/trivial/wayfinding.yml
+measurements: [ 640, 480 ]
+reward_level: test-data/levels/demo/demo.yml
+
+pushable_elements:
+  - position: [ 100, 100 ]
+    width: 6
+    height: 7
+
+push_targets:
+  - position: [ 100, 100 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+

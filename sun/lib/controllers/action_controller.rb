@@ -141,6 +141,16 @@ class ActionController
         game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "Fizzled.","temporary_message=", nil, 60 ))
 
       },
+      ResponseTypes::SEATED_ELEMENT1 => lambda {|game,col|
+        return if col.dynamic2.satisfied?
+        game.level.remove_pushable_element(col.dynamic1)
+        game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "Seated.","temporary_message=", nil, 60 ))
+
+      },
+      ResponseTypes::SATISFYING_TARGET2 => lambda {|game,col|
+        col.dynamic2.satisfy
+
+      },
       ResponseTypes::FIZZLE_ELEMENT2 => lambda {|game,col|
         game.level.remove_pushable_element(col.dynamic2)
         game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "Fizzled.","temporary_message=", nil, 60 ))

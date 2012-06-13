@@ -143,6 +143,10 @@ class Level
     @pushable_elements.reject!{|el| e == el}
   end
 
+  def push_targets_satisfied
+    @push_targets.select {|e| e.satisfied? }
+  end
+
   def add_push_target(e)
     @dynamic_elements << e
     @push_targets << e
@@ -162,6 +166,8 @@ class Level
   end
 
   def completed?
+    return true if !push_targets.empty? and push_targets_satisfied.size == push_targets.size
+
     if @ored_completion_conditions.empty? and @anded_completion_conditions.empty?
       #TODO handle level being unbounded
       return false
