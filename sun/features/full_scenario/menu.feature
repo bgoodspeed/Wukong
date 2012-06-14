@@ -135,6 +135,21 @@ Feature: Menu
     Then the game property "menu_mode?" should be "true"
     When I run the game loop 1 times
 
+  Scenario: Customization Menu - Empty
+    Given I load the game on level "trivial" with screen size 640, 480
+    And I create a menu controller
+    When I enter the menu "customization" with filter "nil"
+    Then the game property "menu_mode?" should be "false"
+    Then the game property "temporary_message" should be "'No customization. '"
+    When I run the game loop 1 times
+
+  Scenario: Customization Menu - Non Empty
+    Given I load the game "demo_inventory"
+    When the player takes reward "test-data/equipment/potion.yml"
+    When I enter the menu "customization" with filter "nil"
+    Then the game property "menu_mode?" should be "true"
+    When I run the game loop 1 times
+
   Scenario: Equipment Menu - Non Empty
     Given I load the game "demo_inventory"
     When the player takes reward "test-data/equipment/weapon.yml"
@@ -157,6 +172,20 @@ Feature: Menu
     Then the game property "player.inventory.weapon.nil?" should be "true"
     When I invoke the current menu action
     Then the game property "player.inventory.weapon.display_name" should be "'TestWeaponSwung'"
+
+  Scenario: Customization Menu - Invocation
+    Given I load the game "demo_inventory"
+    When the player takes reward "test-data/equipment/weapon_swung.yml"
+    When the player takes reward "test-data/equipment/weapon.yml"
+    When I enter the menu "customization" with filter "nil"
+    Then the game property "customization_controller.primary.nil?" should be "true"
+    And I move down in the menu
+    And I move up in the menu
+    When I invoke the current menu action
+    Then the game property "customization_controller.primary.nil?" should be "false"
+    Then the game property "customization_controller.secondary.nil?" should be "true"
+    When I invoke the current menu action
+    Then the game property "customization_controller.secondary.nil?" should be "false"
 
   Scenario: Menu Configuration
     Given I load the game on level "trivial" with screen size 640, 480

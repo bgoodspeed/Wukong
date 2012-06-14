@@ -11,6 +11,7 @@ end
 module GameMenu
   EQUIPMENT = "equipment"
   ITEMS = "items"
+  CUSTOMIZATION = "customization"
 end
 
 class ActionableMenuItem
@@ -85,6 +86,12 @@ class FixedActionMenu
 
 end
 
+class CustomizationMenu < FixedActionMenu
+  def get_items
+    super - [@game.customization_controller.primary, @game.customization_controller.secondary]
+  end
+end
+
 # Copyright 2012 Ben Goodspeed
 class MenuController
   attr_reader :active, :breadcrumbs, :active_menu_name
@@ -95,7 +102,8 @@ class MenuController
     @game = game
     @menus = {
       GameMenu::EQUIPMENT => FixedActionMenu.new(@game, "Equipment Menu", BehaviorTypes::EQUIP_ITEM),
-      GameMenu::ITEMS => FixedActionMenu.new(@game, "Items Menu", BehaviorTypes::CONSUME_ITEM)
+      GameMenu::ITEMS => FixedActionMenu.new(@game, "Items Menu", BehaviorTypes::CONSUME_ITEM),
+      GameMenu::CUSTOMIZATION => CustomizationMenu.new(@game, "Customization Menu ", BehaviorTypes::CHOOSE_ITEM_FOR_CUSTOMIZATION)
     }
     @active = false
     @active_menu_name = nil

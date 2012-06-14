@@ -19,6 +19,8 @@ module BehaviorTypes
   EQUIP_ITEM = "equip_item"
   DEBUG_PRINT = "debug_print"
   CONSUME_ITEM = "consume_item"
+  CHOOSE_ITEM_FOR_CUSTOMIZATION = "choose_item_for_customization"
+
   NOOP = "noop"
   RESET_PLAYER_AND_LOAD_LEVEL = "reset_player_and_load_level"
 end
@@ -38,6 +40,12 @@ class ActionController
       BehaviorTypes::CONSUME_ITEM => lambda {|game, arg|
         item = game.inventory_controller.item_named(arg.argument)
         game.player.use_item(item) },
+      BehaviorTypes::CHOOSE_ITEM_FOR_CUSTOMIZATION => lambda {|game, arg|
+        item = game.inventory_controller.item_named(arg.argument)
+        # game.player.use_item(item)
+        game.customization_controller.select_for_customization(item)
+
+      },
 
       BehaviorTypes::SAVE_GAME_SLOT => lambda {|game, arg| 
         game.clock.set_last_save_time
@@ -269,7 +277,7 @@ class ActionController
       #TODO figure out which game to load from menu?
       BehaviorTypes::QUEUE_SAVE_GAME_EVENT => lambda {|game, arg| game.enter_menu(game.menu_for_save_game) },
       BehaviorTypes::EQUIPMENT_MENU => lambda {|game, arg| game.enter_menu(game.menu_for_equipment, arg.argument) },
-      BehaviorTypes::CUSTOMIZATION_MENU => lambda {|game, arg| game.enter_menu(game.menu_for_equipment, nil) },
+      BehaviorTypes::CUSTOMIZATION_MENU => lambda {|game, arg| game.enter_menu(game.menu_for_customization, nil) }, #  + "_#{arg.argument}"
       BehaviorTypes::QUEUE_LOAD_GAME_EVENT => lambda {|game, arg| game.enter_menu(game.menu_for_load_game) },
 #      BehaviorTypes::CHOOSE_GAME_MENU => lambda {|game, arg| puts "todo activate a menu based on '#{arg}'"}
      
@@ -422,12 +430,17 @@ class ActionController
   end
 
  def menu_invoke(menu, c, breadcrumbs)
+    if c.nil?
+      puts "no entry available handle this"
+      return
+    end
     @game.log.info { "Attempting to invoke #{c}"}
     ce = c
     action = ce.action
     action_argument = ce.action_argument
 
     m = @menu_actions[action]
+    raise "unknown action #{action}" if m.nil?
     action_result = m.call(@game, action_argument)
     menu_id = menu.menu_id
     breadcrumbs << Breadcrumb.new(menu_id, action, action_argument, action_result)

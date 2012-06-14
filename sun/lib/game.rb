@@ -86,6 +86,7 @@ require 'loaders/level_loader'
 require 'loaders/save_loader'
 
 require 'controllers/sound_controller'
+require 'controllers/customization_controller'
 require 'controllers/splash_controller'
 require 'controllers/targetting_controller'
 require 'controllers/level_controller'
@@ -98,10 +99,10 @@ class Game
   GAME_CONSTRUCTED = [ :game_item_controller, :animation_controller,:action_controller, :image_controller,
     :player_loader, :level_loader, :rendering_controller, :path_following_controller, :menu_controller,
     :condition_controller, :completion_controller, :event_controller, :input_controller, :camera,
-    :splash_controller, :sound_controller, :save_loader, :font_controller, :inventory_controller,
+    :splash_controller, :sound_controller, :save_loader, :font_controller, :inventory_controller, :customization_controller,
     :level_controller, :collision_response_controller, :targetting_controller, :progression_controller ]
   REQUIRED_ATTRIBUTES = [:player, :clock, :hud, :screen, :level, :collisions, :main_menu_name, :mouse_drawn,
-    :active, :new_game_level, :menu_for_load_game, :game_load_path, :over, :game_over_menu,
+    :active, :new_game_level, :menu_for_load_game, :game_load_path, :over, :game_over_menu, :menu_for_customization,
     :menu_for_save_game, :log, :menu_for_equipment, :save_slots, :health_display_threshold, :game_over_level,
     :player_damage_mask, :player_bullet, :speed_factor, :player_reset]
   OPTIONAL_ATTRIBUTES = [:temporary_message, :old_level_name, :wayfinding ]
@@ -155,6 +156,7 @@ class Game
     @main_menu_name = "main menu"
     @save_slots = [1,2,3,4,5,6]
     @menu_for_equipment = GameMenu::EQUIPMENT
+    @menu_for_customization = GameMenu::CUSTOMIZATION
     @health_display_threshold = 30
     @speed_factor = 1.75
     @game_load_path = "UNSET"
