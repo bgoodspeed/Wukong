@@ -16,3 +16,4 @@ game:
   game_over_level: "game-data/levels/game_over/game_over.yml"
   game_over_level: "game-data/levels/game_over/game_over.yml"
   player_bullet: "game-data/equipment/bullet.png"
+  inventory: "game-data/inventory_list.yml"
