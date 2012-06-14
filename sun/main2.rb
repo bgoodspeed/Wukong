@@ -37,6 +37,56 @@ module ScreenClamped
   end
 end
 
+class Turret
+  def initialize(window)
+    @window = window
+    @image = Gosu::Image.new(window, "media/Starfighter.bmp", false)
+    @angle = 45
+    @angle_delta = 1
+    @angle_max = 90
+    @angle_min = 0
+    @x = 30
+    @y = SCREEN_HEIGHT - 30
+
+  end
+
+  def increase_angle
+    @angle += @angle_delta
+    @angle = [@angle, @angle_max].min
+  end
+  def decrease_angle
+    @angle -= @angle_delta
+    @angle = [@angle, @angle_min].max
+  end
+
+  def vector_for(angle)
+    #(angle * 180/Math::PI).radians_to_vec2
+    (angle * Math::PI/180).radians_to_vec2
+    #angle.radians_to_vec2
+
+  end
+  def fire
+
+    v = vector_for(@angle)
+
+    v *= 100
+
+    v.y *= -1
+
+    @window.add_turret_bullet(@x, @y, v)
+  end
+  def draw
+    @image.draw_rot(@x, @y, ZOrder::Player, 90 - @angle)
+    v = vector_for(@angle)
+    v *= 100
+
+    @window.draw_line(@x, @y,  Gosu::Color::WHITE,
+                     @x + v.x, @y -  v.y,
+                      Gosu::Color::WHITE,
+                      ZOrder::UI)
+  end
+end
+
 # This game will have one Player in the form of a ship
 class Player
   attr_reader :shape
@@ -46,11 +96,22 @@ class Player
     @shape = shape
     @shape.body.p = CP::Vec2.new(0.0, 0.0) # position
     @shape.body.v = CP::Vec2.new(0.0, 0.0) # velocity
-
+    @turret = Turret.new(window)
     # Keep in mind that down the screen is positive y, which means that PI/2 radians,
     # which you might consider the top in the traditional Trig unit circle sense is actually
     # the bottom; thus 3PI/2 is the top
     @shape.body.a = (3*Math::PI/2.0) # angle in radians; faces towards top of screen
+  end
+
+  def fire_turret
+    @turret.fire
+  end
+  def move_turret_up
+    @turret.increase_angle
+  end
+
+  def move_turret_down
+    @turret.decrease_angle
   end
 
   # Directly set the position of our Player
@@ -98,6 +159,7 @@ class Player
 
   def draw
     @image.draw_rot(@shape.body.p.x, @shape.body.p.y, ZOrder::Player, @shape.body.a.radians_to_gosu)
+    @turret.draw
   end
 end
 
@@ -161,6 +223,25 @@ class GameWindow < Gosu::Window
     @space.gravity = CP::Vec2.new(0, 5.0)
   end
 
+  def add_turret_bullet(x,y, v)
+    bullet = CP::Body.new(5, 0)
+    bullet.p = CP::Vec2.new(x, y)
+
+    # angle * 180 / PI.radians_to... ?
+
+    # v = angle.radians_to_vec2
+    bullet.v = v
+
+    #bullet.force = v * 50
+    bullet.apply_force(v * 50, CP::Vec2.new(0,0))
+    shape = CP::Shape::Circle.new(bullet, 10)
+    shape.collision_type = :bullet
+
+    @bullets << bullet
+    @space.add_body(bullet)
+    @space.add_shape(shape)
+  end
+
   def add_enemy_ship
     body = CP::Body.new(10.0, 150.0)
     body.p = CP::Vec2.new(SCREEN_WIDTH-50, 50)
@@ -205,6 +286,7 @@ class GameWindow < Gosu::Window
     super(SCREEN_WIDTH, SCREEN_HEIGHT, false, 16)
     self.caption = "Gosu & Chipmunk Integration Demo"
     @background_image = Gosu::Image.new(self, "media/Space.png", true)
+    @bullet_image = Gosu::Image.new(self, "media/bullet.png", true)
 
     # Put the beep here, as it is the environment now that determines collision
     @beep = Gosu::Sample.new(self, "media/Beep.wav")
@@ -226,6 +308,7 @@ class GameWindow < Gosu::Window
     add_gravity
     clamp_walls
     @enemies = []
+    @bullets = []
     add_enemy_ship
     # Create the Body for the Player
     body = CP::Body.new(10.0, 150.0)
@@ -309,6 +392,8 @@ class GameWindow < Gosu::Window
       if button_down? Gosu::KbLeft
         @player.turn_left
       end
+
+
       if button_down? Gosu::KbRight
         @player.turn_right
       end
@@ -328,6 +413,20 @@ class GameWindow < Gosu::Window
       @space.step(@dt)
     end
 
+
+    if button_down? Gosu::KbW
+      @player.move_turret_up
+    end
+    if button_down? Gosu::KbS
+      @player.move_turret_down
+    end
+
+    m = Gosu::milliseconds
+    @fire_delay = 300
+    if button_down? Gosu::KbSpace and (@last_fired_time.nil? or ((m - @last_fired_time ) > @fire_delay))
+      @player.fire_turret
+      @last_fired_time = m
+    end
     # Each update (not SUBSTEP) we see if we need to add more Stars
     if rand(100) < 4 and @stars.size < 25 then
       body = CP::Body.new(0.0001, 0.0001)
@@ -346,6 +445,7 @@ class GameWindow < Gosu::Window
     @player.draw
     @stars.each { |star| star.draw }
     @enemies.each { |e| e.draw }
+    @bullets.each { |b| @bullet_image.draw(b.p.x, b.p.y, ZOrder::UI) }
     @font.draw("Score: #{@score} (#{@player.shape.body.p})", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
   end
 
