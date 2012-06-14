@@ -163,18 +163,20 @@ class GameWindow < Gosu::Window
   def add_enemy_ship
     body = CP::Body.new(10.0, 150.0)
     body.p = CP::Vec2.new(SCREEN_WIDTH-50, 50)
-    body.v = CP::Vec2.new(-5.0, 0.0)
+    body.v = CP::Vec2.new(-1.0, 0.0)
 
     body.velocity_func do |body, gravity, damping, dt|
-      dv = body.v * damping
-      fi = body.f * body.m_inv
-      fid = fi * dt
-      v = dv + fid
-
-      body.v = v.clamp(body.v_limit)
-      i_inv = 1.0/body.i
-      body.w = CP.clamp(body.w * damping + body.t * i_inv*dt, -body.w_limit, body.w_limit)
     end
+    #body.velocity_func do |body, gravity, damping, dt|
+    #  dv = body.v * damping
+    #  fi = body.f * body.m_inv
+    #  fid = fi * dt
+    #  v = dv + fid
+    #
+    #  body.v = v.clamp(body.v_limit)
+    #  i_inv = 1.0/body.i
+    #  body.w = CP.clamp(body.w * damping + body.t * i_inv*dt, -body.w_limit, body.w_limit)
+    #end
 
     shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 5.0), CP::Vec2.new(25.0, -5.0)]
     shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
@@ -184,10 +186,16 @@ class GameWindow < Gosu::Window
     @space.add_body(body)
     @space.add_shape(shape)
 
-    joint = CP::Constraint::GrooveJoint.new(@top_wall_body, body,
-                                            @top_wall_body.world2local(CP::Vec2.new(-1,0)),
-                                            @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH, 0)),
-                                            CP::Vec2.new(1,1))
+    joint = CP::Constraint::SlideJoint.new(@top_wall_body, body,
+                                            @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH-50, 0)),
+                                            body.world2local(body.p), 0, 350)
+    #joint = CP::Constraint::PinJoint.new(@top_wall_body, body,
+    #                                        @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH-50, 0)),
+    #                                        body.world2local(body.p))
+    #joint = CP::Constraint::GrooveJoint.new(@top_wall_body, body,
+    #                                        @top_wall_body.world2local(CP::Vec2.new(-1,0)),
+    #                                        @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH, 0)),
+    #                                        CP::Vec2.new(1,1))
     @space.add_constraint(joint)
 
   end
@@ -288,6 +296,8 @@ class GameWindow < Gosu::Window
       # force applied this SUBSTEP; which is probably not the behavior you want
       # We reset the forces on the Player each SUBSTEP for this reason
       @player.shape.body.reset_forces
+
+      @enemies.each {|enemy| enemy.shape.body.reset_forces }
 
       # Wrap around the screen to the other side
       @player.validate_position
