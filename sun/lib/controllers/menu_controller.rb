@@ -45,9 +45,7 @@ class ActionableMenuItem
   end
 end
 
-
-# Copyright 2012 Ben Goodspeed
-class ItemsMenu
+class FixedActionMenu
   attr_accessor :filter, :current_index, :menu_id, :headers
   ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width, :header_text, :header_position]
   ATTRIBUTES.each {|attr| attr_accessor attr}
@@ -56,11 +54,12 @@ class ItemsMenu
   include MenuPositioned
   include MenuImages
 
-  def initialize(game)
+  def initialize(game, menu_id, action)
     @game = game
     @filter = nil
     @current_index = 0
-    @menu_id = "Equipment Menu"
+    @menu_id = menu_id
+    @action = action
     @x_spacing = 10
     @y_spacing = 10
     @menu_scale = 2
@@ -72,49 +71,20 @@ class ItemsMenu
   def current_entry
     lines[@current_index]
   end
+  def get_items
+    @game.player.inventory.items_matching(@filter)
+  end
+
   def lines
-    items = @game.player.inventory.items_matching(@filter)
+    items = get_items
     menu_items = []
-    items.each_with_index {|item, index| menu_items << ActionableMenuItem.new(item, index, BehaviorTypes::CONSUME_ITEM) }
+    items.each_with_index {|item, index| menu_items << ActionableMenuItem.new(item, index, @action) }
     menu_items
   end
   alias_method :entries, :lines
 
-end# Copyright 2012 Ben Goodspeed
-class EquipmentMenu
-
-  attr_accessor :filter, :current_index, :menu_id, :headers
-  ATTRIBUTES = [:x_spacing, :y_spacing, :menu_scale, :menu_width, :header_text, :header_position]
-  ATTRIBUTES.each {|attr| attr_accessor attr}
-
-  include MenuCursor
-  include MenuPositioned
-  include MenuImages
-
-  def initialize(game)
-    @game = game
-    @filter = nil
-    @current_index = 0
-    @menu_id = "Equipment Menu"
-    @x_spacing = 10
-    @y_spacing = 10
-    @menu_scale = 2
-    @menu_width = 300
-    @headers = []
-  end
-
-
-  def current_entry
-    lines[@current_index]
-  end
-  def lines
-    items = @game.player.inventory.items_matching(@filter)
-    menu_items = []
-    items.each_with_index {|item, index| menu_items << ActionableMenuItem.new(item, index, BehaviorTypes::EQUIP_ITEM) }
-    menu_items
-  end
-  alias_method :entries, :lines
 end
+
 # Copyright 2012 Ben Goodspeed
 class MenuController
   attr_reader :active, :breadcrumbs, :active_menu_name
@@ -124,8 +94,8 @@ class MenuController
   def initialize(game)
     @game = game
     @menus = {
-      GameMenu::EQUIPMENT => EquipmentMenu.new(@game),
-      GameMenu::ITEMS => ItemsMenu.new(@game)
+      GameMenu::EQUIPMENT => FixedActionMenu.new(@game, "Equipment Menu", BehaviorTypes::EQUIP_ITEM),
+      GameMenu::ITEMS => FixedActionMenu.new(@game, "Items Menu", BehaviorTypes::CONSUME_ITEM)
     }
     @active = false
     @active_menu_name = nil

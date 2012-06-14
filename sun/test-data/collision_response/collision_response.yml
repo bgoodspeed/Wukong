@@ -11,6 +11,7 @@ collision_response:
   "Weapon":
     "LineSegment": []
     "EventArea": []
+    "LineOfSightQuery": []
   "LineOfSightQuery":
     "LineSegment": [ block_line_of_sight1  ]
     "EventArea": []

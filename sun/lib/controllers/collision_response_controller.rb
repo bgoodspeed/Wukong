@@ -71,7 +71,8 @@ class CollisionResponseController
       },
       "Weapon" => {
         "LineSegment" => [],
-        "EventArea" => []
+        "EventArea" => [],
+        "LineOfSightQuery" => [],
       },
       "LineSegment" => {
         "Player" => [ResponseTypes::BLOCKING2],
