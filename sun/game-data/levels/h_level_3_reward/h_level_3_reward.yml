@@ -26,10 +26,10 @@ line_segments:
 event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
-    action: take_reward
+    action: noop #take_reward
     info_window:
       description:
-        - Install upgrade.
+        - New Weapon.
       position: [ 103, 355 ]
       size: [ 195, 398 ]
 
