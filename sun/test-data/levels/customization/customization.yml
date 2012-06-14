@@ -1,0 +1,45 @@
+name: customization
+background_image: test-data/levels/equipment/grass.jpg
+measurements: [ 640, 480 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+event_areas:
+  - top_left: [ 10, 10 ]
+    bottom_right: [ 280, 180 ]
+    label: Customize Primary
+    action: customization_menu
+    action_argument: primary
+    info_window:
+      description:
+        - Choose item to customize
+  - top_left: [ 10, 250 ]
+    bottom_right: [ 400, 500 ]
+    label: Customize Secondary
+    action: customization_menu
+    action_argument: secondary
+    info_window:
+      description:
+        - Choose item to customize
+
+
+customization_renderables:
+  - position: [ 100, 200 ]
+    customization_slot: primary
+  - position: [ 100, 200 ]
+    customization_slot: secondary

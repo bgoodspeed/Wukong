@@ -15,6 +15,7 @@ module BehaviorTypes
   UPGRADE_PLAYER = "upgrade_player"
   UPGRADE_PROGRESSION = "upgrade_progression"
   EQUIPMENT_MENU = "equipment_menu"
+  CUSTOMIZATION_MENU = "customization_menu"
   EQUIP_ITEM = "equip_item"
   DEBUG_PRINT = "debug_print"
   CONSUME_ITEM = "consume_item"
@@ -268,6 +269,7 @@ class ActionController
       #TODO figure out which game to load from menu?
       BehaviorTypes::QUEUE_SAVE_GAME_EVENT => lambda {|game, arg| game.enter_menu(game.menu_for_save_game) },
       BehaviorTypes::EQUIPMENT_MENU => lambda {|game, arg| game.enter_menu(game.menu_for_equipment, arg.argument) },
+      BehaviorTypes::CUSTOMIZATION_MENU => lambda {|game, arg| game.enter_menu(game.menu_for_equipment, nil) },
       BehaviorTypes::QUEUE_LOAD_GAME_EVENT => lambda {|game, arg| game.enter_menu(game.menu_for_load_game) },
 #      BehaviorTypes::CHOOSE_GAME_MENU => lambda {|game, arg| puts "todo activate a menu based on '#{arg}'"}
      

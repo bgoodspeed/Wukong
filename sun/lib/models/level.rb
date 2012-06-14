@@ -25,7 +25,7 @@ class Level
     :circles, :rectangles, :dynamic_elements, :enemies, :event_emitters,
     :spawn_points, :ored_completion_conditions, :anded_completion_conditions,
     :event_areas, :animations, :sight_lines, :equipment_renderables, :extra_backgrounds,
-      :pushable_elements, :push_targets
+      :pushable_elements, :push_targets, :customization_renderables
     ]
   HASH_ATTRIBUTES = [
     :declared_enemies,
@@ -105,6 +105,9 @@ class Level
 
   def add_equipment_renderable(er)
     @equipment_renderables << er
+  end
+  def add_customization_renderable(er)
+    @customization_renderables << er
   end
 
   def targettable_enemies

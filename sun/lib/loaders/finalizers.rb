@@ -35,6 +35,12 @@ module ArrayFinalizers
       level.add_equipment_renderable(er)
     end
   end
+  class CustomizationRenderables < BaseFinalizer
+    def call(level, data, crc)
+      cr = CustomizationRenderable.new(crc)
+      level.add_customization_renderable(cr)
+    end
+  end
   class PushableElements < BaseFinalizer
     def call(level, data, pec)
       pe = PushableElement.new(pec)

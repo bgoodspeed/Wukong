@@ -142,9 +142,10 @@ class GameWindow < Gosu::Window
 
   def make_wall(p1, p2)
     seg_body = CP::Body.new_static
-    seg = CP::Shape::Segment.new(seg_body, p1, p2, 1.0)
+    seg_body.p = p1
+    seg = CP::Shape::Segment.new(seg_body, CP::Vec2.new(0,0), p2 - p1, 1.0)
     seg.collision_type = :wall
-    @space.add_body(seg_body)
+    #@space.add_body(seg_body)
     @space.add_shape(seg)
     seg_body
   end
@@ -163,21 +164,21 @@ class GameWindow < Gosu::Window
   def add_enemy_ship
     body = CP::Body.new(10.0, 150.0)
     body.p = CP::Vec2.new(SCREEN_WIDTH-50, 50)
-    body.v = CP::Vec2.new(-1.0, 0.0)
+    body.v = CP::Vec2.new(-0.05, 0.0)
 
     #body.velocity_func do |body, gravity, damping, dt|
     #end
-    body.velocity_func do |body, gravity, damping, dt|
-      dv = body.v * damping
-      fi = body.f * body.m_inv
-      fid = fi * dt
-      v = dv + fid
-      rv = v.clamp(body.v_limit)
-      body.v = rv
-      i_inv = 1.0/body.i
-      body.w = CP.clamp(body.w * damping + body.t * i_inv*dt, -body.w_limit, body.w_limit)
-      rv
-    end
+    #body.velocity_func do |body, gravity, damping, dt|
+    #  dv = body.v * damping
+    #  fi = body.f * body.m_inv
+    #  fid = fi * dt
+    #  v = dv + fid
+    #  rv = v.clamp(body.v_limit)
+    #  body.v = rv
+    #  i_inv = 1.0/body.i
+    #  body.w = CP.clamp(body.w * damping + body.t * i_inv*dt, -body.w_limit, body.w_limit)
+    #  rv
+    #end
 
     shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 5.0), CP::Vec2.new(25.0, -5.0)]
     shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
@@ -190,13 +191,13 @@ class GameWindow < Gosu::Window
     #joint = CP::Constraint::SlideJoint.new(@top_wall_body, body,
     #                                        @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH-50, 0)),
     #                                        body.world2local(body.p), 0, 350)
-    joint = CP::Constraint::PinJoint.new(@top_wall_body, body,
-                                            @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH-50, 0)),
-                                            body.world2local(body.p))
-    #joint = CP::Constraint::GrooveJoint.new(@top_wall_body, body,
-    #                                        @top_wall_body.world2local(CP::Vec2.new(-1,0)),
-    #                                        @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH, 0)),
-    #                                        CP::Vec2.new(1,1))
+    #joint = CP::Constraint::PinJoint.new(@top_wall_body, body,
+    #                                        @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH-50, 0)),
+    #                                        body.world2local(body.p))
+    joint = CP::Constraint::GrooveJoint.new(@top_wall_body, body,
+                                            @top_wall_body.world2local(CP::Vec2.new(-1,30)),
+                                            @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH, 0)),
+                                            CP::Vec2.new(1,1))
     @space.add_constraint(joint)
 
   end

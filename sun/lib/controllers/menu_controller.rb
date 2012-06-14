@@ -12,41 +12,14 @@ module GameMenu
   EQUIPMENT = "equipment"
   ITEMS = "items"
 end
-# Copyright 2012 Ben Goodspeed
-class ItemMenuItem
-  def initialize(item, index)
-    @index = index
+
+class ActionableMenuItem
+  attr_reader :action, :item, :index
+  def initialize(item, index, action)
     @item = item
-  end
-  def position
-    nil
-  end
-  def image
-    nil
-  end
-  def display_text
-    @item.display_name
-  end
-  def action
-    BehaviorTypes::CONSUME_ITEM
-  end
-  def action_argument
-    self
-  end
-
-  def argument
-    @item.orig_filename
-  end
-
-  def to_s
-    "#{@item.class}:#{@item.display_name}"
-  end
-
-end# Copyright 2012 Ben Goodspeed
-class EquipmentMenuItem
-  def initialize(item, index)
     @index = index
-    @item = item
+    @action = action
+
   end
 
   def position
@@ -58,9 +31,7 @@ class EquipmentMenuItem
   def display_text
     @item.display_name
   end
-  def action
-    BehaviorTypes::EQUIP_ITEM
-  end
+
   def action_argument
     self
   end
@@ -73,6 +44,8 @@ class EquipmentMenuItem
     "#{@item.class}:#{@item.display_name}"
   end
 end
+
+
 # Copyright 2012 Ben Goodspeed
 class ItemsMenu
   attr_accessor :filter, :current_index, :menu_id, :headers
@@ -102,7 +75,7 @@ class ItemsMenu
   def lines
     items = @game.player.inventory.items_matching(@filter)
     menu_items = []
-    items.each_with_index {|item, index| menu_items << ItemMenuItem.new(item, index)}
+    items.each_with_index {|item, index| menu_items << ActionableMenuItem.new(item, index, BehaviorTypes::CONSUME_ITEM) }
     menu_items
   end
   alias_method :entries, :lines
@@ -137,7 +110,7 @@ class EquipmentMenu
   def lines
     items = @game.player.inventory.items_matching(@filter)
     menu_items = []
-    items.each_with_index {|item, index| menu_items << EquipmentMenuItem.new(item, index)}
+    items.each_with_index {|item, index| menu_items << ActionableMenuItem.new(item, index, BehaviorTypes::EQUIP_ITEM) }
     menu_items
   end
   alias_method :entries, :lines
