@@ -1,0 +1,5 @@
+name: inventory_list
+inventory: #see all_equip_plus_armor.yml
+  weapons:
+    - game-data/equipment/weapon/silver_sword.yml
+    - game-data/equipment/gun.yml
