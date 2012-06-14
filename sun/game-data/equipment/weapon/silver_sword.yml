@@ -5,8 +5,8 @@ weapon:
   type: swung
   sound_effect_name: player_weapon_sound
   velocity: 10
-  image_path: game-data/equipment/weapon_black2.png
-  equipment_image_path: game-data/equipment/weapon_black2.png
+  image_path: game-data/equipment/weapon/silver_sword.png
+  equipment_image_path: game-data/equipment/weapon/silver_sword.png
 
 animations:
   - animation_name: silver_sword
