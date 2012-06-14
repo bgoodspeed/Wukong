@@ -10,6 +10,7 @@ module EventTypes
   SAVE_GAME = "SAVE_GAME"
   LOAD_LEVEL = "LOAD_LEVEL"
   BACK_TO_LEVEL = "BACK_TO_LEVEL"
+  HACK_PUZZLE_AMEND = "hack_puzzle_amend"
 end
 # Copyright 2012 Ben Goodspeed
 class Event

@@ -30,12 +30,12 @@ class Level
   HASH_ATTRIBUTES = [
     :declared_enemies,
   ]
-  SCALAR_ATTRIBUTES = [ :spawned_enemies, :background
+  SCALAR_ATTRIBUTES = [ :spawned_enemies, :background, :current_hack_puzzle
 
   ]
   YAML_ATTRIBUTES = [ :orig_filename, :cell_size, :background_image, :background_music, :reward_level,
     :player_start_position, :name, :minimum_x, :minimum_y, :maximum_x, :maximum_y, :player_start_health,
-    :animation_distance_threshold, :max_enemies, :measurements
+    :animation_distance_threshold, :max_enemies, :measurements, :hack_puzzle_key
   ]
 
   ATTRIBUTES = ARRAY_ATTRIBUTES + HASH_ATTRIBUTES + SCALAR_ATTRIBUTES + YAML_ATTRIBUTES
@@ -68,10 +68,10 @@ class Level
     @static_hash = SpatialHash.new(@cell_size)
     @dynamic_hash = SpatialHash.new(@cell_size)
     @spawned_enemies = 0
-
+    @current_hack_puzzle = ""
     @music = @game.sound_controller.add_song(@background_music, @background_music) if @background_music
     @required_attributes = YAML_ATTRIBUTES - [:player_start_position, :player_start_health,
-                                              :background_music, :background_image, :reward_level]
+                                              :background_music, :background_image, :reward_level, :hack_puzzle_key]
 
   end
 
@@ -166,6 +166,7 @@ class Level
   end
 
   def completed?
+    return true if hack_puzzle_key and current_hack_puzzle == hack_puzzle_key
     return true if !push_targets.empty? and push_targets_satisfied.size == push_targets.size
 
     if @ored_completion_conditions.empty? and @anded_completion_conditions.empty?
@@ -185,6 +186,10 @@ class Level
   def add_event_area(ea)
     @static_hash.add_rectangle(ea, ea.rect)
     @event_areas << ea
+  end
+
+  def hack_puzzle_amend(s)
+    @current_hack_puzzle += s
   end
 
   def active_event_areas(collision_volume=@game.player.to_collision)

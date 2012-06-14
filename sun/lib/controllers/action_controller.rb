@@ -194,6 +194,11 @@ class ActionController
       EventTypes::BACK_TO_LEVEL => lambda { |game, e|
         game.load_level(game.old_level_name)
       },
+
+      EventTypes::HACK_PUZZLE_AMEND => lambda { |game, e|
+        game.level.hack_puzzle_amend(e.argument)
+        game.clock.enqueue_event("message", TimedEvent.new("temporary_message=", "Current Guess #{game.level.current_hack_puzzle}","temporary_message=", nil, 360 ))
+      },
       EventTypes::LOAD_LEVEL => lambda { |game, e|
         game.old_level_name = game.level.orig_filename
         game.load_level(e.argument)
