@@ -165,18 +165,19 @@ class GameWindow < Gosu::Window
     body.p = CP::Vec2.new(SCREEN_WIDTH-50, 50)
     body.v = CP::Vec2.new(-1.0, 0.0)
 
-    body.velocity_func do |body, gravity, damping, dt|
-    end
     #body.velocity_func do |body, gravity, damping, dt|
-    #  dv = body.v * damping
-    #  fi = body.f * body.m_inv
-    #  fid = fi * dt
-    #  v = dv + fid
-    #
-    #  body.v = v.clamp(body.v_limit)
-    #  i_inv = 1.0/body.i
-    #  body.w = CP.clamp(body.w * damping + body.t * i_inv*dt, -body.w_limit, body.w_limit)
     #end
+    body.velocity_func do |body, gravity, damping, dt|
+      dv = body.v * damping
+      fi = body.f * body.m_inv
+      fid = fi * dt
+      v = dv + fid
+      rv = v.clamp(body.v_limit)
+      body.v = rv
+      i_inv = 1.0/body.i
+      body.w = CP.clamp(body.w * damping + body.t * i_inv*dt, -body.w_limit, body.w_limit)
+      rv
+    end
 
     shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 5.0), CP::Vec2.new(25.0, -5.0)]
     shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
@@ -186,12 +187,12 @@ class GameWindow < Gosu::Window
     @space.add_body(body)
     @space.add_shape(shape)
 
-    joint = CP::Constraint::SlideJoint.new(@top_wall_body, body,
-                                            @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH-50, 0)),
-                                            body.world2local(body.p), 0, 350)
-    #joint = CP::Constraint::PinJoint.new(@top_wall_body, body,
+    #joint = CP::Constraint::SlideJoint.new(@top_wall_body, body,
     #                                        @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH-50, 0)),
-    #                                        body.world2local(body.p))
+    #                                        body.world2local(body.p), 0, 350)
+    joint = CP::Constraint::PinJoint.new(@top_wall_body, body,
+                                            @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH-50, 0)),
+                                            body.world2local(body.p))
     #joint = CP::Constraint::GrooveJoint.new(@top_wall_body, body,
     #                                        @top_wall_body.world2local(CP::Vec2.new(-1,0)),
     #                                        @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH, 0)),
