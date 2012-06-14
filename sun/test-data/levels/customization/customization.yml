@@ -1,7 +1,7 @@
 name: customization
 background_image: test-data/levels/equipment/grass.jpg
 measurements: [ 640, 480 ]
-
+player_start_position: [ 650, 560 ]
 line_segments:
   - start_x: 0
     start_y: 0
@@ -21,7 +21,7 @@ line_segments:
     end_y: 480
 event_areas:
   - top_left: [ 10, 10 ]
-    bottom_right: [ 280, 180 ]
+    bottom_right: [ 150, 150 ]
     label: Customize Primary
     action: customization_menu
     action_argument: primary
@@ -36,6 +36,13 @@ event_areas:
     info_window:
       description:
         - Choose item to customize
+  - top_left: [ 600, 550 ]
+    bottom_right: [ 700, 600 ]
+    label: Customize Proceed
+    action: proceed_with_customization
+    info_window:
+      description:
+        - Create new item
 
 
 customization_renderables:

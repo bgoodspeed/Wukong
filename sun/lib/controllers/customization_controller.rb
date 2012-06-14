@@ -17,6 +17,11 @@ class CustomizationController
 
   end
 
+  def proceed
+    raise "must set primary and secondary before proceeding" if @primary.nil? or @secondary.nil?
+    @game.player.inventory.combine_items(@primary, @secondary)
+  end
+
   def clear
     @primary = nil
     @secondary = nil

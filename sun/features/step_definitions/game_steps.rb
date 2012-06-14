@@ -44,6 +44,13 @@ Given /^I use the game named "([^"]*)"$/ do |arg1|
   @game = lookup_game_named("test-data/#{arg1}.yml")
 end
 
+
+Given /^I load the game "(.*?)" on level "(.*?)"$/ do |game, level_to_load|
+  @game = YamlLoader.game_from_file("test-data/#{game}.yml")
+  @level = @game.load_level("test-data/levels/#{level_to_load}/#{level_to_load}.yml")
+
+end
+
 Given /^I load the game on level "([^"]*)" with screen size (\d+), (\d+)$/ do |level_to_load, width, height|
   stub_out_gosu if $can_stub_out_gosu
   @game = Game.new({:width => width.to_i, :height => height.to_i})

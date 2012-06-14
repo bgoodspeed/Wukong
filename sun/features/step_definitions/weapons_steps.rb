@@ -7,7 +7,7 @@ Given /^I set the player weapon with image "([^"]*)"$/ do |weapon_image|
 end
 Given /^I load and equip the weapon defined in "([^"]*)"$/ do |yml_file|
   @weapon = YamlLoader.from_file(Weapon, @game, "test-data/equipment/#{yml_file}")
-  @player.equip_weapon @weapon
+  p.equip_weapon @weapon
 end
 
 Given /^I set the player weapon start to \-(\d+)$/ do |st|

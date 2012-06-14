@@ -22,9 +22,32 @@ Feature: Customization
     When I combine the inventory items named "test-data/equipment/weapon.yml" and "test-data/equipment/weapon.yml"
     Then the game property "player.inventory.items.size" should be "2"
 
-  Scenario: Customization Menu
-    Given I load the game on level "customization" with screen size 640, 480
-    Then the game property "level.customization_renderables.size" should be "2"
+  Scenario: Customization Controller Manual
+    Given I load the game "demo_inventory" on level "customization"
+    When I load and equip the weapon defined in "weapon.yml"
+    When I load and equip the weapon defined in "weapon_sound.yml"
+    When the player takes reward "test-data/equipment/weapon.yml"
+    When the player takes reward "test-data/equipment/weapon_sound.yml"
+    When I set the customization item to "test-data/equipment/weapon.yml"
+    When I set the customization item to "test-data/equipment/weapon_sound.yml"
+    When I proceed with customization
+    Then the game property "player.inventory.items.size" should be "1"
+
+
+
+  Scenario: Customization Controller Automatic
+    Given I load the game "demo_inventory" on level "customization"
+    When I load and equip the weapon defined in "weapon.yml"
+    When I load and equip the weapon defined in "weapon_sound.yml"
+    When the player takes reward "test-data/equipment/weapon.yml"
+    When the player takes reward "test-data/equipment/weapon_sound.yml"
+    When I set the customization item to "test-data/equipment/weapon.yml"
+    When I set the customization item to "test-data/equipment/weapon_sound.yml"
+    Then the game property "player.inventory.items.size" should be "2"
+    Then there should be 1 active event areas
+    When I simulate "Graphics::KbO"
+    And I run the game loop 1 times
+    Then the game property "player.inventory.items.size" should be "1"
 
 
 

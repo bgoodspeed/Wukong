@@ -20,6 +20,7 @@ module BehaviorTypes
   DEBUG_PRINT = "debug_print"
   CONSUME_ITEM = "consume_item"
   CHOOSE_ITEM_FOR_CUSTOMIZATION = "choose_item_for_customization"
+  PROCEED_WITH_CUSTOMIZATION = "proceed_with_customization"
 
   NOOP = "noop"
   RESET_PLAYER_AND_LOAD_LEVEL = "reset_player_and_load_level"
@@ -34,6 +35,9 @@ class ActionController
         w = game.inventory_controller.item_named(arg.argument)
         game.player.inventory.add_item(w)
       },
+      BehaviorTypes::PROCEED_WITH_CUSTOMIZATION => lambda {|game, arg|
+        game.customization_controller.proceed
+        },
       BehaviorTypes::EQUIP_ITEM => lambda {|game, arg|
         w = game.inventory_controller.item_named(arg.argument)
         game.player.equip_weapon(w)},
