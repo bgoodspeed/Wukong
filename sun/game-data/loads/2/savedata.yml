@@ -1,7 +1,5 @@
 ---
 savedata:
   level: game-data/levels/h_level_1_reward/h_level_1_reward.yml
-  player: !binary |-
-    Z2FtZS1kYXRhL2xvYWRzLzIvcGxheWVyLnltbA==
-  player_inventory: !binary |-
-    Z2FtZS1kYXRhL2xvYWRzLzIvaW52ZW50b3J5LnltbA==
+  player: game-data/loads/2/player.yml
+  player_inventory: game-data/loads/2/inventory.yml

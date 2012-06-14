@@ -2,31 +2,36 @@
 player:
   step_size: 1
   position:
-  - 192
-  - 151
-  direction: 10
+  - 235
+  - 164
+  direction: 316.25
   turn_speed: 5
   movement_distance: 5
   menu_action_delay: 2
-  enemies_killed: 2
-  image_path: game-data/sprites/enemy1.png
+  enemies_killed: 5
+  image_path: game-data/sprites/player_white_circle.png
   collision_priority: 4
   base_accuracy: 100
   animation_width: 30
   animation_height: 30
-  image_file: game-data/sprites/enemy1.png
+  image_file: !!null 
   animation_path: game-data/sprites/player_white_circle.png
   main_animation_name: main_player_anim
   animation_name: main_player_anim
   footsteps_effect_name: footsteps
-  damage_sound_effect_name: 
+  damage_sound_effect_name: !!null 
   max_energy_points: 1000
   energy_points: 1000
-  radius: 25.0
+  radius: 15.0
   stats:
     strength: 10
     defense: 5
-    health: 64
+    health: 100
     max_health: 100
     speed: 5
     accuracy: 250
+  progression:
+    upgrade_points: 5
+    level_background_rank: 0
+    levels_completed:
+    - h_level_1
