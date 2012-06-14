@@ -1,0 +1,76 @@
+name: hack puzzle
+background_image: test-data/levels/trivial/grass.jpg
+wayfinding: test-data/levels/trivial/wayfinding.yml
+measurements: [ 640, 480 ]
+reward_level: test-data/levels/demo/demo.yml
+hack_puzzle_key: AAB
+event_areas:
+  - top_left: [ 10, 10 ]
+    bottom_right: [ 20, 20 ]
+    label: A
+    action: hack_puzzle_amend
+    action_argument: A
+  - top_left: [ 60, 10 ]
+    bottom_right: [ 70, 20 ]
+    label: B
+    action: hack_puzzle_amend
+    action_argument: B
+  - top_left: [ 120, 10 ]
+    bottom_right: [ 130, 20 ]
+    label: C
+    action: hack_puzzle_amend
+    action_argument: C
+  - top_left: [ 180, 10 ]
+    bottom_right: [ 190, 20 ]
+    label: D
+    action: hack_puzzle_amend
+    action_argument: D
+  - top_left: [ 240, 10 ]
+    bottom_right: [ 250, 20 ]
+    label: E
+    action: hack_puzzle_amend
+    action_argument: E
+  - top_left: [ 300, 10 ]
+    bottom_right: [ 310, 20 ]
+    label: F
+    action: hack_puzzle_amend
+    action_argument: F
+  - top_left: [ 360, 10 ]
+    bottom_right: [ 370, 20 ]
+    label: G
+    action: hack_puzzle_amend
+    action_argument: G
+  - top_left: [ 420, 10 ]
+    bottom_right: [ 430, 20 ]
+    label: H
+    action: hack_puzzle_amend
+    action_argument: H
+  - top_left: [ 480, 10 ]
+    bottom_right: [ 490, 20 ]
+    label: I
+    action: hack_puzzle_amend
+    action_argument: I
+  - top_left: [ 540, 10 ]
+    bottom_right: [ 550, 20 ]
+    label: J
+    action: hack_puzzle_amend
+    action_argument: J
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+
