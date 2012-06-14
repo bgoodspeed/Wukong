@@ -9,7 +9,7 @@ SCREEN_HEIGHT = 480
 # The Player ship can get going so fast as to "move through" a
 # star without triggering a collision; an increased number of
 # Chipmunk step calls per update will effectively avoid this issue
-SUBSTEPS = 6
+SUBSTEPS = 9
 
 # Convenience method for converting from radians to a Vec2 vector.
 class Numeric
@@ -23,10 +23,24 @@ module ZOrder
   Background, Stars, Player, UI = *0..3
 end
 
+module ScreenClamped
+  # Wrap to the other side of the screen when we fly off the edge
+  def validate_position
+    xs = [@shape.body.p.x, SCREEN_WIDTH].min
+    ys = [@shape.body.p.y, SCREEN_HEIGHT].min
+
+    x = [0, xs].max
+    y = [0, ys].max
+
+    l_position = CP::Vec2.new(x,y)
+    @shape.body.p = l_position
+  end
+end
+
 # This game will have one Player in the form of a ship
 class Player
   attr_reader :shape
-
+  include ScreenClamped
   def initialize(window, shape)
     @image = Gosu::Image.new(window, "media/Starfighter.bmp", false)
     @shape = shape
@@ -80,11 +94,7 @@ class Player
     @shape.body.apply_force(-(@shape.body.a.radians_to_vec2 * (1000.0/SUBSTEPS)), CP::Vec2.new(0.0, 0.0))
   end
 
-  # Wrap to the other side of the screen when we fly off the edge
-  def validate_position
-    l_position = CP::Vec2.new(@shape.body.p.x % SCREEN_WIDTH, @shape.body.p.y % SCREEN_HEIGHT)
-    @shape.body.p = l_position
-  end
+
 
   def draw
     @image.draw_rot(@shape.body.p.x, @shape.body.p.y, ZOrder::Player, @shape.body.a.radians_to_gosu)
@@ -114,9 +124,73 @@ class Star
   end
 end
 
+class EnemyShip
+  include ScreenClamped
+  attr_reader :shape
+  def initialize(window, shape)
+    @image = Gosu::Image.new(window, "media/Starfighter.bmp", false)
+    @shape = shape
+  end
+  def draw
+    @image.draw_rot(@shape.body.p.x, @shape.body.p.y, ZOrder::Player, @shape.body.a.radians_to_gosu)
+  end
+end
+
 # The Gosu::Window is always the "environment" of our game
 # It also provides the pulse of our game
 class GameWindow < Gosu::Window
+
+  def make_wall(p1, p2)
+    seg_body = CP::Body.new_static
+    seg = CP::Shape::Segment.new(seg_body, p1, p2, 1.0)
+    seg.collision_type = :wall
+    @space.add_body(seg_body)
+    @space.add_shape(seg)
+    seg_body
+  end
+
+  def clamp_walls
+    make_wall(CP::Vec2.new(SCREEN_WIDTH ,0), CP::Vec2.new(SCREEN_WIDTH , SCREEN_HEIGHT ))
+    make_wall(CP::Vec2.new(0,0), CP::Vec2.new(0, SCREEN_HEIGHT ))
+    @top_wall_body = make_wall(CP::Vec2.new(0,0), CP::Vec2.new(SCREEN_WIDTH , 0))
+    make_wall(CP::Vec2.new(0,SCREEN_HEIGHT), CP::Vec2.new(SCREEN_WIDTH , SCREEN_HEIGHT ))
+  end
+
+  def add_gravity
+    @space.gravity = CP::Vec2.new(0, 5.0)
+  end
+
+  def add_enemy_ship
+    body = CP::Body.new(10.0, 150.0)
+    body.p = CP::Vec2.new(SCREEN_WIDTH-50, 50)
+    body.v = CP::Vec2.new(-5.0, 0.0)
+
+    body.velocity_func do |body, gravity, damping, dt|
+      dv = body.v * damping
+      fi = body.f * body.m_inv
+      fid = fi * dt
+      v = dv + fid
+
+      body.v = v.clamp(body.v_limit)
+      i_inv = 1.0/body.i
+      body.w = CP.clamp(body.w * damping + body.t * i_inv*dt, -body.w_limit, body.w_limit)
+    end
+
+    shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 5.0), CP::Vec2.new(25.0, -5.0)]
+    shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
+    shape.collision_type = :enemy
+    e = EnemyShip.new(self, shape)
+    @enemies << e
+    @space.add_body(body)
+    @space.add_shape(shape)
+
+    joint = CP::Constraint::GrooveJoint.new(@top_wall_body, body,
+                                            @top_wall_body.world2local(CP::Vec2.new(-1,0)),
+                                            @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH, 0)),
+                                            CP::Vec2.new(1,1))
+    @space.add_constraint(joint)
+
+  end
   def initialize
     super(SCREEN_WIDTH, SCREEN_HEIGHT, false, 16)
     self.caption = "Gosu & Chipmunk Integration Demo"
@@ -139,17 +213,10 @@ class GameWindow < Gosu::Window
     @space = CP::Space.new
     @space.damping = 0.8
 
-    @space.gravity = CP::Vec2.new(0, 5.0)
-    bottom_body = CP::Body.new_static
-    bottom = CP::Shape::Segment.new(bottom_body, CP::Vec2.new(0,0), CP::Vec2.new(SCREEN_WIDTH, 0), 1.0)
-    bottom.collision_type = :wall
-    @space.add_body(bottom_body)
-    @space.add_shape(bottom)
-    top_body = CP::Body.new_static
-    top = CP::Shape::Segment.new(top_body, CP::Vec2.new(0,SCREEN_HEIGHT), CP::Vec2.new(SCREEN_WIDTH, SCREEN_HEIGHT), 1.0)
-    top.collision_type = :wall
-    @space.add_body(top_body)
-    @space.add_shape(top)
+    add_gravity
+    clamp_walls
+    @enemies = []
+    add_enemy_ship
     # Create the Body for the Player
     body = CP::Body.new(10.0, 150.0)
 
@@ -225,6 +292,7 @@ class GameWindow < Gosu::Window
       # Wrap around the screen to the other side
       @player.validate_position
 
+      @enemies.each {|e| e.validate_position}
       # Check keyboard
       if button_down? Gosu::KbLeft
         @player.turn_left
@@ -265,7 +333,8 @@ class GameWindow < Gosu::Window
     @background_image.draw(0, 0, ZOrder::Background)
     @player.draw
     @stars.each { |star| star.draw }
-    @font.draw("Score: #{@score}", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+    @enemies.each { |e| e.draw }
+    @font.draw("Score: #{@score} (#{@player.shape.body.p})", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
   end
 
   def button_down(id)
