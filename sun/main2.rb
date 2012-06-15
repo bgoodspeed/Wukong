@@ -238,6 +238,33 @@ class PlayerBase < EnemyBase
 end
 
 
+class Payload
+  attr_reader :shape
+  def initialize(shape, window)
+    @shape = shape
+    @image = Gosu::Image.new(window, "media/payload.png", false)
+  end
+
+  def body
+    @shape.body
+  end
+  def w
+    if @w.nil?
+      @w = @image.width/2.0
+    end
+    @w
+  end
+  def h
+    if @h.nil?
+      @h = @image.height/2.0
+    end
+    @h
+  end
+  def draw
+    @image.draw_rot(@shape.body.p.x + w , @shape.body.p.y + h, ZOrder::Player, @shape.body.a.radians_to_gosu)
+  end
+end
+
 # The Gosu::Window is always the "environment" of our game
 # It also provides the pulse of our game
 class GameWindow < Gosu::Window
@@ -288,6 +315,7 @@ class GameWindow < Gosu::Window
     shape.collision_type = :base
 
     e = EnemyBase.new(self, shape)
+    @enemy_base = e
     shape.object = e
     @bases << e
     @space.add_body(body)
@@ -302,6 +330,7 @@ class GameWindow < Gosu::Window
     shape.collision_type = :base
 
     e = PlayerBase.new(self, shape)
+    @player_base = e
     shape.object = e
     @bases << e
     @space.add_body(body)
@@ -334,7 +363,7 @@ class GameWindow < Gosu::Window
   def add_enemy_ship
     body = CP::Body.new(10.0, 150.0)
     body.p = CP::Vec2.new(SCREEN_WIDTH-70, 90)
-    body.v = CP::Vec2.new(-0.05, 0.0)
+    body.v = CP::Vec2.new(-0.0005, 0.0)
 
     #body.velocity_func do |body, gravity, damping, dt|
     #end
@@ -367,11 +396,31 @@ class GameWindow < Gosu::Window
     #                                        @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH-50, 0)),
     #                                        body.world2local(body.p))
     joint = CP::Constraint::GrooveJoint.new(@top_wall_body, body,
-                                            @top_wall_body.world2local(CP::Vec2.new(-1,30)),
+                                            @top_wall_body.world2local(CP::Vec2.new(0,30)),
                                             @top_wall_body.world2local(CP::Vec2.new(SCREEN_WIDTH, 0)),
                                             CP::Vec2.new(1,1))
+    joint.max_force = 100
     @space.add_constraint(joint)
 
+  end
+
+  def add_payload_drop_at(xi,yi,m)
+    rv = []
+    num_to_drop = rand(m)
+    num_to_drop.times do
+      x = xi + rand(30) - 15
+      y = yi + rand(30) - 15
+      m = m + rand(5)
+      body = CP::Body.new(m, 250.0)
+      body.p = CP::Vec2.new(x, y)
+      shape = CP::Shape::Circle.new(body, 10)
+      shape.collision_type = :payload
+
+      p = Payload.new(shape, self)
+      shape.object = p
+      rv << p
+    end
+    rv
   end
   def initialize
     super(SCREEN_WIDTH, SCREEN_HEIGHT, false, 16)
@@ -396,12 +445,13 @@ class GameWindow < Gosu::Window
     @space = CP::Space.new
     @space.damping = 0.85
 
-    @drop_line_location = 145
+    @drop_line_location = 120
     add_gravity
     clamp_walls
     @bases = []
     @enemies = []
     @bullets = []
+    @payloads = []
     add_drop_line
     add_enemy_ship
     add_enemy_base
@@ -411,12 +461,16 @@ class GameWindow < Gosu::Window
     @enemies_killed  = []
     @bullets_to_remove = []
     @bases_destroyed = []
+    @payloads_to_add = []
+    @payloads_to_remove = []
     @space.add_collision_func(:bullet, :enemy) do |bullet, enemy|
       @score += 100
       enemy.object.take_damage(bullet.body.m)
       @bullets_to_remove << bullet.object
       if (enemy.object.dead?)
+        @payloads_to_add += add_payload_drop_at(enemy.object.shape.body.p.x,enemy.object.shape.body.p.y, enemy.object.shape.body.m )
         @enemies_killed << enemy.object
+
       end
     end
 
@@ -428,18 +482,31 @@ class GameWindow < Gosu::Window
         @bases_destroyed << base.object
       end
     end
+    @space.add_collision_func(:payload, :base) do |payload, base|
+      @score += 100
+      base.object.take_damage(payload.body.m)
+      @payloads_to_remove << payload.object
+      if (base.object.dead?)
+        @bases_destroyed << base.object
+      end
+    end
 
     @space.add_collision_func(:bullet, :wall) do |bullet, wall|
       @bullets_to_remove << bullet.object
+    end
+    @space.add_collision_func(:payload, :wall) do |payload, wall|
+      @payloads_to_remove << payload.object
     end
     @space.add_collision_func(:bullet, :bullet) do |bullet, bullet2|
       @bullets_to_remove << bullet.object
       @bullets_to_remove << bullet2.object
     end
     @space.add_collision_func(:enemy, :drop_line) do |enemy, drop_line|
-      puts 'hit the drop line, do something'
+      @payloads_to_add += add_payload_drop_at(enemy.object.shape.body.p.x,enemy.object.shape.body.p.y, enemy.object.shape.body.m )
+      @enemies_killed << enemy.object
     end
 
+    @space.add_collision_func(:bullet, :drop_line, &nil)
 
 
     #@space.add_collision_func(:ship, :star) do |ship_shape, star_shape|
@@ -462,14 +529,26 @@ class GameWindow < Gosu::Window
         puts 'base destroyed, do something with it'
       }
 
+      @payloads_to_add.each {|pl|
+        @payloads << pl
+        @space.add_body(pl.body)
+        @space.add_shape(pl.shape)
+      }
+      @payloads_to_add.clear
+
       @bullets_to_remove.each {|e|
         @space.remove_shape(e.shape)
         @space.remove_body(e.body)
-
-
       }
       @bullets -= @bullets_to_remove
       @bullets_to_remove.clear
+
+      @payloads_to_remove.each {|p|
+        @space.remove_shape(p.shape)
+        @space.remove_body(p.body)
+      }
+      @payloads -= @payloads_to_remove
+      @payloads_to_remove.clear
 
       @enemies_killed.each {|e| @space.remove_object(e.shape)}
       @enemies -= @enemies_killed
@@ -520,8 +599,11 @@ class GameWindow < Gosu::Window
     @player.draw
     @enemies.each { |e| e.draw }
     @bases.each {|b| b.draw }
+    @payloads.each {|p| p.draw }
     @bullets.each { |b| @bullet_image.draw(b.shape.body.p.x, b.shape.body.p.y, ZOrder::UI) }
     @font.draw("Angle (#{@player.turret.angle}) Power: #{@player.turret.power}", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+    @font.draw("Player base health: #{@player_base.health} ", 10, 30, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+    @font.draw("Enemy base health: #{@enemy_base.health} ", 10, 50, ZOrder::UI, 1.0, 1.0, 0xffffff00)
   end
 
   def button_down(id)
