@@ -131,11 +131,23 @@ end
 
 class EnemyShip
   include ScreenClamped
-  attr_reader :shape
+  attr_reader :shape, :health
   def initialize(window, shape)
     @image = Gosu::Image.new(window, "media/Starfighter.bmp", false)
     @shape = shape
+    @health = 1000
   end
+
+  def dead?
+    @health <= 0
+  end
+
+  def take_damage(v,m)
+    puts "taking damage given #{v}, #{m}"
+    @health -= 1
+    # bullet.body.v, bullet.body.m
+  end
+
   def draw
     @image.draw_rot(@shape.body.p.x, @shape.body.p.y, ZOrder::Player, @shape.body.a.radians_to_gosu)
   end
@@ -167,7 +179,7 @@ class GameWindow < Gosu::Window
   end
 
   def add_turret_bullet(x,y, v, v_scale = 1.17, f_scale=2.4)
-    bullet = CP::Body.new(5, 0)
+    bullet = CP::Body.new(5, 1)
     bullet.p = CP::Vec2.new(x, y)
 
     # angle * 180 / PI.radians_to... ?
@@ -177,7 +189,7 @@ class GameWindow < Gosu::Window
 
     #bullet.force = v * 50
     bullet.apply_force(v * f_scale, CP::Vec2.new(0,0))
-    shape = CP::Shape::Circle.new(bullet, 300)
+    shape = CP::Shape::Circle.new(bullet, 20)
     shape.collision_type = :bullet
 
     @bullets << bullet
@@ -207,7 +219,9 @@ class GameWindow < Gosu::Window
     shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 5.0), CP::Vec2.new(25.0, -5.0)]
     shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
     shape.collision_type = :enemy
+
     e = EnemyShip.new(self, shape)
+    shape.object = e
     @enemies << e
     @space.add_body(body)
     @space.add_shape(shape)
@@ -255,8 +269,18 @@ class GameWindow < Gosu::Window
     add_enemy_ship
 
     @player = Player.new(self)
+
+    @enemies_killed  = []
+    @bullets_to_remove = []
     @space.add_collision_func(:bullet, :enemy) do |bullet, enemy|
-      puts "bullet hit enemy"
+      @score += 100
+      enemy.object.take_damage(bullet.body.v, bullet.body.m)
+      if (enemy.object.dead?)
+        @enemies_killed << enemy.object
+      end
+    end
+    @space.add_collision_func(:bullet, :wall) do |bullet, wall|
+      @bullets_to_remove << bullet
     end
 
     #@space.add_collision_func(:ship, :star) do |ship_shape, star_shape|
@@ -274,7 +298,13 @@ class GameWindow < Gosu::Window
   def update
     # Step the physics environment SUBSTEPS times each update
     SUBSTEPS.times do
+      @bullets_to_remove.each {|e| @space.remove_object(e)}
+      @bullets -= @bullets_to_remove
+      @bullets_to_remove.clear
 
+      @enemies_killed.each {|e| @space.remove_object(e.shape)}
+      @enemies -= @enemies_killed
+      @enemies_killed.clear
       # When a force or torque is set on a Body, it is cumulative
       # This means that the force you applied last SUBSTEP will compound with the
       # force applied this SUBSTEP; which is probably not the behavior you want
@@ -315,7 +345,7 @@ class GameWindow < Gosu::Window
     @player.draw
     @enemies.each { |e| e.draw }
     @bullets.each { |b| @bullet_image.draw(b.p.x, b.p.y, ZOrder::UI) }
-    @font.draw("Angle (#{@player.turret.angle})", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+    @font.draw("Angle (#{@player.turret.angle}) score: #{@score}", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
   end
 
   def button_down(id)
