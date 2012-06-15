@@ -26,6 +26,14 @@ physics:
     maxx: 80.0
     maxy: 25.0
 
+  turret:
+    angle_delta: 1
+    angle_max: 90
+    angle_min: 0
+    power_delta: 1
+    power_min: 20
+    power_max: 110
+
 line_segments:
   - start_x: 0
     start_y: 0

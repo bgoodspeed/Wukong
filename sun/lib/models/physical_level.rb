@@ -2,6 +2,37 @@
 class PhysicalCore
 
 end
+class Turret
+  include YamlHelper
+  ATTRIBUTES = [ :angle_delta, :angle_max, :angle_min, :power_delta, :power_min, :power_max, ]
+  ALL_ATTRIBUTES = ATTRIBUTES + [:power, :angle]
+  ALL_ATTRIBUTES.each {|attr| attr_accessor attr}
+  def initialize(game, conf)
+    @game = game
+
+    process_attributes(ATTRIBUTES, self, conf)
+    @power = @power_min + (@power_max - @power_min)/2.0
+    @angle = @angle_min + (@angle_max - @angle_min)/2.0
+  end
+
+  def increase_angle
+    @angle += @angle_delta
+    @angle = [@angle, @angle_max].min
+  end
+  def decrease_angle
+    @angle -= @angle_delta
+    @angle = [@angle, @angle_min].max
+  end
+
+  def increase_power
+    @power += @power_delta
+    @power = [@power, @power_max].min
+  end
+  def decrease_power
+    @power -= @power_delta
+    @power = [@power, @power_min].max
+  end
+end
 
 class EnemyBase
   attr_reader :shape, :health
@@ -46,6 +77,8 @@ class PhysicalLevel
 
     add_player_base_conf(conf["player_base"])
     add_enemy_base_conf(conf["enemy_base"])
+
+    @turret = Turret.new(@game, conf["turret"])
   end
 
   def build_base(mass, moment, px, py, minx, miny, maxx, maxy)
