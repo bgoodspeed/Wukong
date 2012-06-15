@@ -68,12 +68,16 @@ event_areas:
   - top_left: [ 494, 60 ]
     bottom_right: [ 751, 215 ]
     action: reset_player_and_load_level
-    action_argument: "game-data/levels/h_level_1/h_level_1.yml"
+    action_argument: "game-data/levels/map/map.yml"
     info_window:
       description:
         - "Your real adventure begins!"
         -
-        - "Destroy your them and take"
+        - "Go unlock your \"Inventory\", but"
+        -
+        - "becareful, there are guards."
+        -
+        - "Destroy you them and take"
         -
         - "back what's rightfully yours!"
       position: [ 493, 225 ]
