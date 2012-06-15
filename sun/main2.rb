@@ -253,17 +253,18 @@ class GameWindow < Gosu::Window
   end
 
   def make_drop_line(p1, p2)
-    seg_body = CP::Body.new(1, 1)
+    #seg_body = CP::Body.new(2, 3)
+    seg_body = CP::Body.new_static
     seg_body.p = p1
-    seg = CP::Shape::Segment.new(seg_body, CP::Vec2.new(0,0), p2 - p1, 1.0)
+    seg = CP::Shape::Segment.new(seg_body, CP::Vec2.new(0,0), p2 - p1, 10.0)
     seg.collision_type = :drop_line
-    @space.add_body(seg_body)
+    #@space.add_body(seg_body) #
     @space.add_shape(seg)
     seg_body
   end
 
   def add_drop_line(x=@drop_line_location)
-    @drop_line = make_wall(CP::Vec2.new(x ,0), CP::Vec2.new(x, SCREEN_HEIGHT ))
+    @drop_line = make_drop_line(CP::Vec2.new(x ,0), CP::Vec2.new(x, SCREEN_HEIGHT ))
   end
 
   def clamp_walls
@@ -401,6 +402,7 @@ class GameWindow < Gosu::Window
     @bases = []
     @enemies = []
     @bullets = []
+    add_drop_line
     add_enemy_ship
     add_enemy_base
     add_player_base
