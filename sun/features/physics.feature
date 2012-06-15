@@ -27,6 +27,7 @@ Feature: Physics Integration
     Then the game property "level.physics.player_base.shape.body.p.y" should be "430"
     Then the game property "level.physics.player_base.shape.body.m" should be "11.0"
     Then the game property "level.physics.player_base.shape.body.i" should be "251.0"
+    Then the game property "level.physics.turret.nil?" should be "false"
 
 
 
