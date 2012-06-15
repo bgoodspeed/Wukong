@@ -255,7 +255,7 @@ class GameWindow < Gosu::Window
     body.p = CP::Vec2.new(SCREEN_WIDTH-250, SCREEN_HEIGHT - 50)
 
 
-    shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 25.0), CP::Vec2.new(25.0, -25.0)]
+    shape_array = [CP::Vec2.new(-25.0, 0.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 25.0), CP::Vec2.new(25.0, 0.0)]
     shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
     shape.collision_type = :base
 
@@ -269,7 +269,7 @@ class GameWindow < Gosu::Window
   def add_player_base
     body = CP::Body.new(10.0, 250.0)
     body.p = CP::Vec2.new(120, SCREEN_HEIGHT - 50)
-    shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 25.0), CP::Vec2.new(25.0, -25.0)]
+    shape_array = [CP::Vec2.new(-25.0, 0.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 25.0), CP::Vec2.new(25.0, 0.0)]
     shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
     shape.collision_type = :base
 
