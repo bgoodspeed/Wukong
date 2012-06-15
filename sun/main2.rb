@@ -159,7 +159,7 @@ class EnemyShip
   def initialize(window, shape)
     @image = Gosu::Image.new(window, "media/Starfighter.bmp", false)
     @shape = shape
-    @health = 75
+    @health = 20
   end
 
   def dead?
@@ -196,7 +196,7 @@ class EnemyBase
   def initialize(window, shape)
     @window = window
     @shape = shape
-    @health = 1000
+    @health = 200
   end
 
   def dead?
@@ -213,12 +213,14 @@ class EnemyBase
     Gosu::Color::RED
   end
   def draw
-    @dx = 60
+    @dx = 160
     @dy = 20
-    @window.draw_quad(@shape.body.p.x, @shape.body.p.y, color,
-                      @shape.body.p.x + @dx, @shape.body.p.y, color,
-                      @shape.body.p.x + @dx, @shape.body.p.y + @dy, color,
-                      @shape.body.p.x, @shape.body.p.y + @dy, color, ZOrder::Player)
+    x = @shape.body.p.x
+    y = @shape.body.p.y
+    @window.draw_quad(x - @dx/2.0, y, color,
+                      x - @dx/2.0 + @dx, y, color,
+                      x - @dx/2.0 + @dx, y + @dy, color,
+                      x - @dx/2.0, y + @dy, color, ZOrder::Player)
 
 #    @image.draw_rot(@shape.body.p.x, @shape.body.p.y, ZOrder::Player, @shape.body.a.radians_to_gosu)
 
@@ -310,7 +312,7 @@ class GameWindow < Gosu::Window
     body.p = CP::Vec2.new(SCREEN_WIDTH-250, SCREEN_HEIGHT - 50)
 
 
-    shape_array = [CP::Vec2.new(-25.0, 0.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 25.0), CP::Vec2.new(25.0, 0.0)]
+    shape_array = [CP::Vec2.new(-80.0, 0.0), CP::Vec2.new(-80.0, 25.0), CP::Vec2.new(80.0, 25.0), CP::Vec2.new(80.0, 0.0)]
     shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
     shape.collision_type = :base
 
@@ -325,7 +327,7 @@ class GameWindow < Gosu::Window
   def add_player_base
     body = CP::Body.new(10.0, 250.0)
     body.p = CP::Vec2.new(120, SCREEN_HEIGHT - 50)
-    shape_array = [CP::Vec2.new(-25.0, 0.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 25.0), CP::Vec2.new(25.0, 0.0)]
+    shape_array = [CP::Vec2.new(-60.0, 0.0), CP::Vec2.new(-60.0, 25.0), CP::Vec2.new(60.0, 25.0), CP::Vec2.new(60.0, 0.0)]
     shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
     shape.collision_type = :base
 
@@ -526,7 +528,11 @@ class GameWindow < Gosu::Window
     SUBSTEPS.times do
 
       @bases_destroyed.each {|bd|
-        puts 'base destroyed, do something with it'
+        if bd == @enemy_base
+          puts "you win, do something"
+        else
+          puts "you lost do something else"
+        end
       }
 
       @payloads_to_add.each {|pl|
@@ -571,6 +577,9 @@ class GameWindow < Gosu::Window
       @space.step(@dt)
     end
 
+    if @enemies.empty?
+      add_enemy_ship
+    end
 
     if button_down? Gosu::KbW or button_down? Gosu::KbUp
       @player.move_turret_up
