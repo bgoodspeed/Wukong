@@ -94,3 +94,13 @@ event_areas:
         - The Bazaar.
       position: [ 498, 355 ]
       size: [ 195, 398 ]
+
+  - top_left: [ 675, 525 ]
+    bottom_right: [ 800, 600 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/the_terminal_hub/the_terminal_hub.yml"
+    info_window:
+      description:
+        - Inventory.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
