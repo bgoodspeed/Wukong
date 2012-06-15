@@ -38,7 +38,7 @@ module ScreenClamped
 end
 
 class Turret
-  attr_reader :angle
+  attr_reader :angle, :power
   def initialize(window)
     @window = window
     @image = Gosu::Image.new(window, "media/Starfighter.bmp", false)
@@ -46,6 +46,10 @@ class Turret
     @angle_delta = 1
     @angle_max = 90
     @angle_min = 0
+    @power = 50
+    @power_delta = 1
+    @power_min = 20
+    @power_max = 110
     @x = 30
     @y = SCREEN_HEIGHT - 30
 
@@ -60,22 +64,25 @@ class Turret
     @angle = [@angle, @angle_min].max
   end
 
-  def vector_for(angle)
-    #(angle * 180/Math::PI).radians_to_vec2
-    (angle * Math::PI/180).radians_to_vec2
-    #angle.radians_to_vec2
+  def power_up
+    @power += @power_delta
+    @power = [@power, @power_max].min
+  end
+  def power_down
+    @power -= @power_delta
+    @power = [@power, @power_min].max
+  end
 
+  def vector_for(angle)
+    (angle * Math::PI/180).radians_to_vec2
   end
   def fire
-
     v = vector_for(@angle)
-
-    v *= 100
-
+    v *= @power * 2
     v.y *= -1
-
     @window.add_turret_bullet(@x, @y, v)
   end
+
   def draw
     @image.draw_rot(@x, @y, ZOrder::Player, 90 - @angle)
     v = vector_for(@angle)
@@ -324,11 +331,17 @@ class GameWindow < Gosu::Window
     end
 
 
-    if button_down? Gosu::KbW
+    if button_down? Gosu::KbW or button_down? Gosu::KbUp
       @player.move_turret_up
     end
-    if button_down? Gosu::KbS
+    if button_down? Gosu::KbS or button_down? Gosu::KbDown
       @player.move_turret_down
+    end
+    if button_down? Gosu::KbD or button_down? Gosu::KbRight
+      @player.turret.power_up
+    end
+    if button_down? Gosu::KbA or button_down? Gosu::KbLeft
+      @player.turret.power_down
     end
 
     m = Gosu::milliseconds
@@ -345,7 +358,7 @@ class GameWindow < Gosu::Window
     @player.draw
     @enemies.each { |e| e.draw }
     @bullets.each { |b| @bullet_image.draw(b.p.x, b.p.y, ZOrder::UI) }
-    @font.draw("Angle (#{@player.turret.angle}) score: #{@score}", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+    @font.draw("Angle (#{@player.turret.angle}) Power: #{@player.turret.power}", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
   end
 
   def button_down(id)
