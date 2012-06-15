@@ -149,9 +149,9 @@ class EnemyShip
     @health <= 0
   end
 
-  def take_damage(v,m)
-    puts "taking damage given #{v}, #{m}"
-    @health -= 1
+  def take_damage(m)
+    puts "taking damage given #{m}"
+    @health -= m
     # bullet.body.v, bullet.body.m
   end
 
