@@ -37,6 +37,23 @@ module ScreenClamped
   end
 end
 
+class TurretBullet
+  attr_reader :shape
+  def initialize(shape)
+    @shape = shape
+  end
+
+  def p
+    @shape.body.p
+  end
+
+  def body
+    @shape.body
+  end
+  def reset_forces
+    @shape.body.reset_forces
+  end
+end
 class Turret
   attr_reader :angle, :power
   def initialize(window)
@@ -142,6 +159,30 @@ class EnemyShip
   def initialize(window, shape)
     @image = Gosu::Image.new(window, "media/Starfighter.bmp", false)
     @shape = shape
+    @health = 75
+  end
+
+  def dead?
+    @health <= 0
+  end
+
+  def take_damage(m)
+    @health -= m
+    puts "enemy ship health now #{@health}"
+    # bullet.body.v, bullet.body.m
+  end
+
+  def draw
+    @image.draw_rot(@shape.body.p.x, @shape.body.p.y, ZOrder::Player, @shape.body.a.radians_to_gosu)
+  end
+end
+
+class EnemyBase
+  include ScreenClamped
+  attr_reader :shape, :health
+  def initialize(window, shape)
+    @window = window
+    @shape = shape
     @health = 1000
   end
 
@@ -150,15 +191,39 @@ class EnemyShip
   end
 
   def take_damage(m)
-    puts "taking damage given #{m}"
     @health -= m
+    puts "enemy base health now #{@health}"
     # bullet.body.v, bullet.body.m
   end
 
+  def color
+    Gosu::Color::RED
+  end
   def draw
-    @image.draw_rot(@shape.body.p.x, @shape.body.p.y, ZOrder::Player, @shape.body.a.radians_to_gosu)
+    @dx = 60
+    @dy = 20
+    @window.draw_quad(@shape.body.p.x, @shape.body.p.y, color,
+                      @shape.body.p.x + @dx, @shape.body.p.y, color,
+                      @shape.body.p.x + @dx, @shape.body.p.y + @dy, color,
+                      @shape.body.p.x, @shape.body.p.y + @dy, color, ZOrder::Player)
+
+#    @image.draw_rot(@shape.body.p.x, @shape.body.p.y, ZOrder::Player, @shape.body.a.radians_to_gosu)
+
   end
 end
+
+class PlayerBase < EnemyBase
+  def take_damage(m)
+    @health -= m
+    puts "player base health now #{@health}"
+    # bullet.body.v, bullet.body.m
+  end
+  def color
+    Gosu::Color::GREEN
+  end
+
+end
+
 
 # The Gosu::Window is always the "environment" of our game
 # It also provides the pulse of our game
@@ -185,6 +250,37 @@ class GameWindow < Gosu::Window
     @space.gravity = CP::Vec2.new(0, 5.0)
   end
 
+  def add_enemy_base
+    body = CP::Body.new(10.0, 250.0)
+    body.p = CP::Vec2.new(SCREEN_WIDTH-250, SCREEN_HEIGHT - 50)
+
+
+    shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 25.0), CP::Vec2.new(25.0, -25.0)]
+    shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
+    shape.collision_type = :base
+
+    e = EnemyBase.new(self, shape)
+    shape.object = e
+    @bases << e
+    @space.add_body(body)
+    @space.add_shape(shape)
+
+  end
+  def add_player_base
+    body = CP::Body.new(10.0, 250.0)
+    body.p = CP::Vec2.new(120, SCREEN_HEIGHT - 50)
+    shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 25.0), CP::Vec2.new(25.0, -25.0)]
+    shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
+    shape.collision_type = :base
+
+    e = PlayerBase.new(self, shape)
+    shape.object = e
+    @bases << e
+    @space.add_body(body)
+    @space.add_shape(shape)
+
+  end
+
   def add_turret_bullet(x,y, v, v_scale = 1.17, f_scale=2.4)
     bullet = CP::Body.new(5, 1)
     bullet.p = CP::Vec2.new(x, y)
@@ -198,10 +294,13 @@ class GameWindow < Gosu::Window
     bullet.apply_force(v * f_scale, CP::Vec2.new(0,0))
     shape = CP::Shape::Circle.new(bullet, 20)
     shape.collision_type = :bullet
-
-    @bullets << bullet
     @space.add_body(bullet)
     @space.add_shape(shape)
+
+    bo = TurretBullet.new(shape)
+    shape.object = bo
+
+    @bullets << bo
   end
 
   def add_enemy_ship
@@ -271,23 +370,41 @@ class GameWindow < Gosu::Window
 
     add_gravity
     clamp_walls
+    @bases = []
     @enemies = []
     @bullets = []
     add_enemy_ship
-
+    add_enemy_base
+    add_player_base
     @player = Player.new(self)
 
     @enemies_killed  = []
     @bullets_to_remove = []
+    @bases_destroyed = []
     @space.add_collision_func(:bullet, :enemy) do |bullet, enemy|
       @score += 100
-      enemy.object.take_damage(bullet.body.v, bullet.body.m)
+      enemy.object.take_damage(bullet.body.m)
+      @bullets_to_remove << bullet.object
       if (enemy.object.dead?)
         @enemies_killed << enemy.object
       end
     end
+
+    @space.add_collision_func(:bullet, :base) do |bullet, base|
+      @score += 100
+      base.object.take_damage(bullet.body.m)
+      @bullets_to_remove << bullet.object
+      if (base.object.dead?)
+        @bases_destroyed << base.object
+      end
+    end
+
     @space.add_collision_func(:bullet, :wall) do |bullet, wall|
-      @bullets_to_remove << bullet
+      @bullets_to_remove << bullet.object
+    end
+    @space.add_collision_func(:bullet, :bullet) do |bullet, bullet2|
+      @bullets_to_remove << bullet.object
+      @bullets_to_remove << bullet2.object
     end
 
     #@space.add_collision_func(:ship, :star) do |ship_shape, star_shape|
@@ -305,7 +422,17 @@ class GameWindow < Gosu::Window
   def update
     # Step the physics environment SUBSTEPS times each update
     SUBSTEPS.times do
-      @bullets_to_remove.each {|e| @space.remove_object(e)}
+
+      @bases_destroyed.each {|bd|
+        puts 'base destroyed, do something with it'
+      }
+
+      @bullets_to_remove.each {|e|
+        @space.remove_shape(e.shape)
+        @space.remove_body(e.body)
+
+
+      }
       @bullets -= @bullets_to_remove
       @bullets_to_remove.clear
 
@@ -357,7 +484,8 @@ class GameWindow < Gosu::Window
     @background_image.draw(0, 0, ZOrder::Background)
     @player.draw
     @enemies.each { |e| e.draw }
-    @bullets.each { |b| @bullet_image.draw(b.p.x, b.p.y, ZOrder::UI) }
+    @bases.each {|b| b.draw }
+    @bullets.each { |b| @bullet_image.draw(b.shape.body.p.x, b.shape.body.p.y, ZOrder::UI) }
     @font.draw("Angle (#{@player.turret.angle}) Power: #{@player.turret.power}", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
   end
 
