@@ -2,31 +2,196 @@ name: hack puzzle
 background_image: game-data/levels/terminal_hack_1/terminal_hack_1.png
 reward_level: game-data/levels/h_level_1/h_level_1.yml
 measurements: [ 800, 600 ]
+player_start_position: [ 100, 370 ]
 hack_puzzle_key: "10"
 event_areas:
   - top_left: [ 120, 320 ]
-    bottom_right: [ 130, 370 ]
+    bottom_right: [ 170, 370 ]
     label: "02"
     action: hack_puzzle_amend
     action_argument: "02"
+    info_window:
+      description:
+        - "Try this combination?"
+        -
+        -
+        -
+        -
+        - "0 2"
+        -
+        - "                                0 2                                                                           0 2"
+        -
+        -
+        - "                                0 2                                                    0 2"
+        -
+        - "           0 2                                                0 2                                    0 2"
+        -
+        -
+        - "                 0 2                                    0 2                                     0 2"
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        - "                     0      2"
+      position: [ 110, 95 ]
+      size: [ 195, 140 ]
 
-  - top_left: [ 190, 320 ]
-    bottom_right: [ 200, 370 ]
+  - top_left: [ 220, 320 ]
+    bottom_right: [ 270, 370 ]
     label: "00"
     action: hack_puzzle_amend
     action_argument: "00"
+    info_window:
+      description:
+        - "Try this combination?"
+        -
+        -
+        -
+        -
+        - "0 0"
+        -
+        - "                                0 0                                                                           0 0"
+        -
+        -
+        - "                                0 0                                                    0 0"
+        -
+        - "           0 0                                                0 0                                    0 0"
+        -
+        -
+        - "                 0 0                                    0 0                                     0 0"
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        - "                     0      0"
+      position: [ 110, 95 ]
+      size: [ 195, 140 ]
 
-  - top_left: [ 250, 320 ]
-    bottom_right: [ 260, 370 ]
+  - top_left: [ 320, 320 ]
+    bottom_right: [ 370, 370 ]
     label: "10"
     action: hack_puzzle_amend
     action_argument: "10"
+    info_window:
+      description:
+        - "Try this combination?"
+        -
+        -
+        -
+        -
+        - "1 0"
+        -
+        - "                                1 0                                                                           1 0"
+        -
+        -
+        - "                                1 0                                                    1 0"
+        -
+        - "           1 0                                                1 0                                    1 0"
+        -
+        -
+        - "                 1 0                                    1 0                                     1 0"
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        - "                     1      0"
+      position: [ 110, 95 ]
+      size: [ 195, 140 ]
 
-  - top_left: [ 310, 320 ]
-    bottom_right: [ 320, 370 ]
+  - top_left: [ 420, 320 ]
+    bottom_right: [ 470, 370 ]
     label: "01"
     action: hack_puzzle_amend
     action_argument: "01"
+    info_window:
+      description:
+        - "Try this combination?"
+        -
+        -
+        -
+        -
+        - "0 1"
+        -
+        - "                                0 1                                                                           0 1"
+        -
+        -
+        - "                                0 1                                                    0 1"
+        -
+        - "           0 1                                                0 1                                    0 1"
+        -
+        -
+        - "                 0 1                                    0 1                                     0 1"
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        -
+        - "                     1      0"
+      position: [ 110, 95 ]
+      size: [ 195, 140 ]
 
 line_segments:
   - start_x: 0
