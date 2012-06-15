@@ -1,0 +1,58 @@
+name: the_fields_hub
+background_image: game-data/levels/the_terminal_hub/the_terminal_hub.png
+background_music: game-data/music/silence.wav
+heads_up_display: game-data/hud/hud_temp_msg_only.yml
+wayfinding: game-data/levels/load_screen/wayfinding.yml
+player_start_position: [ 400, 300 ]
+
+measurements: [ 800, 600 ]
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 800
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 600
+  - start_x: 800
+    start_y: 0
+    end_x: 800
+    end_y: 600
+  - start_x: 0
+    start_y: 600
+    end_x: 800
+    end_y: 600
+
+event_areas:
+  - top_left: [ 70, 90 ]
+    bottom_right: [ 120, 135 ]
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/terminal_hack_1/terminal_hack_1.yml"
+    one_time: false
+    image_file: game-data/icons/h_red_icon.png
+    extra_actions:
+      - action: noop
+    info_window:
+      description:
+        - Go to next level.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
+
+  - top_left: [ 70, 152 ]
+    bottom_right: [ 120, 198 ]
+    conditions:
+      - condition_name: is_level_complete
+        condition_argument: h_level_2
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/terminal_hack_1/terminal_hack_1.yml"
+    one_time: false
+    image_file: game-data/icons/h_red_icon.png
+    extra_actions:
+      - action: noop
+    info_window:
+      description:
+        - Go to next level.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
