@@ -33,6 +33,8 @@ physics:
     power_delta: 1
     power_min: 20
     power_max: 110
+    x: 30
+    y: 450
 
 line_segments:
   - start_x: 0

@@ -42,6 +42,8 @@ Feature: Physics Integration
     Then the game property "level.physics.turret.power_max" should be "110"
     Then the game property "level.physics.turret.power_min" should be "20"
     Then the game property "level.physics.turret.power" should be "65"
+    Then the game property "level.physics.turret.x" should be "30"
+    Then the game property "level.physics.turret.y" should be "450"
 
   Scenario: Physics Turret Movement Angle
     Given I load the game on level "physics" with screen size 640, 480
@@ -60,6 +62,26 @@ Feature: Physics Integration
     When I decrease the turret power
     When I decrease the turret power
     Then the game property "level.physics.turret.power" should be "64"
+
+  Scenario: Physics Turret Firing
+    Given I load the game on level "physics" with screen size 640, 480
+    Then the game property "level.physics.bullets.size" should be "0"
+    When I fire the turret
+    Then the game property "level.physics.bullets.size" should be "1"
+
+  Scenario: Physics Drop Line
+    Given I load the game on level "physics" with screen size 640, 480
+    Then the game property "level.physics.drop_line_location" should be "120"
+    Then the game property "level.physics.drop_line.nil?" should be "false"
+
+  Scenario: Physics Enemy Ship
+    Given I load the game on level "physics" with screen size 640, 480
+    Then the game property "level.physics.enemies.size" should be "1"
+
+  Scenario: Physics Payloads
+    Given I load the game on level "physics" with screen size 640, 480
+    Then the game property "level.physics.payloads.size" should be "0"
+
 
 
 

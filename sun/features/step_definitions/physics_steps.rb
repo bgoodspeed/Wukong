@@ -21,3 +21,6 @@ end
 When /^I decrease the turret power$/ do
   @game.level.physics.turret.decrease_power
 end
+When /^I fire the turret$/ do
+  @game.level.physics.turret.fire
+end
