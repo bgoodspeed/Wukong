@@ -172,8 +172,21 @@ class EnemyShip
     # bullet.body.v, bullet.body.m
   end
 
+
+  def w
+    if @w.nil?
+      @w = @image.width/2.0
+    end
+    @w
+  end
+  def h
+    if @h.nil?
+      @h = @image.height/2.0
+    end
+    @h
+  end
   def draw
-    @image.draw_rot(@shape.body.p.x, @shape.body.p.y, ZOrder::Player, @shape.body.a.radians_to_gosu)
+    @image.draw_rot(@shape.body.p.x + w , @shape.body.p.y + h, ZOrder::Player, @shape.body.a.radians_to_gosu)
   end
 end
 
@@ -239,6 +252,20 @@ class GameWindow < Gosu::Window
     seg_body
   end
 
+  def make_drop_line(p1, p2)
+    seg_body = CP::Body.new(1, 1)
+    seg_body.p = p1
+    seg = CP::Shape::Segment.new(seg_body, CP::Vec2.new(0,0), p2 - p1, 1.0)
+    seg.collision_type = :drop_line
+    @space.add_body(seg_body)
+    @space.add_shape(seg)
+    seg_body
+  end
+
+  def add_drop_line(x=@drop_line_location)
+    @drop_line = make_wall(CP::Vec2.new(x ,0), CP::Vec2.new(x, SCREEN_HEIGHT ))
+  end
+
   def clamp_walls
     make_wall(CP::Vec2.new(SCREEN_WIDTH ,0), CP::Vec2.new(SCREEN_WIDTH , SCREEN_HEIGHT ))
     make_wall(CP::Vec2.new(0,0), CP::Vec2.new(0, SCREEN_HEIGHT ))
@@ -292,7 +319,7 @@ class GameWindow < Gosu::Window
 
     #bullet.force = v * 50
     bullet.apply_force(v * f_scale, CP::Vec2.new(0,0))
-    shape = CP::Shape::Circle.new(bullet, 20)
+    shape = CP::Shape::Circle.new(bullet, 10)
     shape.collision_type = :bullet
     @space.add_body(bullet)
     @space.add_shape(shape)
@@ -305,7 +332,7 @@ class GameWindow < Gosu::Window
 
   def add_enemy_ship
     body = CP::Body.new(10.0, 150.0)
-    body.p = CP::Vec2.new(SCREEN_WIDTH-50, 50)
+    body.p = CP::Vec2.new(SCREEN_WIDTH-70, 90)
     body.v = CP::Vec2.new(-0.05, 0.0)
 
     #body.velocity_func do |body, gravity, damping, dt|
@@ -322,7 +349,7 @@ class GameWindow < Gosu::Window
     #  rv
     #end
 
-    shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 0.0), CP::Vec2.new(25.0, 5.0), CP::Vec2.new(25.0, 4.0)]
+    shape_array = [CP::Vec2.new(-25.0, 0.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 5.0), CP::Vec2.new(25.0, 4.0)]
     shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
     shape.collision_type = :enemy
 
@@ -368,6 +395,7 @@ class GameWindow < Gosu::Window
     @space = CP::Space.new
     @space.damping = 0.85
 
+    @drop_line_location = 145
     add_gravity
     clamp_walls
     @bases = []
@@ -406,6 +434,11 @@ class GameWindow < Gosu::Window
       @bullets_to_remove << bullet.object
       @bullets_to_remove << bullet2.object
     end
+    @space.add_collision_func(:enemy, :drop_line) do |enemy, drop_line|
+      puts 'hit the drop line, do something'
+    end
+
+
 
     #@space.add_collision_func(:ship, :star) do |ship_shape, star_shape|
     #  @score += 10
