@@ -322,7 +322,7 @@ class GameWindow < Gosu::Window
     #  rv
     #end
 
-    shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 5.0), CP::Vec2.new(25.0, -5.0)]
+    shape_array = [CP::Vec2.new(-25.0, -25.0), CP::Vec2.new(-25.0, 0.0), CP::Vec2.new(25.0, 5.0), CP::Vec2.new(25.0, 4.0)]
     shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
     shape.collision_type = :enemy
 
