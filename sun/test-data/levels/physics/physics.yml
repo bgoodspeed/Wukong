@@ -36,6 +36,15 @@ physics:
     x: 30
     y: 450
 
+  enemy_ship:
+    mass: 10
+    moment: 250
+    px: 570
+    py: 90
+    vx: -0.0005
+    vy: 0.0
+
+
 line_segments:
   - start_x: 0
     start_y: 0

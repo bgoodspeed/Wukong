@@ -108,7 +108,8 @@ class PhysicalLevel
   include YamlHelper
   ATTRIBUTES = [:gravity, :damping, :steps, :drop_line_location]
   ATTRIBUTES.each {|attr| attr_accessor(attr)}
-  attr_reader :space, :top_wall_body, :enemy_base, :player_base, :bases, :bullets, :turret, :drop_line, :enemies, :payloads
+  attr_reader :space, :top_wall_body, :enemy_base, :player_base, :bases, :bullets, :turret, :drop_line, :enemies,
+              :payloads, :enemies_killed, :bullets_to_remove, :bases_destroyed, :payloads_to_add, :payloads_to_remove
   def initialize(game, conf)
     @game = game
     process_attributes(ATTRIBUTES, self, conf, {:gravity => Finalizers::GVectorFinalizer.new})
@@ -119,6 +120,12 @@ class PhysicalLevel
     @payloads = []
     @enemies = []
     @bases = []
+    @enemies_killed  = []
+    @bullets_to_remove = []
+    @bases_destroyed = []
+    @payloads_to_add = []
+    @payloads_to_remove = []
+
     make_wall(Physics::Vec2.new(@game.screen.width ,0), Physics::Vec2.new(@game.screen.width , @game.screen.height ))
     make_wall(Physics::Vec2.new(0,0), Physics::Vec2.new(0, @game.screen.height ))
     @top_wall_body = make_wall(Physics::Vec2.new(0,0), Physics::Vec2.new(@game.screen.width , 0))
@@ -128,14 +135,15 @@ class PhysicalLevel
 
     add_player_base_conf(conf["player_base"])
     add_enemy_base_conf(conf["enemy_base"])
-
-    @enemies << add_enemy_ship
+    @conf = conf
+    @enemies << add_enemy_ship(conf["enemy_ship"])
     @turret = Turret.new(@game, conf["turret"])
   end
-  def add_enemy_ship
-    body = CP::Body.new(10.0, 150.0)
-    body.p = CP::Vec2.new(@game.screen.width-70, 90)
-    body.v = CP::Vec2.new(-0.0005, 0.0)
+  def add_enemy_ship(conf)
+    body = CP::Body.new(conf["mass"], conf["moment"])
+    body.p = CP::Vec2.new(conf["px"], conf["py"])
+    body.v = CP::Vec2.new(conf["vx"], conf["vy"])
+    #TODO hardcoded poly shape for ship
     shape_array = [CP::Vec2.new(-25.0, 0.0), CP::Vec2.new(-25.0, 25.0), CP::Vec2.new(25.0, 5.0), CP::Vec2.new(25.0, 4.0)]
     shape = CP::Shape::Poly.new(body, shape_array, CP::Vec2.new(0,0))
     shape.collision_type = :enemy

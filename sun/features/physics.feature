@@ -16,6 +16,11 @@ Feature: Physics Integration
     Then the game property "level.physics.space.damping" should be "0.8"
     Then the game property "level.physics.top_wall_body.nil?" should be "false"
     Then the game property "level.physics.bullets.size" should be "0"
+    Then the game property "level.physics.enemies_killed.size" should be "0"
+    Then the game property "level.physics.bullets_to_remove.size" should be "0"
+    Then the game property "level.physics.bases_destroyed.size" should be "0"
+    Then the game property "level.physics.payloads_to_add.size" should be "0"
+    Then the game property "level.physics.payloads_to_remove.size" should be "0"
 
   Scenario: Physics Bases
     Given I load the game on level "physics" with screen size 640, 480
@@ -77,6 +82,12 @@ Feature: Physics Integration
   Scenario: Physics Enemy Ship
     Given I load the game on level "physics" with screen size 640, 480
     Then the game property "level.physics.enemies.size" should be "1"
+    Then the game property "level.physics.enemies.first.shape.body.m" should be "10.0"
+    Then the game property "level.physics.enemies.first.shape.body.i" should be "250.0"
+    Then the game property "level.physics.enemies.first.shape.body.p.x" should be "570"
+    Then the game property "level.physics.enemies.first.shape.body.p.y" should be "90"
+    Then the game property "level.physics.enemies.first.shape.body.v.x" should be "-0.0005"
+    Then the game property "level.physics.enemies.first.shape.body.v.y" should be "0"
 
   Scenario: Physics Payloads
     Given I load the game on level "physics" with screen size 640, 480
