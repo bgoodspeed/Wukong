@@ -3,6 +3,11 @@ Feature: Physics Integration
   As a programmer
   I want to be able to inspect the physical space
 
+  Scenario: Physics Wrapper Expectations
+    Given I expect calls to the physics engine
+    Given I load the game on level "physics" with screen size 640, 480
+    Then expectations should be met
+
   Scenario: Physics Wrapper Space
     Given I load the game on level "physics" with screen size 640, 480
     Then the game property "level.name" should be "'physics'"

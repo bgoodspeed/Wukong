@@ -24,3 +24,18 @@ end
 When /^I fire the turret$/ do
   @game.level.physics.turret.fire
 end
+
+def expectant_space
+  m = Mocha::Mock.new("chipmunk space mock")
+  m.expects("gravity=")
+  m.expects("damping=")
+  m.expects("add_shape").at_least(4)
+  m.expects("add_body").at_least(4)
+  #m.stubs("add_body")
+  m.expects("add_constraint")
+
+  m
+end
+Given /^I expect calls to the physics engine$/ do
+  Physics::Space.stubs(:new).returns expectant_space
+end
