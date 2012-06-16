@@ -19,6 +19,8 @@ class LevelAnimation
     @animation_position
   end
 end
+
+
 # Copyright 2012 Ben Goodspeed
 class Level
   ARRAY_ATTRIBUTES = [:enemies, :measurements, :line_segments, :triangles,
@@ -58,7 +60,7 @@ class Level
   end
   include YamlHelper
   include ValidationHelper
-  attr_reader :required_attributes
+  attr_reader :required_attributes, :physics
   def initialize(game=nil, in_conf={})
     @game = game
     init_arrays(ARRAY_ATTRIBUTES, self)
@@ -67,12 +69,17 @@ class Level
     @declared_enemies = {}
     @static_hash = SpatialHash.new(@cell_size)
     @dynamic_hash = SpatialHash.new(@cell_size)
+    @physics = PhysicalLevel.new(@game, conf['physics']) if conf['physics']
     @spawned_enemies = 0
     @current_hack_puzzle = ""
     @music = @game.sound_controller.add_song(@background_music, @background_music) if @background_music
     @required_attributes = YAML_ATTRIBUTES - [:player_start_position, :player_start_health,
                                               :background_music, :background_image, :reward_level, :hack_puzzle_key]
 
+  end
+
+  def physical?
+    !@physics.nil?
   end
 
   def all_backgrounds

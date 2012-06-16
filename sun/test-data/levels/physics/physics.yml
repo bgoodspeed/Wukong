@@ -1,0 +1,65 @@
+name: physics
+background_image: test-data/levels/trivial/grass.jpg
+measurements: [ 640, 480 ]
+
+physics:
+  gravity: [ 5, 0 ]
+  damping: 0.8
+  steps: 9
+  drop_line_location: 120
+  player_base:
+    px: 120.0
+    py: 430.0
+    mass: 11.0
+    moment: 251.0
+    minx: -60.0
+    miny: 0.0
+    maxx: 60.0
+    maxy: 25.0
+  enemy_base:
+    px: 390.0
+    py: 430.0
+    mass: 10.0
+    moment: 250.0
+    minx: -80.0
+    miny: 0.0
+    maxx: 80.0
+    maxy: 25.0
+
+  turret:
+    angle_delta: 1
+    angle_max: 90
+    angle_min: 0
+    power_delta: 1
+    power_min: 20
+    power_max: 110
+    x: 30
+    y: 450
+
+  enemy_ship:
+    mass: 10
+    moment: 250
+    px: 570
+    py: 90
+    vx: -0.0005
+    vy: 0.0
+
+
+line_segments:
+  - start_x: 0
+    start_y: 0
+    end_x: 640
+    end_y:   0
+  - start_x: 0
+    start_y: 0
+    end_x:   0
+    end_y: 480
+  - start_x: 640
+    start_y: 0
+    end_x: 640
+    end_y: 480
+  - start_x: 0
+    start_y: 480
+    end_x: 640
+    end_y: 480
+
