@@ -2,9 +2,9 @@
 player:
   step_size: 1
   position:
-  - 156
-  - 154
-  direction: 7.5
+  - 158
+  - 161
+  direction: 337.5
   turn_speed: 5
   movement_distance: 5
   menu_action_delay: 2
@@ -34,4 +34,5 @@ player:
     upgrade_points: 2
     level_background_rank: 0
     levels_completed:
+    - hack puzzle
     - h_level_1
