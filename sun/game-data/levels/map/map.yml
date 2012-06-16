@@ -47,6 +47,9 @@ event_areas:
 
   - top_left: [ 367, 176 ]
     bottom_right: [ 423, 221 ]
+    conditions:
+      - condition_name: is_level_complete
+        condition_argument: h_level_1
     action: LOAD_LEVEL
     action_argument: "game-data/levels/the_fields_hub/the_fields_hub.yml"
     info_window:

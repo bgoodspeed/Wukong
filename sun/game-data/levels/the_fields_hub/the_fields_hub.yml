@@ -28,6 +28,9 @@ line_segments:
 event_areas:
   - top_left: [ 70, 90 ]
     bottom_right: [ 120, 135 ]
+    conditions:
+      - condition_name: is_level_complete
+        condition_argument: h_level_1
     action: LOAD_LEVEL
     action_argument: "game-data/levels/h_level_2/h_level_2.yml"
     one_time: false
