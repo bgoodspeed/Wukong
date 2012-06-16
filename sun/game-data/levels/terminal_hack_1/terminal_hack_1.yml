@@ -1,5 +1,6 @@
 name: hack puzzle
 background_image: game-data/levels/terminal_hack_1/terminal_hack_1.png
+background_music: game-data/music/silence.wav
 reward_level: game-data/levels/h_level_1/h_level_1.yml
 measurements: [ 800, 600 ]
 player_start_position: [ 100, 370 ]
@@ -28,12 +29,6 @@ event_areas:
         -
         -
         - "                 0 2                                    0 2                                     0 2"
-        -
-        -
-        -
-        -
-        -
-        -
         -
         -
         -
@@ -89,12 +84,6 @@ event_areas:
         -
         -
         -
-        -
-        -
-        -
-        -
-        -
-        -
         - "                     0      0"
       position: [ 110, 95 ]
       size: [ 195, 140 ]
@@ -122,12 +111,6 @@ event_areas:
         -
         -
         - "                 1 0                                    1 0                                     1 0"
-        -
-        -
-        -
-        -
-        -
-        -
         -
         -
         -
@@ -183,15 +166,31 @@ event_areas:
         -
         -
         -
-        -
-        -
-        -
-        -
-        -
-        -
-        - "                     1      0"
+        - "                     0      1"
       position: [ 110, 95 ]
       size: [ 195, 140 ]
+
+  - top_left: [ 105, 450 ]
+    bottom_right: [ 440, 505 ]
+    label: "$run hacked c/src/security/%RETRY%"
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/terminal_hack_1/terminal_hack_1.yml"
+    info_window:
+      description:
+        - Retry level?
+      position: [ 600, 450 ]
+      size: [ 195, 505 ]
+
+  - top_left: [ 105, 530 ]
+    bottom_right: [ 550, 585 ]
+    label: "$run hacked c/src/security/%CANCEL_PROCESS%"
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/the_terminal_hub/the_terminal_hub.yml"
+    info_window:
+      description:
+        - Back to main screen.
+      position: [ 600, 530 ]
+      size: [ 195, 585 ]
 
 line_segments:
   - start_x: 0
