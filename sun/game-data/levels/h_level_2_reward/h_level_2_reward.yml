@@ -27,11 +27,11 @@ line_segments:
 event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
-    action: upgrade_player
-    action_argument: "game-data/sprites/player_grey_scale_circle.png"
+    action: equip_item
+    action_argument: "game-data/equipment/weapon/silver_sword.yml"
     info_window:
       description:
-        - Avatar upgrade.
+        - New Weapon.
       position: [ 103, 355 ]
       size: [ 195, 398 ]
 
