@@ -55,7 +55,7 @@ class TurretBullet
   end
 end
 class Turret
-  attr_accessor :angle, :power, :x, :y, :power_max
+  attr_accessor :angle, :power, :x, :y, :power_max, :damping
   def initialize(window)
     @window = window
     @image = Gosu::Image.new(window, "media/Starfighter.bmp", false)
@@ -67,6 +67,10 @@ class Turret
     @power_delta = 1
     @power_min = 20
     @power_max = 110
+    @damping = 0.8
+    @damping_delta = 0.005
+    @damping_max = 0.999
+    @damping_min = 0.0001
     @x = 30
     @y = SCREEN_HEIGHT - 30
 
@@ -88,6 +92,15 @@ class Turret
   def power_down
     @power -= @power_delta
     @power = [@power, @power_min].max
+  end
+
+  def increase_damping
+    @damping += @damping_delta
+    @damping = [@damping, @damping_max].min
+  end
+  def decrease_damping
+    @damping -= @damping_delta
+    @damping = [@damping, @damping_min].max
   end
 
   def vector_for(angle)
@@ -524,6 +537,9 @@ class GameWindow < Gosu::Window
     (b.p.x < 0) || (b.p.x > SCREEN_WIDTH) || (b.p.y < 0) || (b.p.y > SCREEN_HEIGHT)
   end
   def update
+
+    @space.damping = @player.turret.damping
+
     # Step the physics environment SUBSTEPS times each update
     SUBSTEPS.times do
 
@@ -592,6 +608,13 @@ class GameWindow < Gosu::Window
     end
     if button_down? Gosu::KbA or button_down? Gosu::KbLeft
       @player.turret.power_down
+    end
+
+    if button_down? Gosu::MsWheelDown
+      @player.turret.decrease_damping
+    end
+    if button_down? Gosu::MsWheelUp
+      @player.turret.increase_damping
     end
 
     m = Gosu::milliseconds
