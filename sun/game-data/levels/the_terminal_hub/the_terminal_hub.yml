@@ -58,7 +58,7 @@ event_areas:
     action: LOAD_LEVEL
     action_argument: "game-data/levels/map/map.yml"
     one_time: false
-    image_file: game-data/icons/grey_cancel_button.png
+    image_file: game-data/icons/grey_map_button.png
     extra_actions:
       - action: noop
     info_window:
