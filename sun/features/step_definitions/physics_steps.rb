@@ -35,6 +35,7 @@ def expectant_space
   m.expects("add_constraint")
   m.expects("add_collision_func").with(:bullet, :wall)
   m.expects("add_collision_func").with(:bullet, :enemy)
+  m.expects("add_collision_func").with(:bullet, :base)
 
   m
 end
@@ -63,4 +64,9 @@ end
 When /^I set the position of the first physical enemy to (\d+), (\d+)$/ do |arg1, arg2|
   @game.level.physics.enemies.first.shape.body.p.x = arg1.to_i
   @game.level.physics.enemies.first.shape.body.p.y = arg2.to_i
+end
+
+When /^I set the position of the physical enemy base to (\d+), (\d+)$/ do |arg1, arg2|
+  @game.level.physics.enemy_base.shape.body.p.x = arg1.to_i
+  @game.level.physics.enemy_base.shape.body.p.y = arg2.to_i
 end
