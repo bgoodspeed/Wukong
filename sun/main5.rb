@@ -538,6 +538,7 @@ class GameWindow < Gosu::Window
   end
   def update
 
+
     @space.damping = @player.turret.damping
 
     # Step the physics environment SUBSTEPS times each update
@@ -610,12 +611,8 @@ class GameWindow < Gosu::Window
       @player.turret.power_down
     end
 
-    if button_down? Gosu::MsWheelDown
-      @player.turret.decrease_damping
-    end
-    if button_down? Gosu::MsWheelUp
-      @player.turret.increase_damping
-    end
+
+
 
     m = Gosu::milliseconds
     @fire_delay = 300
@@ -657,6 +654,22 @@ class GameWindow < Gosu::Window
 
   end
 
+  def button_down(id)
+    if id == Gosu::KbEscape
+      close
+    end
+
+    if id == Gosu::MsWheelDown
+      puts "wheel down"
+      @player.turret.decrease_damping
+    end
+    if id == Gosu::MsWheelUp
+      puts "wheel up"
+      @player.turret.increase_damping
+    end
+
+  end
+
   def draw
     @background_image.draw(0, 0, ZOrder::Background)
     @player.draw
@@ -668,6 +681,7 @@ class GameWindow < Gosu::Window
     @font.draw("Player base health: #{@player_base.health} ", 10, 30, ZOrder::UI, 1.0, 1.0, 0xffffff00)
     @font.draw("Enemy base health: #{@enemy_base.health} ", 10, 50, ZOrder::UI, 1.0, 1.0, 0xffffff00)
     @font.draw("Mouse: #{current_mouse_location}", 10, 70, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+    @font.draw("Damping: #{@player.turret.damping}", 10, 90, ZOrder::UI, 1.0, 1.0, 0xffffff00)
     draw_mouse_crosshairs
   end
 
@@ -683,11 +697,7 @@ class GameWindow < Gosu::Window
     CP::Vec2.new(mouse_x, mouse_y)
   end
 
-  def button_down(id)
-    if id == Gosu::KbEscape
-      close
-    end
-  end
+
 end
 
 window = GameWindow.new
