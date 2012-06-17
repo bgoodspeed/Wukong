@@ -55,7 +55,25 @@ class EnemyShip
   end
 
 end
+class Payload
+  attr_reader :shape
+  def initialize(game, shape)
+    @shape = shape
+    @game = game
+  end
 
+  def body
+    @shape.body
+  end
+  def effective_stats
+    s = Stats.zero
+    s.strength = @shape.body.m
+    #TODO need to wire in physical properties such as force/mass/etc to determine stats
+    #TODO use stat mapper
+    s
+  end
+
+end
 class Turret
   include YamlHelper
   ATTRIBUTES = [ :angle_delta, :angle_max, :angle_min, :power_delta, :power_min, :power_max, :x, :y]
@@ -170,15 +188,15 @@ module PhysicalObjectFactory
     @bases << e
   end
   def add_turret_bullet(x,y, v, v_scale = 1.17, f_scale=2.4)
-    bullet = CP::Body.new(current_bullet_config["mass"], current_bullet_config["moment"])
-    bullet.p = CP::Vec2.new(x, y)
+    bullet = Physics::Body.new(current_bullet_config["mass"], current_bullet_config["moment"])
+    bullet.p = Physics::Vec2.new(x, y)
     # angle * 180 / PI.radians_to... ?
     # v = angle.radians_to_vec2
     bullet.v = v * v_scale
 
     #bullet.force = v * 50
-    bullet.apply_force(v * f_scale, CP::Vec2.new(0,0))
-    shape = CP::Shape::Circle.new(bullet, 10)
+    bullet.apply_force(v * f_scale, Physics::Vec2.new(0,0))
+    shape = Physics::Shape::Circle.new(bullet, 10)
     shape.collision_type = :bullet
     @space.add_body(bullet)
     @space.add_shape(shape)
@@ -190,9 +208,9 @@ module PhysicalObjectFactory
   end
   def make_drop_line(p1, p2)
     #seg_body = CP::Body.new(2, 3)
-    seg_body = CP::Body.new_static
+    seg_body = Physics::Body.new_static
     seg_body.p = p1
-    seg = CP::Shape::Segment.new(seg_body, CP::Vec2.new(0,0), p2 - p1, 10.0)
+    seg = Physics::Shape::Segment.new(seg_body, Physics::Vec2.new(0,0), p2 - p1, 10.0)
     seg.collision_type = :drop_line
     #@space.add_body(seg_body) #
     @space.add_shape(seg)
@@ -207,6 +225,26 @@ module PhysicalObjectFactory
     seg.collision_type = :wall
     @space.add_shape(seg)
     seg_body
+  end
+
+  def add_payload_drop_at(xi,yi,m, ntd = rand(m), fm=nil)
+    rv = []
+    num_to_drop = ntd
+    num_to_drop.times do
+      x = xi + rand(30) - 15
+      y = yi + rand(30) - 15
+      m = m + rand(5)
+      m = fm if fm
+      body = Physics::Body.new(m, 250.0)
+      body.p = Physics::Vec2.new(x, y)
+      shape = Physics::Shape::Circle.new(body, 10)
+      shape.collision_type = :payload
+
+      p = Payload.new(@game, shape)
+      shape.object = p
+      rv << p
+    end
+    rv
   end
 end
 
@@ -252,7 +290,9 @@ class PhysicalLevel
     @space.add_collision_func(:bullet, :wall) do |bullet, wall|
       @bullets_to_remove << bullet.object
     end
-
+    @space.add_collision_func(:payload, :wall) do |payload, wall|
+      @payloads_to_remove << payload.object
+    end
     @space.add_collision_func(:bullet, :enemy) do |bullet, enemy|
       enemy.object.take_damage(bullet.object)
       @bullets_to_remove << bullet.object
@@ -269,6 +309,20 @@ class PhysicalLevel
         @bases_destroyed << base.object
       end
     end
+
+    @space.add_collision_func(:payload, :base) do |payload, base|
+      base.object.take_damage(payload.object)
+      @payloads_to_remove << payload.object
+      if (base.object.dead?)
+        @bases_destroyed << base.object
+      end
+    end
+
+    @space.add_collision_func(:enemy, :drop_line) do |enemy, drop_line|
+      @payloads_to_add += add_payload_drop_at(enemy.object.shape.body.p.x,enemy.object.shape.body.p.y, enemy.object.shape.body.m )
+      @enemies_killed << enemy.object
+    end
+
   end
 
 
@@ -279,13 +333,13 @@ class PhysicalLevel
     # Step the physics environment SUBSTEPS times each update
     SUBSTEPS.times do
 
-      #@payloads_to_add.each {|pl|
-      #  @payloads << pl
-      #  @space.add_body(pl.body)
-      #  @space.add_shape(pl.shape)
-      #}
-      #@payloads_to_add.clear
-      #
+      @payloads_to_add.each {|pl|
+        @payloads << pl
+        @space.add_body(pl.body)
+        @space.add_shape(pl.shape)
+      }
+      @payloads_to_add.clear
+
       @bullets_to_remove.each {|e|
         @space.remove_shape(e.shape)
         @space.remove_body(e.body)
@@ -293,16 +347,16 @@ class PhysicalLevel
       @bullets -= @bullets_to_remove
       @bullets_to_remove.clear
       #
-      #@payloads_to_remove.each {|p|
-      #  @space.remove_shape(p.shape)
-      #  @space.remove_body(p.body)
-      #}
-      #@payloads -= @payloads_to_remove
-      #@payloads_to_remove.clear
+      @payloads_to_remove.each {|p|
+        @space.remove_shape(p.shape)
+        @space.remove_body(p.body)
+      }
+      @payloads -= @payloads_to_remove
+      @payloads_to_remove.clear
       #
-      #@enemies_killed.each {|e| @space.remove_object(e.shape)}
-      #@enemies -= @enemies_killed
-      #@enemies_killed.clear
+      @enemies_killed.each {|e| @space.remove_object(e.shape)}
+      @enemies -= @enemies_killed
+      @enemies_killed.clear
       # When a force or torque is set on a Body, it is cumulative
       # This means that the force you applied last SUBSTEP will compound with the
       # force applied this SUBSTEP; which is probably not the behavior you want

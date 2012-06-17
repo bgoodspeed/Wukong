@@ -36,6 +36,9 @@ def expectant_space
   m.expects("add_collision_func").with(:bullet, :wall)
   m.expects("add_collision_func").with(:bullet, :enemy)
   m.expects("add_collision_func").with(:bullet, :base)
+  m.expects("add_collision_func").with(:payload, :base)
+  m.expects("add_collision_func").with(:payload, :wall)
+  m.expects("add_collision_func").with(:enemy, :drop_line)
 
   m
 end
@@ -69,4 +72,14 @@ end
 When /^I set the position of the physical enemy base to (\d+), (\d+)$/ do |arg1, arg2|
   @game.level.physics.enemy_base.shape.body.p.x = arg1.to_i
   @game.level.physics.enemy_base.shape.body.p.y = arg2.to_i
+  end
+
+When /^I set the position of the physical player base to (\d+), (\d+)$/ do |arg1, arg2|
+  @game.level.physics.player_base.shape.body.p.x = arg1.to_i
+  @game.level.physics.player_base.shape.body.p.y = arg2.to_i
+end
+
+When /^I add a payload at (\d+),(\d+) with mass (\d+)$/ do |x,y,m|
+  @game.level.physics.add_payload_drop_at(x.to_i, y.to_i, m.to_i, 1, m.to_i).each {|payload| @game.level.physics.payloads_to_add << payload }
+
 end

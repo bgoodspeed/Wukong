@@ -406,9 +406,9 @@ class GameWindow < Gosu::Window
 
   end
 
-  def add_payload_drop_at(xi,yi,m)
+  def add_payload_drop_at(xi,yi,m, ntd = rand(m))
     rv = []
-    num_to_drop = rand(m)
+    num_to_drop = ntd
     num_to_drop.times do
       x = xi + rand(30) - 15
       y = yi + rand(30) - 15
