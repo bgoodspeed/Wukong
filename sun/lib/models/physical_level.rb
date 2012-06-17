@@ -104,41 +104,8 @@ end
 class PlayerBase < EnemyBase
 
 end
-class PhysicalLevel
-  include YamlHelper
-  ATTRIBUTES = [:gravity, :damping, :steps, :drop_line_location]
-  ATTRIBUTES.each {|attr| attr_accessor(attr)}
-  attr_reader :space, :top_wall_body, :enemy_base, :player_base, :bases, :bullets, :turret, :drop_line, :enemies,
-              :payloads, :enemies_killed, :bullets_to_remove, :bases_destroyed, :payloads_to_add, :payloads_to_remove
-  def initialize(game, conf)
-    @game = game
-    process_attributes(ATTRIBUTES, self, conf, {:gravity => Finalizers::GVectorFinalizer.new})
-    @space = Physics::Space.new
-    @space.gravity = Physics::Vec2.new(@gravity.x, @gravity.y) if @gravity
-    @space.damping = @damping if @damping
-    @bullets = []
-    @payloads = []
-    @enemies = []
-    @bases = []
-    @enemies_killed  = []
-    @bullets_to_remove = []
-    @bases_destroyed = []
-    @payloads_to_add = []
-    @payloads_to_remove = []
 
-    make_wall(Physics::Vec2.new(@game.screen.width ,0), Physics::Vec2.new(@game.screen.width , @game.screen.height ))
-    make_wall(Physics::Vec2.new(0,0), Physics::Vec2.new(0, @game.screen.height ))
-    @top_wall_body = make_wall(Physics::Vec2.new(0,0), Physics::Vec2.new(@game.screen.width , 0))
-    make_wall(Physics::Vec2.new(0,@game.screen.height), Physics::Vec2.new(@game.screen.width , @game.screen.height ))
-
-    @drop_line = make_drop_line(CP::Vec2.new(@drop_line_location ,0), CP::Vec2.new(@drop_line_location, @game.screen.height))
-
-    add_player_base_conf(conf["player_base"])
-    add_enemy_base_conf(conf["enemy_base"])
-    @conf = conf
-    @enemies << add_enemy_ship(conf["enemy_ship"])
-    @turret = Turret.new(@game, conf["turret"])
-  end
+module PhysicalObjectFactory
   def add_enemy_ship(conf)
     body = CP::Body.new(conf["mass"], conf["moment"])
     body.p = CP::Vec2.new(conf["px"], conf["py"])
@@ -186,11 +153,6 @@ class PhysicalLevel
     shape.object = e
     @bases << e
   end
-
-  def current_bullet_config
-    { "mass" => 5, "moment" => 1}
-  end
-
   def add_turret_bullet(x,y, v, v_scale = 1.17, f_scale=2.4)
     bullet = CP::Body.new(current_bullet_config["mass"], current_bullet_config["moment"])
     bullet.p = CP::Vec2.new(x, y)
@@ -210,6 +172,134 @@ class PhysicalLevel
 
     @bullets << bo
   end
+  def make_drop_line(p1, p2)
+    #seg_body = CP::Body.new(2, 3)
+    seg_body = CP::Body.new_static
+    seg_body.p = p1
+    seg = CP::Shape::Segment.new(seg_body, CP::Vec2.new(0,0), p2 - p1, 10.0)
+    seg.collision_type = :drop_line
+    #@space.add_body(seg_body) #
+    @space.add_shape(seg)
+    seg_body
+  end
+
+
+  def make_wall(p1, p2)
+    seg_body = Physics::Body.new_static
+    seg_body.p = p1
+    seg = Physics::Shape::Segment.new(seg_body, Physics::Vec2.new(0,0), p2 - p1, 1.0)
+    seg.collision_type = :wall
+    @space.add_shape(seg)
+    seg_body
+  end
+end
+
+class PhysicalLevel
+  include YamlHelper
+  include PhysicalObjectFactory
+  SUBSTEPS = 9
+  ATTRIBUTES = [:gravity, :damping, :steps, :drop_line_location]
+  ATTRIBUTES.each {|attr| attr_accessor(attr)}
+  attr_reader :space, :top_wall_body, :enemy_base, :player_base, :bases, :bullets, :turret, :drop_line, :enemies,
+              :payloads, :enemies_killed, :bullets_to_remove, :bases_destroyed, :payloads_to_add, :payloads_to_remove
+  def initialize(game, conf)
+    @game = game
+    process_attributes(ATTRIBUTES, self, conf, {:gravity => Finalizers::GVectorFinalizer.new})
+    @space = Physics::Space.new
+    @space.gravity = Physics::Vec2.new(@gravity.x, @gravity.y) if @gravity
+    @space.damping = @damping if @damping
+    @bullets = []
+    @payloads = []
+    @enemies = []
+    @bases = []
+    @enemies_killed  = []
+    @bullets_to_remove = []
+    @bases_destroyed = []
+    @payloads_to_add = []
+    @payloads_to_remove = []
+
+    @dt = (1.0/@game.clock.target_framerate)
+
+    make_wall(Physics::Vec2.new(@game.screen.width ,0), Physics::Vec2.new(@game.screen.width , @game.screen.height ))
+    make_wall(Physics::Vec2.new(0,0), Physics::Vec2.new(0, @game.screen.height ))
+    @top_wall_body = make_wall(Physics::Vec2.new(0,0), Physics::Vec2.new(@game.screen.width , 0))
+    make_wall(Physics::Vec2.new(0,@game.screen.height), Physics::Vec2.new(@game.screen.width , @game.screen.height ))
+
+    @drop_line = make_drop_line(CP::Vec2.new(@drop_line_location ,0), CP::Vec2.new(@drop_line_location, @game.screen.height))
+
+    add_player_base_conf(conf["player_base"])
+    add_enemy_base_conf(conf["enemy_base"])
+    @conf = conf
+    @enemies << add_enemy_ship(conf["enemy_ship"])
+    @turret = Turret.new(@game, conf["turret"])
+
+    @space.add_collision_func(:bullet, :wall) do |bullet, wall|
+      @bullets_to_remove << bullet.object
+    end
+
+
+  end
+
+  def update
+    def update
+      # Step the physics environment SUBSTEPS times each update
+      SUBSTEPS.times do
+
+        #@payloads_to_add.each {|pl|
+        #  @payloads << pl
+        #  @space.add_body(pl.body)
+        #  @space.add_shape(pl.shape)
+        #}
+        #@payloads_to_add.clear
+        #
+        @bullets_to_remove.each {|e|
+          @space.remove_shape(e.shape)
+          @space.remove_body(e.body)
+        }
+        @bullets -= @bullets_to_remove
+        @bullets_to_remove.clear
+        #
+        #@payloads_to_remove.each {|p|
+        #  @space.remove_shape(p.shape)
+        #  @space.remove_body(p.body)
+        #}
+        #@payloads -= @payloads_to_remove
+        #@payloads_to_remove.clear
+        #
+        #@enemies_killed.each {|e| @space.remove_object(e.shape)}
+        #@enemies -= @enemies_killed
+        #@enemies_killed.clear
+        # When a force or torque is set on a Body, it is cumulative
+        # This means that the force you applied last SUBSTEP will compound with the
+        # force applied this SUBSTEP; which is probably not the behavior you want
+        # We reset the forces on the Player each SUBSTEP for this reason
+        @enemies.each {|enemy| enemy.shape.body.reset_forces }
+
+
+        #expired = @bullets.select {|b| outside?(b)}
+        #expired.each {|b| @space.remove_body(b)}
+        #@bullets -= expired
+        #@bullets.each {|b| b.reset_forces}
+        #@enemies.each {|e| e.validate_position}
+
+        # Perform the step over @dt period of time
+        # For best performance @dt should remain consistent for the game
+        @space.step(@dt)
+      end
+
+      #if @enemies.empty?
+      #  add_enemy_ship
+      #end
+
+
+
+    end
+  end
+
+  def current_bullet_config
+    { "mass" => 5, "moment" => 1}
+  end
+
 
   def add_player_base_conf(conf)
     add_player_base(conf["mass"], conf["moment"], conf["px"], conf["py"], conf["minx"], conf["miny"],conf["maxx"],conf["maxy"],)
@@ -234,24 +324,5 @@ class PhysicalLevel
 
   end
 
-  def make_drop_line(p1, p2)
-    #seg_body = CP::Body.new(2, 3)
-    seg_body = CP::Body.new_static
-    seg_body.p = p1
-    seg = CP::Shape::Segment.new(seg_body, CP::Vec2.new(0,0), p2 - p1, 10.0)
-    seg.collision_type = :drop_line
-    #@space.add_body(seg_body) #
-    @space.add_shape(seg)
-    seg_body
-  end
 
-
-  def make_wall(p1, p2)
-    seg_body = Physics::Body.new_static
-    seg_body.p = p1
-    seg = Physics::Shape::Segment.new(seg_body, Physics::Vec2.new(0,0), p2 - p1, 1.0)
-    seg.collision_type = :wall
-    @space.add_shape(seg)
-    seg_body
-  end
 end

@@ -98,6 +98,22 @@ Feature: Physics Integration
     Given I load the game on level "physics" with screen size 640, 480
     Then the game property "level.physics.payloads.size" should be "0"
 
+  Scenario: Physics Update - Updates Enemy
+    Given I load the game on level "physics" with screen size 640, 480
+    Then the game property "level.physics.enemies.first.shape.body.p.x" should be "570"
+    Then the game property "level.physics.enemies.first.shape.body.p.y" should be "90"
+    When I step the physics simulation 2 times
+    Then the game property "level.physics.enemies.first.shape.body.p.x" should be "570.0448668148731"
+    Then the game property "level.physics.enemies.first.shape.body.p.y" should be "89.90125637639296"
+
+  Scenario: Physics Update - Updates Bullet
+    Given I load the game on level "physics" with screen size 640, 480
+    When I fire the turret
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.bullets.size" should be "1"
+    When I step the physics simulation 22 times
+    Then the game property "level.physics.bullets.size" should be "0"
+
 
 
 

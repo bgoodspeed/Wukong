@@ -33,9 +33,15 @@ def expectant_space
   m.expects("add_body").at_least(4)
   #m.stubs("add_body")
   m.expects("add_constraint")
+  m.expects("add_collision_func").with(:bullet, :wall)
 
   m
 end
 Given /^I expect calls to the physics engine$/ do
   Physics::Space.stubs(:new).returns expectant_space
+end
+
+
+When /^I step the physics simulation (\d+) times$/ do |n|
+  n.to_i.times { @game.level.physics.update }
 end
