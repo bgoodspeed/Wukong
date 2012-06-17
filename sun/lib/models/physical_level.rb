@@ -294,7 +294,7 @@ class PhysicalLevel
       @payloads_to_remove << payload.object
     end
     @space.add_collision_func(:bullet, :enemy) do |bullet, enemy|
-      enemy.object.take_damage(bullet.object)
+      enemy.object.take_damage(bullet.object, false)
       @bullets_to_remove << bullet.object
       if (enemy.object.dead?)
         @payloads_to_add += add_payload_drop_at(enemy.object.shape.body.p.x,enemy.object.shape.body.p.y, enemy.object.shape.body.m )
@@ -303,7 +303,7 @@ class PhysicalLevel
       end
     end
     @space.add_collision_func(:bullet, :base) do |bullet, base|
-      base.object.take_damage(bullet.object)
+      base.object.take_damage(bullet.object, false)
       @bullets_to_remove << bullet.object
       if (base.object.dead?)
         @bases_destroyed << base.object
@@ -311,7 +311,7 @@ class PhysicalLevel
     end
 
     @space.add_collision_func(:payload, :base) do |payload, base|
-      base.object.take_damage(payload.object)
+      base.object.take_damage(payload.object, false)
       @payloads_to_remove << payload.object
       if (base.object.dead?)
         @bases_destroyed << base.object
@@ -332,6 +332,10 @@ class PhysicalLevel
     (b.p.x < 0) || (b.p.x > @game.screen.width) || (b.p.y < 0) || (b.p.y > @game.screen.height)
   end
   def update
+    if @enemies.empty?
+      @enemies << add_enemy_ship(@conf["enemy_ship"])
+    end
+
     # Step the physics environment SUBSTEPS times each update
     SUBSTEPS.times do
 
@@ -377,9 +381,6 @@ class PhysicalLevel
       @space.step(@dt)
     end
 
-    #if @enemies.empty?
-    #  add_enemy_ship
-    #end
 
 
 

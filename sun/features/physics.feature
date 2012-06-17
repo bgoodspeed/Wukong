@@ -124,6 +124,23 @@ Feature: Physics Integration
     When I step the physics simulation 1 times
     Then the game property "level.physics.enemies.first.health" should be "4"
 
+  Scenario: Physics Collisions - Bullet Vs Enemy - Death - Respawn
+    Given I load the game on level "physics" with screen size 640, 480
+    When I fire the turret
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.first.health" should be "10"
+    When I set the position of the first physical bullet to 50, 50
+    When I set the position of the first physical enemy to 50, 50
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.first.health" should be "4"
+    When I fire the turret
+    When I set the position of the first physical bullet to 50, 50
+    When I set the position of the first physical enemy to 50, 50
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.size" should be "0"
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.size" should be "1"
+
   Scenario: Physics Collisions - Bullet Vs Wall
     Given I load the game on level "physics" with screen size 640, 480
     When I fire the turret
