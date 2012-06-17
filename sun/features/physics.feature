@@ -165,7 +165,7 @@ Feature: Physics Integration
   Scenario: Physics Collisions - Payload Vs Wall
     Given I load the game on level "physics" with screen size 640, 480
     When I add a payload at 0,0 with mass 5
-    When I step the physics simulation 3 times
+    When I step the physics simulation 4 times
     Then the game property "level.physics.payloads.size" should be "0"
 
   Scenario: Physics Collisions - Enemy Vs Drop Line

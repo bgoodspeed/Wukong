@@ -323,6 +323,8 @@ class PhysicalLevel
       @enemies_killed << enemy.object
     end
 
+    @space.add_collision_func(:bullet, :drop_line, &nil)
+    #@space.add_collision_func(:payload, :drop_line, &nil)
   end
 
 

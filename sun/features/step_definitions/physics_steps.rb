@@ -39,6 +39,7 @@ def expectant_space
   m.expects("add_collision_func").with(:payload, :base)
   m.expects("add_collision_func").with(:payload, :wall)
   m.expects("add_collision_func").with(:enemy, :drop_line)
+  m.expects("add_collision_func").with(:bullet, :drop_line)
 
   m
 end
