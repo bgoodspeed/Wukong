@@ -56,3 +56,16 @@ event_areas:
         - Go to next level.
       position: [ 498, 355 ]
       size: [ 195, 398 ]
+
+  - top_left: [ 70, 450 ]
+    bottom_right: [ 280, 540 ]
+    action: BACK_TO_LEVEL
+    one_time: false
+    image_file: game-data/icons/grey_cancel_button.png
+    extra_actions:
+      - action: noop
+    info_window:
+      description:
+        - Go back one screen.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
