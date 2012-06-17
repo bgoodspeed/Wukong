@@ -36,9 +36,9 @@ event_areas:
       - action: noop
     info_window:
       description:
-        - Go to next level.
-      position: [ 498, 355 ]
-      size: [ 195, 398 ]
+        - Go to next level. (Some level Info.)
+      position: [ 160, 80 ]
+      size: [ 500, 420 ]
 
   - top_left: [ 70, 450 ]
     bottom_right: [ 280, 540 ]
