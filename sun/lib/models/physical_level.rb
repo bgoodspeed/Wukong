@@ -16,6 +16,12 @@ class TurretBullet
     @shape = shape
   end
 
+  def effective_stats
+    s = Stats.zero
+    s.strength = @shape.body.m
+    s
+  end
+
   def p
     @shape.body.p
   end
@@ -30,12 +36,23 @@ end
 
 
 class EnemyShip
-  attr_reader :shape, :health
+  include Health
+  attr_reader :shape
   def initialize(game, shape)
     @game = game
     @shape = shape
+    @stats = Stats.zero
+    @stats.health = 10
   end
-
+  def health
+    @stats.health
+  end
+  def effective_stats
+    s = Stats.zero
+    #TODO need to wire in physical properties such as force/mass/etc to determine stats
+    #TODO use stat mapper
+    s
+  end
 
 end
 
@@ -237,7 +254,15 @@ class PhysicalLevel
       @bullets_to_remove << bullet.object
     end
 
+    @space.add_collision_func(:bullet, :enemy) do |bullet, enemy|
+      enemy.object.take_damage(bullet.object)
+      @bullets_to_remove << bullet.object
+      if (enemy.object.dead?)
+        @payloads_to_add += add_payload_drop_at(enemy.object.shape.body.p.x,enemy.object.shape.body.p.y, enemy.object.shape.body.m )
+        @enemies_killed << enemy.object
 
+      end
+    end
   end
 
   def update

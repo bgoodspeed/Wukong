@@ -34,6 +34,7 @@ def expectant_space
   #m.stubs("add_body")
   m.expects("add_constraint")
   m.expects("add_collision_func").with(:bullet, :wall)
+  m.expects("add_collision_func").with(:bullet, :enemy)
 
   m
 end
@@ -44,4 +45,22 @@ end
 
 When /^I step the physics simulation (\d+) times$/ do |n|
   n.to_i.times { @game.level.physics.update }
+end
+
+Given /^I set the turret power to (\d+)$/ do |arg1|
+  @game.level.physics.turret.power = arg1.to_i
+end
+
+
+Given /^I set the turret angle to (\d+)$/ do |arg1|
+  @game.level.physics.turret.angle = arg1.to_f
+end
+When /^I set the position of the first physical bullet to (\d+), (\d+)$/ do |arg1, arg2|
+  @game.level.physics.bullets.first.shape.body.p.x = arg1.to_i
+  @game.level.physics.bullets.first.shape.body.p.y = arg2.to_i
+end
+
+When /^I set the position of the first physical enemy to (\d+), (\d+)$/ do |arg1, arg2|
+  @game.level.physics.enemies.first.shape.body.p.x = arg1.to_i
+  @game.level.physics.enemies.first.shape.body.p.y = arg2.to_i
 end

@@ -114,6 +114,17 @@ Feature: Physics Integration
     When I step the physics simulation 22 times
     Then the game property "level.physics.bullets.size" should be "0"
 
+  Scenario: Physics Update - Bullet Damage Manual
+    Given I load the game on level "physics" with screen size 640, 480
+    When I fire the turret
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.first.health" should be "10"
+    When I set the position of the first physical bullet to 50, 50
+    When I set the position of the first physical enemy to 50, 50
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.first.health" should be "4"
+
+
 
 
 
