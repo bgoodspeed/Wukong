@@ -2,7 +2,7 @@ name: map_screen
 background_image: game-data/levels/map/map.png
 background_music: game-data/music/drumbeats.wav
 heads_up_display: game-data/hud/hud_temp_msg_only.yml
-player_start_position: [ 245, 225 ]
+player_start_position: [ 190, 515 ]
 player_start_health: 100
 
 measurements: [ 800, 600 ]
@@ -47,6 +47,9 @@ event_areas:
 
   - top_left: [ 367, 176 ]
     bottom_right: [ 423, 221 ]
+    conditions:
+      - condition_name: is_level_complete
+        condition_argument: h_level_1
     action: LOAD_LEVEL
     action_argument: "game-data/levels/the_fields_hub/the_fields_hub.yml"
     info_window:
@@ -99,6 +102,19 @@ event_areas:
     bottom_right: [ 800, 600 ]
     action: LOAD_LEVEL
     action_argument: "game-data/levels/the_terminal_hub/the_terminal_hub.yml"
+    info_window:
+      description:
+        - Security Terminal.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]
+
+  - top_left: [ 0, 525 ]
+    bottom_right: [ 125, 600 ]
+    conditions:
+      - condition_name: is_level_complete
+        condition_argument: h_level_1
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/inventory/inventory.yml"
     info_window:
       description:
         - Inventory.
