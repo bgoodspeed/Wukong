@@ -2,19 +2,19 @@
 player:
   step_size: 1
   position:
-  - 158
-  - 161
-  direction: 337.5
+  - 192
+  - 165
+  direction: 311.25
   turn_speed: 5
   movement_distance: 5
   menu_action_delay: 2
-  enemies_killed: 2
-  image_path: game-data/sprites/player_white_circle.png
+  enemies_killed: 4
+  image_path: game-data/sprites/player_grey_scale_circle.png
   collision_priority: 4
   base_accuracy: 100
   animation_width: 30
   animation_height: 30
-  image_file: 
+  image_file: game-data/sprites/player_grey_scale_circle.png
   animation_path: game-data/sprites/player_white_circle.png
   main_animation_name: main_player_anim
   animation_name: main_player_anim
@@ -31,8 +31,9 @@ player:
     speed: 5
     accuracy: 250
   progression:
-    upgrade_points: 2
+    upgrade_points: 4
     level_background_rank: 0
     levels_completed:
     - hack puzzle
     - h_level_1
+    - h_level_2
