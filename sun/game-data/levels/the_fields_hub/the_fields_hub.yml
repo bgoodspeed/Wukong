@@ -83,6 +83,6 @@ event_areas:
       - action: noop
     info_window:
       description:
-        - Go back one screen.
+        - Go back to map.
       position: [ 500, 400 ]
       size: [ 195, 450 ]
