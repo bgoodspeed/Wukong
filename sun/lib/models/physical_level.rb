@@ -317,7 +317,10 @@ class PhysicalLevel
         @bases_destroyed << base.object
       end
     end
-
+    @space.add_collision_func(:bullet, :bullet) do |bullet, bullet2|
+      @bullets_to_remove << bullet.object
+      @bullets_to_remove << bullet2.object
+    end
     @space.add_collision_func(:enemy, :drop_line) do |enemy, drop_line|
       @payloads_to_add += add_payload_drop_at(enemy.object.shape.body.p.x,enemy.object.shape.body.p.y, enemy.object.shape.body.m )
       @enemies_killed << enemy.object

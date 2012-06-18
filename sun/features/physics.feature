@@ -159,6 +159,16 @@ Feature: Physics Integration
     When I step the physics simulation 1 times
     Then the game property "level.physics.enemy_base.stats.health" should be "194"
 
+  Scenario: Physics Collisions - Bullet Vs Bullet
+    Given I load the game on level "physics" with screen size 640, 480
+    When I fire the turret
+    When I fire the turret
+    Then the game property "level.physics.bullets.size" should be "2"
+    When I set the position of the first physical bullet to 50, 50
+    When I set the position of the second physical bullet to 50, 50
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.bullets.size" should be "0"
+
   Scenario: Physics Collisions - Bullet Vs Player Base
     Given I load the game on level "physics" with screen size 640, 480
     When I fire the turret

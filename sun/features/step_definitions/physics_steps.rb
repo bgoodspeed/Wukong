@@ -33,6 +33,7 @@ def expectant_space
   m.expects("add_body").at_least(4)
   #m.stubs("add_body")
   m.expects("add_constraint")
+  m.expects("add_collision_func").with(:bullet, :bullet)
   m.expects("add_collision_func").with(:bullet, :wall)
   m.expects("add_collision_func").with(:bullet, :enemy)
   m.expects("add_collision_func").with(:bullet, :base)
@@ -83,4 +84,8 @@ end
 When /^I add a payload at (\d+),(\d+) with mass (\d+)$/ do |x,y,m|
   @game.level.physics.add_payload_drop_at(x.to_i, y.to_i, m.to_i, 1, m.to_i).each {|payload| @game.level.physics.payloads_to_add << payload }
 
+end
+When /^I set the position of the second physical bullet to (\d+), (\d+)$/ do |arg1, arg2|
+  @game.level.physics.bullets[1].shape.body.p.x = arg1.to_i
+  @game.level.physics.bullets[1].shape.body.p.y = arg2.to_i
 end
