@@ -2,13 +2,13 @@
 player:
   step_size: 1
   position:
-  - 233
-  - 162
-  direction: 270.0
+  - 209
+  - 156
+  direction: 332.5
   turn_speed: 5
   movement_distance: 5
   menu_action_delay: 2
-  enemies_killed: 7
+  enemies_killed: 9
   image_path: game-data/sprites/player_grey_scale_circle.png
   collision_priority: 4
   base_accuracy: 100
@@ -26,14 +26,16 @@ player:
   stats:
     strength: 10
     defense: 5
-    health: 100
+    health: 97
     max_health: 100
     speed: 5
     accuracy: 250
   progression:
-    upgrade_points: 7
+    upgrade_points: 9
     level_background_rank: 0
     levels_completed:
+    - hack puzzle
+    - h_level_1
     - hack puzzle
     - h_level_1
     - h_level_2

@@ -30,7 +30,7 @@ event_areas:
     action_argument: "game-data/equipment/gun.yml"
     info_window:
       description:
-        - New Armor.
+        - New Weapon (GUN).
       position: [ 103, 355 ]
       size: [ 195, 398 ]
 
