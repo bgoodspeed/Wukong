@@ -98,6 +98,102 @@ Feature: Physics Integration
     Given I load the game on level "physics" with screen size 640, 480
     Then the game property "level.physics.payloads.size" should be "0"
 
+  Scenario: Physics Update - Updates Enemy
+    Given I load the game on level "physics" with screen size 640, 480
+    Then the game property "level.physics.enemies.first.shape.body.p.x" should be "570"
+    Then the game property "level.physics.enemies.first.shape.body.p.y" should be "90"
+    When I step the physics simulation 2 times
+    Then the game property "level.physics.enemies.first.shape.body.p.x" should be greater than "570"
+    Then the game property "level.physics.enemies.first.shape.body.p.y" should be less than "89.95"
+
+  Scenario: Physics Update - Updates Bullet
+    Given I load the game on level "physics" with screen size 640, 480
+    When I fire the turret
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.bullets.size" should be "1"
+    When I step the physics simulation 22 times
+    Then the game property "level.physics.bullets.size" should be "0"
+
+  Scenario: Physics Collisions - Bullet Vs Enemy
+    Given I load the game on level "physics" with screen size 640, 480
+    When I fire the turret
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.first.health" should be "10"
+    When I set the position of the first physical bullet to 50, 50
+    When I set the position of the first physical enemy to 50, 50
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.first.health" should be "4"
+
+  Scenario: Physics Collisions - Bullet Vs Enemy - Death - Respawn
+    Given I load the game on level "physics" with screen size 640, 480
+    When I fire the turret
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.first.health" should be "10"
+    When I set the position of the first physical bullet to 50, 50
+    When I set the position of the first physical enemy to 50, 50
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.first.health" should be "4"
+    When I fire the turret
+    When I set the position of the first physical bullet to 50, 50
+    When I set the position of the first physical enemy to 50, 50
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.size" should be "0"
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.size" should be "1"
+
+  Scenario: Physics Collisions - Bullet Vs Wall
+    Given I load the game on level "physics" with screen size 640, 480
+    When I fire the turret
+    When I step the physics simulation 1 times
+    When I set the position of the first physical bullet to 0, 0
+    When I step the physics simulation 2 times
+    Then the game property "level.physics.bullets.size" should be "0"
+
+  Scenario: Physics Collisions - Bullet Vs Enemy Base
+    Given I load the game on level "physics" with screen size 640, 480
+    When I fire the turret
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemy_base.stats.health" should be "200"
+    When I set the position of the first physical bullet to 50, 50
+    When I set the position of the physical enemy base to 50, 50
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemy_base.stats.health" should be "194"
+
+  Scenario: Physics Collisions - Bullet Vs Player Base
+    Given I load the game on level "physics" with screen size 640, 480
+    When I fire the turret
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.player_base.stats.health" should be "200"
+    When I set the position of the first physical bullet to 50, 50
+    When I set the position of the physical player base to 50, 50
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.player_base.stats.health" should be "194"
+
+  Scenario: Physics Collisions - Payload Vs Enemy Base
+    Given I load the game on level "physics" with screen size 640, 480
+    When I add a payload at 50,50 with mass 5
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.payloads.size" should be "1"
+    Then the game property "level.physics.player_base.stats.health" should be "200"
+    When I set the position of the physical player base to 50, 50
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.player_base.stats.health" should be "194"
+
+  Scenario: Physics Collisions - Payload Vs Wall
+    Given I load the game on level "physics" with screen size 640, 480
+    When I add a payload at 0,0 with mass 5
+    When I step the physics simulation 4 times
+    Then the game property "level.physics.payloads.size" should be "0"
+
+  Scenario: Physics Collisions - Enemy Vs Drop Line
+    Given I load the game on level "physics" with screen size 640, 480
+    Then the game property "level.physics.drop_line_location" should be "120"
+    When I set the position of the first physical enemy to 120, 50
+    When I step the physics simulation 1 times
+    Then the game property "level.physics.enemies.size" should be "0"
+
+
+
 
 
 

@@ -3,7 +3,7 @@
 # Copyright 2012 Ben Goodspeed
 class Clock
   attr_accessor :throttle
-  attr_reader :frames_rendered, :events, :last_save_time
+  attr_reader :frames_rendered, :events, :last_save_time, :target_framerate
   def initialize(game, framerate, throttle=false)
     @game = game
     @target_framerate = framerate

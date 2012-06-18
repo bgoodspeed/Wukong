@@ -38,6 +38,14 @@ When /^I invoke the action "([^"]*)" with argument stubbing "([^"]*)" and expect
   
 end
 
+Then /^the game property "(.*?)" should be less than "(.*?)"$/ do |property_string, expected|
+  actual = invoke_property_string_on(@game, property_string)
+  actual.should be_<(eval(expected))
+end
+Then /^the game property "(.*?)" should be greater than "(.*?)"$/ do |property_string, expected|
+  actual = invoke_property_string_on(@game, property_string)
+  actual.should be_>(eval(expected))
+end
 Then /^the game property "([^"]*)" should be "([^"]*)"$/ do |property_string, expected|
   actual = invoke_property_string_on(@game, property_string)
   actual.should == eval(expected)

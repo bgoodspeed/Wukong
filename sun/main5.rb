@@ -55,7 +55,7 @@ class TurretBullet
   end
 end
 class Turret
-  attr_reader :angle, :power
+  attr_accessor :angle, :power, :x, :y, :power_max, :damping
   def initialize(window)
     @window = window
     @image = Gosu::Image.new(window, "media/Starfighter.bmp", false)
@@ -67,6 +67,10 @@ class Turret
     @power_delta = 1
     @power_min = 20
     @power_max = 110
+    @damping = 0.8
+    @damping_delta = 0.005
+    @damping_max = 0.999
+    @damping_min = 0.0001
     @x = 30
     @y = SCREEN_HEIGHT - 30
 
@@ -88,6 +92,15 @@ class Turret
   def power_down
     @power -= @power_delta
     @power = [@power, @power_min].max
+  end
+
+  def increase_damping
+    @damping += @damping_delta
+    @damping = [@damping, @damping_max].min
+  end
+  def decrease_damping
+    @damping -= @damping_delta
+    @damping = [@damping, @damping_min].max
   end
 
   def vector_for(angle)
@@ -406,9 +419,9 @@ class GameWindow < Gosu::Window
 
   end
 
-  def add_payload_drop_at(xi,yi,m, ntd = rand(m))
+  def add_payload_drop_at(xi,yi,m)
     rv = []
-    num_to_drop = ntd
+    num_to_drop = rand(m)
     num_to_drop.times do
       x = xi + rand(30) - 15
       y = yi + rand(30) - 15
@@ -524,6 +537,10 @@ class GameWindow < Gosu::Window
     (b.p.x < 0) || (b.p.x > SCREEN_WIDTH) || (b.p.y < 0) || (b.p.y > SCREEN_HEIGHT)
   end
   def update
+
+
+    @space.damping = @player.turret.damping
+
     # Step the physics environment SUBSTEPS times each update
     SUBSTEPS.times do
 
@@ -594,11 +611,61 @@ class GameWindow < Gosu::Window
       @player.turret.power_down
     end
 
+
+
+
     m = Gosu::milliseconds
     @fire_delay = 300
     if button_down? Gosu::KbSpace and (@last_fired_time.nil? or ((m - @last_fired_time ) > @fire_delay))
       @player.fire_turret
       @last_fired_time = m
+    end
+    if button_down? Gosu::MsLeft and (@last_fired_time.nil? or ((m - @last_fired_time ) > @fire_delay))
+      ml = current_mouse_location
+      tl = CP::Vec2.new(@player.turret.x, @player.turret.y)
+      puts "fire via mouse click at #{ml}"
+      puts "shooting from #{tl}"
+
+      v = ml - tl
+
+      power = ml.dist(tl)
+      puts "calculated power to be: #{power}"
+
+      zero_angle_v = CP::Vec2.new(1, 0)
+      dp = zero_angle_v.dot(v)
+      angle = Math.acos( dp/(zero_angle_v.length * v.length))
+      angle *= 180/Math::PI
+      puts "calcd angle to be: #{angle}"
+      if angle > 90
+        angle = 90
+      end
+      if angle < 0
+        angle = 0
+      end
+
+      power = ((power)/750.0) * @player.turret.power_max
+
+      @player.turret.angle = angle
+      @player.turret.power = power
+
+      @player.turret.fire
+      @last_fired_time = m
+    end
+
+  end
+
+  def button_down(id)
+    if id == Gosu::KbEscape
+      close
+    end
+
+    if id == Gosu::MsWheelDown
+      puts "wheel down"
+      @player.turret.decrease_damping
+    end
+    if id == Gosu::MsWheelUp
+      puts "wheel up"
+      @player.turret.increase_damping
     end
 
   end
@@ -613,13 +680,24 @@ class GameWindow < Gosu::Window
     @font.draw("Angle (#{@player.turret.angle}) Power: #{@player.turret.power}", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
     @font.draw("Player base health: #{@player_base.health} ", 10, 30, ZOrder::UI, 1.0, 1.0, 0xffffff00)
     @font.draw("Enemy base health: #{@enemy_base.health} ", 10, 50, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+    @font.draw("Mouse: #{current_mouse_location}", 10, 70, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+    @font.draw("Damping: #{@player.turret.damping}", 10, 90, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+    draw_mouse_crosshairs
   end
 
-  def button_down(id)
-    if id == Gosu::KbEscape
-      close
-    end
+  def draw_mouse_crosshairs
+    v = current_mouse_location
+    @crosshair_radius = 5
+    draw_line(v.x - @crosshair_radius, v.y, Gosu::Color::WHITE,  v.x + @crosshair_radius, v.y, Gosu::Color::WHITE, ZOrder::UI)
+    draw_line(v.x, v.y - @crosshair_radius, Gosu::Color::WHITE,  v.x, v.y + @crosshair_radius, Gosu::Color::WHITE, ZOrder::UI)
+
   end
+
+  def current_mouse_location
+    CP::Vec2.new(mouse_x, mouse_y)
+  end
+
+
 end
 
 window = GameWindow.new
