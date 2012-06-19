@@ -26,11 +26,11 @@ line_segments:
 event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
-    action: equip_item
-    action_argument: "game-data/equipment/weapon/red_sword.ym"
+    action: take_reward
+    action_argument: "game-data/equipment/weapon/red_sword.yml"
     info_window:
       description:
-        - New Weapon (GUN).
+        - New Weapon (Red Sword).
       position: [ 103, 355 ]
       size: [ 195, 398 ]
 

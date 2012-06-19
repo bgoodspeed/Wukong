@@ -11,4 +11,4 @@ enemy:
     health: 27
     max_health: 27
     defense: 7
-    strength: 7
+    strength: 20
