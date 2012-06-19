@@ -26,10 +26,11 @@ line_segments:
 event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
-    action: noop #equip_item  action_argument: "game-data/equipment/weapon/silver_sword.yml"
+    action: take_reward
+    action_argument: "game-data/equipment/weapon/red_sword.yml"
     info_window:
       description:
-        - New Armor.
+        - New Weapon (Red Sword).
       position: [ 103, 355 ]
       size: [ 195, 398 ]
 

@@ -6,9 +6,10 @@ enemy:
   animation_rate: 1
   position: [ 100 , 100 ]
   base_direction: 90
-  velocity: 0.25
   stats:
     health: 27
     max_health: 27
     defense: 7
-    strength: 7
+    strength: 20
+    speed: 5
+  inventory_file: game-data/enemies/baby_piggy_inventory.yml

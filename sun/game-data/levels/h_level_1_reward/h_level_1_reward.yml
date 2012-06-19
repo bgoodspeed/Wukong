@@ -30,7 +30,11 @@ event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
     action: upgrade_player
-    action_argument: "game-data/sprites/player_grey_scale_circle.png"
+    action_argument:
+        animation_name: grey_scale_circle
+        animation_file: game-data/sprites/player_grey_scale_circle.png
+        animation_width: 30
+        animation_height: 30
     info_window:
       description:
         - Avatar upgrade.

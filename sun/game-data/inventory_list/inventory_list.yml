@@ -3,3 +3,4 @@ inventory: #see all_equip_plus_armor.yml
   weapons:
     - game-data/equipment/weapon/silver_sword.yml
     - game-data/equipment/gun.yml
+    - game-data/equipment/weapon/red_sword.yml

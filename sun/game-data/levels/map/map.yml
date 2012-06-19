@@ -120,3 +120,16 @@ event_areas:
         - Inventory.
       position: [ 498, 355 ]
       size: [ 195, 398 ]
+
+  - top_left: [ 15, 250 ]
+    bottom_right: [ 80, 325 ]
+    conditions:
+      - condition_name: is_level_complete
+        condition_argument: h_level_1
+    action: LOAD_LEVEL
+    action_argument: "game-data/levels/push_puzzle/push_puzzle.yml"
+    info_window:
+      description:
+        - Stacker's Dock.
+      position: [ 498, 355 ]
+      size: [ 195, 398 ]

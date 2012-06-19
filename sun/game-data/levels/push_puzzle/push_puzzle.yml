@@ -1,5 +1,6 @@
 name: push puzzle
 background_image: game-data/levels/push_puzzle/grey.png
+background_music: game-data/music/silence.wav
 wayfinding: game-data/levels/h_level_1/wayfinding.yml
 measurements: [ 800, 600 ]
 pushable_elements:

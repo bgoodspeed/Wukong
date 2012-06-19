@@ -24,3 +24,5 @@ enemy:
           - enemy_lost: wait
           - enemy_sighted: attack
           - enemy_in_range: attack
+  inventory_file: game-data/enemies/baby_piggy_inventory.yml
+
