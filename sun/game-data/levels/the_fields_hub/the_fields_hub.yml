@@ -34,7 +34,7 @@ event_areas:
     action: LOAD_LEVEL
     action_argument: "game-data/levels/h_level_2/h_level_2.yml"
     one_time: false
-    image_file: game-data/icons/h_red_icon.png
+    #image_file: game-data/icons/h_icon_animation.png
     extra_actions:
       - action: noop
     info_window:
@@ -42,7 +42,7 @@ event_areas:
         - Go to next level. (Some level Info.)
       position: [ 160, 80 ]
       size: [ 500, 420 ]
-
+ 
   - top_left: [ 70, 152 ]
     bottom_right: [ 120, 198 ]
     conditions:
@@ -51,7 +51,7 @@ event_areas:
     action: LOAD_LEVEL
     action_argument: "game-data/levels/h_level_3/h_level_3.yml"
     one_time: false
-    image_file: game-data/icons/h_red_icon.png
+    #image_file: game-data/icons/h_red_icon.png
     extra_actions:
       - action: noop
     info_window:
@@ -86,3 +86,17 @@ event_areas:
         - Go back to map.
       position: [ 500, 400 ]
       size: [ 195, 450 ]
+
+animations:
+  - animation_name: red_h_across_the_field
+    animation_file: game-data/icons/h_icon_animation.png
+    animation_width: 50
+    animation_height: 50
+    animation_rate: .25
+    animation_position: [ 95 , 115 ]
+    animation_rate: 1
+  - animation_name: red_h_to_the_fountain
+    animation_file: game-data/icons/h_icon_animation.png
+    animation_width: 30
+    animation_height: 50
+    animation_position: [ 95 , 177 ]
