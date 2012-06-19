@@ -106,6 +106,14 @@ Feature: Physics Integration
     Then the game property "level.physics.enemies.first.shape.body.p.x" should be greater than "570"
     Then the game property "level.physics.enemies.first.shape.body.p.y" should be less than "89.95"
 
+  Scenario: Physics Update - Updates Triggered from Game Tick
+    Given I load the game on level "physics" with screen size 640, 480
+    Then the game property "level.physics.enemies.first.shape.body.p.x" should be "570"
+    Then the game property "level.physics.enemies.first.shape.body.p.y" should be "90"
+    When I run the game loop 2 times
+    Then the game property "level.physics.enemies.first.shape.body.p.x" should be greater than "570"
+    Then the game property "level.physics.enemies.first.shape.body.p.y" should be less than "89.95"
+
   Scenario: Physics Update - Updates Bullet
     Given I load the game on level "physics" with screen size 640, 480
     When I fire the turret

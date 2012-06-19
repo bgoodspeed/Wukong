@@ -384,9 +384,22 @@ class PhysicalLevel
       @space.step(@dt)
     end
 
+  end
+
+  def draw_all
+    puts "must draw physical level"
+    #@background_image.draw(0, 0, ZOrder::Background)
+    #@player.draw
+    #@enemies.each { |e| e.draw }
+    #@bases.each {|b| b.draw }
+    #@payloads.each {|p| p.draw }
+    #@bullets.each { |b| @bullet_image.draw(b.shape.body.p.x, b.shape.body.p.y, ZOrder::UI) }
+    #@font.draw("Angle (#{@player.turret.angle}) Power: #{@player.turret.power}", 10, 10, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+    #@font.draw("Player base health: #{@player_base.health} ", 10, 30, ZOrder::UI, 1.0, 1.0, 0xffffff00)
+    #@font.draw("Enemy base health: #{@enemy_base.health} ", 10, 50, ZOrder::UI, 1.0, 1.0, 0xffffff00)
 
 
-
+    #static_bodies.each {|body| @game.rendering_controller.draw_function_for(body).call(screen, body)}
   end
 
   def current_bullet_config

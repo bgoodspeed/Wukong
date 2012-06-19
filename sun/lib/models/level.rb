@@ -272,6 +272,10 @@ class Level
   end
 
   def tick
+    if physical?
+      @physics.update
+      return
+    end
     update_animations
     update_spawn_points
     if completed?
@@ -310,6 +314,11 @@ class Level
   end
 
   def draw(screen)
+    if physical?
+      @physics.draw_all
+      return
+    end
+
     unless current_background.nil?
       coords = @game.camera.screen_coordinates_for(GVector.xy(0,0)) #TODO is this always 0,0?
       current_background.draw(coords.x,coords.y,ZOrder.background.value)
