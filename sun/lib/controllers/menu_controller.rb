@@ -54,6 +54,7 @@ class FixedActionMenu
   include MenuCursor
   include MenuPositioned
   include MenuImages
+  include MenuMouse
 
   def initialize(game, menu_id, action)
     @game = game
@@ -142,6 +143,7 @@ class MenuController
   end
 
   def current_menu_entry_mouse
+    return nil unless current_menu
     rs = current_menu.highlighted_regions
     if rs.empty?
       @game.log.info { "nothing found in menu mouse click"}
@@ -152,7 +154,7 @@ class MenuController
   end
 
   def current_menu_lines
-    raise "#{@active_menu_name}" unless current_menu
+    raise "menu error: #{@active_menu_name}" unless current_menu
     current_menu.lines
   end
   def move_down

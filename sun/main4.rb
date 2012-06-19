@@ -263,7 +263,7 @@ class Payload
   attr_reader :shape
   def initialize(shape, window)
     @shape = shape
-    @image = Gosu::Image.new(window, "media/payload.png", false)
+    @image = Gosu::Image.new(window, "media/payload.bmp", false)
   end
 
   def body
@@ -446,8 +446,8 @@ class GameWindow < Gosu::Window
   def initialize
     super(SCREEN_WIDTH, SCREEN_HEIGHT, false, 16)
     self.caption = "Gosu & Chipmunk Integration Demo"
-    @background_image = Gosu::Image.new(self, "media/Space.png", true)
-    @bullet_image = Gosu::Image.new(self, "media/bullet.png", true)
+    @background_image = Gosu::Image.new(self, "media/Space.bmp", true)
+    @bullet_image = Gosu::Image.new(self, "media/bullet.bmp", true)
 
     # Put the beep here, as it is the environment now that determines collision
     @beep = Gosu::Sample.new(self, "media/Beep.wav")
