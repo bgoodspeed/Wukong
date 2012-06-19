@@ -4,6 +4,9 @@ weapon:
   swing_frames: 30
   type: swung
   sound_effect_name: player_weapon_sound
-  velocity: 20
+  #velocity: 20
   image_path: game-data/equipment/weapon/red_sword.png
   equipment_image_path: game-data/equipment/weapon/silver_sword.png
+  stats:
+    strength: 15
+    speed: 20
