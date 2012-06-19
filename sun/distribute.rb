@@ -14,7 +14,7 @@ def build_win32_installer
   extras = [ "haligonia_demo2.exe", "haligonia_demo3.exe", "haligonia_demo4.exe", "haligonia_demo5.exe",
     "glut32.dll", "OpenAl32.dll"]
   extra_includes = extras.join(" ")
-	rv_main = `ocra --output haligonia.exe --no-lzma --chdir-first --innosetup haligonia.iss main.rb lib/* lib/**/* game-data/**/* game-data/* #{extra_includes}`
+	rv_main = `ocra --output haligonia.exe --no-lzma --chdir-first --innosetup haligonia.iss main.rb lib/* lib/**/* game-data/**/* game-data/* media/* #{extra_includes}`
 
   rv_main
 

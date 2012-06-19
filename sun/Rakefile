@@ -5,7 +5,7 @@ require 'hoe'
 require 'rake/testtask'
 HOE = Hoe.spec 'haligonia' do
   developer('Ben Goodspeed', 'b.goodspeed@gmail.com')
-  self.version   = '0.8.4'
+  self.version   = '0.8.6'
   self.readme_file   = 'README.rdoc'
   self.history_file  = 'CHANGELOG.rdoc'
   self.extra_rdoc_files  = FileList['*.rdoc']
@@ -80,6 +80,7 @@ task "build_artifact" do |t|
   `cp -r lib #{path}`
   `cp -r patches #{path}`
   `cp -r rgloader #{path}`
+  `cp -r media #{path}`
   `cp Gemfile main*.rb distribute.rb haligonia.iss #{path}`
   puts "Encoding"
   puts `cd #{path}; #{rubyenc} lib/ lib/**/* main.rb --ruby 1.9.2`
