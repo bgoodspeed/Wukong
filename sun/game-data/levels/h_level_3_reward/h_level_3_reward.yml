@@ -27,7 +27,7 @@ event_areas:
   - top_left: [ 132, 421 ]
     bottom_right: [ 272, 467 ]
     action: equip_item
-    action_argument: "game-data/equipment/gun.yml"
+    action_argument: "game-data/equipment/weapon/red_sword.ym"
     info_window:
       description:
         - New Weapon (GUN).

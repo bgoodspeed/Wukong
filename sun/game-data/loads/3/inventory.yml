@@ -1,4 +1,5 @@
 ---
 inventory:
   items: []
-  weapon: game-data/equipment/gun.yml
+  weapon: !binary |-
+    Li9nYW1lLWRhdGEvZXF1aXBtZW50L3dlYXBvbi9zaWx2ZXJfc3dvcmQueW1s
