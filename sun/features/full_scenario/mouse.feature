@@ -76,7 +76,27 @@ Feature: Mouse
     And I update the game state
     Then the current mouse menu entry should be nil
 
-   Scenario: Picking - Nothing
+  Scenario: Equipment Menu - Mouse Miss
+    Given I load the game "demo_inventory"
+    And I set the mouse position to 300, 400 in screen coords
+    When I enter the menu "equipment" with filter "nil"
+    When I press "MouseClick"
+    And I update the game state
+    Then the current mouse menu entry should be nil
+
+  Scenario: Equipment Menu - Mouse Hit
+    Given I load the game "demo_inventory"
+    When the player takes reward "test-data/equipment/weapon_swung.yml"
+    When the player takes reward "test-data/equipment/weapon.yml"
+    And I set the mouse position to 30, 50 in screen coords
+    When I enter the menu "equipment" with filter "nil"
+    And I update the game state
+    Then the current mouse menu entry should have:
+      | display_text    |
+      | TestWeaponAlpha |
+
+
+  Scenario: Picking - Nothing
     Given I load the game on level "simple" with screen size 640, 480
     And I set the mouse position to 360, 360 in screen coords
     And I load a player from "player.yml"
