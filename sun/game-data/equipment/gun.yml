@@ -6,5 +6,7 @@ weapon:
   equipment_image_path: game-data/equipment/weapon_black2.png
   type: projectile
   sound_effect_name: shoot
-  velocity: 16
+  stats:
+    strength: 27
+    speed: 8
 
