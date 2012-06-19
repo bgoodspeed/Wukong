@@ -2,6 +2,24 @@ require 'rubygems'
 require 'gosu'
 require 'chipmunk'
 
+class PathFixer
+
+  def fix(f)
+    $:.each {|d|
+      src = File.join(d, "src")
+      if Dir.exists?(File.join(d,"game-data"))
+        return File.join(d, f)
+      end
+
+      if Dir.exists?(src) and Dir.exists?(File.join(src, "game-data"))
+        return "src/#{f}"
+      end
+    }
+    f
+  end
+
+end
+
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
 
@@ -58,7 +76,8 @@ class Turret
   attr_reader :angle, :power
   def initialize(window)
     @window = window
-    @image = Gosu::Image.new(window, "media/Starfighter.bmp", false)
+    pf = PathFixer.new
+    @image = Gosu::Image.new(window, pf.fix("media/Starfighter.bmp"), false)
     @angle = 45
     @angle_delta = 1
     @angle_max = 90
@@ -157,7 +176,8 @@ class EnemyShip
   include ScreenClamped
   attr_reader :shape, :health
   def initialize(window, shape)
-    @image = Gosu::Image.new(window, "media/Starfighter.bmp", false)
+    pf = PathFixer.new
+    @image = Gosu::Image.new(window, pf.fix("media/Starfighter.bmp"), false)
     @shape = shape
     @health = 20
   end
@@ -244,7 +264,8 @@ class Payload
   attr_reader :shape
   def initialize(shape, window)
     @shape = shape
-    @image = Gosu::Image.new(window, "media/payload.bmp", false)
+    pf = PathFixer.new
+    @image = Gosu::Image.new(window, pf.fix("media/payload.bmp"), false)
   end
 
   def body
@@ -427,11 +448,12 @@ class GameWindow < Gosu::Window
   def initialize
     super(SCREEN_WIDTH, SCREEN_HEIGHT, false, 16)
     self.caption = "Gosu & Chipmunk Integration Demo"
-    @background_image = Gosu::Image.new(self, "media/Space.bmp", true)
-    @bullet_image = Gosu::Image.new(self, "media/bullet.bmp", true)
+    pf = PathFixer.new
+    @background_image = Gosu::Image.new(self, pf.fix("media/Space.bmp"), true)
+    @bullet_image = Gosu::Image.new(self, pf.fix("media/bullet.bmp"), true)
 
     # Put the beep here, as it is the environment now that determines collision
-    @beep = Gosu::Sample.new(self, "media/Beep.wav")
+    @beep = Gosu::Sample.new(self,  pf.fix("media/Beep.wav"))
 
     # Put the score here, as it is the environment that tracks this now
     @score = 0
